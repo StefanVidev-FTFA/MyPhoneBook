@@ -187,6 +187,7 @@
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
     <ClInclude Include="CitiesArray.h" />
+    <ClInclude Include="CitiesData.h" />
     <ClInclude Include="CitiesDoc.h" />
     <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
@@ -201,6 +202,7 @@
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesArray.cpp" />
+    <ClCompile Include="CitiesData.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CititesTable.cpp" />
