@@ -98,7 +98,6 @@ BOOL CPhoneBookApp::InitInstance()
 
 	CDatabaseConnection::GetInstance().Connect();
 
-
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
