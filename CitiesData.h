@@ -1,10 +1,11 @@
+#ifndef CITIESDATA_H
+#define CITIESDATA_H
+
+// Your existing CCitiesData class definition goes here:
 #include "pch.h"
 #include "CitiesArray.h"
 #include "CitiesTable.h"
 
-
-
-/// <summary> Клас за поддържане на бизнес логиката за телефонният указател. /// </summary>
 class CCitiesData
 {
 private:
@@ -13,17 +14,12 @@ private:
     CCitiesTable m_oCitiesTable;
 
 
-    // Constructor / Destructor
-    // ----------------
-public:
-    CCitiesData();
-    ~CCitiesData();
-
-
     // Methods
     // ----------------
 public:
 
+    /// <summary>Инициализира данни за класа </summary>
+    bool Initialize();
     /// <summary>
     /// Чете всеки град от таблицата градове в sql и ги въвежда във масив от записи.
     /// </summary>
@@ -51,3 +47,5 @@ public:
 
 // Members
 // ----------------
+
+#endif // !CITIESDATA_H

@@ -95,7 +95,6 @@ BOOL CPhoneBookApp::InitInstance()
 		RUNTIME_CLASS(CCitiesView));
 
 
-
 	CDatabaseConnection::GetInstance().Connect();
 
 	if (!pDocTemplate)

@@ -17,6 +17,8 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "CitiesArray.h"
+#include "CitiesData.h"
 
 // CCitiesDoc
 
@@ -30,7 +32,7 @@ END_MESSAGE_MAP()
 
 CCitiesDoc::CCitiesDoc() noexcept
 {
-	// TODO: add one-time construction code here
+	//m_oCitiesData.Initialize();
 
 }
 
@@ -45,6 +47,24 @@ BOOL CCitiesDoc::OnNewDocument()
 
 
 	AfxMessageBox(_T("---->   CCitiesDoc::OnNewDocument()"));
+
+
+	CCitiesArray oCitiesArray;
+	CCitiesData oCitiesData;
+	oCitiesData.Initialize();
+
+	if (oCitiesData.SelectAll(oCitiesArray))
+	{
+		CString strMessage;
+		strMessage.Format(_T("the number of cities loaded are: %d"),oCitiesArray.GetSize());
+		AfxMessageBox(strMessage, MB_ICONINFORMATION);
+	}
+	else
+	{
+		AfxMessageBox(_T("Failed to loadup the data for cities from database"));
+	}
+
+
 
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
