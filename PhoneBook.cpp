@@ -93,6 +93,12 @@ BOOL CPhoneBookApp::InitInstance()
 		RUNTIME_CLASS(CCitiesDoc),
 		RUNTIME_CLASS(CChildFrame), // custom MDI child frame
 		RUNTIME_CLASS(CCitiesView));
+
+
+
+	CDatabaseConnection::GetInstance().Connect();
+
+
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
@@ -119,7 +125,7 @@ BOOL CPhoneBookApp::InitInstance()
 
 
 
-	CDatabaseConnection::GetInstance().Connect();
+	//CDatabaseConnection::GetInstance().Connect();
 	
 
 	CCitiesTable oCitiesTable;
