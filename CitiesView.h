@@ -10,13 +10,16 @@ class CCitiesView : public CListView
 protected: // create from serialization only
 	CCitiesView() noexcept;
 	DECLARE_DYNCREATE(CCitiesView)
+	void SetViewStyle();
+	void DeclareCityColums(int nAlignment);
+	void InsertCityRows(CCitiesArray& oCitiesArray);
 
+
+	CListCtrl* m_pListCtrl;
 // Attributes
 public:
 	CCitiesDoc* GetDocument() const;
 
-// Operations
-public:
 
 // Overrides
 public:

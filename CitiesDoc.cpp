@@ -45,24 +45,15 @@ BOOL CCitiesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-
-	AfxMessageBox(_T("---->   CCitiesDoc::OnNewDocument()"));
-
-
-	CCitiesArray oCitiesArray;
 	CCitiesData oCitiesData;
 	oCitiesData.Initialize();
 
-	if (oCitiesData.SelectAll(oCitiesArray))
-	{
-		CString strMessage;
-		strMessage.Format(_T("the number of cities loaded are: %d"),oCitiesArray.GetSize());
-		AfxMessageBox(strMessage, MB_ICONINFORMATION);
-	}
-	else
+
+	if (!oCitiesData.SelectAll(m_oInitialCitiesArray))
 	{
 		AfxMessageBox(_T("Failed to loadup the data for cities from database"));
 	}
+
 
 
 

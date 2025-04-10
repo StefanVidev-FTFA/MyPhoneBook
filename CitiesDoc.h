@@ -15,6 +15,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
+	CCitiesArray m_oInitialCitiesArray;
 
 // Operations
 public:

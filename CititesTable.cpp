@@ -59,7 +59,7 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
     }
 
 
-    AfxMessageBox(_T("REACHED THE END OF SELECT ALL"), MB_ICONINFORMATION);
+    //AfxMessageBox(_T("REACHED THE END OF SELECT ALL"), MB_ICONINFORMATION);
 
     return true;
 }
