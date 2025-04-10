@@ -25,7 +25,7 @@ public:
     {
         if(!IsEmpty())
         {
-            AfxMessageBox(_T("CCitiesArray destructor has been called to clear out the heap memory"));
+            //AfxMessageBox(_T("CCitiesArray destructor has been called to clear out the heap memory"));
 
             for (int i = 0; i < GetSize(); i++)
             {

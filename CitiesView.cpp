@@ -25,19 +25,24 @@ IMPLEMENT_DYNCREATE(CCitiesView, CListView)
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_EDIT_INSERTROW, &CCitiesView::OnInsert)
+	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::OnDelete)
 END_MESSAGE_MAP()
 
-// CCitiesView construction/destruction
 
-CCitiesView::CCitiesView() noexcept
+CCitiesView::CCitiesView() noexcept{}
+CCitiesView::~CCitiesView(){}
+
+
+void CCitiesView::OnInsert()
 {
-	// TODO: add construction code here
-
+	AfxMessageBox(_T("OnInsert()"));
+}
+void CCitiesView::OnDelete()
+{
+	AfxMessageBox(_T("OnDelete()"));
 }
 
-CCitiesView::~CCitiesView()
-{
-}
 void CCitiesView::SetViewStyle()
 {
 	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
@@ -45,7 +50,7 @@ void CCitiesView::SetViewStyle()
 }
 void CCitiesView::DeclareCityColums(int nAlignment)
 {
-	m_pListCtrl->InsertColumn(0, _T("ID"), nAlignment, 30);
+	m_pListCtrl->InsertColumn(0, _T("ID"), nAlignment, 35);
 	m_pListCtrl->InsertColumn(1, _T("City"), nAlignment, 110);
 	m_pListCtrl->InsertColumn(2, _T("Region"), nAlignment, 150);
 }
@@ -84,13 +89,6 @@ void CCitiesView::OnInitialUpdate()
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
 
-	SetViewStyle();
-
-
-
-
-
-
 	CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
 
 
@@ -99,11 +97,10 @@ void CCitiesView::OnInitialUpdate()
 	}
 	else
 	{
+		SetViewStyle();
 		DeclareCityColums(LVCFMT_CENTER);
 		InsertCityRows(oCitiesArray);
 	}
-
-
 }
 
 void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)

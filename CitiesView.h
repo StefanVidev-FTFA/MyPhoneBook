@@ -15,6 +15,11 @@ protected: // create from serialization only
 	void InsertCityRows(CCitiesArray& oCitiesArray);
 
 
+
+	void OnInsert();
+	void OnDelete();
+
+
 	CListCtrl* m_pListCtrl;
 // Attributes
 public:
