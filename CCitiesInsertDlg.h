@@ -21,4 +21,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnClickedButtonInsert();
+	afx_msg void OnClickedButtonCancel();
+	CEdit m_EditBoxCity;
+	CEdit m_EditBoxRegion;
 };
