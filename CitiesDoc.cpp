@@ -46,7 +46,7 @@ BOOL CCitiesDoc::OnNewDocument()
 		return FALSE;
 
 	CCitiesData oCitiesData;
-	oCitiesData.Initialize();
+	//oCitiesData.Initialize();
 
 
 	if (!oCitiesData.SelectAll(m_oInitialCitiesArray))

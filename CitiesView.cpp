@@ -12,6 +12,7 @@
 
 #include "CitiesDoc.h"
 #include "CitiesView.h"
+#include "CCitiesInsertDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -36,7 +37,15 @@ CCitiesView::~CCitiesView(){}
 
 void CCitiesView::OnInsert()
 {
-	AfxMessageBox(_T("OnInsert()"));
+	CCitiesInsertDlg oInsertDlg;
+
+	if (oInsertDlg.DoModal() == IDOK) {
+		AfxMessageBox(_T("Insert Dialog returned OK"));
+	}
+	if (oInsertDlg.DoModal() == IDCANCEL) {
+		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
+	}
+
 }
 void CCitiesView::OnDelete()
 {
@@ -50,9 +59,9 @@ void CCitiesView::SetViewStyle()
 }
 void CCitiesView::DeclareCityColums(int nAlignment)
 {
-	m_pListCtrl->InsertColumn(0, _T("ID"), nAlignment, 35);
-	m_pListCtrl->InsertColumn(1, _T("City"), nAlignment, 110);
-	m_pListCtrl->InsertColumn(2, _T("Region"), nAlignment, 150);
+	m_pListCtrl->InsertColumn(COLUMN_ID, _T("ID"), nAlignment, 35);
+	m_pListCtrl->InsertColumn(COLUMN_CITY_NAME, _T("City"), nAlignment, 110);
+	m_pListCtrl->InsertColumn(COLUMN_CITY_REGION, _T("Region"), nAlignment, 150);
 }
 void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 {

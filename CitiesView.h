@@ -25,6 +25,13 @@ protected: // create from serialization only
 public:
 	CCitiesDoc* GetDocument() const;
 
+	enum CityColumn
+	{
+		COLUMN_ID=0,
+		COLUMN_CITY_NAME,
+		COLUMN_CITY_REGION,
+	};
+
 
 // Overrides
 public:
