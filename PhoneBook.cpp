@@ -142,8 +142,8 @@ BOOL CPhoneBookApp::InitInstance()
 	//CITIES recCityForInsert;
 	//recCityForInsert.nId = 1;
 	//recCityForInsert.nUpdateCounter = 0;
-	//strncpy_s(recCityForInsert.szCityName, "Targovishte_2", MAX_CITY_NAME - 1);
-	//strncpy_s(recCityForInsert.szRegion, "Targovishte_2 -region", MAX_REGION_NAME - 1);
+	//strncpy_s(recCityForInsert.szCityName, "Targovishte_4", MAX_CITY_NAME - 1);
+	//strncpy_s(recCityForInsert.szRegion, "Targovishte_4 -region", MAX_REGION_NAME - 1);
 	//oCitiesTable.Insert(recCityForInsert);
 
 

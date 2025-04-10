@@ -238,6 +238,7 @@ bool CCitiesTable::Insert(const CITIES& recCity)
         oSession.Close();
         return false;
     }
+    Update();
 	AfxMessageBox(_T("Successfully Inserted the new city"), MB_ICONINFORMATION);
 
 	oSession.Close();

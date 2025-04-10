@@ -45,11 +45,9 @@ BOOL CCitiesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CCitiesData oCitiesData;
-	//oCitiesData.Initialize();
 
 
-	if (!oCitiesData.SelectAll(m_oInitialCitiesArray))
+	if (!m_oCitiesData.SelectAll(m_oInitialCitiesArray))
 	{
 		AfxMessageBox(_T("Failed to loadup the data for cities from database"));
 	}

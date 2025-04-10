@@ -37,6 +37,10 @@ CCitiesView::~CCitiesView(){}
 
 void CCitiesView::OnInsert()
 {
+
+
+	CCitiesData& oCitiesData = GetDocument()->m_oCitiesData;
+
 	CCitiesInsertDlg oInsertDlg;
 
 	if (oInsertDlg.DoModal() == IDOK) {

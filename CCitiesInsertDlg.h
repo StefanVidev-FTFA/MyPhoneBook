@@ -10,6 +10,7 @@ class CCitiesInsertDlg : public CDialogEx
 
 public:
 	CCitiesInsertDlg(CWnd* pParent = nullptr);   // standard constructor
+	//CCitiesInsertDlg(CWnd* pParent = nullptr,CCitiesData& oCitiesData);   // standard constructor
 	virtual ~CCitiesInsertDlg();
 
 // Dialog Data
