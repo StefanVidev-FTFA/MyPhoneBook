@@ -13,7 +13,10 @@ protected: // create from serialization only
 	void SetViewStyle();
 	void DeclareCityColums(int nAlignment);
 	void InsertCityRows(CCitiesArray& oCitiesArray);
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
+
+	int m_SelectedIndex=-1;
 
 
 	void OnInsert();

@@ -42,8 +42,6 @@ BEGIN_MESSAGE_MAP(CCitiesInsertDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CCitiesInsertDlg message handlers
-
 void CCitiesInsertDlg::OnClickedButtonInsert()
 {
 
@@ -69,12 +67,10 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	CCitiesData oCitiesData;
 	oCitiesData.Insert(recCityForInsert);
 
-	AfxMessageBox(_T("SUCCESS???"));
-
-
+	EndDialog(IDOK);
 }
 
 void CCitiesInsertDlg::OnClickedButtonCancel()
 {
-	AfxMessageBox(_T("Cancel button clicked!"));
+	EndDialog(IDOK);
 }

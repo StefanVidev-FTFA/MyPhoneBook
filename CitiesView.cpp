@@ -51,10 +51,49 @@ void CCitiesView::OnInsert()
 		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
 	}
 
+	GetDocument()->UpdateAllViews(nullptr, 1, nullptr);
+
 }
 void CCitiesView::OnDelete()
 {
-	AfxMessageBox(_T("OnDelete()"));
+
+	CCitiesDoc* oDocument = GetDocument();
+	ASSERT_VALID(oDocument);
+
+	CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+
+
+	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
+
+
+	CString strMessage;
+	strMessage.Format(_T("Are you sure you wish to delete this row\n\n"
+									"- ID:   %d\n"
+									"- City Name:   %s\n"
+									"- City Region:   %s\n"
+								),
+		pRecCity->nId,CString(pRecCity->szCityName),CString(pRecCity->szRegion));
+
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+
+
+	if (nResult == IDYES)
+	{
+		//CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
+
+
+		CCitiesData oCitiesData;
+
+		oCitiesData.DeleteWhereID(pRecCity->nId);
+
+
+		oDocument->UpdateAllViews(nullptr,1,nullptr);
+
+	}
+
+
+
 }
 
 void CCitiesView::SetViewStyle()
@@ -116,6 +155,35 @@ void CCitiesView::OnInitialUpdate()
 		InsertCityRows(oCitiesArray);
 	}
 }
+void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+{
+	CListView::OnUpdate(pSender, lHint, pHint);
+	m_pListCtrl = &GetListCtrl();
+
+	CCitiesDoc* oDocument = GetDocument();
+	ASSERT_VALID(oDocument);
+
+
+	if (lHint == 1)
+	{
+		CCitiesData data;
+		CCitiesArray oCitiesArray;
+		data.SelectAll(oCitiesArray);
+
+		if (oCitiesArray.IsEmpty()) {
+			AfxMessageBox(_T("There was no cities to load"), MB_ICONERROR);
+		}
+		else
+		{
+			m_pListCtrl->DeleteAllItems();
+
+			SetViewStyle();
+			DeclareCityColums(LVCFMT_CENTER);
+			InsertCityRows(oCitiesArray);
+		}
+
+	}
+}
 
 void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
@@ -126,6 +194,25 @@ void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
+	// Convert to client coords for HitTest
+	CPoint clientPoint = point;
+	ScreenToClient(&clientPoint);
+
+	UINT flags = 0;
+	int clickedIndex = m_pListCtrl->HitTest(clientPoint, &flags);
+
+	if (clickedIndex != -1 && (flags & LVHT_ONITEM)) {
+		// Optional: visually select the item
+		m_pListCtrl->SetItemState(clickedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+
+		// Save the clicked index so your delete handler knows which to remove
+		m_SelectedIndex = clickedIndex;
+	}
+	else {
+		m_SelectedIndex = -1; // Nothing clicked
+	}
+
+	// Show the menu
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }

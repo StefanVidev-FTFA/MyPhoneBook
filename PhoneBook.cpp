@@ -147,7 +147,7 @@ BOOL CPhoneBookApp::InitInstance()
 	//oCitiesTable.Insert(recCityForInsert);
 
 
-	//oCitiesTable.DeleteWhereID(1);
+	//oCitiesTable.DeleteWhereID(1020);
 
 
 
