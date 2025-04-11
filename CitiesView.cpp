@@ -247,11 +247,14 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CCitiesDoc* oDocument = GetDocument();
 		ASSERT_VALID(oDocument);
 
-		CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+		CCitiesArray oCitiesArray;
+		CCitiesData oCitiesData;
+
+		oCitiesData.SelectAll(oCitiesArray);
 
 
 		if (oCitiesArray.IsEmpty()) {
-			AfxMessageBox(_T("There was no cities to load in Init"), MB_ICONERROR);
+			AfxMessageBox(_T("There was no cities to load for Select all"), MB_ICONERROR);
 		}
 		else
 		{

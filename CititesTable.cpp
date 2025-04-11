@@ -44,8 +44,8 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
         strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
-        oDataSource.Close();
         return false;
     }
 
@@ -53,14 +53,10 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
     {
          oCitiesArray.Add(new CITIES(m_recCity));
 
-         CString strMessage;
-         strMessage.Format(_T("Successfully added city[ %s ] to the array"), CString(m_recCity.szCityName));
-        // AfxMessageBox(strMessage, MB_ICONINFORMATION);
     }
 
-
-    //AfxMessageBox(_T("REACHED THE END OF SELECT ALL"), MB_ICONINFORMATION);
-
+    Close();
+    oSession.Close();
     return true;
 }
 
