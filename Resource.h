@@ -32,13 +32,14 @@
 #define ID_EDIT_DELETEROW32774          32774
 #define ID_EDIT_SELECTBYID              32775
 #define ID_EDIT_SELECTALL               32776
+#define ID_EDIT_UPDATEBYID              32777
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        315
-#define _APS_NEXT_COMMAND_VALUE         32777
+#define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

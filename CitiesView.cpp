@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::OnDelete)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::SelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::SelectAll)
+	ON_COMMAND(ID_EDIT_UPDATEBYID, &CCitiesView::UpdateById)
 END_MESSAGE_MAP()
 //ID_EDIT_SELECTALL
 
@@ -39,37 +40,6 @@ CCitiesView::CCitiesView() noexcept{}
 CCitiesView::~CCitiesView(){}
 
 
-void CCitiesView::SelectById() {
-	CDialogFindCityById oSelectByIdDlg;
-
-	INT_PTR result = oSelectByIdDlg.DoModal();
-
-	if (result == IDOK) {
-
-
-		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
-
-
-		GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
-
-	}
-
-}
-void CCitiesView::SelectAll() {
-
-	CString strMessage;
-	strMessage.Format(_T("Are you sure you wish to select all?"));
-
-
-	int nResult = AfxMessageBox(strMessage, MB_YESNO);
-
-
-	if (nResult == IDYES)
-	{
-		GetDocument()->UpdateAllViews(nullptr, SELECT_ALL, nullptr);
-	}
-
-}
 void CCitiesView::OnInsert()
 {
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
@@ -86,7 +56,7 @@ void CCitiesView::OnInsert()
 		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
 	}
 
-	GetDocument()->UpdateAllViews(nullptr, 1, nullptr);
+	GetDocument()->UpdateAllViews(nullptr, INSERT_OR_DELETE, nullptr);
 
 }
 void CCitiesView::OnDelete()
@@ -129,6 +99,64 @@ void CCitiesView::OnDelete()
 
 
 
+}
+void CCitiesView::SelectById() {
+	CDialogFindCityById oSelectByIdDlg;
+
+	INT_PTR result = oSelectByIdDlg.DoModal();
+
+	if (result == IDOK) {
+
+
+		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
+
+
+		GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
+
+	}
+
+}
+void CCitiesView::SelectAll() {
+
+	CString strMessage;
+	strMessage.Format(_T("Are you sure you wish to select all?"));
+
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+
+
+	if (nResult == IDYES)
+	{
+		GetDocument()->UpdateAllViews(nullptr, SELECT_ALL, nullptr);
+	}
+
+}
+void CCitiesView::UpdateById()
+{
+	CDialogFindCityById oSelectByIdDlg;
+
+	INT_PTR result = oSelectByIdDlg.DoModal();
+
+	if (result == IDOK) {
+
+
+		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
+		CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
+
+		CCitiesInsertDlg oUpdateDlg(this, oCitiesData);
+
+		INT_PTR result = oUpdateDlg.DoModal();
+		
+		if (result == IDOK) {
+			AfxMessageBox(_T("Update Dialog returned OK"));
+		}
+		else if (result == IDCANCEL) {
+			AfxMessageBox(_T("Update Dialog returned CANCEL"));
+		}
+
+		GetDocument()->UpdateAllViews(nullptr, SELECT_ALL, nullptr);
+
+	}
 }
 
 void CCitiesView::SetViewStyle()
@@ -247,11 +275,17 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CCitiesDoc* oDocument = GetDocument();
 		ASSERT_VALID(oDocument);
 
-		CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+
+
+
+		CCitiesArray oCitiesArray;
+		CCitiesData oCitiesData;
+
+		oCitiesData.SelectAll(oCitiesArray);
 
 
 		if (oCitiesArray.IsEmpty()) {
-			AfxMessageBox(_T("There was no cities to load in Init"), MB_ICONERROR);
+			AfxMessageBox(_T("There was no cities to load for Select all"), MB_ICONERROR);
 		}
 		else
 		{

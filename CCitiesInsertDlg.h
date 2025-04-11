@@ -12,10 +12,13 @@ class CCitiesInsertDlg : public CDialogEx
 	
 public:
 	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
-	CCitiesInsertDlg(CWnd* pParent=nullptr,CCitiesData* oCitiesData=nullptr);   // standard constructor
+	CCitiesInsertDlg(CWnd* pParent=nullptr,CCitiesData* oCitiesData=nullptr, int nTypeOfData=-1,int nIdForUpdate=-1);   // standard constructor
 	virtual ~CCitiesInsertDlg();
 
 	CCitiesData* m_oCitiesData;// adding this line result in errors
+	int m_nTypeOfCall;
+	int m_nIdForUpdate;
+	CStatic m_staticMessage;
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME

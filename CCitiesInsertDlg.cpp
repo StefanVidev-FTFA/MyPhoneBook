@@ -6,15 +6,24 @@
 #include "afxdialogex.h"
 #include "CCitiesInsertDlg.h"
 #include "CitiesData.h"
+#include "CitiesView.h"
 
 
 // CCitiesInsertDlg dialog
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
-CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/,CCitiesData* oCitiesData)
-	: CDialogEx(IDD_DIALOG1, pParent), m_oCitiesData(oCitiesData)
+CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/,CCitiesData* oCitiesData,int nTypeOfData,int nIdForUpdate)
+	: CDialogEx(IDD_DIALOG1, pParent), m_oCitiesData(oCitiesData), m_nTypeOfCall(nTypeOfData),m_nIdForUpdate(nIdForUpdate)
 {
+	if (m_nTypeOfCall == CCitiesView::UpdateMode::INSERT_OR_DELETE)
+	{
+		m_staticMessage.SetWindowText(_T("Define data for new city"));
+	}
+	else if (m_nTypeOfCall == CCitiesView::UpdateMode::UPDATE_BY_ID)
+	{
+		m_staticMessage.SetWindowText(_T("Update data for the city"));
+	}
 }
 
 
@@ -31,6 +40,7 @@ CCitiesInsertDlg::~CCitiesInsertDlg()
 void CCitiesInsertDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_STATIC, m_staticMessage);
 	DDX_Control(pDX, IDC_EDIT1, m_EditBoxCity);
 	DDX_Control(pDX, IDC_EDIT2, m_EditBoxRegion);
 }
@@ -57,15 +67,29 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	CW2A cityName(strCityName);
 	CW2A cityRegion(strCityRegion);
 
-	CITIES recCityForInsert;
-	recCityForInsert.nUpdateCounter = 0;
-	strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
-	strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
+	if (m_nTypeOfCall == CCitiesView::UpdateMode::INSERT_OR_DELETE)
+	{
+		CITIES recCityForInsert;
+		recCityForInsert.nUpdateCounter = 0;
+		strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
+		strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
 
 
 
-	CCitiesData oCitiesData;
-	oCitiesData.Insert(recCityForInsert);
+		CCitiesData oCitiesData;
+		oCitiesData.Insert(recCityForInsert);
+	}
+	else if (m_nTypeOfCall == CCitiesView::UpdateMode::UPDATE_BY_ID)
+	{
+		CITIES recCityForUpdate;
+		recCityForUpdate.nUpdateCounter = 0;
+		strcpy_s(recCityForUpdate.szCityName, MAX_CITY_NAME, cityName);
+		strcpy_s(recCityForUpdate.szRegion, MAX_REGION_NAME, cityRegion);
+
+
+		CCitiesData oCitiesData;
+		oCitiesData.UpdateWhereID(m_nIdForUpdate, recCityForUpdate);
+	}
 
 	EndDialog(IDOK);
 }

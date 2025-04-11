@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "CitiesDoc.h"
 
 
 class CCitiesView : public CListView
@@ -25,6 +26,7 @@ protected: // create from serialization only
 	void OnDelete();
 	void SelectById();
 	void SelectAll();
+	void UpdateById();
 
 	CListCtrl* m_pListCtrl;
 // Attributes
@@ -42,7 +44,8 @@ public:
 		LOAD_INIT = 0,
 		INSERT_OR_DELETE,
 		SELECT_BY_ID,
-		SELECT_ALL
+		SELECT_ALL,
+		UPDATE_BY_ID
 	};
 
 
