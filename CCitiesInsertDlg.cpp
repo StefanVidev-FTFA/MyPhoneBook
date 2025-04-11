@@ -12,20 +12,17 @@
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
-//CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/)
-//	: CDialogEx(IDD_DIALOG1, pParent)
-//{
-//}
+CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/,CCitiesData* oCitiesData)
+	: CDialogEx(IDD_DIALOG1, pParent), m_oCitiesData(oCitiesData)
+{
+}
 
-// Constructor with CCitiesData pointer
+
+
 //CCitiesInsertDlg::CCitiesInsertDlg(CCitiesData* oCitiesData)
 //	: m_oCitiesData(oCitiesData)
 //{
 //}
-
-CCitiesInsertDlg::CCitiesInsertDlg(CCitiesData* oCitiesData) {
-	m_oCitiesData = oCitiesData;
-}
 
 CCitiesInsertDlg::~CCitiesInsertDlg()
 {

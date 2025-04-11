@@ -40,7 +40,14 @@ void CCitiesView::OnInsert()
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
-	CCitiesInsertDlg oInsertDlg(oCitiesData);
+	CCitiesInsertDlg oInsertDlg(this,oCitiesData);
+
+	if (oInsertDlg.DoModal() == IDOK) {
+		AfxMessageBox(_T("Insert Dialog returned OK"));
+	}
+	if (oInsertDlg.DoModal() == IDCANCEL) {
+		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
+	}
 
 }
 void CCitiesView::OnDelete()

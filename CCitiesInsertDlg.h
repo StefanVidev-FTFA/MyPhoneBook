@@ -12,7 +12,7 @@ class CCitiesInsertDlg : public CDialogEx
 	
 public:
 	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
-	CCitiesInsertDlg(CCitiesData* oCitiesData);   // standard constructor
+	CCitiesInsertDlg(CWnd* pParent=nullptr,CCitiesData* oCitiesData=nullptr);   // standard constructor
 	virtual ~CCitiesInsertDlg();
 
 	CCitiesData* m_oCitiesData;// adding this line result in errors
