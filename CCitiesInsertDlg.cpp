@@ -12,17 +12,20 @@
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
-CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent)
-	: CDialogEx(IDD_DIALOG1, pParent)
-{
-}
-
-// Constructor with data
-//CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent, CCitiesData& oCitiesData)
-//	: CDialogEx(IDD_DIALOG1, pParent), m_oCitiesData(oCitiesData)
+//CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/)
+//	: CDialogEx(IDD_DIALOG1, pParent)
 //{
-//
 //}
+
+// Constructor with CCitiesData pointer
+//CCitiesInsertDlg::CCitiesInsertDlg(CCitiesData* oCitiesData)
+//	: m_oCitiesData(oCitiesData)
+//{
+//}
+
+CCitiesInsertDlg::CCitiesInsertDlg(CCitiesData* oCitiesData) {
+	m_oCitiesData = oCitiesData;
+}
 
 CCitiesInsertDlg::~CCitiesInsertDlg()
 {
@@ -46,29 +49,34 @@ END_MESSAGE_MAP()
 
 void CCitiesInsertDlg::OnClickedButtonInsert()
 {
-	CString strCityName;
-	m_EditBoxCity.GetWindowText(strCityName);
 
 
-	CString strCityRegion;
-	m_EditBoxRegion.GetWindowText(strCityRegion);
-
+	//CString strCityRegion;
+	//m_EditBoxRegion.GetWindowText(strCityRegion);
 
 
 
-	AfxMessageBox(strCityName);
-	AfxMessageBox(strCityRegion);
-
-
-	CCitiesData oCitiesData;
+	//CString strCityName;
+	//m_EditBoxCity.GetWindowText(strCityName);
 
 
 
-	CITIES recCityForInsert;
-	recCityForInsert.nUpdateCounter = 0;
-	strncpy_s(recCityForInsert.szCityName, "temp example 1 city", MAX_CITY_NAME);
-	strncpy_s(recCityForInsert.szRegion, "temp example 1 region", MAX_REGION_NAME);
-	oCitiesData.Insert(recCityForInsert);
+
+	//AfxMessageBox(strCityName);
+	//AfxMessageBox(strCityRegion);
+
+
+
+	//CW2A cityName(strCityName);
+	//CW2A cityRegion(strCityRegion);
+
+	//CITIES recCityForInsert;
+	//recCityForInsert.nUpdateCounter = 0;
+	//strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
+	//strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
+
+
+	//m_oCitiesData->Insert(recCityForInsert);
 
 	AfxMessageBox(_T("SUCCESS???"));
 

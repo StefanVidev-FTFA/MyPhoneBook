@@ -4,14 +4,18 @@
 
 // CCitiesInsertDlg dialog
 
+class CCitiesData; // forward declaration
+
 class CCitiesInsertDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CCitiesInsertDlg)
-
+	
 public:
-	CCitiesInsertDlg(CWnd* pParent = nullptr);   // standard constructor
-	//CCitiesInsertDlg(CWnd* pParent = nullptr,CCitiesData& oCitiesData);   // standard constructor
+	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
+	CCitiesInsertDlg(CCitiesData* oCitiesData);   // standard constructor
 	virtual ~CCitiesInsertDlg();
+
+	CCitiesData* m_oCitiesData;// adding this line result in errors
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME

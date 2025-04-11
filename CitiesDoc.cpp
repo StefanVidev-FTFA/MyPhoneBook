@@ -32,8 +32,7 @@ END_MESSAGE_MAP()
 
 CCitiesDoc::CCitiesDoc() noexcept
 {
-	//m_oCitiesData.Initialize();
-
+	m_oCitiesData = new CCitiesData();
 }
 
 CCitiesDoc::~CCitiesDoc()
@@ -47,7 +46,7 @@ BOOL CCitiesDoc::OnNewDocument()
 
 
 
-	if (!m_oCitiesData.SelectAll(m_oInitialCitiesArray))
+	if (!m_oCitiesData->SelectAll(m_oInitialCitiesArray))
 	{
 		AfxMessageBox(_T("Failed to loadup the data for cities from database"));
 	}
