@@ -13,15 +13,18 @@ protected: // create from serialization only
 	void SetViewStyle();
 	void DeclareCityColums(int nAlignment);
 	void InsertCityRows(CCitiesArray& oCitiesArray);
+	void InsertACityRow(CITIES& recCity);
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
 
 	int m_SelectedIndex=-1;
+	int m_nIdToBeSelected = -1;
 
 
 	void OnInsert();
 	void OnDelete();
-
+	void SelectById();
+	void SelectAll();
 
 	CListCtrl* m_pListCtrl;
 // Attributes
@@ -33,6 +36,13 @@ public:
 		COLUMN_ID=0,
 		COLUMN_CITY_NAME,
 		COLUMN_CITY_REGION,
+	};
+	enum UpdateMode
+	{
+		LOAD_INIT = 0,
+		INSERT_OR_DELETE,
+		SELECT_BY_ID,
+		SELECT_ALL
 	};
 
 

@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCitiesInsertDlg.h" />
+    <ClInclude Include="CDialogFindCityById.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCitiesInsertDlg.cpp" />
+    <ClCompile Include="CDialogFindCityById.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesArray.cpp" />
     <ClCompile Include="CitiesData.cpp" />

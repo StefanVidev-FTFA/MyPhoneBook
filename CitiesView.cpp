@@ -17,6 +17,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "CDialogFindCityById.h"
 
 
 // CCitiesView
@@ -28,13 +29,47 @@ BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_WM_RBUTTONUP()
 	ON_COMMAND(ID_EDIT_INSERTROW, &CCitiesView::OnInsert)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::OnDelete)
+	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::SelectById)
+	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::SelectAll)
 END_MESSAGE_MAP()
+//ID_EDIT_SELECTALL
 
 
 CCitiesView::CCitiesView() noexcept{}
 CCitiesView::~CCitiesView(){}
 
 
+void CCitiesView::SelectById() {
+	CDialogFindCityById oSelectByIdDlg;
+
+	INT_PTR result = oSelectByIdDlg.DoModal();
+
+	if (result == IDOK) {
+
+
+		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
+
+
+		GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
+
+	}
+
+}
+void CCitiesView::SelectAll() {
+
+	CString strMessage;
+	strMessage.Format(_T("Are you sure you wish to select all?"));
+
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+
+
+	if (nResult == IDYES)
+	{
+		GetDocument()->UpdateAllViews(nullptr, SELECT_ALL, nullptr);
+	}
+
+}
 void CCitiesView::OnInsert()
 {
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
@@ -125,6 +160,18 @@ void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 		}
 	}
 }
+void CCitiesView::InsertACityRow(CITIES& recCity) {
+	if (recCity.nId>-1) {
+
+		CString sId;
+		sId.Format(_T("%d"), recCity.nId);
+
+
+		int row = m_pListCtrl->InsertItem(0, sId);
+		m_pListCtrl->SetItemText(0, 1, CString(recCity.szCityName));
+		m_pListCtrl->SetItemText(row, 2, CString(recCity.szRegion));
+	}
+}
 
 BOOL CCitiesView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -164,7 +211,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == 1)
+	if (lHint == INSERT_OR_DELETE)
 	{
 		CCitiesData data;
 		CCitiesArray oCitiesArray;
@@ -176,12 +223,41 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		else
 		{
 			m_pListCtrl->DeleteAllItems();
-
-			SetViewStyle();
-			DeclareCityColums(LVCFMT_CENTER);
 			InsertCityRows(oCitiesArray);
 		}
 
+	}
+	else if (lHint == SELECT_BY_ID)
+	{
+		CCitiesData data;
+		CITIES recFoundCity;
+
+		data.SelectWhereID(m_nIdToBeSelected, recFoundCity);
+		if (recFoundCity.nId > -1)
+		{
+			m_pListCtrl->DeleteAllItems();
+			InsertACityRow(recFoundCity);
+		}
+
+	}
+	else if (lHint == SELECT_ALL)
+	{
+		m_pListCtrl = &GetListCtrl();
+
+		CCitiesDoc* oDocument = GetDocument();
+		ASSERT_VALID(oDocument);
+
+		CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+
+
+		if (oCitiesArray.IsEmpty()) {
+			AfxMessageBox(_T("There was no cities to load in Init"), MB_ICONERROR);
+		}
+		else
+		{
+			m_pListCtrl->DeleteAllItems();
+			InsertCityRows(oCitiesArray);
+		}
 	}
 }
 

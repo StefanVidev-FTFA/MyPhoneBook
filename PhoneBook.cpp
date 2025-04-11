@@ -183,6 +183,8 @@ protected:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnEditSelectbyid();
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -224,6 +226,3 @@ void CPhoneBookApp::SaveCustomState()
 }
 
 // CPhoneBookApp message handlers
-
-
-

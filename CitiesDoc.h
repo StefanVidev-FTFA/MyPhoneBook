@@ -17,6 +17,7 @@ protected: // create from serialization only
 public:
 	CCitiesArray m_oInitialCitiesArray;
 	CCitiesData* m_oCitiesData;
+	int m_SelectByIdTarget = -1;
 
 // Operations
 public:
