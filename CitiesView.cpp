@@ -42,10 +42,12 @@ void CCitiesView::OnInsert()
 
 	CCitiesInsertDlg oInsertDlg(this,oCitiesData);
 
-	if (oInsertDlg.DoModal() == IDOK) {
+	INT_PTR result = oInsertDlg.DoModal();
+
+	if (result == IDOK) {
 		AfxMessageBox(_T("Insert Dialog returned OK"));
 	}
-	if (oInsertDlg.DoModal() == IDCANCEL) {
+	else if (result == IDCANCEL) {
 		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
 	}
 

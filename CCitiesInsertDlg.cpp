@@ -47,33 +47,27 @@ END_MESSAGE_MAP()
 void CCitiesInsertDlg::OnClickedButtonInsert()
 {
 
-
-	//CString strCityRegion;
-	//m_EditBoxRegion.GetWindowText(strCityRegion);
-
-
-
-	//CString strCityName;
-	//m_EditBoxCity.GetWindowText(strCityName);
+	CString strCityRegion;
+	m_EditBoxRegion.GetWindowText(strCityRegion);
 
 
 
-
-	//AfxMessageBox(strCityName);
-	//AfxMessageBox(strCityRegion);
-
+	CString strCityName;
+	m_EditBoxCity.GetWindowText(strCityName);
 
 
-	//CW2A cityName(strCityName);
-	//CW2A cityRegion(strCityRegion);
+	CW2A cityName(strCityName);
+	CW2A cityRegion(strCityRegion);
 
-	//CITIES recCityForInsert;
-	//recCityForInsert.nUpdateCounter = 0;
-	//strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
-	//strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
+	CITIES recCityForInsert;
+	recCityForInsert.nUpdateCounter = 0;
+	strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
+	strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
 
 
-	//m_oCitiesData->Insert(recCityForInsert);
+
+	CCitiesData oCitiesData;
+	oCitiesData.Insert(recCityForInsert);
 
 	AfxMessageBox(_T("SUCCESS???"));
 

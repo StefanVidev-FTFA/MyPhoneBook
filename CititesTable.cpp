@@ -63,7 +63,9 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
 
     return true;
 }
-//------------------------------------------------------------------------------------------------------
+
+
+
 bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity) 
 {
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
@@ -126,7 +128,9 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
 
     return true;
 }
-//------------------------------------------------------------------------------------------------------
+
+
+
 bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
 {
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
@@ -200,7 +204,9 @@ bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
 
     return true;
 }
-//------------------------------------------------------------------------------------------------------
+
+
+
 bool CCitiesTable::Insert(const CITIES& recCity)
 {
 	CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
@@ -244,7 +250,9 @@ bool CCitiesTable::Insert(const CITIES& recCity)
 	oSession.Close();
 	return true;
 }
-//------------------------------------------------------------------------------------------------------
+
+
+
 bool CCitiesTable::DeleteWhereID(const long lID)
 {
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
