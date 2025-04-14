@@ -22,6 +22,11 @@ CDatabaseConnection::CDatabaseConnection()
     m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_CATALOG, DATABASE_NAME);
 
 
+
+
+
+    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_LCID, 1033L);
+    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_PROMPT, static_cast<short>(4));
     m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetChange, true);
     m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_UPDATABILITY, DBPROPVAL_UP_CHANGE | DBPROPVAL_UP_INSERT | DBPROPVAL_UP_DELETE);
     m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetUpdate, true);

@@ -3,6 +3,8 @@
 //
 
 #pragma once
+#include "CitiesArray.h"
+#include "CitiesDoc.h"
 
 
 class CCitiesView : public CListView
@@ -19,6 +21,7 @@ protected: // create from serialization only
 
 	int m_SelectedIndex=-1;
 	int m_nIdToBeSelected = -1;
+	CITIES m_recCityForUpdate;
 
 
 	void OnInsert();
@@ -43,7 +46,8 @@ public:
 		LOAD_INIT = 0,
 		INSERT_OR_DELETE,
 		SELECT_BY_ID,
-		SELECT_ALL
+		SELECT_ALL,
+		UPDATE_BY_ID
 	};
 
 

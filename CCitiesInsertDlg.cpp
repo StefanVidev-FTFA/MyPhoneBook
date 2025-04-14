@@ -12,8 +12,8 @@
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
-CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/,CCitiesData* oCitiesData)
-	: CDialogEx(IDD_DIALOG1, pParent), m_oCitiesData(oCitiesData)
+CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/)
+	: CDialogEx(IDD_DIALOG1, pParent)
 {
 }
 
@@ -62,6 +62,9 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
 	strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
 
+
+	strcpy_s(m_recCityForUpdate.szCityName, MAX_CITY_NAME, cityName);
+	strcpy_s(m_recCityForUpdate.szRegion, MAX_REGION_NAME, cityRegion);
 
 
 	CCitiesData oCitiesData;

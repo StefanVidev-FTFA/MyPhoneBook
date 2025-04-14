@@ -41,7 +41,7 @@ CCitiesView::~CCitiesView(){}
 
 void CCitiesView::SelectById()
 {
-	CDialogFindCityById oSelectByIdDlg;
+	CDialogFindCityById oSelectByIdDlg(this, 2);
 
 	INT_PTR result = oSelectByIdDlg.DoModal();
 
@@ -51,8 +51,14 @@ void CCitiesView::SelectById()
 
 		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
 
-
-		GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
+		if (m_nIdToBeSelected > -1) 
+		{
+			GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
+		}
+		else
+		{
+			AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
+		}
 
 	}
 
@@ -77,19 +83,13 @@ void CCitiesView::OnInsert()
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
-	CCitiesInsertDlg oInsertDlg(this,oCitiesData);
+	CCitiesInsertDlg oInsertDlg(this);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
 	if (result == IDOK) {
-		AfxMessageBox(_T("Insert Dialog returned OK"));
+		GetDocument()->UpdateAllViews(nullptr, 1, nullptr);
 	}
-	else if (result == IDCANCEL) {
-		AfxMessageBox(_T("Insert Dialog returned CANCEL"));
-	}
-
-	GetDocument()->UpdateAllViews(nullptr, 1, nullptr);
-
 }
 void CCitiesView::OnDelete()
 {
@@ -134,14 +134,33 @@ void CCitiesView::OnDelete()
 }
 void CCitiesView::UpdateByID()
 {
-	CDialogFindCityById oCitiesFindDlg;
+	CDialogFindCityById oCitiesFindDlg(this,4);
 
 	INT_PTR result = oCitiesFindDlg.DoModal();
 
 	if (result == IDOK)
 	{
+		int nId = oCitiesFindDlg.m_nIdToBeSelected;
 
-		AfxMessageBox(_T("wea re here so FAR"));
+		if (nId > -1)
+		{
+			CCitiesInsertDlg oInsertDlg(this);
+
+			INT_PTR result = oInsertDlg.DoModal();
+
+			if (result == IDOK) {
+
+				m_recCityForUpdate = oInsertDlg.m_recCityForUpdate;
+				m_nIdToBeSelected = nId;
+				GetDocument()->UpdateAllViews(nullptr, UPDATE_BY_ID, nullptr);
+			}
+		}
+		else
+		{
+			AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
+		}
+
+
 	}
 }
 
@@ -275,6 +294,28 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 			m_pListCtrl->DeleteAllItems();
 			InsertCityRows(oCitiesArray);
 		}
+	}
+	else if (lHint == UPDATE_BY_ID)
+	{
+		m_pListCtrl = &GetListCtrl();
+
+		CCitiesDoc* oDocument = GetDocument();
+		ASSERT_VALID(oDocument);
+
+		CCitiesArray oCitiesArray;
+		CCitiesData oCitiesData;
+
+		oCitiesData.UpdateWhereID(m_nIdToBeSelected,m_recCityForUpdate);
+
+
+		//if (oCitiesArray.IsEmpty()) {
+		//	AfxMessageBox(_T("There was no cities to load for Select all"), MB_ICONERROR);
+		//}
+		//else
+		//{
+		//	m_pListCtrl->DeleteAllItems();
+		//	InsertCityRows(oCitiesArray);
+		//}
 	}
 }
 

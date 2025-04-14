@@ -1,5 +1,6 @@
 #pragma once
 #include "afxdialogex.h"
+#include "Cities.h"
 
 
 // CCitiesInsertDlg dialog
@@ -12,10 +13,10 @@ class CCitiesInsertDlg : public CDialogEx
 	
 public:
 	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
-	CCitiesInsertDlg(CWnd* pParent=nullptr,CCitiesData* oCitiesData=nullptr);   // standard constructor
+	CCitiesInsertDlg(CWnd* pParent=nullptr);   // standard constructor
 	virtual ~CCitiesInsertDlg();
 
-	CCitiesData* m_oCitiesData;// adding this line result in errors
+	CITIES m_recCityForUpdate;// <--------   this does this result in error
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
