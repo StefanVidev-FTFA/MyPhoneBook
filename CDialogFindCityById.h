@@ -26,4 +26,5 @@ public:
 	afx_msg void OnClickedFindByIdCancel();
 	afx_msg void OnBnClickedFindByIdFind();
 	CEdit m_FindByIdEditField;
+	CStatic m_FindCityHeader;
 };

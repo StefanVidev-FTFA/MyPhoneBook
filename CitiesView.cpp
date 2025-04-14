@@ -134,9 +134,9 @@ void CCitiesView::OnDelete()
 }
 void CCitiesView::UpdateByID()
 {
-	CCitiesInsertDlg oCitiesInsertDlg;
+	CDialogFindCityById oCitiesFindDlg;
 
-	INT_PTR result = oCitiesInsertDlg.DoModal();
+	INT_PTR result = oCitiesFindDlg.DoModal();
 
 	if (result == IDOK)
 	{

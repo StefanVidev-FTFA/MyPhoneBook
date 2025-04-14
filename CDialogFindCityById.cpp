@@ -25,6 +25,7 @@ void CDialogFindCityById::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT1, m_FindByIdEditField);
+	DDX_Control(pDX, STT_FIND_DIALOG_HEADER, m_FindCityHeader);
 }
 
 
