@@ -25,6 +25,7 @@ protected: // create from serialization only
 	void OnDelete();
 	void SelectById();
 	void SelectAll();
+	void UpdateByID();
 
 	CListCtrl* m_pListCtrl;
 // Attributes

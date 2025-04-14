@@ -31,20 +31,22 @@ BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::OnDelete)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::SelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::SelectAll)
+	ON_COMMAND(ID_EDIT_UPDATEBYID, &CCitiesView::UpdateByID)
 END_MESSAGE_MAP()
-//ID_EDIT_SELECTALL
 
 
 CCitiesView::CCitiesView() noexcept{}
 CCitiesView::~CCitiesView(){}
 
 
-void CCitiesView::SelectById() {
+void CCitiesView::SelectById()
+{
 	CDialogFindCityById oSelectByIdDlg;
 
 	INT_PTR result = oSelectByIdDlg.DoModal();
 
-	if (result == IDOK) {
+	if (result == IDOK)
+	{
 
 
 		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
@@ -129,6 +131,18 @@ void CCitiesView::OnDelete()
 
 
 
+}
+void CCitiesView::UpdateByID()
+{
+	CCitiesInsertDlg oCitiesInsertDlg;
+
+	INT_PTR result = oCitiesInsertDlg.DoModal();
+
+	if (result == IDOK)
+	{
+
+		AfxMessageBox(_T("wea re here so FAR"));
+	}
 }
 
 void CCitiesView::SetViewStyle()

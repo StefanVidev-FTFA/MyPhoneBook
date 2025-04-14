@@ -9,9 +9,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesTable
 
-// Constructor / Destructor
-// ----------------
-
 
 // Methods
 // ----------------
@@ -60,8 +57,6 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
     return true;
 }
 
-
-
 bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity) 
 {
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
@@ -75,6 +70,7 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
         CString strError;
         strError.Format(_T("Unable to open session.Error: %ld"), hResult);
         AfxMessageBox(strError);
+
         return false;
     }
 
@@ -91,6 +87,7 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
         strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
         return false;
     }
@@ -100,6 +97,8 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
         CString strError;
         strError.Format(_T("Query has not found a result. Error: %ld. Query: %s"), hResult, strQuery);
         AfxMessageBox(strError);
+
+        Close();
 		oSession.Close();
 
         return false;
@@ -109,23 +108,10 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
         recCity = m_recCity;
     }
 
-    CString strCity;
-    strCity.Format(
-        _T("The selected city has id: %ld\n"
-            " name: %s\n"
-            " and region: %s"),
-        lID,
-        CString(recCity.szCityName),
-        CString(recCity.szRegion)
-    );
-    AfxMessageBox(strCity, MB_ICONINFORMATION);
-
 	oSession.Close();
 
     return true;
 }
-
-
 
 bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
 {
@@ -201,8 +187,6 @@ bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
     return true;
 }
 
-
-
 bool CCitiesTable::Insert(const CITIES& recCity)
 {
 	CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
@@ -214,6 +198,7 @@ bool CCitiesTable::Insert(const CITIES& recCity)
 		CString strError;
 		strError.Format(_T("Unable to open session.Error: %ld"), hResult);
 		AfxMessageBox(strError);
+
 		return false;
 	}
 
@@ -225,29 +210,48 @@ bool CCitiesTable::Insert(const CITIES& recCity)
 		CString strError;
 		strError.Format(_T("Error executing query. Error: %ld ."), hResult);
 		AfxMessageBox(strError);
+
+        Close();
 		oSession.Close();
+
 		return false;
 	}
 
     m_recCity = recCity;
+
+
     hResult = __super::Insert(1,true);
 
     if (FAILED(hResult))
     {
         CString strError;
-        strError.Format(_T("Failed to set data. Error: %ld"), hResult);
+        strError.Format(_T("Failed to Insert the data. Error: %ld"), hResult);
         AfxMessageBox(strError);
+
+        Close();
         oSession.Close();
         return false;
     }
-    Update();
+
+    hResult = Update();
+
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Failed to Update() the data. Error: %ld"), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        oSession.Close();
+        return false;
+    }
+
 	AfxMessageBox(_T("Successfully Inserted the new city"), MB_ICONINFORMATION);
 
+    Close();
 	oSession.Close();
 	return true;
 }
-
-
 
 bool CCitiesTable::DeleteWhereID(const long lID)
 {
@@ -272,7 +276,10 @@ bool CCitiesTable::DeleteWhereID(const long lID)
         CString strError;
         strError.Format(_T("Error executing query. Error: %ld ."), hResult);
         AfxMessageBox(strError);
+
+        Close();
         oSession.Close();
+
         return false;
     }
     MoveFirst();
@@ -285,7 +292,9 @@ bool CCitiesTable::DeleteWhereID(const long lID)
         strError.Format(_T("Failed to execute Delete(). Error: %ld ."), hResult);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
+
         return false;
     }
 
@@ -297,7 +306,9 @@ bool CCitiesTable::DeleteWhereID(const long lID)
         strError.Format(_T("Failed to execute Update(). Error: %ld ."), hResult);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
+
         return false;
     }
 
@@ -305,9 +316,8 @@ bool CCitiesTable::DeleteWhereID(const long lID)
     strNotidy.Format(_T("Successfully deleted row with id:  %ld"), lID);
     AfxMessageBox(strNotidy, MB_ICONINFORMATION);
 
+
+    Close();
     oSession.Close();
     return true;
 }
-
-// Overrides
-// ----------------
