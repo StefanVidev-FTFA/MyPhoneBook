@@ -4,33 +4,37 @@
 
 using namespace std;
 
-// CitiesView.h : interface of the CCitiesView class
-//
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesTable
+
+///<summary> Клас служещ за представянето на информацията за град/ове от базата данни ///</summary>
 class CCitiesView : public CListView
 {
+
+	// Constructor / Destructor
+	// ----------------
 protected:
 	CCitiesView() noexcept;
 	DECLARE_DYNCREATE(CCitiesView)
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
+
+
+
 	void SetViewStyle();
 	void DeclareCityColums(int nAlignment);
 	void InsertCityRows(CCitiesArray& oCitiesArray);
 	void InsertACityRow(CITIES& recCity);
-	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
+	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
+	void RequestInsert();
+	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
+	void RequestDelete();
+	///<summary> Избира град от базата данни чрез диалог с потребителя и визуализира само него ///</summary>
+	void RequestSelectById();
+	///<summary> Избира и визуализира всички записи от базата данни в изгледа ///</summary>
+	void RequestSelectAll();
+	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
+	void RequestUpdate();
 
-
-	int m_SelectedIndex=-1;
-	int m_nIdToBeSelected = -1;
-	CITIES m_recCityForUpdate;
-	CMap<int,int,int,int> entriesMap;
-
-
-	void OnInsert();
-	void OnDelete();
-	void SelectById();
-	void SelectAll();
-	void UpdateByID();
-
-	CListCtrl* m_pListCtrl;
 public:
 	CCitiesDoc* GetDocument() const;
 
@@ -50,7 +54,6 @@ public:
 	};
 
 
-// Overrides
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
@@ -65,10 +68,16 @@ public:
 #endif
 
 protected:
-
-protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+
+	// Members
+	// ----------------
+	CListCtrl* m_pListCtrl;
+	int m_SelectedIndex = -1;
+	int m_nIdToBeSelected = -1;
+	CITIES m_recCityForUpdate;
+	CMap<int, int, int, int> entriesMap;
 };

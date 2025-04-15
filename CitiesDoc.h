@@ -23,6 +23,16 @@ public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 
+	///<summary> Обновява информацията за град във базата данни ///</summary>
+	bool DatabaseUpdate(const int nId, const CITIES& recCity);
+	///<summary >Въвежда за град във базата данни ///</summary>
+	bool DatabaseInsert();
+	///<summary >Трие град от базата данни ///</summary>
+	bool DatabaseDelete();
+	///<summary >Избира град от базата данни ///</summary>
+	bool DatabaseSelectById();
+	///<summary >Избира всички градове от базата данни ///</summary>
+	bool DatabaseSelectAll();
 	// Overrides
 	// ----------------
 #ifdef _DEBUG

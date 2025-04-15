@@ -191,6 +191,7 @@
     <ClInclude Include="CitiesArray.h" />
     <ClInclude Include="CitiesData.h" />
     <ClInclude Include="CitiesDoc.h" />
+    <ClInclude Include="CitiesHint.h" />
     <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonMethods.h" />

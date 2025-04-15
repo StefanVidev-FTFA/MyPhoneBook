@@ -1,7 +1,3 @@
-
-// ChildFrm.h : interface of the CChildFrame class
-//
-
 #pragma once
 
 class CChildFrame : public CMDIChildWndEx
@@ -29,7 +25,6 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-// Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
 };

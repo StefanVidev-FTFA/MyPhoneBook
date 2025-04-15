@@ -12,27 +12,31 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-// CCitiesView
+#include "CitiesHint.h"
 
 IMPLEMENT_DYNCREATE(CCitiesView, CListView)
-
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
-	ON_COMMAND(ID_EDIT_INSERTROW, &CCitiesView::OnInsert)
-	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::OnDelete)
-	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::SelectById)
-	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::SelectAll)
-	ON_COMMAND(ID_EDIT_UPDATEBYID, &CCitiesView::UpdateByID)
+	ON_COMMAND(ID_EDIT_INSERTROW, &CCitiesView::RequestInsert)
+	ON_COMMAND(ID_EDIT_DELETEROW32774, &CCitiesView::RequestDelete)
+	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::RequestSelectById)
+	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::RequestSelectAll)
+	ON_COMMAND(ID_EDIT_UPDATEBYID, &CCitiesView::RequestUpdate)
 END_MESSAGE_MAP()
 
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesView
 
+
+	// Constructor / Destructor
+	// ----------------
 CCitiesView::CCitiesView() noexcept{}
 CCitiesView::~CCitiesView(){}
 
-
-void CCitiesView::SelectById()
+	// Methods
+	// ----------------
+void CCitiesView::RequestSelectById()
 {
 	CDialogFindCityById oSelectByIdDlg(this, 2);
 
@@ -56,7 +60,8 @@ void CCitiesView::SelectById()
 	}
 
 }
-void CCitiesView::SelectAll() {
+
+void CCitiesView::RequestSelectAll() {
 
 	CString strMessage;
 	strMessage.Format(_T("Are you sure you wish to select all?"));
@@ -71,7 +76,8 @@ void CCitiesView::SelectAll() {
 	}
 
 }
-void CCitiesView::OnInsert()
+
+void CCitiesView::RequestInsert()
 {
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
@@ -81,10 +87,11 @@ void CCitiesView::OnInsert()
 	INT_PTR result = oInsertDlg.DoModal();
 
 	if (result == IDOK) {
-		GetDocument()->UpdateAllViews(nullptr, 1, nullptr);
+		GetDocument()->UpdateAllViews(nullptr, SqlOperationInsertOrDelete, nullptr);
 	}
 }
-void CCitiesView::OnDelete()
+
+void CCitiesView::RequestDelete()
 {
 
 	CCitiesDoc* oDocument = GetDocument();
@@ -125,7 +132,8 @@ void CCitiesView::OnDelete()
 
 
 }
-void CCitiesView::UpdateByID()
+
+void CCitiesView::RequestUpdate()
 {
 	CDialogFindCityById oCitiesFindDlg(this, SqlOperationUpdateById);
 	INT_PTR result = oCitiesFindDlg.DoModal();
@@ -144,7 +152,11 @@ void CCitiesView::UpdateByID()
 			{
 				m_recCityForUpdate = oInsertDlg.m_recCityForUpdate;
 				m_nIdToBeSelected = nId;
-				GetDocument()->UpdateAllViews(nullptr, SqlOperationUpdateById, nullptr);
+
+
+				CCitiesDoc* oCitiesDocument = GetDocument();
+
+				oCitiesDocument->DatabaseUpdate(m_nIdToBeSelected,m_recCityForUpdate);
 			}
 		}
 		else
@@ -159,12 +171,14 @@ void CCitiesView::SetViewStyle()
 	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
 	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 }
+
 void CCitiesView::DeclareCityColums(int nAlignment)
 {
 	m_pListCtrl->InsertColumn(CityColumnId, _T("ID"), nAlignment, 35);
 	m_pListCtrl->InsertColumn(CityColumnName, _T("City"), nAlignment, 110);
 	m_pListCtrl->InsertColumn(CityColumnRegion, _T("Region"), nAlignment, 150);
 }
+
 void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 {
 	for (int i = 0; i < oCitiesArray.GetSize(); ++i) {
@@ -185,6 +199,7 @@ void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 		}
 	}
 }
+
 void CCitiesView::InsertACityRow(CITIES& recCity) {
 	if (recCity.nId>-1) {
 
@@ -224,6 +239,7 @@ void CCitiesView::OnInitialUpdate()
 		InsertCityRows(oCitiesArray);
 	}
 }
+
 void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	CListView::OnUpdate(pSender, lHint, pHint);
@@ -247,7 +263,6 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 			m_pListCtrl->DeleteAllItems();
 			InsertCityRows(oCitiesArray);
 		}
-
 	}
 	else if (lHint == SqlOperationSelectById)
 	{
@@ -263,7 +278,6 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationSelectAll)
 	{
-		m_pListCtrl = &GetListCtrl();
 
 		CCitiesDoc* oDocument = GetDocument();
 		ASSERT_VALID(oDocument);
@@ -285,23 +299,13 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationUpdateById)
 	{
-		m_pListCtrl = &GetListCtrl();
+		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
 
-		CCitiesDoc* oDocument = GetDocument();
-		ASSERT_VALID(oDocument);
+		int nRowIndex = -1;
+		entriesMap.Lookup(pCitiesHint->m_nTargetId, nRowIndex);
 
-		CCitiesArray oCitiesArray;
-		CCitiesData oCitiesData;
-
-		if (oCitiesData.UpdateWhereID(m_nIdToBeSelected, m_recCityForUpdate))
-		{
-
-			int nRowIndex = -1;
-			entriesMap.Lookup(m_nIdToBeSelected, nRowIndex);
-
-			m_pListCtrl->SetItemText(nRowIndex, 1, CString(m_recCityForUpdate.szCityName));
-			m_pListCtrl->SetItemText(nRowIndex, 2, CString(m_recCityForUpdate.szRegion));
-		}
+		m_pListCtrl->SetItemText(nRowIndex, 1, CString(pCitiesHint->m_recCity.szCityName));
+		m_pListCtrl->SetItemText(nRowIndex, 2, CString(pCitiesHint->m_recCity.szRegion));
 
 	}
 }

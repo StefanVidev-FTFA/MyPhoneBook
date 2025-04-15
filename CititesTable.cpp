@@ -5,6 +5,7 @@
 #include "CitiesArray.h"
 #include <afxwin.h>
 #include "DatabaseConnection.h"
+#include "Macros.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesTable
@@ -26,7 +27,6 @@ bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
         strError.Format(_T("Unable to open session.Error: %ld"), hResult);
         AfxMessageBox(strError);
 
-        oDataSource.Close();
         return false;
     }
 
@@ -108,6 +108,7 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
         recCity = m_recCity;
     }
 
+    Close();
 	oSession.Close();
 
     return true;
@@ -132,49 +133,48 @@ bool CCitiesTable::UpdateWhereID(const long lID,const CITIES& recCity)
     strQuery.Format(_T("SELECT * FROM CITIES WITH(UPDLOCK) WHERE ID = '%ld'"), lID);
 
     hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
-
     if (FAILED(hResult))
     {
         CString strError;
         strError.Format(_T("Failed to open session for an update.Error: %ld"), hResult);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
-        oDataSource.Close();
 
         return FALSE;
     }
-    hResult = MoveFirst();
-	//CITIES recInitialCityInfo = m_recCity;
 
+    hResult = MoveFirst();
     if (FAILED(hResult))
     {
-        AfxMessageBox(_T("Error opening record. Error: %d."), hResult);
+        AfxMessageBox(_T("Failed to execute MoveFirst(). Error: %d."), hResult);
 
+        Close();
         oSession.Close();
         return false;
     }
-    strncpy_s(m_recCity.szCityName, recCity.szCityName, MAX_CITY_NAME - 1);
-    strncpy_s(m_recCity.szRegion, recCity.szRegion, MAX_REGION_NAME - 1);
 
-    //if (m_recCity.nUpdateCounter != recInitialCityInfo.nUpdateCounter) 
-    //{
-    //    CString strError;
-    //    AfxMessageBox(_T("Failed to update the database! Update counter miss-match!"));
-    //    oSession.Close();
-    //    return false;
-    //}
+    m_recCity = recCity;
+
+    if (m_recCity.nUpdateCounter != recCity.nUpdateCounter)
+    {
+        CString strError;
+        AfxMessageBox(_T("Failed to update the database! Update counter miss-match!"));
+        oSession.Close();
+        return false;
+    }
 
 	m_recCity.nUpdateCounter++;
-    hResult = SetData(1);
 
-    hResult = Update();
+    hResult = SetData(1);
     if (FAILED(hResult))
     {
         CString strError;
-        strError.Format(_T("Failed to update the database   Error: %ld"), hResult);
+        strError.Format(_T("Failed to update the record in the database -> Error: %ld"), hResult);
         AfxMessageBox(strError);
 
+        Close();
         oSession.Close();
         return false;
     }
@@ -183,8 +183,9 @@ bool CCitiesTable::UpdateWhereID(const long lID,const CITIES& recCity)
     strNotify.Format(_T("Successfully updated city with ID: %ld"), lID);
     AfxMessageBox(strNotify, MB_ICONINFORMATION);
 
-    oSession.Close();
 
+    Close();
+    oSession.Close();
     return true;
 }
 
@@ -203,9 +204,7 @@ bool CCitiesTable::Insert(const CITIES& recCity)
 		return false;
 	}
 
-    hResult = Open(oSession, _T("SELECT * FROM CITIES"), &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
-
-
+    hResult = Open(oSession, _T("SELECT TOP 0 * FROM CITIES"), &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
 	if (FAILED(hResult))
 	{
 		CString strError;
@@ -220,9 +219,7 @@ bool CCitiesTable::Insert(const CITIES& recCity)
 
     m_recCity = recCity;
 
-
     hResult = __super::Insert(1,true);
-
     if (FAILED(hResult))
     {
         CString strError;
@@ -235,7 +232,6 @@ bool CCitiesTable::Insert(const CITIES& recCity)
     }
 
     hResult = Update();
-
     if (FAILED(hResult))
     {
         CString strError;
@@ -270,8 +266,8 @@ bool CCitiesTable::DeleteWhereID(const long lID)
 
     CString strQuery;
     strQuery.Format(_T("SELECT * FROM CITIES WITH(UPDLOCK) WHERE ID ='%ld'"), lID);
-    hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
 
+    hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
     {
         CString strError;
@@ -283,10 +279,10 @@ bool CCitiesTable::DeleteWhereID(const long lID)
 
         return false;
     }
+
     MoveFirst();
 
     hResult = Delete();
-
     if (FAILED(hResult))
     {
         CString strError;
@@ -299,23 +295,9 @@ bool CCitiesTable::DeleteWhereID(const long lID)
         return false;
     }
 
-    hResult = Update();
-
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Failed to execute Update(). Error: %ld ."), hResult);
-        AfxMessageBox(strError);
-
-        Close();
-        oSession.Close();
-
-        return false;
-    }
-
     CString strNotidy;
     strNotidy.Format(_T("Successfully deleted row with id:  %ld"), lID);
-    AfxMessageBox(strNotidy, MB_ICONINFORMATION);
+    MESSAGE_INFO(strNotidy);
 
 
     Close();

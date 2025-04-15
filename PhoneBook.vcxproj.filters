@@ -90,6 +90,9 @@
     <ClInclude Include="CDialogFindCityById.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
+    <ClInclude Include="CitiesHint.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">

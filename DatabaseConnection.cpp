@@ -2,6 +2,7 @@
 #include "DatabaseConnection.h"
 #include <atldbcli.h>
 #include <afxwin.h>
+#include "Macros.h"
 
 #define SERVER_NAME _T("DESKTOP-8T6EC12")
 #define DATABASE_NAME _T("PHONEBOOK")
@@ -9,10 +10,9 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDatabaseConnection
-
-
-// Constructor / Destructor
-// ----------------
+// 
+    // Constructor / Destructor
+    // ----------------
 CDatabaseConnection::CDatabaseConnection()
 	: m_oDBDatabaseConnectionPropertiesSet(DBPROPSET_DBINIT),
     m_oDBDatabaseRowsetPropertiesSet(DBPROPSET_ROWSET)
@@ -22,23 +22,19 @@ CDatabaseConnection::CDatabaseConnection()
     m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_CATALOG, DATABASE_NAME);
 
 
-
-
-
-    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_LCID, 1033L);
-    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_PROMPT, static_cast<short>(4));
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_LCID, 1033L);
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_PROMPT, static_cast<short>(4));
     m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetChange, true);
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetScroll, true);
     m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_UPDATABILITY, DBPROPVAL_UP_CHANGE | DBPROPVAL_UP_INSERT | DBPROPVAL_UP_DELETE);
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetUpdate, true);
+
 }
 CDatabaseConnection::~CDatabaseConnection(){}
 
 
 
-// Methods
-// ----------------
-
-
+    // Methods
+    // ----------------
 CDatabaseConnection& CDatabaseConnection::GetInstance()
 {
     static CDatabaseConnection instance;
@@ -54,21 +50,16 @@ void CDatabaseConnection::Connect()
     {
         CString strError;
         strError.Format(_T("Unable to connect to SQL Server database. Error: %d"), hResult);
-        AfxMessageBox(strError);
+        MESSAGE_ERROR(strError);
     }
     else 
     {
-        AfxMessageBox(_T("Successfully connected to the SQL Server database"), MB_ICONINFORMATION);
+        MESSAGE_INFO(_T("Successfully connected to the SQL Server database"));
     }
 }
 void CDatabaseConnection::Disconnect()
 {
-    // Затваряме сесията и връзката с базата данни. 
     Close();
     m_oDataSource.Close();
-    AfxMessageBox(_T("Database Disconnected!"), MB_ICONINFORMATION);
+    MESSAGE_INFO(_T("Database Disconnected!"));
 }
-
-// Overrides
-// ----------------
-    
