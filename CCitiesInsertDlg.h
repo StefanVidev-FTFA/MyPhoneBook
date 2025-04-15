@@ -2,24 +2,20 @@
 #include "afxdialogex.h"
 #include "Cities.h"
 
-
-// CCitiesInsertDlg dialog
-
-class CCitiesData; // forward declaration
+class CCitiesData;
 
 class CCitiesInsertDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CCitiesInsertDlg)
 	
 public:
-	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
-	CCitiesInsertDlg(CWnd* pParent=nullptr,int nMode = -1);   // standard constructor
+	CCitiesInsertDlg(CWnd* pParent=nullptr,int nMode = -1);
 	virtual ~CCitiesInsertDlg();
 
 	int m_nMode;
-	CITIES m_recCityForUpdate;// <--------   this does this result in error
+	CITIES m_recCityForUpdate;
 
-// Dialog Data
+
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_DIALOG1 };
 #endif

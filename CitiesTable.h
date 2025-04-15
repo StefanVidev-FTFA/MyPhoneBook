@@ -12,15 +12,6 @@
 /// </summary>
 class CCitiesTable : public CCommand<CAccessor<CCitiesAccessor>>
 {
-
-// Constants
-// ----------------
-
-
-// Constructor / Destructor
-// ----------------
-
-
 // Methods
 // ----------------
 public:
@@ -46,9 +37,3 @@ public:
     /// </summary>
     bool DeleteWhereID(const long lID);
 };
-// Overrides
-// ----------------
-
-
-// Members
-// ----------------

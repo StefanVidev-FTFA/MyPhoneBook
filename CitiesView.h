@@ -1,16 +1,14 @@
-
-// CitiesView.h : interface of the CCitiesView class
-//
-
 #pragma once
 #include "CitiesArray.h"
 #include "CitiesDoc.h"
 
 using namespace std;
 
+// CitiesView.h : interface of the CCitiesView class
+//
 class CCitiesView : public CListView
 {
-protected: // create from serialization only
+protected:
 	CCitiesView() noexcept;
 	DECLARE_DYNCREATE(CCitiesView)
 	void SetViewStyle();
@@ -33,15 +31,14 @@ protected: // create from serialization only
 	void UpdateByID();
 
 	CListCtrl* m_pListCtrl;
-// Attributes
 public:
 	CCitiesDoc* GetDocument() const;
 
 	enum CityColumn
 	{
-		COLUMN_ID=0,
-		COLUMN_CITY_NAME,
-		COLUMN_CITY_REGION,
+		CityColumnId=0,
+		CityColumnName,
+		CityColumnRegion,
 	};
 	enum UpdateMode
 	{
@@ -57,9 +54,9 @@ public:
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
-	virtual void OnInitialUpdate(); // called first time after construct
+	virtual void OnInitialUpdate();
 
-// Implementation
+
 public:
 	virtual ~CCitiesView();
 #ifdef _DEBUG
@@ -69,16 +66,9 @@ public:
 
 protected:
 
-// Generated message map functions
 protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 };
-
-#ifndef _DEBUG  // debug version in CitiesView.cpp
-inline CCitiesDoc* CCitiesView::GetDocument() const
-   { return reinterpret_cast<CCitiesDoc*>(m_pDocument); }
-#endif
-

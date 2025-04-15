@@ -1,6 +1,3 @@
-// CCitiesInsertDlg.cpp : implementation file
-//
-
 #include "pch.h"
 #include "PhoneBook.h"
 #include "afxdialogex.h"
@@ -9,7 +6,6 @@
 #include "CitiesView.h"
 
 
-// CCitiesInsertDlg dialog
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
@@ -19,15 +15,7 @@ CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/, int nMode)
 }
 
 
-
-//CCitiesInsertDlg::CCitiesInsertDlg(CCitiesData* oCitiesData)
-//	: m_oCitiesData(oCitiesData)
-//{
-//}
-
-CCitiesInsertDlg::~CCitiesInsertDlg()
-{
-}
+CCitiesInsertDlg::~CCitiesInsertDlg(){}
 
 void CCitiesInsertDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -68,7 +56,7 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	strcpy_s(m_recCityForUpdate.szRegion, MAX_REGION_NAME, cityRegion);
 
 
-	if (!m_nMode == CCitiesView::UPDATE_BY_ID)
+	if (m_nMode == CCitiesView::INSERT_OR_DELETE)
 	{
 		CCitiesData oCitiesData;
 		oCitiesData.Insert(recCityForInsert);

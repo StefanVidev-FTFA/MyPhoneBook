@@ -193,8 +193,10 @@
     <ClInclude Include="CitiesDoc.h" />
     <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
+    <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Macros.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhoneBook.h" />

@@ -1,15 +1,12 @@
-
-// CitiesDoc.h : interface of the CCitiesDoc class
-//
-
-
 #pragma once
 #include "CitiesData.h"
 
 
+// CitiesDoc.h : interface of the CCitiesDoc class
+//
 class CCitiesDoc : public CDocument
 {
-protected: // create from serialization only
+protected:
 	CCitiesDoc() noexcept;
 	DECLARE_DYNCREATE(CCitiesDoc)
 
@@ -41,7 +38,6 @@ public:
 
 protected:
 
-// Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
 

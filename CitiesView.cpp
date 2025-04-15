@@ -1,23 +1,18 @@
-
-// CitiesView.cpp : implementation of the CCitiesView class
-//
-
+#pragma once
 #include "pch.h"
 #include "framework.h"
-// SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
-// and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
 #include "PhoneBook.h"
 #endif
-
 #include "CitiesDoc.h"
 #include "CitiesView.h"
 #include "CCitiesInsertDlg.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 #include "CDialogFindCityById.h"
+#include "Macros.h"
+#include "CommonMethods.h"
 
 
 // CCitiesView
@@ -83,7 +78,7 @@ void CCitiesView::OnInsert()
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
-	CCitiesInsertDlg oInsertDlg(this);
+	CCitiesInsertDlg oInsertDlg(this,INSERT_OR_DELETE);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -157,9 +152,8 @@ void CCitiesView::UpdateByID()
 		}
 		else
 		{
-			AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
+			MESSAGE_WARNING(_T("Sorry! Did not find a city with this ID"));
 		}
-
 
 	}
 }
@@ -171,9 +165,9 @@ void CCitiesView::SetViewStyle()
 }
 void CCitiesView::DeclareCityColums(int nAlignment)
 {
-	m_pListCtrl->InsertColumn(COLUMN_ID, _T("ID"), nAlignment, 35);
-	m_pListCtrl->InsertColumn(COLUMN_CITY_NAME, _T("City"), nAlignment, 110);
-	m_pListCtrl->InsertColumn(COLUMN_CITY_REGION, _T("Region"), nAlignment, 150);
+	m_pListCtrl->InsertColumn(CityColumnId, _T("ID"), nAlignment, 35);
+	m_pListCtrl->InsertColumn(CityColumnName, _T("City"), nAlignment, 110);
+	m_pListCtrl->InsertColumn(CityColumnRegion, _T("Region"), nAlignment, 150);
 }
 void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 {
@@ -248,7 +242,6 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 	if (lHint == INSERT_OR_DELETE)
 	{
-		AfxMessageBox(_T("passed thoriugh here"));
 		CCitiesData data;
 		CCitiesArray oCitiesArray;
 		data.SelectAll(oCitiesArray);
