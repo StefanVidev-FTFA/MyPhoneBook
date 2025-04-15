@@ -2,31 +2,38 @@
 #include "afxdialogex.h"
 #include "Cities.h"
 
-class CCitiesData;
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesInsertDlg
 
+/// <summary> Клас служещ за диалога между потребителя ори въвеждане или обновяване на град /// </summary>
 class CCitiesInsertDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CCitiesInsertDlg)
 	
+	// Constructor / Destructor
+	// ----------------
 public:
 	CCitiesInsertDlg(CWnd* pParent=nullptr,int nMode = -1);
 	virtual ~CCitiesInsertDlg();
 
-	int m_nMode;
-	CITIES m_recCityForUpdate;
-
-
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_DIALOG1 };
-#endif
-
+	// Methods
+	// ----------------
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
 	DECLARE_MESSAGE_MAP()
+
+	// Overrides
+	// ----------------
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);
 public:
 	afx_msg void OnClickedButtonInsert();
 	afx_msg void OnClickedButtonCancel();
+
+	// Members
+	// ----------------
+public:
 	CEdit m_EditBoxCity;
 	CEdit m_EditBoxRegion;
+	int m_nMode;
+	CITIES m_recCityForUpdate;
 };

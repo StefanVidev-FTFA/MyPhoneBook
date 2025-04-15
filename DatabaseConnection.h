@@ -18,10 +18,6 @@
 /// </summary>
 class CDatabaseConnection : private CCommand<CAccessor<CCitiesAccessor>>
 {
-// Constants
-// ----------------
-
-
 // Constructor / Destructor
 // ----------------
 private:
@@ -46,11 +42,6 @@ public:
     /// <summary>Returns the data source</summary>
 	CDataSource& GetDataSource() { return m_oDataSource; }
 
-
-// Overrides
-// ----------------
-
-
 // Members
 // ----------------
 private:
@@ -58,8 +49,6 @@ private:
     CDBPropSet m_oDBDatabaseConnectionPropertiesSet;
     CDBPropSet m_oDBDatabaseRowsetPropertiesSet;
     CDataSource m_oDataSource;
-
-
 
     CDatabaseConnection(const CDatabaseConnection&) = delete;
     CDatabaseConnection& operator=(const CDatabaseConnection&) = delete;

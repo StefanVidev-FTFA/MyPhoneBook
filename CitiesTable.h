@@ -3,13 +3,11 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include "CitiesArray.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesTable
 
-
-/// <summary>
-/// Клас за работа с таблицата CITIES.
-/// </summary>
+/// <summary> Клас за работа с таблицата CITIES. </summary>
 class CCitiesTable : public CCommand<CAccessor<CCitiesAccessor>>
 {
 // Methods

@@ -3,31 +3,40 @@
 #include "CitiesView.h"
 
 
-// CDialogFindCityById dialog
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesInsertDlg
 
+
+/// <summary> Клас служещ за диалога между потребителя при търсене на град /// </summary>
 class CDialogFindCityById : public CDialogEx
 {
 	DECLARE_DYNAMIC(CDialogFindCityById)
 
+	// Constructor / Destructor
+	// ----------------
 public:
 	CDialogFindCityById(CWnd* pParent = nullptr,int mode = 0);   
 	virtual ~CDialogFindCityById();
-	int m_nIdToBeSelected = -1;
-	int m_nMode = -1;
 
-// Dialog Data
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_DIALOG2 };
-#endif
-
+	// Methods
+	// ----------------
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	virtual BOOL OnInitDialog();
-
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnClickedFindByIdCancel();
 	afx_msg void OnBnClickedFindByIdFind();
+
+	// Overrides
+	// ----------------
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);
+	virtual BOOL OnInitDialog();
+
+	// Members
+	// ----------------
+public:
+	int m_nIdToBeSelected = -1;
+	int m_nMode = -1;
 	CEdit m_FindByIdEditField;
 	CStatic m_FindCityHeader;
 };

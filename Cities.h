@@ -5,9 +5,7 @@
 #define MAX_CITY_NAME 41
 #define MAX_REGION_NAME 41
 
-/// <summary>
-/// Структура за съхранение на информация за градовете
-/// </summary>
+/// <summary> Структура за съхранение на информация за градовете /// </summary>
 struct CITIES {
     /// <summary> Уникален идентификатор за ред/// </summary>
     int nId;

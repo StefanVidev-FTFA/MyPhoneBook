@@ -16,6 +16,21 @@
     <Filter Include="Header Files\Utlities">
       <UniqueIdentifier>{efbc7b1b-adc9-49fd-b1d1-4f93032cd320}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Cities">
+      <UniqueIdentifier>{6700e2ed-ff36-4160-8165-be03562f6396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ForDatabase">
+      <UniqueIdentifier>{6003c41e-37e2-4b35-86c2-5c735f314198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialogs">
+      <UniqueIdentifier>{87a5b4f9-4eda-42d3-9631-c48517a8e2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cities">
+      <UniqueIdentifier>{9169c0aa-1258-411c-aec5-041bd471e250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogs">
+      <UniqueIdentifier>{6183b9a0-0f23-464b-a70b-0a6667fef62f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhoneBook.h">
@@ -33,40 +48,10 @@
     <ClInclude Include="ChildFrm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CitiesDoc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesAccessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DatabaseConnection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCitiesInsertDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CDialogFindCityById.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Macros.h">
@@ -74,6 +59,36 @@
     </ClInclude>
     <ClInclude Include="CommonMethods.h">
       <Filter>Header Files\Utlities</Filter>
+    </ClInclude>
+    <ClInclude Include="Cities.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesAccessor.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesArray.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesDoc.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesData.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesTable.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CitiesView.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseConnection.h">
+      <Filter>Header Files\ForDatabase</Filter>
+    </ClInclude>
+    <ClInclude Include="CCitiesInsertDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="CDialogFindCityById.h">
+      <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,32 +101,32 @@
     <ClCompile Include="ChildFrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CitiesDoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CitiesView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CitiesArray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CititesTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DatabaseConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CitiesData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesView.cpp">
+      <Filter>Source Files\Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="CititesTable.cpp">
+      <Filter>Source Files\Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesArray.cpp">
+      <Filter>Source Files\Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesDoc.cpp">
+      <Filter>Source Files\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CCitiesInsertDlg.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="CDialogFindCityById.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

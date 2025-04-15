@@ -1,11 +1,15 @@
 #ifndef CITIESDATA_H
 #define CITIESDATA_H
 
-// Your existing CCitiesData class definition goes here:
 #include "pch.h"
 #include "CitiesArray.h"
 #include "CitiesTable.h"
 
+
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesData
+
+/// <summary> Клас служещ за изпълнението на бизнес логиката на указателя /// </summary>
 class CCitiesData
 {
 private:
@@ -17,7 +21,6 @@ private:
     // Methods
     // ----------------
 public:
-
     /// <summary>Инициализира данни за класа </summary>
     bool Initialize();
     /// <summary>
@@ -41,11 +44,4 @@ public:
     /// </summary>
     bool DeleteWhereID(const long lID);
 };
-// Overrides
-// ----------------
-
-
-// Members
-// ----------------
-
 #endif // !CITIESDATA_H

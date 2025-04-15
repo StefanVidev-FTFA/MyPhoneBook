@@ -1,19 +1,17 @@
 #pragma once
 #include "pch.h"
 #include "framework.h"
-#ifndef SHARED_HANDLERS
 #include "PhoneBook.h"
-#endif
 #include "CitiesDoc.h"
 #include "CitiesView.h"
 #include "CCitiesInsertDlg.h"
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
 #include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
 
 // CCitiesView
 
@@ -48,7 +46,7 @@ void CCitiesView::SelectById()
 
 		if (m_nIdToBeSelected > -1) 
 		{
-			GetDocument()->UpdateAllViews(nullptr, SELECT_BY_ID, nullptr);
+			GetDocument()->UpdateAllViews(nullptr, SqlOperationSelectById, nullptr);
 		}
 		else
 		{
@@ -69,7 +67,7 @@ void CCitiesView::SelectAll() {
 
 	if (nResult == IDYES)
 	{
-		GetDocument()->UpdateAllViews(nullptr, SELECT_ALL, nullptr);
+		GetDocument()->UpdateAllViews(nullptr, SqlOperationSelectAll, nullptr);
 	}
 
 }
@@ -78,7 +76,7 @@ void CCitiesView::OnInsert()
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
-	CCitiesInsertDlg oInsertDlg(this,INSERT_OR_DELETE);
+	CCitiesInsertDlg oInsertDlg(this,SqlOperationInsertOrDelete);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -129,8 +127,7 @@ void CCitiesView::OnDelete()
 }
 void CCitiesView::UpdateByID()
 {
-	CDialogFindCityById oCitiesFindDlg(this,4);
-
+	CDialogFindCityById oCitiesFindDlg(this, SqlOperationUpdateById);
 	INT_PTR result = oCitiesFindDlg.DoModal();
 
 	if (result == IDOK)
@@ -139,22 +136,21 @@ void CCitiesView::UpdateByID()
 
 		if (nId > -1)
 		{
-			CCitiesInsertDlg oInsertDlg(this,UPDATE_BY_ID);
+			CCitiesInsertDlg oInsertDlg(this, SqlOperationUpdateById);
 
 			INT_PTR result = oInsertDlg.DoModal();
 
-			if (result == IDOK) {
-
+			if (result == IDOK)
+			{
 				m_recCityForUpdate = oInsertDlg.m_recCityForUpdate;
 				m_nIdToBeSelected = nId;
-				GetDocument()->UpdateAllViews(nullptr, UPDATE_BY_ID, nullptr);
+				GetDocument()->UpdateAllViews(nullptr, SqlOperationUpdateById, nullptr);
 			}
 		}
 		else
 		{
 			MESSAGE_WARNING(_T("Sorry! Did not find a city with this ID"));
 		}
-
 	}
 }
 
@@ -204,9 +200,6 @@ void CCitiesView::InsertACityRow(CITIES& recCity) {
 
 BOOL CCitiesView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: Modify the Window class or styles here by modifying
-	//  the CREATESTRUCT cs
-
 	return CListView::PreCreateWindow(cs);
 }
 
@@ -240,7 +233,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == INSERT_OR_DELETE)
+	if (lHint == SqlOperationInsertOrDelete)
 	{
 		CCitiesData data;
 		CCitiesArray oCitiesArray;
@@ -256,7 +249,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		}
 
 	}
-	else if (lHint == SELECT_BY_ID)
+	else if (lHint == SqlOperationSelectById)
 	{
 		CCitiesData data;
 		CITIES recFoundCity;
@@ -268,7 +261,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 			InsertACityRow(recFoundCity);
 		}
 	}
-	else if (lHint == SELECT_ALL)
+	else if (lHint == SqlOperationSelectAll)
 	{
 		m_pListCtrl = &GetListCtrl();
 
@@ -290,7 +283,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 			InsertCityRows(oCitiesArray);
 		}
 	}
-	else if (lHint == UPDATE_BY_ID)
+	else if (lHint == SqlOperationUpdateById)
 	{
 		m_pListCtrl = &GetListCtrl();
 

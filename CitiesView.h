@@ -40,13 +40,13 @@ public:
 		CityColumnName,
 		CityColumnRegion,
 	};
-	enum UpdateMode
+	enum SqlOperation
 	{
-		LOAD_INIT = 0,
-		INSERT_OR_DELETE,
-		SELECT_BY_ID,
-		SELECT_ALL,
-		UPDATE_BY_ID
+		SqlOperationLoadInit = 0,
+		SqlOperationInsertOrDelete,
+		SqlOperationSelectById,
+		SqlOperationSelectAll,
+		SqlOperationUpdateById
 	};
 
 

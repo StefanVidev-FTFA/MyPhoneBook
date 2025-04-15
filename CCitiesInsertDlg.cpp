@@ -56,7 +56,7 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	strcpy_s(m_recCityForUpdate.szRegion, MAX_REGION_NAME, cityRegion);
 
 
-	if (m_nMode == CCitiesView::INSERT_OR_DELETE)
+	if (m_nMode == CCitiesView::SqlOperationInsertOrDelete)
 	{
 		CCitiesData oCitiesData;
 		oCitiesData.Insert(recCityForInsert);

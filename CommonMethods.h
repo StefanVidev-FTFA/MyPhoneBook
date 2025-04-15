@@ -1,6 +1,6 @@
 #pragma once
 
-inline int Square(int x)
+inline bool IsEven(int x)
 {
-    return x * x;
+    return x%2==0;
 }

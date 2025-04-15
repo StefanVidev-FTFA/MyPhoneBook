@@ -7,16 +7,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesArray
 
-
-/// <summary>
-/// Клас който дефинира масив от записи на таблицата CITIES.
-/// </summary>
+/// <summary> Клас който дефинира масив от записи на таблицата CITIES. /// </summary>
 class CCitiesArray : public CPtrArray
 {
-// Constants
-// ----------------
-
-
 // Constructor / Destructor
 // ----------------     
 public:
@@ -25,23 +18,10 @@ public:
     {
         if(!IsEmpty())
         {
-            //AfxMessageBox(_T("CCitiesArray destructor has been called to clear out the heap memory"));
-
             for (int i = 0; i < GetSize(); i++)
             {
-                delete GetAt(i);
+                delete static_cast<CITIES*>(GetAt(i));
             }
         }
     }
-
-// Methods
-// ----------------
-
-
-// Overrides
-// ----------------
-
-
-// Members
-// ----------------
 };
