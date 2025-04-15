@@ -29,22 +29,15 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // status line indicator
+	ID_SEPARATOR,
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
 };
 
-// CMainFrame construction/destruction
+CMainFrame::CMainFrame() noexcept{}
 
-CMainFrame::CMainFrame() noexcept
-{
-	// TODO: add member initialization code here
-}
-
-CMainFrame::~CMainFrame()
-{
-}
+CMainFrame::~CMainFrame(){}
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -133,8 +126,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		}
 	}
 
-	// enable menu personalization (most-recently used commands)
-	// TODO: define your own basic commands, ensuring that each pulldown menu has at least one basic command.
 	CList<UINT, UINT> lstBasicCommands;
 
 	lstBasicCommands.AddTail(ID_FILE_NEW);
@@ -149,9 +140,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	lstBasicCommands.AddTail(ID_VIEW_TOOLBAR);
 
 	CMFCToolBar::SetBasicCommands(lstBasicCommands);
-
-	// Switch the order of document name and application name on the window title bar. This
-	// improves the usability of the taskbar because the document name is visible with the thumbnail.
 	ModifyStyle(0, FWS_PREFIXTITLE);
 
 	return 0;
@@ -167,8 +155,6 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 
-// CMainFrame diagnostics
-
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const
 {
@@ -180,9 +166,6 @@ void CMainFrame::Dump(CDumpContext& dc) const
 	CMDIFrameWndEx::Dump(dc);
 }
 #endif //_DEBUG
-
-
-// CMainFrame message handlers
 
 void CMainFrame::OnWindowManager()
 {
@@ -219,15 +202,10 @@ LRESULT CMainFrame::OnToolbarCreateNew(WPARAM wp,LPARAM lp)
 
 BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd, CCreateContext* pContext)
 {
-	// base class does the real work
-
 	if (!CMDIFrameWndEx::LoadFrame(nIDResource, dwDefaultStyle, pParentWnd, pContext))
 	{
 		return FALSE;
 	}
-
-
-	// enable customization button for all user toolbars
 	BOOL bNameValid;
 	CString strCustomize;
 	bNameValid = strCustomize.LoadString(IDS_TOOLBAR_CUSTOMIZE);

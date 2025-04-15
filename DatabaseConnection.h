@@ -12,34 +12,30 @@
 // CDatabaseConnection
 
 /// <summary>
-/// Singleton class dedicated to establishing the connection with the database.
-/// As well as breaking that connection and also holds differnt CDB property sets,
-/// for executing different commands on the database.
+///Сингълтън клас, предназначен за установяване на връзка с базата данни.
+///Също така отговаря за прекъсването на тази връзка и съдържа различни CDB property sets,
+///използвани за изпълнение на различни команди върху базата данни.
 /// </summary>
 class CDatabaseConnection : private CCommand<CAccessor<CCitiesAccessor>>
 {
 // Constructor / Destructor
 // ----------------
 private:
-
-    /// <summary>Constructor for the DatabaseConnection in which the 
-    /// different CDB property sets are being defined
-    /// </summary>
     CDatabaseConnection();
     ~CDatabaseConnection();
 
 // Methods
 // ----------------
 public:
-    /// <summary> Returns the instance of the singleton class </summary>
+    /// <summary> Връща instance на класът </summary>
     static CDatabaseConnection& GetInstance();
-    /// <summary>Use to connect to the database (should be called once at InitInstance()) </summary>
+    /// <summary> Установява връзка със базата данни </summary>
     void Connect();
-    /// <summary>Disconnects from the database, recommended to be called at ExitInstance() </summary>
+    /// <summary> Затваря връзката със базата данни </summary>
     void Disconnect();
-    /// <summary>Returns a property set which holds the properties for UPDATE, INSERT and DELETE </summary>
+    /// <summary> Връща настройки за UPDATE, INSERT and DELETE функциите </summary>
 	CDBPropSet GetRowsetPropertiesSet() { return m_oDBDatabaseRowsetPropertiesSet; }
-    /// <summary>Returns the data source</summary>
+    /// <summary>Връща data source обект</summary>
 	CDataSource& GetDataSource() { return m_oDataSource; }
 
 // Members

@@ -78,6 +78,5 @@ protected:
 	CListCtrl* m_pListCtrl;
 	int m_SelectedIndex = -1;
 	int m_nIdToBeSelected = -1;
-	CITIES m_recCityForUpdate;
 	CMap<int, int, int, int> entriesMap;
 };

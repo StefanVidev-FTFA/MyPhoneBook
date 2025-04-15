@@ -1,7 +1,3 @@
-
-// PhoneBook.cpp : Defines the class behaviors for the application.
-//
-
 #include "pch.h"
 #include "framework.h"
 #include "afxwinappex.h"
@@ -30,9 +26,6 @@ CPhoneBookApp::CPhoneBookApp() noexcept
 {
 	m_bHiColorIcons = TRUE;
 	SetAppID(_T("PhoneBook.AppID.NoVersion"));
-
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 }
 
 CPhoneBookApp theApp;
@@ -119,16 +112,13 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
-// Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnEditSelectbyid();
 };
 
-CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
-{
-}
+CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX){}
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -138,15 +128,11 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
-// App command to run the dialog
 void CPhoneBookApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
-
-// CPhoneBookApp customization load/save methods
-
 void CPhoneBookApp::PreLoadState()
 {
 	BOOL bNameValid;
@@ -156,12 +142,6 @@ void CPhoneBookApp::PreLoadState()
 	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
 }
 
-void CPhoneBookApp::LoadCustomState()
-{
-}
+void CPhoneBookApp::LoadCustomState(){}
 
-void CPhoneBookApp::SaveCustomState()
-{
-}
-
-// CPhoneBookApp message handlers
+void CPhoneBookApp::SaveCustomState(){}

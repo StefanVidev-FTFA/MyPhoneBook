@@ -72,7 +72,9 @@ void CCitiesView::RequestSelectAll() {
 
 	if (nResult == IDYES)
 	{
-		GetDocument()->UpdateAllViews(nullptr, SqlOperationSelectAll, nullptr);
+		CCitiesDoc* oCitiesDocument = GetDocument();
+
+		oCitiesDocument->DatabaseSelectAll();
 	}
 
 }
@@ -87,6 +89,7 @@ void CCitiesView::RequestInsert()
 	INT_PTR result = oInsertDlg.DoModal();
 
 	if (result == IDOK) {
+
 		GetDocument()->UpdateAllViews(nullptr, SqlOperationInsertOrDelete, nullptr);
 	}
 }
@@ -150,13 +153,10 @@ void CCitiesView::RequestUpdate()
 
 			if (result == IDOK)
 			{
-				m_recCityForUpdate = oInsertDlg.m_recCityForUpdate;
-				m_nIdToBeSelected = nId;
-
-
+				CITIES recCityforUpdate = oInsertDlg.m_recCityForUpdate;
 				CCitiesDoc* oCitiesDocument = GetDocument();
 
-				oCitiesDocument->DatabaseUpdate(m_nIdToBeSelected,m_recCityForUpdate);
+				oCitiesDocument->DatabaseUpdate(nId, recCityforUpdate);
 			}
 		}
 		else
@@ -256,7 +256,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		data.SelectAll(oCitiesArray);
 
 		if (oCitiesArray.IsEmpty()) {
-			AfxMessageBox(_T("There was no cities to load"), MB_ICONERROR);
+			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
 		}
 		else
 		{
@@ -278,24 +278,10 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationSelectAll)
 	{
+		CCitiesArray* pCitiesHint = dynamic_cast<CCitiesArray*>(pHint);
 
-		CCitiesDoc* oDocument = GetDocument();
-		ASSERT_VALID(oDocument);
-
-		CCitiesArray oCitiesArray;
-		CCitiesData oCitiesData;
-
-		oCitiesData.SelectAll(oCitiesArray);
-
-
-		if (oCitiesArray.IsEmpty()) {
-			AfxMessageBox(_T("There was no cities to load for Select all"), MB_ICONERROR);
-		}
-		else
-		{
-			m_pListCtrl->DeleteAllItems();
-			InsertCityRows(oCitiesArray);
-		}
+		m_pListCtrl->DeleteAllItems();
+		InsertCityRows(*pCitiesHint);
 	}
 	else if (lHint == SqlOperationUpdateById)
 	{

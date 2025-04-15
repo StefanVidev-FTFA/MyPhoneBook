@@ -19,16 +19,10 @@ IMPLEMENT_DYNCREATE(CChildFrame, CMDIChildWndEx)
 BEGIN_MESSAGE_MAP(CChildFrame, CMDIChildWndEx)
 END_MESSAGE_MAP()
 
-// CChildFrame construction/destruction
 
-CChildFrame::CChildFrame() noexcept
-{
-	// TODO: add member initialization code here
-}
+CChildFrame::CChildFrame() noexcept{}
 
-CChildFrame::~CChildFrame()
-{
-}
+CChildFrame::~CChildFrame(){}
 
 
 BOOL CChildFrame::PreCreateWindow(CREATESTRUCT& cs)
@@ -39,8 +33,6 @@ BOOL CChildFrame::PreCreateWindow(CREATESTRUCT& cs)
 
 	return TRUE;
 }
-
-// CChildFrame diagnostics
 
 #ifdef _DEBUG
 void CChildFrame::AssertValid() const
@@ -53,5 +45,3 @@ void CChildFrame::Dump(CDumpContext& dc) const
 	CMDIChildWndEx::Dump(dc);
 }
 #endif //_DEBUG
-
-// CChildFrame message handlers

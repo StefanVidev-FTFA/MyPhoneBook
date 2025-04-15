@@ -30,7 +30,7 @@ BOOL CDialogFindCityById::OnInitDialog()
 	}
 	else if (m_nMode == 4) 
 	{
-		m_FindCityHeader.SetWindowText(_T("Please input ID of city you widh to Update."));
+		m_FindCityHeader.SetWindowText(_T("Please input ID of city you wish to Update."));
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 }

@@ -10,7 +10,8 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDatabaseConnection
-// 
+
+
     // Constructor / Destructor
     // ----------------
 CDatabaseConnection::CDatabaseConnection()
@@ -42,9 +43,6 @@ CDatabaseConnection& CDatabaseConnection::GetInstance()
 }
 void CDatabaseConnection::Connect()
 {
-
-
-    // Свързваме се към базата данни
     HRESULT hResult = m_oDataSource.Open(_T("SQLOLEDB.1"), &m_oDBDatabaseConnectionPropertiesSet);
     if (FAILED(hResult))
     {

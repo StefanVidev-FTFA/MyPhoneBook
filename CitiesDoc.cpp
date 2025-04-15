@@ -21,7 +21,11 @@ CCitiesDoc::CCitiesDoc() noexcept
 {
 	m_oCitiesData = new CCitiesData();
 }
-CCitiesDoc::~CCitiesDoc(){}
+CCitiesDoc::~CCitiesDoc()
+{
+	delete m_oCitiesData;
+	m_oCitiesData = nullptr;
+}
 
 
 
@@ -45,7 +49,7 @@ BOOL CCitiesDoc::OnNewDocument()
 bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 {
 	CCitiesData oCitiesData;
-	oCitiesData.UpdateWhereID(nId, recCity);
+	m_oCitiesData->UpdateWhereID(nId, recCity);
 
 	CCitiesHint* pHint = new CCitiesHint(nId, recCity);
 	UpdateAllViews(nullptr, CCitiesView::SqlOperationUpdateById, pHint);
@@ -53,9 +57,12 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 	return true;
 }
 
-bool CCitiesDoc::DatabaseInsert() 
+bool CCitiesDoc::DatabaseSelectAll()
 {
+	CCitiesArray *pCitiesArray = new CCitiesArray();
+	m_oCitiesData->SelectAll(*pCitiesArray);
 
+	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);
 	return true;
 }
 
