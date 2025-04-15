@@ -6,14 +6,15 @@
 #include "afxdialogex.h"
 #include "CCitiesInsertDlg.h"
 #include "CitiesData.h"
+#include "CitiesView.h"
 
 
 // CCitiesInsertDlg dialog
 
 IMPLEMENT_DYNAMIC(CCitiesInsertDlg, CDialogEx)
 
-CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/)
-	: CDialogEx(IDD_DIALOG1, pParent)
+CCitiesInsertDlg::CCitiesInsertDlg(CWnd* pParent /*= nullptr*/, int nMode)
+	: CDialogEx(IDD_DIALOG1, pParent), m_nMode(nMode)
 {
 }
 
@@ -67,8 +68,11 @@ void CCitiesInsertDlg::OnClickedButtonInsert()
 	strcpy_s(m_recCityForUpdate.szRegion, MAX_REGION_NAME, cityRegion);
 
 
-	CCitiesData oCitiesData;
-	oCitiesData.Insert(recCityForInsert);
+	if (!m_nMode == CCitiesView::UPDATE_BY_ID)
+	{
+		CCitiesData oCitiesData;
+		oCitiesData.Insert(recCityForInsert);
+	}
 
 	EndDialog(IDOK);
 }

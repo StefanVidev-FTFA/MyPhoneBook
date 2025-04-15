@@ -22,7 +22,7 @@ bool CCitiesData::SelectWhereID(const long lID, CITIES& recCity)
 }
 
 
-bool CCitiesData::UpdateWhereID(const long lID, CITIES& recCity)
+bool CCitiesData::UpdateWhereID(const long lID,const CITIES& recCity)
 {
 	return m_oCitiesTable.UpdateWhereID(lID, recCity);
 }

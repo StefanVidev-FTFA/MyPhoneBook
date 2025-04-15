@@ -113,7 +113,7 @@ bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
     return true;
 }
 
-bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
+bool CCitiesTable::UpdateWhereID(const long lID,const CITIES& recCity)
 {
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
     CSession oSession;
@@ -154,7 +154,8 @@ bool CCitiesTable::UpdateWhereID(const long lID,CITIES& recCity)
         oSession.Close();
         return false;
     }
-    strncpy_s(m_recCity.szCityName, "Svilengrad", MAX_CITY_NAME - 1);
+    strncpy_s(m_recCity.szCityName, recCity.szCityName, MAX_CITY_NAME - 1);
+    strncpy_s(m_recCity.szRegion, recCity.szRegion, MAX_REGION_NAME - 1);
 
     //if (m_recCity.nUpdateCounter != recInitialCityInfo.nUpdateCounter) 
     //{

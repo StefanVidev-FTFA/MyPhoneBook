@@ -13,9 +13,10 @@ class CCitiesInsertDlg : public CDialogEx
 	
 public:
 	//CCitiesInsertDlg(CWnd* pParent);   // standard constructor
-	CCitiesInsertDlg(CWnd* pParent=nullptr);   // standard constructor
+	CCitiesInsertDlg(CWnd* pParent=nullptr,int nMode = -1);   // standard constructor
 	virtual ~CCitiesInsertDlg();
 
+	int m_nMode;
 	CITIES m_recCityForUpdate;// <--------   this does this result in error
 
 // Dialog Data

@@ -36,7 +36,7 @@ public:
     /// <summary>
     /// Модифицира град който отговарч на конкретен идентификационен номер.
     /// </summary>
-    bool UpdateWhereID(const long lID,CITIES& recCity);
+    bool UpdateWhereID(const long lID,const CITIES& recCity);
     /// <summary>
 	/// Въвежда нов град.
     /// </summary>

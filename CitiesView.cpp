@@ -144,7 +144,7 @@ void CCitiesView::UpdateByID()
 
 		if (nId > -1)
 		{
-			CCitiesInsertDlg oInsertDlg(this);
+			CCitiesInsertDlg oInsertDlg(this,UPDATE_BY_ID);
 
 			INT_PTR result = oInsertDlg.DoModal();
 
@@ -190,6 +190,8 @@ void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 			int row = m_pListCtrl->InsertItem(i, sId);
 			m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
 			m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
+
+			entriesMap.SetAt(pRecCity->nId, i);
 		}
 	}
 }
@@ -246,6 +248,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 	if (lHint == INSERT_OR_DELETE)
 	{
+		AfxMessageBox(_T("passed thoriugh here"));
 		CCitiesData data;
 		CCitiesArray oCitiesArray;
 		data.SelectAll(oCitiesArray);
@@ -271,7 +274,6 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 			m_pListCtrl->DeleteAllItems();
 			InsertACityRow(recFoundCity);
 		}
-
 	}
 	else if (lHint == SELECT_ALL)
 	{
@@ -305,17 +307,16 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CCitiesArray oCitiesArray;
 		CCitiesData oCitiesData;
 
-		oCitiesData.UpdateWhereID(m_nIdToBeSelected,m_recCityForUpdate);
+		if (oCitiesData.UpdateWhereID(m_nIdToBeSelected, m_recCityForUpdate))
+		{
 
+			int nRowIndex = -1;
+			entriesMap.Lookup(m_nIdToBeSelected, nRowIndex);
 
-		//if (oCitiesArray.IsEmpty()) {
-		//	AfxMessageBox(_T("There was no cities to load for Select all"), MB_ICONERROR);
-		//}
-		//else
-		//{
-		//	m_pListCtrl->DeleteAllItems();
-		//	InsertCityRows(oCitiesArray);
-		//}
+			m_pListCtrl->SetItemText(nRowIndex, 1, CString(m_recCityForUpdate.szCityName));
+			m_pListCtrl->SetItemText(nRowIndex, 2, CString(m_recCityForUpdate.szRegion));
+		}
+
 	}
 }
 
@@ -352,8 +353,6 @@ void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 }
 
 
-// CCitiesView diagnostics
-
 #ifdef _DEBUG
 void CCitiesView::AssertValid() const
 {
@@ -365,12 +364,9 @@ void CCitiesView::Dump(CDumpContext& dc) const
 	CListView::Dump(dc);
 }
 
-CCitiesDoc* CCitiesView::GetDocument() const // non-debug version is inline
+CCitiesDoc* CCitiesView::GetDocument() const 
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCitiesDoc)));
 	return (CCitiesDoc*)m_pDocument;
 }
 #endif //_DEBUG
-
-
-// CCitiesView message handlers

@@ -6,6 +6,7 @@
 #include "CitiesArray.h"
 #include "CitiesDoc.h"
 
+using namespace std;
 
 class CCitiesView : public CListView
 {
@@ -22,6 +23,7 @@ protected: // create from serialization only
 	int m_SelectedIndex=-1;
 	int m_nIdToBeSelected = -1;
 	CITIES m_recCityForUpdate;
+	CMap<int,int,int,int> entriesMap;
 
 
 	void OnInsert();
