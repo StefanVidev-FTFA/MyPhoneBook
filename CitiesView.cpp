@@ -50,7 +50,7 @@ void CCitiesView::RequestSelectById()
 
 		if (m_nIdToBeSelected > -1) 
 		{
-			GetDocument()->UpdateAllViews(nullptr, SqlOperationSelectById, nullptr);
+			GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
 		}
 		else
 		{
@@ -266,14 +266,12 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationSelectById)
 	{
-		CCitiesData data;
-		CITIES recFoundCity;
+		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
 
-		data.SelectWhereID(m_nIdToBeSelected, recFoundCity);
-		if (recFoundCity.nId > -1)
+		if (pCitiesHint->m_nTargetId > -1)
 		{
 			m_pListCtrl->DeleteAllItems();
-			InsertACityRow(recFoundCity);
+			InsertACityRow(pCitiesHint->m_recCity);
 		}
 	}
 	else if (lHint == SqlOperationSelectAll)

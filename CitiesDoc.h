@@ -30,7 +30,7 @@ public:
 	///<summary >Трие град от базата данни ///</summary>
 	bool DatabaseDelete();
 	///<summary >Избира град от базата данни ///</summary>
-	bool DatabaseSelectById();
+	bool DatabaseSelectById(const long nId);
 	///<summary >Избира всички градове от базата данни ///</summary>
 	bool DatabaseSelectAll();
 	// Overrides

@@ -66,6 +66,19 @@ bool CCitiesDoc::DatabaseSelectAll()
 	return true;
 }
 
+bool CCitiesDoc::DatabaseSelectById(const long nId)
+{
+
+	CITIES recFoundCity;
+
+	m_oCitiesData->SelectWhereID(nId, recFoundCity);
+
+	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
+
+	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
+	return true;
+}
+
 void CCitiesDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
