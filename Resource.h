@@ -24,9 +24,16 @@
 #define IDD_DIALOG2                     313
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
+#define EDB_DLG1_CITY_REGION            1001
 #define IDC_BUTTON1                     1002
+#define BTN_INSERT_OR_UPDATE            1002
 #define IDC_BUTTON2                     1003
 #define STT_FIND_DIALOG_HEADER          1003
+#define BTN_DLG1_CANCEL                 1003
+#define STT_INSERT_OR_UPDATE_HEADER     1004
+#define EDB_DLG1_CITY_NAME              1005
+#define STT_CITY_NAME                   1006
+#define STT_CITY_REGION                 1007
 #define ID_EDIT_DELETEROW               32771
 #define ID_EDIT_F                       32772
 #define ID_EDIT_INSERTROW               32773
@@ -41,7 +48,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        315
 #define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1004
+#define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

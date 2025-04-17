@@ -228,18 +228,6 @@ bool CCitiesTable::Insert(const CITIES& recCity)
         return false;
     }
 
-    hResult = Update();
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Failed to Update() the data. Error: %ld"), hResult);
-        AfxMessageBox(strError);
-
-        Close();
-        oSession.Close();
-        return false;
-    }
-
     AfxMessageBox(_T("Successfully Inserted the new city"), MB_ICONINFORMATION);
 
     Close();
