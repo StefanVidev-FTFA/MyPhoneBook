@@ -5,11 +5,6 @@
 
 // Methods
 // ----------------
-bool CCitiesData::Initialize() {
-	// TO DO:  initialization for the class
-	return true;
-}
-
 bool CCitiesData::SelectAll(CCitiesArray& oCitiesArray)
 {
 	return m_oCitiesTable.SelectAll(oCitiesArray);

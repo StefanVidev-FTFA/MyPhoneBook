@@ -211,8 +211,8 @@
     <ClCompile Include="CitiesArray.cpp" />
     <ClCompile Include="CitiesData.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
+    <ClCompile Include="CitiesTable.cpp" />
     <ClCompile Include="CitiesView.cpp" />
-    <ClCompile Include="CititesTable.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">

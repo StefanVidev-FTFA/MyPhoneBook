@@ -116,9 +116,6 @@
     <ClCompile Include="CitiesView.cpp">
       <Filter>Source Files\Cities</Filter>
     </ClCompile>
-    <ClCompile Include="CititesTable.cpp">
-      <Filter>Source Files\Cities</Filter>
-    </ClCompile>
     <ClCompile Include="CitiesArray.cpp">
       <Filter>Source Files\Cities</Filter>
     </ClCompile>
@@ -130,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="CDialogFindCityById.cpp">
       <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

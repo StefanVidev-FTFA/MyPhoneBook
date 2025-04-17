@@ -21,27 +21,15 @@ private:
     // Methods
     // ----------------
 public:
-    /// <summary>Инициализира данни за класа </summary>
-    bool Initialize();
-    /// <summary>
-    /// Чете всеки град от таблицата градове в sql и ги въвежда във масив от записи.
-    /// </summary>
+    /// <summary> Чете всеки град от таблицата градове в sql и ги въвежда във масив от записи. </summary>
     bool SelectAll(CCitiesArray& oCitiesArray);
-    /// <summary>
-    /// Избира град възоснова на идентификационен номер.
-    /// </summary>
+    /// <summary> Избира град възоснова на идентификационен номер </summary>
     bool SelectWhereID(const long lID, CITIES& recCity);
-    /// <summary>
-    /// Модифицира град който отговарч на конкретен идентификационен номер.
-    /// </summary>
+    /// <summary>Модифицира град който отговарч на конкретен идентификационен номер</summary>
     bool UpdateWhereID(const long lID,const CITIES& recCity);
-    /// <summary>
-    /// Въвежда нов град.
-    /// </summary>
+    /// <summary> Въвежда нов град </summary>
     bool Insert(const CITIES& recCity);
-    /// <summary>
-    /// ИЗтрива запис за град по идентификационен номер.
-    /// </summary>
+    /// <summary> Изтрива запис за град по идентификационен номер </summary>
     bool DeleteWhereID(const long lID);
 };
 #endif // !CITIESDATA_H
