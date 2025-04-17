@@ -178,10 +178,7 @@ bool CCitiesTable::UpdateWhereID(const long lID,const CITIES& recCity)
         oSession.Close();
         return false;
     }
-
-    CString strNotify;
-    strNotify.Format(_T("Successfully updated city with ID: %ld"), lID);
-    AfxMessageBox(strNotify, MB_ICONINFORMATION);
+    MESSAGE_INFO(_T("Successfully updated the city"));
 
 
     Close();

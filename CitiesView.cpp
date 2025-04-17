@@ -8,7 +8,6 @@
 #include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -28,7 +27,6 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesView
 
-
 	// Constructor / Destructor
 	// ----------------
 CCitiesView::CCitiesView() noexcept{}
@@ -38,14 +36,11 @@ CCitiesView::~CCitiesView(){}
 	// ----------------
 void CCitiesView::RequestSelectById()
 {
-	CDialogFindCityById oSelectByIdDlg(this, 2);
-
+	CDialogFindCityById oSelectByIdDlg;
 	INT_PTR result = oSelectByIdDlg.DoModal();
 
 	if (result == IDOK)
 	{
-
-
 		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
 
 		if (m_nIdToBeSelected > -1) 
@@ -56,9 +51,7 @@ void CCitiesView::RequestSelectById()
 		{
 			AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
 		}
-
 	}
-
 }
 
 void CCitiesView::RequestSelectAll() {
@@ -96,15 +89,11 @@ void CCitiesView::RequestInsert()
 
 void CCitiesView::RequestDelete()
 {
-
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
 
 	CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
-
-
 	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
-
 
 	CString strMessage;
 	strMessage.Format(_T("Are you sure you wish to delete this row\n\n"
@@ -116,34 +105,27 @@ void CCitiesView::RequestDelete()
 
 
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
-
-
 	if (nResult == IDYES)
 	{
-		//CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
-
-
 		CCitiesData oCitiesData;
 
 		oCitiesData.DeleteWhereID(pRecCity->nId);
-
-
 		oDocument->UpdateAllViews(nullptr,1,nullptr);
-
 	}
-
-
-
 }
 
 void CCitiesView::RequestUpdate()
 {
-	CDialogFindCityById oCitiesFindDlg(this, SqlOperationUpdateById);
-	INT_PTR result = oCitiesFindDlg.DoModal();
+	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
 
-	if (result == IDOK)
+	if (nResult == IDYES)
 	{
-		int nId = oCitiesFindDlg.m_nIdToBeSelected;
+		long nId = -1;
+
+		CCitiesArray& oCitiesArray = GetDocument()->m_oInitialCitiesArray;
+		CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
+
+		nId = pRecCity->nId;
 
 		if (nId > -1)
 		{
@@ -158,10 +140,6 @@ void CCitiesView::RequestUpdate()
 
 				oCitiesDocument->DatabaseUpdate(nId, recCityforUpdate);
 			}
-		}
-		else
-		{
-			MESSAGE_WARNING(_T("Sorry! Did not find a city with this ID"));
 		}
 	}
 }

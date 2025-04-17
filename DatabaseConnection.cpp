@@ -16,19 +16,8 @@
     // ----------------
 CDatabaseConnection::CDatabaseConnection()
 	: m_oDBDatabaseConnectionPropertiesSet(DBPROPSET_DBINIT),
-    m_oDBDatabaseRowsetPropertiesSet(DBPROPSET_ROWSET)
+    m_oDBDatabaseRowsetPropertiesSet(DBPROPSET_ROWSET), m_propsInitialized(false)
 {
-    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_AUTH_INTEGRATED, MICROSOFT_AUTHENTICATION_ARGUMENT);
-    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_DATASOURCE, SERVER_NAME);
-    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_CATALOG, DATABASE_NAME);
-
-
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_LCID, 1033L);
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_PROMPT, static_cast<short>(4));
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetChange, true);
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetScroll, true);
-    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_UPDATABILITY, DBPROPVAL_UP_CHANGE | DBPROPVAL_UP_INSERT | DBPROPVAL_UP_DELETE);
-
 }
 CDatabaseConnection::~CDatabaseConnection(){}
 
@@ -36,13 +25,38 @@ CDatabaseConnection::~CDatabaseConnection(){}
 
     // Methods
     // ----------------
+void CDatabaseConnection::InitializeConnectionProperties()
+{
+    m_oDBDatabaseConnectionPropertiesSet = CDBPropSet(DBPROPSET_DBINIT);
+    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_AUTH_INTEGRATED, MICROSOFT_AUTHENTICATION_ARGUMENT);
+    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_DATASOURCE, SERVER_NAME);
+    m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_CATALOG, DATABASE_NAME);
+}
+
+void CDatabaseConnection::InitializeRowsetProperties()
+{
+    m_oDBDatabaseRowsetPropertiesSet = CDBPropSet(DBPROPSET_ROWSET);
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_LCID, 1033L);
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_INIT_PROMPT, static_cast<short>(4));
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetChange, true);
+    m_oDBDatabaseRowsetPropertiesSet.AddProperty(DBPROP_IRowsetScroll, true);
+}
+
 CDatabaseConnection& CDatabaseConnection::GetInstance()
 {
     static CDatabaseConnection instance;
     return instance;
 }
+
 void CDatabaseConnection::Connect()
 {
+    if (!m_propsInitialized)
+    {
+        InitializeConnectionProperties();
+        InitializeRowsetProperties();
+        m_propsInitialized = true;
+    }
+
     HRESULT hResult = m_oDataSource.Open(_T("SQLOLEDB.1"), &m_oDBDatabaseConnectionPropertiesSet);
     if (FAILED(hResult))
     {
@@ -55,9 +69,9 @@ void CDatabaseConnection::Connect()
         MESSAGE_INFO(_T("Successfully connected to the SQL Server database"));
     }
 }
+
 void CDatabaseConnection::Disconnect()
 {
-    Close();
     m_oDataSource.Close();
     MESSAGE_INFO(_T("Database Disconnected!"));
 }

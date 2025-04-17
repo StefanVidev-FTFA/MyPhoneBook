@@ -16,7 +16,7 @@
 ///Също така отговаря за прекъсването на тази връзка и съдържа различни CDB property sets,
 ///използвани за изпълнение на различни команди върху базата данни.
 /// </summary>
-class CDatabaseConnection : private CCommand<CAccessor<CCitiesAccessor>>
+class CDatabaseConnection
 {
 // Constructor / Destructor
 // ----------------
@@ -37,6 +37,11 @@ public:
 	CDBPropSet GetRowsetPropertiesSet() { return m_oDBDatabaseRowsetPropertiesSet; }
     /// <summary>Връща data source обект</summary>
 	CDataSource& GetDataSource() { return m_oDataSource; }
+private:
+    /// <summary> Дефинира настройките за връзка </summary>
+    void InitializeConnectionProperties();
+    /// <summary> Дефинира настройките за UPDATE, INSERT и DELETE функциите </summary>
+    void InitializeRowsetProperties();
 
 // Members
 // ----------------
@@ -45,6 +50,7 @@ private:
     CDBPropSet m_oDBDatabaseConnectionPropertiesSet;
     CDBPropSet m_oDBDatabaseRowsetPropertiesSet;
     CDataSource m_oDataSource;
+    bool m_propsInitialized = false;
 
     CDatabaseConnection(const CDatabaseConnection&) = delete;
     CDatabaseConnection& operator=(const CDatabaseConnection&) = delete;

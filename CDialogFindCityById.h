@@ -15,7 +15,7 @@ class CDialogFindCityById : public CDialogEx
 	// Constructor / Destructor
 	// ----------------
 public:
-	CDialogFindCityById(CWnd* pParent = nullptr,int mode = 0);   
+	CDialogFindCityById(CWnd* pParent = nullptr);   
 	virtual ~CDialogFindCityById();
 
 	// Methods
@@ -36,7 +36,6 @@ protected:
 	// ----------------
 public:
 	int m_nIdToBeSelected = -1;
-	int m_nMode = -1;
 	CEdit m_FindByIdEditField;
 	CStatic m_FindCityHeader;
 };
