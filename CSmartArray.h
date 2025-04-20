@@ -6,9 +6,9 @@
 #include "afxtempl.h"
 
 /////////////////////////////////////////////////////////////////////////////
-// CCitiesArray
+// CSmartArray
 
-/// <summary> Клас който дефинира масив от записи на таблицата CITIES. /// </summary>
+/// <summary> Клас който дефинира масив от записи на някои от таблиците. /// </summary>
 template <typename Ttable>
 class CSmartArray: public CTypedPtrArray<CPtrArray,Ttable*>
 {
@@ -22,7 +22,7 @@ public:
         {
             for (int i = 0; i < this->GetSize(); i++)
             {
-                delete this->(GetAt(i));
+                delete this->GetAt(i);
             }
         }
     }

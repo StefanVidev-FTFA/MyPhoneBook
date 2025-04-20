@@ -106,7 +106,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbers.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
