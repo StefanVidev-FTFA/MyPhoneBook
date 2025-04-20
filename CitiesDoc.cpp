@@ -80,14 +80,10 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 }
 bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCityRegion)
 {
-
-	CW2A cityName(strCityName);
-	CW2A cityRegion(strCityRegion);
-
 	CITIES recCityForInsert;
 	recCityForInsert.nUpdateCounter = 0;
-	strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
-	strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
+	wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, strCityName);
+	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, strCityRegion);
 
 	CCitiesData oCitiesData;
 	if (oCitiesData.Insert(recCityForInsert))

@@ -12,9 +12,9 @@ struct CITIES {
     /// <summary> Versioning /// </summary>
     int nUpdateCounter;
     /// <summary>Наименование на градът</summary>
-    char szCityName[MAX_CITY_NAME];
+    TCHAR szCityName[MAX_CITY_NAME];
     /// <summary>Наименование на региона</summary>
-    char szRegion[MAX_REGION_NAME];
+    TCHAR szRegion[MAX_REGION_NAME];
 
     CITIES()
     {

@@ -108,6 +108,9 @@
     <ClInclude Include="PhoneNumbers.h">
       <Filter>Header Files\ForTables\PhoneNumbers</Filter>
     </ClInclude>
+    <ClInclude Include="PhoneNumbersAccessor.h">
+      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">

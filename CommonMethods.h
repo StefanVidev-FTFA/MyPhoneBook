@@ -18,4 +18,9 @@ namespace Utils
         strNotify.Format(message, str);
         MESSAGE_INFO(strNotify);
     }
+    inline CString QueryWithStr(CString message, CString str) {
+        CString strQuery;
+        strQuery.Format(message, str);
+        return strQuery;
+    }
 }
