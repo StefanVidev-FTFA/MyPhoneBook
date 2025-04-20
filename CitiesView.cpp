@@ -4,7 +4,7 @@
 #include "PhoneBook.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
-#include "CCitiesInsertDlg.h"
+#include "CitiesInsertOrUpdateDialog.h"
 #include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
@@ -77,13 +77,13 @@ void CCitiesView::RequestInsert()
 	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
-	CCitiesInsertDlg oInsertDlg(this,SqlOperationInsertOrDelete);
+	CCitiesInsertOrUpdateDialog oInsertDlg;
 
 	INT_PTR result = oInsertDlg.DoModal();
 
-	if (result == IDOK) {
-
-		GetDocument()->UpdateAllViews(nullptr, SqlOperationInsertOrDelete, nullptr);
+	if (result == IDOK)
+	{
+		GetDocument()->DatabaseInsert(oInsertDlg.m_strCityName, oInsertDlg.m_strCityRegion);
 	}
 }
 
@@ -107,10 +107,7 @@ void CCitiesView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		CCitiesData oCitiesData;
-
-		oCitiesData.DeleteWhereID(pRecCity->nId);
-		oDocument->UpdateAllViews(nullptr,1,nullptr);
+		oDocument->DatabaseDelete(pRecCity->nId);
 	}
 }
 
@@ -129,7 +126,7 @@ void CCitiesView::RequestUpdate()
 
 		if (nId > -1)
 		{
-			CCitiesInsertDlg oInsertDlg(this, SqlOperationUpdateById);
+			CCitiesInsertOrUpdateDialog oInsertDlg;
 
 			INT_PTR result = oInsertDlg.DoModal();
 
@@ -159,7 +156,7 @@ void CCitiesView::DeclareCityColums(int nAlignment)
 
 void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
 {
-	for (int i = 0; i < oCitiesArray.GetSize(); ++i) {
+	for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
 
 		CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
 
@@ -227,20 +224,13 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == SqlOperationInsertOrDelete)
+	if (lHint == SqlOperationInsert)
 	{
-		CCitiesData data;
-		CCitiesArray oCitiesArray;
-		data.SelectAll(oCitiesArray);
+		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(),_T("-"));
 
-		if (oCitiesArray.IsEmpty()) {
-			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
-		}
-		else
-		{
-			m_pListCtrl->DeleteAllItems();
-			InsertCityRows(oCitiesArray);
-		}
+		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recCity.szCityName));
+		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recCity.szRegion));
 	}
 	else if (lHint == SqlOperationSelectById)
 	{
@@ -268,6 +258,22 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 		m_pListCtrl->SetItemText(nRowIndex, 1, CString(pCitiesHint->m_recCity.szCityName));
 		m_pListCtrl->SetItemText(nRowIndex, 2, CString(pCitiesHint->m_recCity.szRegion));
+
+	}
+	else if (lHint == SqlOperationDelete)
+	{
+		CCitiesData data;
+		CCitiesArray oCitiesArray;
+		data.SelectAll(oCitiesArray);
+
+		if (oCitiesArray.IsEmpty()) {
+			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
+		}
+		else
+		{
+			m_pListCtrl->DeleteAllItems();
+			InsertCityRows(oCitiesArray);
+		}
 
 	}
 }

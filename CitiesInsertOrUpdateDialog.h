@@ -3,18 +3,18 @@
 #include "Cities.h"
 
 /////////////////////////////////////////////////////////////////////////////
-// CCitiesInsertDlg
+// CCitiesInsertOrUpdateDialog
 
 /// <summary> Клас служещ за диалога между потребителя ори въвеждане или обновяване на град /// </summary>
-class CCitiesInsertDlg : public CDialogEx
+class CCitiesInsertOrUpdateDialog : public CDialogEx
 {
-	DECLARE_DYNAMIC(CCitiesInsertDlg)
+	DECLARE_DYNAMIC(CCitiesInsertOrUpdateDialog)
 	
 	// Constructor / Destructor
 	// ----------------
 public:
-	CCitiesInsertDlg(CWnd* pParent=nullptr,int nMode = -1);
-	virtual ~CCitiesInsertDlg();
+	CCitiesInsertOrUpdateDialog(CWnd* pParent=nullptr);
+	virtual ~CCitiesInsertOrUpdateDialog();
 
 	// Methods
 	// ----------------
@@ -36,4 +36,6 @@ public:
 	CEdit m_EditBoxRegion;
 	int m_nMode;
 	CITIES m_recCityForUpdate;
+	CString m_strCityName;
+	CString m_strCityRegion;
 };

@@ -6,6 +6,7 @@
 #include <afxwin.h>
 #include "DatabaseConnection.h"
 #include "Macros.h"
+#include "CommonMethods.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesTable
@@ -179,7 +180,6 @@ bool CCitiesTable::UpdateWhereID(const long lID, const CITIES& recCity)
         return false;
     }
     MESSAGE_INFO(_T("Successfully updated the city"));
-
 
     Close();
     oSession.Close();

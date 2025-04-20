@@ -16,20 +16,29 @@
     <Filter Include="Header Files\Utlities">
       <UniqueIdentifier>{efbc7b1b-adc9-49fd-b1d1-4f93032cd320}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Cities">
-      <UniqueIdentifier>{6700e2ed-ff36-4160-8165-be03562f6396}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ForDatabase">
       <UniqueIdentifier>{6003c41e-37e2-4b35-86c2-5c735f314198}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Dialogs">
       <UniqueIdentifier>{87a5b4f9-4eda-42d3-9631-c48517a8e2b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Cities">
-      <UniqueIdentifier>{9169c0aa-1258-411c-aec5-041bd471e250}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Dialogs">
       <UniqueIdentifier>{6183b9a0-0f23-464b-a70b-0a6667fef62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ForTables">
+      <UniqueIdentifier>{d76c0303-8026-4827-ba6c-d17a701da26b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ForTables\Cities">
+      <UniqueIdentifier>{6700e2ed-ff36-4160-8165-be03562f6396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ForTables\PhoneNumbers">
+      <UniqueIdentifier>{6a4797a0-2b25-44be-bd43-86326044fda5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ForTables">
+      <UniqueIdentifier>{5659d396-aec0-42c7-b24b-eb3100da6515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ForTables\Cities">
+      <UniqueIdentifier>{9169c0aa-1258-411c-aec5-041bd471e250}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,37 +70,43 @@
       <Filter>Header Files\Utlities</Filter>
     </ClInclude>
     <ClInclude Include="Cities.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesAccessor.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesArray.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesDoc.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesData.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesTable.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesView.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseConnection.h">
       <Filter>Header Files\ForDatabase</Filter>
     </ClInclude>
-    <ClInclude Include="CCitiesInsertDlg.h">
+    <ClInclude Include="CitiesInsertOrUpdateDialog.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="CDialogFindCityById.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="CitiesHint.h">
-      <Filter>Header Files\Cities</Filter>
+      <Filter>Header Files\ForTables\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="CSmartArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneNumbers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,25 +126,25 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CitiesData.cpp">
-      <Filter>Source Files\Cities</Filter>
+      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CitiesView.cpp">
-      <Filter>Source Files\Cities</Filter>
+      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CitiesArray.cpp">
-      <Filter>Source Files\Cities</Filter>
+      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CitiesDoc.cpp">
-      <Filter>Source Files\Cities</Filter>
+      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
-    <ClCompile Include="CCitiesInsertDlg.cpp">
+    <ClCompile Include="CitiesInsertOrUpdateDialog.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="CDialogFindCityById.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="CitiesTable.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

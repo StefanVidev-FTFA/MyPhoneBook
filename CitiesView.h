@@ -47,10 +47,11 @@ public:
 	enum SqlOperation
 	{
 		SqlOperationLoadInit = 0,
-		SqlOperationInsertOrDelete,
+		SqlOperationInsert,
 		SqlOperationSelectById,
 		SqlOperationSelectAll,
-		SqlOperationUpdateById
+		SqlOperationUpdateById,
+		SqlOperationDelete
 	};
 
 

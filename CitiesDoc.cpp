@@ -78,6 +78,45 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
 	return true;
 }
+bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCityRegion)
+{
+
+	CW2A cityName(strCityName);
+	CW2A cityRegion(strCityRegion);
+
+	CITIES recCityForInsert;
+	recCityForInsert.nUpdateCounter = 0;
+	strcpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, cityName);
+	strcpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, cityRegion);
+
+	CCitiesData oCitiesData;
+	if (oCitiesData.Insert(recCityForInsert))
+	{
+		CCitiesHint* pHint = new CCitiesHint(recCityForInsert.nId, recCityForInsert);
+		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, pHint);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool CCitiesDoc::DatabaseDelete(const int nId)
+{
+	CCitiesData oCitiesData;
+
+	if (oCitiesData.DeleteWhereID(nId))
+	{
+
+		UpdateAllViews(nullptr, CCitiesView::SqlOperationDelete, nullptr);
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
 
 void CCitiesDoc::Serialize(CArchive& ar)
 {

@@ -183,7 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CCitiesInsertDlg.h" />
+    <ClInclude Include="CitiesInsertOrUpdateDialog.h" />
     <ClInclude Include="CDialogFindCityById.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
@@ -195,17 +195,19 @@
     <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonMethods.h" />
+    <ClInclude Include="CSmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhoneBook.h" />
+    <ClInclude Include="PhoneNumbers.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCitiesInsertDlg.cpp" />
+    <ClCompile Include="CitiesInsertOrUpdateDialog.cpp" />
     <ClCompile Include="CDialogFindCityById.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesArray.cpp" />
