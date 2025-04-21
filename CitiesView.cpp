@@ -142,19 +142,6 @@ void CCitiesView::RequestUpdate()
 	}
 }
 
-void CCitiesView::SetViewStyle()
-{
-	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
-	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-}
-
-void CCitiesView::DeclareCityColums(int nAlignment)
-{
-	m_pListCtrl->InsertColumn(CityColumnId, _T("ID"), nAlignment, 35);
-	m_pListCtrl->InsertColumn(CityColumnName, _T("City"), nAlignment, 110);
-	m_pListCtrl->InsertColumn(CityColumnRegion, _T("Region"), nAlignment, 150);
-}
-
 template <typename tableType>
 void CCitiesView::InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
 {
@@ -197,11 +184,12 @@ BOOL CCitiesView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CCitiesView::OnInitialUpdate()
 {
-	CListView::OnInitialUpdate();
-	m_pListCtrl = &GetListCtrl();
+	CCommonListView::OnInitialUpdate();
 
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
+
+
 
 	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
 
@@ -212,7 +200,9 @@ void CCitiesView::OnInitialUpdate()
 	else
 	{
 		SetViewStyle();
-		DeclareCityColums(LVCFMT_CENTER);
+
+		DeclareColumns({ _T("ID"),_T("City Name"),_T("City Region") });
+
 		InsertCityRows(oCitiesArray);
 	}
 }

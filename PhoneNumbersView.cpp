@@ -43,7 +43,7 @@ void CPhoneNumbersView::SetViewStyle()
 
 void CPhoneNumbersView::OnInitialUpdate()
 {
-	CListView::OnInitialUpdate();
+	CCommonListView::OnInitialUpdate();
 	m_pListCtrl = &GetListCtrl();
 
 	CCitiesDoc* oDocument = GetDocument();
@@ -59,30 +59,21 @@ void CPhoneNumbersView::OnInitialUpdate()
 	{
 		SetViewStyle();
 
-		m_pListCtrl->InsertColumn(0, _T("ID"), LVCFMT_CENTER, 35);
-		m_pListCtrl->InsertColumn(1, _T("col 1"), LVCFMT_CENTER, 110);
-		m_pListCtrl->InsertColumn(2, _T("col 2"), LVCFMT_CENTER, 150);
+		DeclareColumns({ _T("ID"),_T("pn column 1"),_T("pn column 2") });
 
-		//DeclareCityColums(LVCFMT_CENTER);
 		//InsertCityRows(oCitiesArray);
 
-		for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
-
-			CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
-
-			if (pRecCity != nullptr) {
-
-				CString sId;
-				sId.Format(_T("%d"), pRecCity->nId);
-
-
-				int row = m_pListCtrl->InsertItem(i, sId);
-				m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
-				m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
-
-				//entriesMap.SetAt(pRecCity->nId, i);
-			}
-		}
+		//for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
+		//	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
+		//	if (pRecCity != nullptr) {
+		//		CString sId;
+		//		sId.Format(_T("%d"), pRecCity->nId);
+		//		int row = m_pListCtrl->InsertItem(i, sId);
+		//		m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
+		//		m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
+		//		//entriesMap.SetAt(pRecCity->nId, i);
+		//	}
+		//}
 	}
 }
 

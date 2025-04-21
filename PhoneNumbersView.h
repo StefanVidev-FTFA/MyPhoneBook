@@ -3,7 +3,7 @@
 #include <afxext.h>
 #include <afxcmn.h>
 
-class CPhoneNumbersView : public CListView
+class CPhoneNumbersView : public CCommonListView
 {
 protected:
     CPhoneNumbersView() noexcept;

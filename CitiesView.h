@@ -1,6 +1,8 @@
 #pragma once
 #include "CitiesArray.h"
 #include "CitiesDoc.h"
+#include "CommonListView.h"
+
 
 using namespace std;
 
@@ -8,7 +10,7 @@ using namespace std;
 // CCitiesTable
 
 ///<summary> Клас служещ за представянето на информацията за град/ове от базата данни ///</summary>
-class CCitiesView : public CListView
+class CCitiesView : public CCommonListView
 {
 
 	// Constructor / Destructor
@@ -17,11 +19,6 @@ protected:
 	CCitiesView() noexcept;
 	DECLARE_DYNCREATE(CCitiesView)
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
-
-
-
-	void SetViewStyle();
-	void DeclareCityColums(int nAlignment);
 
 	template <typename tableType>
 	void InsertCityRows(CSmartArray<tableType>& oCitiesArray);
