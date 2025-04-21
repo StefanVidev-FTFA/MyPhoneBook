@@ -35,14 +35,55 @@ BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	return CListView::PreCreateWindow(cs);
 }
+void CPhoneNumbersView::SetViewStyle()
+{
+	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
+	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+}
 
 void CPhoneNumbersView::OnInitialUpdate()
 {
 	CListView::OnInitialUpdate();
-	//m_pListCtrl = &GetListCtrl();
+	m_pListCtrl = &GetListCtrl();
 
-	//CCitiesDoc* oDocument = GetDocument();
-	//ASSERT_VALID(oDocument);
+	CCitiesDoc* oDocument = GetDocument();
+	ASSERT_VALID(oDocument);
+
+	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
+
+
+	if (oCitiesArray.IsEmpty()) {
+		AfxMessageBox(_T("There was no phone numbers to load in Init"), MB_ICONERROR);
+	}
+	else
+	{
+		SetViewStyle();
+
+		m_pListCtrl->InsertColumn(0, _T("ID"), LVCFMT_CENTER, 35);
+		m_pListCtrl->InsertColumn(1, _T("col 1"), LVCFMT_CENTER, 110);
+		m_pListCtrl->InsertColumn(2, _T("col 2"), LVCFMT_CENTER, 150);
+
+		//DeclareCityColums(LVCFMT_CENTER);
+		//InsertCityRows(oCitiesArray);
+
+		for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
+
+			CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
+
+			if (pRecCity != nullptr) {
+
+				CString sId;
+				sId.Format(_T("%d"), pRecCity->nId);
+
+
+				int row = m_pListCtrl->InsertItem(i, sId);
+				m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
+				m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
+
+				//entriesMap.SetAt(pRecCity->nId, i);
+			}
+		}
+	}
 }
 
 
@@ -55,13 +96,11 @@ void CPhoneNumbersView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 void CPhoneNumbersView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
-	// Convert to client coords for HitTest
 	CPoint clientPoint = point;
 	ScreenToClient(&clientPoint);
 
 	UINT flags = 0;
 
-	// Show the menu
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
