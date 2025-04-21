@@ -17,7 +17,8 @@
 #define ID_VIEW_CUSTOMIZE               126
 #define IDR_MAINFRAME                   128
 #define IDR_MAINFRAME_256               129
-#define IDR_PhoneBookTYPE               130
+#define IDR_PhoneBookCities             130
+#define IDR_PhoneBookPhoneNumbers       133
 #define ID_WINDOW_MANAGER               131
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     311

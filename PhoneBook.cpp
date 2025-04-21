@@ -60,7 +60,7 @@ BOOL CPhoneBookApp::InitInstance()
 		RUNTIME_CLASS(CMFCToolTipCtrl), &ttParams);
 
 	CMultiDocTemplate* pDocTemplate1;
-	pDocTemplate1 = new CMultiDocTemplate(IDR_PhoneBookTYPE,
+	pDocTemplate1 = new CMultiDocTemplate(IDR_PhoneBookCities,
 		RUNTIME_CLASS(CCitiesDoc),
 		RUNTIME_CLASS(CChildFrame),
 		RUNTIME_CLASS(CCitiesView));
@@ -73,14 +73,14 @@ BOOL CPhoneBookApp::InitInstance()
 	AddDocTemplate(pDocTemplate1);
 
 
-	//CMultiDocTemplate* pDocTemplate2;
-	//pDocTemplate2 = new CMultiDocTemplate(IDR_PhoneBookTYPE,
-	//	RUNTIME_CLASS(CCitiesDoc),      // same document class
-	//	RUNTIME_CLASS(CChildFrame),
-	//	RUNTIME_CLASS(CPhoneNumbersView));   // your second view class
-	//if (!pDocTemplate2)
-	//	return FALSE;
-	//AddDocTemplate(pDocTemplate2);
+	CMultiDocTemplate* pDocTemplate2;
+	pDocTemplate2 = new CMultiDocTemplate(IDR_PhoneBookPhoneNumbers,
+		RUNTIME_CLASS(CCitiesDoc),      // same document class
+		RUNTIME_CLASS(CChildFrame),
+		RUNTIME_CLASS(CPhoneNumbersView));   // your second view class
+	if (!pDocTemplate2)
+		return FALSE;
+	AddDocTemplate(pDocTemplate2);
 
 
 

@@ -4,34 +4,83 @@
 #include <afxwin.h>
 #include <afxext.h>
 #include <afxcmn.h>  // For CListView
+#include "framework.h"
+#include "PhoneBook.h"
+#include "CitiesDoc.h"
+#include "CitiesView.h"
+#include "CitiesInsertOrUpdateDialog.h"
+#include "CDialogFindCityById.h"
+#include "Macros.h"
+#include "CommonMethods.h"
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+#include "CitiesHint.h"
+#include "PhoneNumbersView.h"
 
-class CPhoneNumbersView : public CListView
+
+
+
+IMPLEMENT_DYNCREATE(CPhoneNumbersView, CListView)
+BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
+    ON_WM_CONTEXTMENU()
+    ON_WM_RBUTTONUP()
+END_MESSAGE_MAP()
+
+CPhoneNumbersView::CPhoneNumbersView() noexcept {}
+CPhoneNumbersView::~CPhoneNumbersView() {}
+
+
+BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
 {
-protected:
-    CPhoneNumbersView();
+	return CListView::PreCreateWindow(cs);
+}
 
-public:
-    // Document accessor (optional if you're using Doc/View)
-    class CPhoneBookDoc* GetDocument();
+void CPhoneNumbersView::OnInitialUpdate()
+{
+	CListView::OnInitialUpdate();
+	//m_pListCtrl = &GetListCtrl();
 
-    // Overrides
-public:
-    virtual void OnInitialUpdate();     // Called first time after creation
-    virtual void DoDataExchange(CDataExchange* pDX); // If you plan to bind controls
-    virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	//CCitiesDoc* oDocument = GetDocument();
+	//ASSERT_VALID(oDocument);
+}
 
-protected:
-    virtual void OnDraw(CDC* pDC);      // Drawing code (optional)
 
-    // Implementation
-public:
-    virtual ~CPhoneNumbersView();
+void CPhoneNumbersView::OnRButtonUp(UINT /* nFlags */, CPoint point)
+{
+	ClientToScreen(&point);
+	OnContextMenu(this, point);
+}
+
+void CPhoneNumbersView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
+{
+#ifndef SHARED_HANDLERS
+	// Convert to client coords for HitTest
+	CPoint clientPoint = point;
+	ScreenToClient(&clientPoint);
+
+	UINT flags = 0;
+
+	// Show the menu
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+#endif
+}
+
 
 #ifdef _DEBUG
-    virtual void AssertValid() const;
-    virtual void Dump(CDumpContext& dc) const;
-#endif
+void CPhoneNumbersView::AssertValid() const
+{
+	CListView::AssertValid();
+}
 
-protected:
-    DECLARE_MESSAGE_MAP()
-};
+void CPhoneNumbersView::Dump(CDumpContext& dc) const
+{
+	CListView::Dump(dc);
+}
+
+CCitiesDoc* CPhoneNumbersView::GetDocument() const
+{
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCitiesDoc)));
+	return (CCitiesDoc*)m_pDocument;
+}
+#endif //_DEBUG
