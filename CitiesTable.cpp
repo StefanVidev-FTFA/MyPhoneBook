@@ -7,6 +7,7 @@
 #include "DatabaseConnection.h"
 #include "Macros.h"
 #include "CommonMethods.h"
+#include "SmartArray.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesTable
@@ -14,49 +15,6 @@
 
 // Methods
 // ----------------
-bool CCitiesTable::SelectAll(CCitiesArray& oCitiesArray)
-{
-
-    CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
-    CSession oSession;
-
-    // Отваряме сесия
-    HRESULT  hResult = oSession.Open(oDataSource);
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Unable to open session.Error: %ld"), hResult);
-        AfxMessageBox(strError);
-
-        return false;
-    }
-
-    // Конструираме заявката за извличане на всички градове
-    CString strQuery = _T("SELECT * FROM CITIES WITH(NOLOCK)");
-
-
-    hResult = Open(oSession, strQuery);
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
-        AfxMessageBox(strError);
-
-        Close();
-        oSession.Close();
-        return false;
-    }
-
-    while (MoveNext() == S_OK)
-    {
-        oCitiesArray.Add(new CITIES(m_recCity));
-
-    }
-
-    Close();
-    oSession.Close();
-    return true;
-}
 
 bool CCitiesTable::SelectWhereID(const long lID, CITIES& recCity)
 {

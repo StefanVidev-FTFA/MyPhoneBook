@@ -36,10 +36,11 @@ BOOL CCitiesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	if (!m_oCitiesData->SelectAll(m_oInitialCitiesArray))
+	CCitiesData data;
+
+	if (!data.SelectAll(m_oInitialCitiesArray))
 	{
 		MESSAGE_ERROR(_T("Failed to loadup the data for cities from database"));
-
 		return FALSE;
 	}
 
@@ -59,7 +60,8 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 
 bool CCitiesDoc::DatabaseSelectAll()
 {
-	CCitiesArray *pCitiesArray = new CCitiesArray();
+	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
+
 	m_oCitiesData->SelectAll(*pCitiesArray);
 
 	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);

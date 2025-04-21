@@ -195,7 +195,8 @@
     <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonMethods.h" />
-    <ClInclude Include="CSmartArray.h" />
+    <ClInclude Include="PhoneNumbersView.h" />
+    <ClInclude Include="SmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Macros.h" />
@@ -225,6 +226,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PhoneBook.cpp" />
+    <ClCompile Include="PhoneNumbersView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PhoneBook.rc" />

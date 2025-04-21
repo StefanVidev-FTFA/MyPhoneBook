@@ -5,11 +5,6 @@
 
 // Methods
 // ----------------
-bool CCitiesData::SelectAll(CCitiesArray& oCitiesArray)
-{
-	return m_oCitiesTable.SelectAll(oCitiesArray);
-}
-
 bool CCitiesData::SelectWhereID(const long lID, CITIES& recCity)
 {
 	return m_oCitiesTable.SelectWhereID(lID, recCity);

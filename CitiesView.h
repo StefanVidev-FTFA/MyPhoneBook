@@ -22,7 +22,10 @@ protected:
 
 	void SetViewStyle();
 	void DeclareCityColums(int nAlignment);
-	void InsertCityRows(CCitiesArray& oCitiesArray);
+
+	template <typename tableType>
+	void InsertCityRows(CSmartArray<tableType>& oCitiesArray);
+
 	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();

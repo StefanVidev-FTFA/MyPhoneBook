@@ -19,6 +19,8 @@ class CPhoneBookApp : public CWinAppEx
 public:
 	CPhoneBookApp() noexcept;
 
+	CMultiDocTemplate* m_pTemplateView1;
+	CMultiDocTemplate* m_pTemplateView2;
 
 // Overrides
 public:

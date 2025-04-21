@@ -22,7 +22,12 @@ private:
     // ----------------
 public:
     /// <summary> Чете всеки град от таблицата градове в sql и ги въвежда във масив от записи. </summary>
-    bool SelectAll(CCitiesArray& oCitiesArray);
+    
+    template <typename tableType>
+    bool SelectAll(CSmartArray<tableType>& oTableItemsArray)
+    {
+        return m_oCitiesTable.SelectAll(oTableItemsArray);
+    }
     /// <summary> Избира град възоснова на идентификационен номер </summary>
     bool SelectWhereID(const long lID, CITIES& recCity);
     /// <summary>Модифицира град който отговарч на конкретен идентификационен номер</summary>

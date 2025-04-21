@@ -92,7 +92,8 @@ void CCitiesView::RequestDelete()
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
 
-	CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
+
 	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
 
 	CString strMessage;
@@ -119,7 +120,7 @@ void CCitiesView::RequestUpdate()
 	{
 		long nId = -1;
 
-		CCitiesArray& oCitiesArray = GetDocument()->m_oInitialCitiesArray;
+		CSmartArray<CITIES>& oCitiesArray = GetDocument()->m_oInitialCitiesArray;
 		CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
 
 		nId = pRecCity->nId;
@@ -154,11 +155,12 @@ void CCitiesView::DeclareCityColums(int nAlignment)
 	m_pListCtrl->InsertColumn(CityColumnRegion, _T("Region"), nAlignment, 150);
 }
 
-void CCitiesView::InsertCityRows(CCitiesArray& oCitiesArray)
+template <typename tableType>
+void CCitiesView::InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
 {
-	for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
+	for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i) {
 
-		CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
+		CITIES* pRecCity = static_cast<CITIES*>(oTableTypeArray.GetAt(i));
 
 		if (pRecCity != nullptr) {
 
@@ -201,7 +203,7 @@ void CCitiesView::OnInitialUpdate()
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
 
-	CCitiesArray& oCitiesArray = oDocument->m_oInitialCitiesArray;
+	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
 
 
 	if (oCitiesArray.IsEmpty()) {
@@ -244,7 +246,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationSelectAll)
 	{
-		CCitiesArray* pCitiesHint = dynamic_cast<CCitiesArray*>(pHint);
+		CSmartArray<CITIES>* pCitiesHint = dynamic_cast<CSmartArray<CITIES>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
 		InsertCityRows(*pCitiesHint);
@@ -263,16 +265,17 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	else if (lHint == SqlOperationDelete)
 	{
 		CCitiesData data;
-		CCitiesArray oCitiesArray;
-		data.SelectAll(oCitiesArray);
 
-		if (oCitiesArray.IsEmpty()) {
+		CSmartArray<CITIES> pCitiesArray;
+		//data.SelectAll(pCitiesArray);
+
+		if (pCitiesArray.IsEmpty()) {
 			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
 		}
 		else
 		{
 			m_pListCtrl->DeleteAllItems();
-			InsertCityRows(oCitiesArray);
+			InsertCityRows(pCitiesArray);
 		}
 
 	}

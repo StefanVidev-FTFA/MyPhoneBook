@@ -7,6 +7,7 @@
 #include "ChildFrm.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
+#include "PhoneNumbersView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -58,8 +59,8 @@ BOOL CPhoneBookApp::InitInstance()
 	theApp.GetTooltipManager()->SetTooltipParams(AFX_TOOLTIP_TYPE_ALL,
 		RUNTIME_CLASS(CMFCToolTipCtrl), &ttParams);
 
-	CMultiDocTemplate* pDocTemplate;
-	pDocTemplate = new CMultiDocTemplate(IDR_PhoneBookTYPE,
+	CMultiDocTemplate* pDocTemplate1;
+	pDocTemplate1 = new CMultiDocTemplate(IDR_PhoneBookTYPE,
 		RUNTIME_CLASS(CCitiesDoc),
 		RUNTIME_CLASS(CChildFrame),
 		RUNTIME_CLASS(CCitiesView));
@@ -67,9 +68,27 @@ BOOL CPhoneBookApp::InitInstance()
 
 	CDatabaseConnection::GetInstance().Connect();
 
-	if (!pDocTemplate)
+	if (!pDocTemplate1)
 		return FALSE;
-	AddDocTemplate(pDocTemplate);
+	AddDocTemplate(pDocTemplate1);
+
+
+	//CMultiDocTemplate* pDocTemplate2;
+	//pDocTemplate2 = new CMultiDocTemplate(IDR_PhoneBookTYPE,
+	//	RUNTIME_CLASS(CCitiesDoc),      // same document class
+	//	RUNTIME_CLASS(CChildFrame),
+	//	RUNTIME_CLASS(CPhoneNumbersView));   // your second view class
+	//if (!pDocTemplate2)
+	//	return FALSE;
+	//AddDocTemplate(pDocTemplate2);
+
+
+
+
+
+
+
+
 	CMainFrame* pMainFrame = new CMainFrame;
 	if (!pMainFrame || !pMainFrame->LoadFrame(IDR_MAINFRAME))
 	{

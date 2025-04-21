@@ -43,7 +43,7 @@ public:
 	// Members
 	// ----------------
 public:
-	CCitiesArray m_oInitialCitiesArray;
+	CSmartArray<CITIES> m_oInitialCitiesArray;
 	CCitiesData* m_oCitiesData;
 	int m_SelectByIdTarget = -1;
 
