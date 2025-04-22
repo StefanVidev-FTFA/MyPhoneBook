@@ -142,28 +142,6 @@ void CCitiesView::RequestUpdate()
 	}
 }
 
-template <typename tableType>
-void CCitiesView::InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
-{
-	for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i) {
-
-		CITIES* pRecCity = static_cast<CITIES*>(oTableTypeArray.GetAt(i));
-
-		if (pRecCity != nullptr) {
-
-			CString sId;
-			sId.Format(_T("%d"), pRecCity->nId);
-
-
-			int row = m_pListCtrl->InsertItem(i, sId);
-			m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
-			m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
-
-			entriesMap.SetAt(pRecCity->nId, i);
-		}
-	}
-}
-
 void CCitiesView::InsertACityRow(CITIES& recCity) {
 	if (recCity.nId>-1) {
 
@@ -188,7 +166,6 @@ void CCitiesView::OnInitialUpdate()
 
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
-
 
 
 	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;

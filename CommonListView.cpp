@@ -25,7 +25,7 @@ void CCommonListView::DeclareColumns(const initializer_list<CString>& strColumnN
     int i = 0;
     for (const CString& columnName : strColumnNames)
     {
-        m_pListCtrl->InsertColumn(i, columnName, LVCFMT_CENTER, 140);
+        m_pListCtrl->InsertColumn(i, columnName, LVCFMT_CENTER, i==0?50:140);
         i++;
     }
 }

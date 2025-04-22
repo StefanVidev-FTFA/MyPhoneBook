@@ -1,6 +1,10 @@
 #pragma once
+#include "pch.h"
 #include "CitiesArray.h"
 #include "CitiesDoc.h"
+#include <afx.h>
+#include "afxcoll.h"
+#include "afxtempl.h"
 
 using namespace std;
 
@@ -27,7 +31,7 @@ protected:
 
 	virtual void SetViewStyle();
 
-	virtual void DeclareColumns(const initializer_list<CString>& strColumnNames);
+	void DeclareColumns(const initializer_list<CString>& strColumnNames);
 
 	//Members
 	CListCtrl* m_pListCtrl;

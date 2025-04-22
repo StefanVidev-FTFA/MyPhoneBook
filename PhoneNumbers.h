@@ -1,6 +1,6 @@
 #pragma once
 #include <afxtempl.h>
-#include "CSmartArray.h"
+#include "SmartArray.h"
 
 
 #define MAX_PHONE_NUMBER 11
@@ -16,6 +16,4 @@ struct PHONE_NUMBERS {
     {
         SecureZeroMemory(this, sizeof(*this));
     }
-
 };
-typedef CSmartArray<PHONE_NUMBERS> CSmartPhoneNumbersArray;

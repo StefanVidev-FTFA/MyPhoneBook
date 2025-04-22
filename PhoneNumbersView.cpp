@@ -17,6 +17,7 @@
 #endif
 #include "CitiesHint.h"
 #include "PhoneNumbersView.h"
+#include "PhoneNumbers.h"
 
 
 
@@ -59,21 +60,9 @@ void CPhoneNumbersView::OnInitialUpdate()
 	{
 		SetViewStyle();
 
-		DeclareColumns({ _T("ID"),_T("pn column 1"),_T("pn column 2") });
+		DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
 
-		//InsertCityRows(oCitiesArray);
-
-		//for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i) {
-		//	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(i));
-		//	if (pRecCity != nullptr) {
-		//		CString sId;
-		//		sId.Format(_T("%d"), pRecCity->nId);
-		//		int row = m_pListCtrl->InsertItem(i, sId);
-		//		m_pListCtrl->SetItemText(i, 1, CString(pRecCity->szCityName));
-		//		m_pListCtrl->SetItemText(row, 2, CString(pRecCity->szRegion));
-		//		//entriesMap.SetAt(pRecCity->nId, i);
-		//	}
-		//}
+		//InsertCityRows(oCitiesArray)
 	}
 }
 

@@ -21,7 +21,24 @@ protected:
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
 	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oCitiesArray);
+	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
+	{
+		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
+		{
+			tableType* pRecItem = static_cast<tableType*>(oTableTypeArray.GetAt(i));
+
+			if (pRecItem != nullptr) {
+
+				CString sId;
+				sId.Format(_T("%d"), pRecItem->nId);
+
+				int row = m_pListCtrl->InsertItem(i, sId);
+				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szCityName));
+				m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szRegion));
+
+			}
+		}
+	}
 
 	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
