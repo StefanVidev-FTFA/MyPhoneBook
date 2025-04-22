@@ -46,6 +46,9 @@
     <Filter Include="Source Files\ForTables\PhoneNumbers">
       <UniqueIdentifier>{46d56a64-8033-4261-8315-ade34e20a832}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ForTables\Persons">
+      <UniqueIdentifier>{84e87cb2-33fd-4864-8654-8498d6d5deff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhoneBook.h">
@@ -123,6 +126,15 @@
     <ClInclude Include="CommonListView.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
+    <ClInclude Include="PhoneNumbersDoc.h">
+      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+    </ClInclude>
+    <ClInclude Include="PersonsData.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="PersonsTable.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
@@ -166,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="CommonListView.cpp">
       <Filter>Source Files\ForTables</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneNumbersDoc.cpp">
+      <Filter>Source Files\ForTables\PhoneNumbers</Filter>
+    </ClCompile>
+    <ClCompile Include="PersonsTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

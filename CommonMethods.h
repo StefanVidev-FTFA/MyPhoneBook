@@ -12,6 +12,12 @@ namespace Utils
         strNotify.Format(message, lnumber);
         MESSAGE_INFO(strNotify);
     }
+    inline void MessageWithInt(CString message, int nNumber)
+    {
+        CString strNotify;
+        strNotify.Format(message, nNumber);
+        MESSAGE_INFO(strNotify);
+    }
     inline void MessageWithStr(CString message, CString str)
     {
         CString strNotify;

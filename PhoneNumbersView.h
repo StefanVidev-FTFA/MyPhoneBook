@@ -1,7 +1,9 @@
 #pragma once
-#include <afxwin.h>
-#include <afxext.h>
-#include <afxcmn.h>
+#include "CitiesArray.h"
+#include "PhoneNumbersDoc.h"
+#include "CommonListView.h"
+
+using namespace std;
 
 class CPhoneNumbersView : public CCommonListView
 {
@@ -10,7 +12,7 @@ protected:
     DECLARE_DYNCREATE(CPhoneNumbersView)
 
 public:
-	CCitiesDoc* GetDocument() const;
+	CPhoneNumbersDoc* GetDocument() const;
 
     // Overrides
 public:
@@ -35,18 +37,23 @@ protected:
 
 			if (pRecItem != nullptr) {
 
-				CString sId;
-				sId.Format(_T("%d"), pRecItem->nId);
+				CString strHolder;
 
-				int row = m_pListCtrl->InsertItem(i, sId);
-				m_pListCtrl->SetItemText(i, 1, CString(10));
-				m_pListCtrl->SetItemText(row, 2, CString(50));
+				strHolder.Format(_T("%d"), pRecItem->nId);
+				int row = m_pListCtrl->InsertItem(i, strHolder);
+
+				strHolder.Format(_T("%d"), pRecItem->nPersonId);
+				m_pListCtrl->SetItemText(i, 1, strHolder);
+
+				strHolder.Format(_T("%d"), pRecItem->nPhoneTypeId);
+				m_pListCtrl->SetItemText(row, 2, strHolder);
+
+				m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szPhoneNumber));
 
 			}
 		}
 	}
 
-	void SetViewStyle();
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);

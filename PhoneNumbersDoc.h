@@ -1,0 +1,47 @@
+#pragma once
+#include "CitiesData.h"
+#include "PhoneNumbers.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesData
+
+/// <summary> Клас за extend-ване на логиката на CDocument, с цел работа с градовете от базата данни </summary>
+class CPhoneNumbersDoc : public CDocument
+{
+
+	// Constructor / Destructor
+	// ----------------
+protected:
+	CPhoneNumbersDoc() noexcept;
+	DECLARE_DYNCREATE(CPhoneNumbersDoc)
+public:
+	virtual ~CPhoneNumbersDoc();
+
+	// Methods
+	// ----------------
+public:
+	virtual BOOL OnNewDocument();
+	virtual void Serialize(CArchive& ar);
+
+	///<summary >Избира всички градове от базата данни ///</summary>
+	bool DatabaseSelectAll();
+	// Overrides
+	// ----------------
+#ifdef _DEBUG
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
+#endif
+
+	// Members
+	// ----------------
+public:
+	CSmartArray<PHONE_NUMBERS> m_oInitialPhoneNumbersArray;
+	CCitiesData* m_oCitiesData;
+	int m_SelectByIdTarget = -1;
+
+
+protected:
+	DECLARE_MESSAGE_MAP()
+
+};

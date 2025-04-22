@@ -6,6 +6,7 @@
 #include "MainFrm.h"
 #include "ChildFrm.h"
 #include "CitiesDoc.h"
+#include "PhoneNumbersDoc.h"
 #include "CitiesView.h"
 #include "PhoneNumbersView.h"
 
@@ -75,9 +76,9 @@ BOOL CPhoneBookApp::InitInstance()
 
 	CMultiDocTemplate* pDocTemplate2;
 	pDocTemplate2 = new CMultiDocTemplate(IDR_PhoneBookPhoneNumbers,
-		RUNTIME_CLASS(CCitiesDoc),      // same document class
+		RUNTIME_CLASS(CPhoneNumbersDoc),
 		RUNTIME_CLASS(CChildFrame),
-		RUNTIME_CLASS(CPhoneNumbersView));   // your second view class
+		RUNTIME_CLASS(CPhoneNumbersView));
 	if (!pDocTemplate2)
 		return FALSE;
 	AddDocTemplate(pDocTemplate2);

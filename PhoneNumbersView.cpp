@@ -18,6 +18,7 @@
 #include "CitiesHint.h"
 #include "PhoneNumbersView.h"
 #include "PhoneNumbers.h"
+#include "PhoneNumbersDoc.h"
 
 
 
@@ -36,24 +37,19 @@ BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	return CListView::PreCreateWindow(cs);
 }
-void CPhoneNumbersView::SetViewStyle()
-{
-	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
-	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-}
 
 void CPhoneNumbersView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
 	m_pListCtrl = &GetListCtrl();
 
-	CCitiesDoc* oDocument = GetDocument();
+	CPhoneNumbersDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
 
-	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
+	CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = oDocument->m_oInitialPhoneNumbersArray;
 
 
-	if (oCitiesArray.IsEmpty()) {
+	if (oPhoneNumbersArray.IsEmpty()) {
 		AfxMessageBox(_T("There was no phone numbers to load in Init"), MB_ICONERROR);
 	}
 	else
@@ -62,7 +58,7 @@ void CPhoneNumbersView::OnInitialUpdate()
 
 		DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
 
-		//InsertCityRows(oCitiesArray)
+		InsertCityRows(oPhoneNumbersArray);
 	}
 }
 
@@ -97,9 +93,10 @@ void CPhoneNumbersView::Dump(CDumpContext& dc) const
 	CListView::Dump(dc);
 }
 
-CCitiesDoc* CPhoneNumbersView::GetDocument() const
+CPhoneNumbersDoc* CPhoneNumbersView::GetDocument() const
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCitiesDoc)));
-	return (CCitiesDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPhoneNumbersDoc)));
+	return (CPhoneNumbersDoc*)m_pDocument;
 }
+
 #endif //_DEBUG

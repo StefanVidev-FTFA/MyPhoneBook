@@ -196,6 +196,9 @@
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
+    <ClInclude Include="PersonsData.h" />
+    <ClInclude Include="PersonsTable.h" />
+    <ClInclude Include="PhoneNumbersDoc.h" />
     <ClInclude Include="PhoneNumbersView.h" />
     <ClInclude Include="SmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />
@@ -227,7 +230,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PersonsTable.cpp" />
     <ClCompile Include="PhoneBook.cpp" />
+    <ClCompile Include="PhoneNumbersDoc.cpp" />
     <ClCompile Include="PhoneNumbersView.cpp" />
   </ItemGroup>
   <ItemGroup>
