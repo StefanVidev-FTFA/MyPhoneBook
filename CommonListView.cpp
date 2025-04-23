@@ -29,3 +29,6 @@ void CCommonListView::DeclareColumns(const initializer_list<CString>& strColumnN
         i++;
     }
 }
+void CCommonListView::CreateListOnInit() 
+{
+}

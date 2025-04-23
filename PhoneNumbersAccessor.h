@@ -2,11 +2,12 @@
 #include "Cities.h"
 #include <atldbcli.h>
 #include "PhoneNumbers.h"
+#include "BaseAccessor.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CPhoneNumbersAccessor
 
-class CPhoneNumbersAccessor
+class CPhoneNumbersAccessor : public CBaseAccessor<PHONE_NUMBERS>
 {
 protected:
     PHONE_NUMBERS m_recPhone;
@@ -24,4 +25,9 @@ protected:
         END_ACCESSOR()
 
     END_ACCESSOR_MAP()
+
+public:
+    PHONE_NUMBERS GetRecord() const override {
+        return m_recPhone;
+    }
 };

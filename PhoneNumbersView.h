@@ -19,6 +19,9 @@ public:
     virtual void OnInitialUpdate();
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
+protected:
+	void CreateListOnInit() override;
+
 
 public:
 	virtual ~CPhoneNumbersView();

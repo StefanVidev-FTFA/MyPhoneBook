@@ -77,6 +77,8 @@ public:
 protected:
 	virtual void OnInitialUpdate();
 
+	void CreateListOnInit() override;
+
 
 public:
 	virtual ~CCitiesView();

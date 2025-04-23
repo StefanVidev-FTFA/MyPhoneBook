@@ -135,6 +135,9 @@
     <ClInclude Include="PersonsTable.h">
       <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
+    <ClInclude Include="BaseAccessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">

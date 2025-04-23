@@ -10,6 +10,7 @@
 #include "Macros.h"
 #include "CitiesView.h"
 #include "CitiesHint.h"
+#include "PersonsData.h"
 
 IMPLEMENT_DYNCREATE(CCitiesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CCitiesDoc, CDocument)
@@ -37,6 +38,8 @@ BOOL CCitiesDoc::OnNewDocument()
 		return FALSE;
 
 	CCitiesData data;
+
+	//CPersonsData personsData;
 
 	if (!data.SelectAll(m_oInitialCitiesArray))
 	{

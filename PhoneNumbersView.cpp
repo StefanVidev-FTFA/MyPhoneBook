@@ -38,6 +38,17 @@ BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
 	return CListView::PreCreateWindow(cs);
 }
 
+void CPhoneNumbersView::CreateListOnInit()
+{
+	CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = GetDocument()->m_oInitialPhoneNumbersArray;
+
+	SetViewStyle();
+
+	DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
+
+	InsertCityRows(oPhoneNumbersArray);
+}
+
 void CPhoneNumbersView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
@@ -54,11 +65,7 @@ void CPhoneNumbersView::OnInitialUpdate()
 	}
 	else
 	{
-		SetViewStyle();
-
-		DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
-
-		InsertCityRows(oPhoneNumbersArray);
+		CreateListOnInit();
 	}
 }
 

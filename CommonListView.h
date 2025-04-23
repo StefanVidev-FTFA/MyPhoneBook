@@ -31,6 +31,8 @@ protected:
 
 	virtual void SetViewStyle();
 
+	virtual void CreateListOnInit();
+
 	void DeclareColumns(const initializer_list<CString>& strColumnNames);
 
 	//Members

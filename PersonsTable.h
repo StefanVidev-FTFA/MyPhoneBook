@@ -7,9 +7,6 @@
 #include <atldbcli.h>
 #include <afxwin.h>
 #include "DatabaseConnection.h"
-#pragma once
-
-#include "pch.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 #include "PhoneNumbersAccessor.h"
@@ -22,7 +19,7 @@ class CPersonsTable : public CCommand<CAccessor<CPhoneNumbersAccessor>>
 {
     // Methods
     // ----------------
-public://template <typename Ttable>
+public:
 
     /// <summary>
     /// Избира всички записи от таблицата която е зададена като тип
@@ -30,6 +27,17 @@ public://template <typename Ttable>
     template <typename tableType>
     bool SelectAll(CSmartArray<tableType>& oTableItemsArray)
     {
+        
+        if(typeid(tableType) == typeid(PHONE_NUMBERS))
+        {
+            AfxMessageBox(_T("its phone numbers"));
+        }
+        else if(typeid(tableType) == typeid(CITIES))
+        {
+            AfxMessageBox(_T("its the cities boiiii"));
+        }
+
+
         CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
         CSession oSession;
 

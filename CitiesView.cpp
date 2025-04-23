@@ -34,6 +34,11 @@ CCitiesView::~CCitiesView(){}
 
 	// Methods
 	// ----------------
+
+void CCitiesView::CreateListOnInit()
+{
+
+}
 void CCitiesView::RequestSelectById()
 {
 	CDialogFindCityById oSelectByIdDlg;
