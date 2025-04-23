@@ -1,7 +1,9 @@
 #pragma once
 #include "pch.h"
 #include "PersonsTable.h"
+#include "TempCitiesTable.h"
 
+using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsData
 
@@ -12,7 +14,7 @@ private:
     // Constants
     // ----------------
     CPersonsTable m_oPersonsTable;
-    CCitiesTable m_oCitiesTable;
+    CTempCitiesTable m_oCitiesTable;
 
 
     // Methods
@@ -23,13 +25,17 @@ public:
     bool SelectAll(CSmartArray<tableType>& oTableItemsArray)
     {
         //if constexpr (std::is_same_v<tableType, PHONE_NUMBERS>) {
-        if (typeid(tableType) == typeid(PHONE_NUMBERS))
+        if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
         {
             return m_oPersonsTable.SelectAll(oTableItemsArray);
         }
-        else if(typeid(tableType) == typeid(CITIES))
+        else if constexpr (is_same_v<tableType, CITIES>)
         {
-            return m_oPersonsTable.SelectAll(oTableItemsArray);
+            return m_oCitiesTable.SelectAll(oTableItemsArray);
+        }
+        else
+        {
+            return false;
         }
     }
 };

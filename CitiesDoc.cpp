@@ -45,7 +45,7 @@ BOOL CCitiesDoc::OnNewDocument()
 	//personsData.SelectAll(citiesArray);
 
 
-	if (!data.SelectAll(m_oInitialCitiesArray))
+	if (!personsData.SelectAll(m_oInitialCitiesArray))
 	{
 		MESSAGE_ERROR(_T("Failed to loadup the data for cities from database"));
 		return FALSE;
@@ -57,7 +57,7 @@ BOOL CCitiesDoc::OnNewDocument()
 bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 {
 	CCitiesData oCitiesData;
-	m_oCitiesData->UpdateWhereID(nId, recCity);
+	//m_oCitiesData->UpdateWhereID(nId, recCity);
 
 	CCitiesHint* pHint = new CCitiesHint(nId, recCity);
 	UpdateAllViews(nullptr, CCitiesView::SqlOperationUpdateById, pHint);
@@ -69,7 +69,7 @@ bool CCitiesDoc::DatabaseSelectAll()
 {
 	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
 
-	m_oCitiesData->SelectAll(*pCitiesArray);
+	//m_oCitiesData->SelectAll(*pCitiesArray);
 
 	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);
 	return true;
@@ -80,7 +80,7 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 
 	CITIES recFoundCity;
 
-	m_oCitiesData->SelectWhereID(nId, recFoundCity);
+	//m_oCitiesData->SelectWhereID(nId, recFoundCity);
 
 	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
 
@@ -95,32 +95,34 @@ bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCit
 	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, strCityRegion);
 
 	CCitiesData oCitiesData;
-	if (oCitiesData.Insert(recCityForInsert))
-	{
-		CCitiesHint* pHint = new CCitiesHint(recCityForInsert.nId, recCityForInsert);
-		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, pHint);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	//if (oCitiesData.Insert(recCityForInsert))
+	//{
+	//	CCitiesHint* pHint = new CCitiesHint(recCityForInsert.nId, recCityForInsert);
+	//	UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, pHint);
+	//	return true;
+	//}
+	//else
+	//{
+	//	return false;
+	//}
+	return true;
 }
 
 bool CCitiesDoc::DatabaseDelete(const int nId)
 {
 	CCitiesData oCitiesData;
 
-	if (oCitiesData.DeleteWhereID(nId))
-	{
+	//if (oCitiesData.DeleteWhereID(nId))
+	//{
 
-		UpdateAllViews(nullptr, CCitiesView::SqlOperationDelete, nullptr);
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
+	//	UpdateAllViews(nullptr, CCitiesView::SqlOperationDelete, nullptr);
+	//	return true;
+	//}
+	//else 
+	//{
+	//	return false;
+	//}
+	return true;
 }
 
 void CCitiesDoc::Serialize(CArchive& ar)

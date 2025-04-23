@@ -50,6 +50,10 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     {
         type =  _T("PHONE_NUMBERS");
     }
+    else if (typeid(tableType) == typeid(CITIES))
+    {
+        type = _T("CITIES");
+    }
 
     CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
 

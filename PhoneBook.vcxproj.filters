@@ -139,7 +139,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseTable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ForTables</Filter>
+    </ClInclude>
+    <ClInclude Include="TempCitiesTable.h">
+      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
