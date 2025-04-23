@@ -10,24 +10,18 @@
 class CPhoneNumbersAccessor : public CBaseAccessor<PHONE_NUMBERS>
 {
 protected:
-    PHONE_NUMBERS m_recPhone;
 
     BEGIN_ACCESSOR_MAP(CPhoneNumbersAccessor, 2)
         BEGIN_ACCESSOR(0, true)
-            COLUMN_ENTRY(1, m_recPhone.nId)
+            COLUMN_ENTRY(1, m_recItem.nId)
         END_ACCESSOR()
 
         BEGIN_ACCESSOR(1, true)
-            COLUMN_ENTRY(2, m_recPhone.nUpdateCounter)
-            COLUMN_ENTRY(3, m_recPhone.nPersonId)
-            COLUMN_ENTRY(4, m_recPhone.nPhoneTypeId)
-            COLUMN_ENTRY(5, m_recPhone.szPhoneNumber)
+            COLUMN_ENTRY(2, m_recItem.nUpdateCounter)
+            COLUMN_ENTRY(3, m_recItem.nPersonId)
+            COLUMN_ENTRY(4, m_recItem.nPhoneTypeId)
+            COLUMN_ENTRY(5, m_recItem.szPhoneNumber)
         END_ACCESSOR()
 
     END_ACCESSOR_MAP()
-
-public:
-    PHONE_NUMBERS GetRecord() const override {
-        return m_recPhone;
-    }
 };

@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseAccessor.h" />
+    <ClInclude Include="BaseTable.h" />
     <ClInclude Include="CitiesInsertOrUpdateDialog.h" />
     <ClInclude Include="CDialogFindCityById.h" />
     <ClInclude Include="ChildFrm.h" />
