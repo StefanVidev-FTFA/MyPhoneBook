@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CBaseTable
 
-#define SELECT_ALL "SELECT * FROM %s WITH(NOLOCK)"
+#define SELECT_ALL _T("SELECT * FROM %s WITH(NOLOCK)")
 
 template <typename tableType,typename accessorType>
 class CBaseTable : public CCommand<CAccessor<accessorType>>
@@ -45,9 +45,13 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
         return false;
     }
 
-   // CString strQuery = Utils::QueryWithStr(SELECT_ALL, typeid(tableType).name());
+    CString type;
+    if (typeid(tableType) == typeid(PHONE_NUMBERS)) 
+    {
+        type =  _T("PHONE_NUMBERS");
+    }
 
-    CString strQuery = _T("SELECT * FROM PHONE_NUMBERS WITH(NOLOCK)");
+    CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
 
 
 

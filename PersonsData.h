@@ -12,13 +12,15 @@ private:
     // Constants
     // ----------------
     CPersonsTable m_oPersonsTable;
+    CCitiesTable m_oCitiesTable;
 
 
     // Methods
     // ----------------
 public:
 
-    bool SelectAll(CSmartArray<PHONE_NUMBERS>& oTableItemsArray)
+    template <typename tableType>
+    bool SelectAll(CSmartArray<tableType>& oTableItemsArray)
     {
         return m_oPersonsTable.SelectAll(oTableItemsArray);
     }
