@@ -39,7 +39,11 @@ BOOL CCitiesDoc::OnNewDocument()
 
 	CCitiesData data;
 
-	//CPersonsData personsData;
+	CPersonsData personsData;
+
+	//CSmartArray<CITIES> citiesArray;
+	//personsData.SelectAll(citiesArray);
+
 
 	if (!data.SelectAll(m_oInitialCitiesArray))
 	{
