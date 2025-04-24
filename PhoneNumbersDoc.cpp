@@ -16,12 +16,9 @@ END_MESSAGE_MAP()
 // ----------------
 CPhoneNumbersDoc::CPhoneNumbersDoc() noexcept
 {
-	m_oCitiesData = new CCitiesData();
 }
 CPhoneNumbersDoc::~CPhoneNumbersDoc()
 {
-	delete m_oCitiesData;
-	m_oCitiesData = nullptr;
 }
 
 

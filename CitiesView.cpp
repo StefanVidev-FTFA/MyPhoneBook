@@ -79,7 +79,7 @@ void CCitiesView::RequestSelectAll() {
 
 void CCitiesView::RequestInsert()
 {
-	CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
+	//CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
 
 
 	CCitiesInsertOrUpdateDialog oInsertDlg;
@@ -236,7 +236,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationDelete)
 	{
-		CCitiesData data;
+		//CCitiesData data;
 
 		CSmartArray<CITIES> pCitiesArray;
 		//data.SelectAll(pCitiesArray);

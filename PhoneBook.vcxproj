@@ -191,7 +191,6 @@
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
     <ClInclude Include="CitiesArray.h" />
-    <ClInclude Include="CitiesData.h" />
     <ClInclude Include="CitiesDoc.h" />
     <ClInclude Include="CitiesHint.h" />
     <ClInclude Include="CitiesTable.h" />
@@ -203,6 +202,7 @@
     <ClInclude Include="PersonsTable.h" />
     <ClInclude Include="PhoneNumbersDoc.h" />
     <ClInclude Include="PhoneNumbersView.h" />
+    <ClInclude Include="PhoneNumersTable.h" />
     <ClInclude Include="PhoneTypes.h" />
     <ClInclude Include="SmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />

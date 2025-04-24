@@ -1,5 +1,4 @@
 #pragma once
-#include "CitiesData.h"
 #include "PhoneNumbers.h"
 
 
@@ -37,7 +36,6 @@ public:
 	// ----------------
 public:
 	CSmartArray<PHONE_NUMBERS> m_oInitialPhoneNumbersArray;
-	CCitiesData* m_oCitiesData;
 	int m_SelectByIdTarget = -1;
 
 

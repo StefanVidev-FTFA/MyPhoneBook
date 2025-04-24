@@ -50,7 +50,7 @@ namespace Utils
         }
         else if (typeid(tableType) == typeid(PHONE_TYPES))
         {
-            type = _T("PERSONS");
+            type = _T("PHONE_TYPES");
         }
         return type;
     }

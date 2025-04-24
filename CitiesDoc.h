@@ -1,5 +1,6 @@
 #pragma once
-#include "CitiesData.h"
+
+#include "SmartArray.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -44,7 +45,6 @@ public:
 	// ----------------
 public:
 	CSmartArray<CITIES> m_oInitialCitiesArray;
-	CCitiesData* m_oCitiesData;
 	int m_SelectByIdTarget = -1;
 
 

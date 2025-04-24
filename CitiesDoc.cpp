@@ -6,7 +6,6 @@
 #define new DEBUG_NEW
 #endif
 #include "CitiesArray.h"
-#include "CitiesData.h"
 #include "Macros.h"
 #include "CitiesView.h"
 #include "CitiesHint.h"
@@ -20,12 +19,9 @@ END_MESSAGE_MAP()
 	// ----------------
 CCitiesDoc::CCitiesDoc() noexcept
 {
-	m_oCitiesData = new CCitiesData();
 }
 CCitiesDoc::~CCitiesDoc()
 {
-	delete m_oCitiesData;
-	m_oCitiesData = nullptr;
 }
 
 
@@ -36,8 +32,6 @@ BOOL CCitiesDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
-
-	CCitiesData data;
 
 	CPersonsData personsData;
 
@@ -56,7 +50,7 @@ BOOL CCitiesDoc::OnNewDocument()
 
 bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 {
-	CCitiesData oCitiesData;
+	//CCitiesData oCitiesData;
 	//m_oCitiesData->UpdateWhereID(nId, recCity);
 
 	CCitiesHint* pHint = new CCitiesHint(nId, recCity);
@@ -94,7 +88,7 @@ bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCit
 	wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, strCityName);
 	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, strCityRegion);
 
-	CCitiesData oCitiesData;
+	//CCitiesData oCitiesData;
 	//if (oCitiesData.Insert(recCityForInsert))
 	//{
 	//	CCitiesHint* pHint = new CCitiesHint(recCityForInsert.nId, recCityForInsert);
@@ -110,7 +104,7 @@ bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCit
 
 bool CCitiesDoc::DatabaseDelete(const int nId)
 {
-	CCitiesData oCitiesData;
+	//CCitiesData oCitiesData;
 
 	//if (oCitiesData.DeleteWhereID(nId))
 	//{

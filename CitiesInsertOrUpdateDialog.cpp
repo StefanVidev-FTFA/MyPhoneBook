@@ -2,7 +2,6 @@
 #include "PhoneBook.h"
 #include "afxdialogex.h"
 #include "CitiesInsertOrUpdateDialog.h"
-#include "CitiesData.h"
 #include "CitiesView.h"
 
 IMPLEMENT_DYNAMIC(CCitiesInsertOrUpdateDialog, CDialogEx)

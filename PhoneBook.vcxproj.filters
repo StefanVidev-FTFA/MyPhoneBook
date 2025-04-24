@@ -54,9 +54,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PhoneBook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -91,9 +88,6 @@
       <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesDoc.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesData.h">
       <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesTable.h">
@@ -152,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="PhoneTypes.h">
       <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneBook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneNumersTable.h">
+      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
