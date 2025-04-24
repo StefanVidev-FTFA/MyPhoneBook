@@ -1,4 +1,5 @@
 #pragma once
+
 #include "pch.h"
 #include <atlbase.h>
 #include <atlcom.h>
@@ -24,17 +25,12 @@ public:
 
 };
 
-
-
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType>& oTableItemsArray)
 {
-
-
     CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
     CSession oSession;
 
-    // Отваряме сесия
     HRESULT  hResult = oSession.Open(oDataSource);
     if (FAILED(hResult))
     {
@@ -45,19 +41,8 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
         return false;
     }
 
-    CString type;
-    if (typeid(tableType) == typeid(PHONE_NUMBERS)) 
-    {
-        type =  _T("PHONE_NUMBERS");
-    }
-    else if (typeid(tableType) == typeid(CITIES))
-    {
-        type = _T("CITIES");
-    }
-
+    CString type = Utils::GetTableName<tableType>();
     CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
-
-
 
     hResult = Open(oSession, strQuery);
     if (FAILED(hResult))

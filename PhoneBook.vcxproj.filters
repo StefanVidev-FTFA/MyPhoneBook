@@ -49,6 +49,9 @@
     <Filter Include="Source Files\ForTables\Persons">
       <UniqueIdentifier>{84e87cb2-33fd-4864-8654-8498d6d5deff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ForTables\PhoneTypes">
+      <UniqueIdentifier>{2b2bf288-030d-46ce-a869-ca0faf9f6bdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhoneBook.h">
@@ -143,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="TempCitiesTable.h">
       <Filter>Header Files\ForTables\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="Persons.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneTypes.h">
+      <Filter>Header Files\ForTables\PhoneTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

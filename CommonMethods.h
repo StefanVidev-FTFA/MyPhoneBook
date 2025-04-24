@@ -1,5 +1,8 @@
 #pragma once
 
+#include "PhoneTypes.h"
+#include "Persons.h"
+
 namespace Utils
 {
     inline bool IsEven(int x)
@@ -28,5 +31,27 @@ namespace Utils
         CString strQuery;
         strQuery.Format(message, str);
         return strQuery;
+    }
+    template <typename tableType>
+    inline CString GetTableName()
+    {
+        CString type;
+        if (typeid(tableType) == typeid(PHONE_NUMBERS))
+        {
+            type = _T("PHONE_NUMBERS");
+        }
+        else if (typeid(tableType) == typeid(CITIES))
+        {
+            type = _T("CITIES");
+        }
+        else if (typeid(tableType) == typeid(PERSONS))
+        {
+            type = _T("PERSONS");
+        }
+        else if (typeid(tableType) == typeid(PHONE_TYPES))
+        {
+            type = _T("PERSONS");
+        }
+        return type;
     }
 }
