@@ -14,11 +14,7 @@
 #define new DEBUG_NEW
 #endif
 #include "PersonsView.h"
-#include "PersonsView.h"
 #include "PersonsDoc.h"
-
-
-
 
 IMPLEMENT_DYNCREATE(CPersonsView, CListView)
 BEGIN_MESSAGE_MAP(CPersonsView, CListView)
@@ -28,7 +24,6 @@ END_MESSAGE_MAP()
 
 CPersonsView::CPersonsView() noexcept {}
 CPersonsView::~CPersonsView() {}
-
 
 BOOL CPersonsView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -41,7 +36,8 @@ void CPersonsView::CreateListOnInit()
 
 	SetViewStyle();
 
-	DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
+	DeclareColumns({ _T("ID"),_T("First Name"),_T("Middle Name")
+		,_T("Last Name"),_T("EGN") ,_T("City ID"),_T("Adress") });
 
 	InsertCityRows(oPersonsArray);
 }
@@ -66,7 +62,6 @@ void CPersonsView::OnInitialUpdate()
 	}
 }
 
-
 void CPersonsView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
@@ -84,7 +79,6 @@ void CPersonsView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
-
 
 #ifdef _DEBUG
 void CPersonsView::AssertValid() const

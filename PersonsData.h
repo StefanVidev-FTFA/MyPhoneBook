@@ -16,6 +16,7 @@ private:
     // ----------------
     CPhoneNumbersTable m_oPhoneNumbersTable;
     CTempCitiesTable m_oCitiesTable;
+    CPersonsTable m_oPersonsTable;
 
 
     // Methods
@@ -32,6 +33,10 @@ public:
         else if constexpr (is_same_v<tableType, CITIES>)
         {
             return m_oCitiesTable.SelectAll(oTableItemsArray);
+        }
+        else if constexpr (is_same_v<tableType, PERSONS>)
+        {
+            return m_oPersonsTable.SelectAll(oTableItemsArray);
         }
         else
         {

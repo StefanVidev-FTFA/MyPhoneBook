@@ -207,6 +207,8 @@
     <ClInclude Include="PhoneNumbersTable.h" />
     <ClInclude Include="PhoneNumbersView.h" />
     <ClInclude Include="PhoneTypes.h" />
+    <ClInclude Include="PhoneTypesAccessor.h" />
+    <ClInclude Include="PhoneTypesTable.h" />
     <ClInclude Include="SmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="framework.h" />

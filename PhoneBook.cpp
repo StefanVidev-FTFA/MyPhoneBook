@@ -9,6 +9,8 @@
 #include "PhoneNumbersDoc.h"
 #include "CitiesView.h"
 #include "PhoneNumbersView.h"
+#include "PersonsView.h"
+#include "PersonsDoc.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -60,18 +62,18 @@ BOOL CPhoneBookApp::InitInstance()
 	theApp.GetTooltipManager()->SetTooltipParams(AFX_TOOLTIP_TYPE_ALL,
 		RUNTIME_CLASS(CMFCToolTipCtrl), &ttParams);
 
+
+	//----------------------------------------------------------
 	CMultiDocTemplate* pDocTemplate1;
 	pDocTemplate1 = new CMultiDocTemplate(IDR_PhoneBookCities,
 		RUNTIME_CLASS(CCitiesDoc),
 		RUNTIME_CLASS(CChildFrame),
 		RUNTIME_CLASS(CCitiesView));
 
-
-	CDatabaseConnection::GetInstance().Connect();
-
 	if (!pDocTemplate1)
 		return FALSE;
 	AddDocTemplate(pDocTemplate1);
+
 
 
 	CMultiDocTemplate* pDocTemplate2;
@@ -79,9 +81,24 @@ BOOL CPhoneBookApp::InitInstance()
 		RUNTIME_CLASS(CPhoneNumbersDoc),
 		RUNTIME_CLASS(CChildFrame),
 		RUNTIME_CLASS(CPhoneNumbersView));
+
 	if (!pDocTemplate2)
 		return FALSE;
 	AddDocTemplate(pDocTemplate2);
+
+
+
+	CMultiDocTemplate* pDocTemplate3;
+	pDocTemplate3 = new CMultiDocTemplate(IDR_PhoneBookPersons,
+		RUNTIME_CLASS(CPersonsDoc),
+		RUNTIME_CLASS(CChildFrame),
+		RUNTIME_CLASS(CPersonsView));
+
+	if (!pDocTemplate3)
+		return FALSE;
+	AddDocTemplate(pDocTemplate3);
+	//----------------------------------------------------------
+	CDatabaseConnection::GetInstance().Connect();
 
 
 

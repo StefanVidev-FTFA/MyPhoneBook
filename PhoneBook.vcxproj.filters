@@ -162,6 +162,12 @@
     <ClInclude Include="PersonsView.h">
       <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
+    <ClInclude Include="PhoneTypesAccessor.h">
+      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneTypesTable.h">
+      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
