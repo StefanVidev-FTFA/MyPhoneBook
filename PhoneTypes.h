@@ -1,6 +1,7 @@
 #pragma once
 #include <afxtempl.h>
 #include <afxstr.h> 
+#include "SmartArray.h"
 
 #define MAX_PHONE_TYPE 31
 struct PHONE_TYPES {

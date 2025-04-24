@@ -52,6 +52,9 @@
     <Filter Include="Header Files\ForTables\PhoneTypes">
       <UniqueIdentifier>{2b2bf288-030d-46ce-a869-ca0faf9f6bdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ForTables\PhoneTypes">
+      <UniqueIdentifier>{50ee0b34-5a9b-4052-b993-7c04f69d613d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -168,6 +171,12 @@
     <ClInclude Include="PhoneTypesTable.h">
       <Filter>Header Files\ForTables\PhoneTypes</Filter>
     </ClInclude>
+    <ClInclude Include="PhoneTypesDoc.h">
+      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneTypesView.h">
+      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
@@ -214,6 +223,12 @@
     </ClCompile>
     <ClCompile Include="PersonsView.cpp">
       <Filter>Source Files\ForTables\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneTypesDoc.cpp">
+      <Filter>Source Files\ForTables\PhoneTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneTypesView.cpp">
+      <Filter>Source Files\ForTables\PhoneTypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

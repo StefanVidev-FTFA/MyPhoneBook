@@ -11,6 +11,8 @@
 #include "PhoneNumbersView.h"
 #include "PersonsView.h"
 #include "PersonsDoc.h"
+#include "PhoneTypesView.h"
+#include "PhoneTypesDoc.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -97,6 +99,18 @@ BOOL CPhoneBookApp::InitInstance()
 	if (!pDocTemplate3)
 		return FALSE;
 	AddDocTemplate(pDocTemplate3);
+
+
+
+	CMultiDocTemplate* pDocTemplate4;
+	pDocTemplate4 = new CMultiDocTemplate(IDR_PhoneBookPhoneTypes,
+		RUNTIME_CLASS(CPhoneTypesDoc),
+		RUNTIME_CLASS(CChildFrame),
+		RUNTIME_CLASS(CPhoneTypesView));
+
+	if (!pDocTemplate4)
+		return FALSE;
+	AddDocTemplate(pDocTemplate4);
 	//----------------------------------------------------------
 	CDatabaseConnection::GetInstance().Connect();
 

@@ -208,7 +208,9 @@
     <ClInclude Include="PhoneNumbersView.h" />
     <ClInclude Include="PhoneTypes.h" />
     <ClInclude Include="PhoneTypesAccessor.h" />
+    <ClInclude Include="PhoneTypesDoc.h" />
     <ClInclude Include="PhoneTypesTable.h" />
+    <ClInclude Include="PhoneTypesView.h" />
     <ClInclude Include="SmartArray.h" />
     <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="framework.h" />
@@ -243,6 +245,8 @@
     <ClCompile Include="PhoneBook.cpp" />
     <ClCompile Include="PhoneNumbersDoc.cpp" />
     <ClCompile Include="PhoneNumbersView.cpp" />
+    <ClCompile Include="PhoneTypesDoc.cpp" />
+    <ClCompile Include="PhoneTypesView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PhoneBook.rc" />

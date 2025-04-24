@@ -3,6 +3,7 @@
 #include "PersonsTable.h"
 #include "TempCitiesTable.h"
 #include "PhoneNumbersTable.h"
+#include "PhoneTypesTable.h"
 
 using namespace std;
 /////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,7 @@ private:
     CPhoneNumbersTable m_oPhoneNumbersTable;
     CTempCitiesTable m_oCitiesTable;
     CPersonsTable m_oPersonsTable;
+    CPhoneTypesTable m_oPhoneTypesTable;
 
 
     // Methods
@@ -37,6 +39,10 @@ public:
         else if constexpr (is_same_v<tableType, PERSONS>)
         {
             return m_oPersonsTable.SelectAll(oTableItemsArray);
+        }
+        else if constexpr (is_same_v<tableType, PHONE_TYPES>)
+        {
+            return m_oPhoneTypesTable.SelectAll(oTableItemsArray);
         }
         else
         {

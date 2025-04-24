@@ -20,6 +20,7 @@
 #define IDR_PhoneBookCities             130
 #define IDR_PhoneBookPhoneNumbers       133
 #define IDR_PhoneBookPersons			132
+#define IDR_PhoneBookPhoneTypes			134
 #define ID_WINDOW_MANAGER               131
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     311

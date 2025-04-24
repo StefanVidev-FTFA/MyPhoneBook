@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CPhoneTypesAccessor
 
-class CPhoneTypesAccessor : CBaseAccessor<PHONE_TYPES> 
+class CPhoneTypesAccessor : public CBaseAccessor<PHONE_TYPES> 
 {
 protected:
 
