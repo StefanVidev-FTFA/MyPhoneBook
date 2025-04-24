@@ -194,6 +194,7 @@
     <ClInclude Include="CitiesDoc.h" />
     <ClInclude Include="CitiesHint.h" />
     <ClInclude Include="CitiesView.h" />
+    <ClInclude Include="CommonDocument.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="Persons.h" />

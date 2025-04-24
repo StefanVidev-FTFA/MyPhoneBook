@@ -138,9 +138,6 @@
     <ClInclude Include="BaseTable.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
-    <ClInclude Include="TempCitiesTable.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
-    </ClInclude>
     <ClInclude Include="Persons.h">
       <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
@@ -176,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="PhoneTypesView.h">
       <Filter>Header Files\ForTables\PhoneTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonDocument.h">
+      <Filter>Header Files\ForTables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

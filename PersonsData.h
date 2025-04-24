@@ -51,4 +51,34 @@ public:
             return false;
         }
     }
+
+    //------------------------------------------------------------------------------------
+
+    template <typename tableType>
+    bool SelectById(const long lID, tableType& recItem)
+    {
+        CDatabaseConnection::GetInstance().OpenSession();
+
+        if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
+        {
+            return m_oPhoneNumbersTable.SelectWhereID(lID, recItem);
+        }
+        else if constexpr (is_same_v<tableType, CITIES>)
+        {
+            return m_oCitiesTable.SelectWhereID(lID, recItem);
+        }
+        else if constexpr (is_same_v<tableType, PERSONS>)
+        {
+            return m_oPersonsTable.SelectWhereID(lID, recItem);
+        }
+        else if constexpr (is_same_v<tableType, PHONE_TYPES>)
+        {
+            return m_oPhoneTypesTable.SelectWhereID(lID, recItem);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 };

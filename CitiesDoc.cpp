@@ -73,8 +73,10 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 {
 
 	CITIES recFoundCity;
+	CPersonsData oData;
 
-	//m_oCitiesData->SelectWhereID(nId, recFoundCity);
+	oData.SelectById(nId, recFoundCity);
+
 
 	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
 
