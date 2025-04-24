@@ -18,13 +18,17 @@
 #define IDR_MAINFRAME                   128
 #define IDR_MAINFRAME_256               129
 #define IDR_PhoneBookCities             130
-#define IDR_PhoneBookPhoneNumbers       133
-#define IDR_PhoneBookPersons			132
-#define IDR_PhoneBookPhoneTypes			134
 #define ID_WINDOW_MANAGER               131
+#define IDR_PhoneBookPersons            132
+#define IDR_PhoneBookPhoneNumbers       133
+#define IDR_PhoneBookPhoneTypes         134
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     311
 #define IDD_DIALOG2                     313
+#define IDD_DIALOG5                     314
+#define IDD_DIALOG4                     316
+#define IDD_DIALOG6                     317
+#define IDD_DIALOG7                     318
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define EDB_DLG1_CITY_REGION            1001
@@ -37,6 +41,14 @@
 #define EDB_DLG1_CITY_NAME              1005
 #define STT_CITY_NAME                   1006
 #define STT_CITY_REGION                 1007
+#define EDB_DLG1_CITY_REGION2           1008
+#define STT_CITY_REGION2                1009
+#define EDB_DLG1_CITY_REGION3           1010
+#define STT_CITY_NAME2                  1011
+#define EDB_DLG1_CITY_NAME2             1012
+#define STT_CITY_REGION3                1013
+#define EDB_DLG1_CITY_REGION4           1014
+#define STT_CITY_REGION4                1015
 #define ID_EDIT_DELETEROW               32771
 #define ID_EDIT_F                       32772
 #define ID_EDIT_INSERTROW               32773
@@ -49,7 +61,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        315
+#define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           310

@@ -2,6 +2,7 @@
 
 #include "PhoneTypes.h"
 #include "Persons.h"
+#include "Macros.h"
 
 namespace Utils
 {

@@ -3,17 +3,24 @@
 #include "PhoneBook.h"
 #include "afxdialogex.h"
 #include "CDialogFindCityById.h"
+#include "CommonMethods.h"
+
 
 IMPLEMENT_DYNAMIC(CDialogFindCityById, CDialogEx)
 
-CDialogFindCityById::CDialogFindCityById(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_DIALOG2, pParent)
+CDialogFindCityById::CDialogFindCityById(CWnd* pParent /*=nullptr*/,CString strTableName)
+	: CDialogEx(IDD_DIALOG2, pParent),m_strTableName(strTableName)
 {
 }
 
 BOOL CDialogFindCityById::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+
+	CString message = Utils::QueryWithStr(_T("Find a %s by ID"), m_strTableName);
+
+	m_FindCityHeader.SetWindowText(message);
+
 	return TRUE;
 }
 

@@ -41,7 +41,7 @@ void CCitiesView::CreateListOnInit()
 }
 void CCitiesView::RequestSelectById()
 {
-	CDialogFindCityById oSelectByIdDlg;
+	CDialogFindCityById oSelectByIdDlg(this,_T("City"));
 	INT_PTR result = oSelectByIdDlg.DoModal();
 
 	if (result == IDOK)
