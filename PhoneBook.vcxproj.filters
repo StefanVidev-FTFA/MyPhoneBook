@@ -179,13 +179,7 @@
     <ClCompile Include="DatabaseConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CitiesData.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
-    </ClCompile>
     <ClCompile Include="CitiesView.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
-    </ClCompile>
-    <ClCompile Include="CitiesArray.cpp">
       <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CitiesDoc.cpp">
@@ -196,9 +190,6 @@
     </ClCompile>
     <ClCompile Include="CDialogFindCityById.cpp">
       <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="CitiesTable.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="PhoneNumbersView.cpp">
       <Filter>Source Files\ForTables\PhoneNumbers</Filter>

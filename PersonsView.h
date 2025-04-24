@@ -8,10 +8,10 @@ class CPersonsView : public CCommonListView
 {
 protected:
 	CPersonsView() noexcept;
-	DECLARE_DYNCREATE(CPhoneNumbersView)
+	DECLARE_DYNCREATE(CPersonsView)
 
 public:
-	CPersonsView* GetDocument() const;
+	CPersonsDoc* GetDocument() const;
 
 	// Overrides
 public:

@@ -1,9 +1,7 @@
-#pragma once
-
 #include "pch.h"
 #include <afxwin.h>
 #include <afxext.h>
-#include <afxcmn.h>  // For CListView
+#include <afxcmn.h> 
 #include "framework.h"
 #include "PhoneBook.h"
 #include "CitiesDoc.h"

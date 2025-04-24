@@ -224,10 +224,7 @@
     <ClCompile Include="CitiesInsertOrUpdateDialog.cpp" />
     <ClCompile Include="CDialogFindCityById.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
-    <ClCompile Include="CitiesArray.cpp" />
-    <ClCompile Include="CitiesData.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
-    <ClCompile Include="CitiesTable.cpp" />
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CommonListView.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
