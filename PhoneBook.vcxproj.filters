@@ -132,9 +132,6 @@
     <ClInclude Include="PersonsTable.h">
       <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
-    <ClInclude Include="BaseAccessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BaseTable.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
@@ -154,7 +151,16 @@
       <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbersTable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAccessor.h">
+      <Filter>Header Files\ForTables</Filter>
+    </ClInclude>
+    <ClInclude Include="PersonsDoc.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="PersonsView.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="PersonsTable.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PersonsDoc.cpp">
+      <Filter>Source Files\ForTables\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="PersonsView.cpp">
+      <Filter>Source Files\ForTables\Persons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

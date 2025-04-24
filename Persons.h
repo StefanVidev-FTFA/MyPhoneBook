@@ -1,6 +1,6 @@
 #pragma once
 #include <afxtempl.h>
-#include <afxstr.h> 
+#include "SmartArray.h"
 
 
 #define MAX_ANY_NAME 41
