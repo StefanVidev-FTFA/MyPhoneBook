@@ -193,7 +193,6 @@
     <ClInclude Include="CitiesArray.h" />
     <ClInclude Include="CitiesDoc.h" />
     <ClInclude Include="CitiesHint.h" />
-    <ClInclude Include="CitiesTable.h" />
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
@@ -222,7 +221,7 @@
     <ClInclude Include="PhoneNumbersAccessor.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TempCitiesTable.h" />
+    <ClInclude Include="CitiesTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CitiesInsertOrUpdateDialog.cpp" />

@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "CitiesTable.h"
 #include <iostream>
 #include <atldbcli.h>
 #include "CitiesArray.h"

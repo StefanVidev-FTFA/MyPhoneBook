@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "PersonsTable.h"
-#include "TempCitiesTable.h"
+#include "CitiesTable.h"
 #include "PhoneNumbersTable.h"
 #include "PhoneTypesTable.h"
 
@@ -16,7 +16,7 @@ private:
     // Constants
     // ----------------
     CPhoneNumbersTable m_oPhoneNumbersTable;
-    CTempCitiesTable m_oCitiesTable;
+    CCitiesTable m_oCitiesTable;
     CPersonsTable m_oPersonsTable;
     CPhoneTypesTable m_oPhoneTypesTable;
 

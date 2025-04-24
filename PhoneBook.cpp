@@ -17,7 +17,6 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include "CitiesTable.h"
 #include "DatabaseConnection.h"
 #include "Macros.h"
 
