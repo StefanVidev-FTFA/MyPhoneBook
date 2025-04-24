@@ -150,8 +150,11 @@
     <ClInclude Include="PhoneBook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhoneNumersTable.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+    <ClInclude Include="PersonsAccessor.h">
+      <Filter>Header Files\ForTables\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneNumbersTable.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

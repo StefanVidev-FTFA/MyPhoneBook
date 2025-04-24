@@ -31,10 +31,9 @@ BOOL CPhoneNumbersDoc::OnNewDocument()
 
 	CPersonsData data;
 
-
 	if (!data.SelectAll(m_oInitialPhoneNumbersArray))
 	{
-		MESSAGE_ERROR(_T("Failed to loadup the data for cities from database"));
+		MESSAGE_ERROR(_T("Failed to loadup the data for phone numbers from database"));
 		return FALSE;
 	}
 

@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "PersonsTable.h"
 #include "TempCitiesTable.h"
+#include "PhoneNumbersTable.h"
 
 using namespace std;
 /////////////////////////////////////////////////////////////////////////////
@@ -13,7 +14,7 @@ class CPersonsData
 private:
     // Constants
     // ----------------
-    CPersonsTable m_oPersonsTable;
+    CPhoneNumbersTable m_oPhoneNumbersTable;
     CTempCitiesTable m_oCitiesTable;
 
 
@@ -24,10 +25,9 @@ public:
     template <typename tableType>
     bool SelectAll(CSmartArray<tableType>& oTableItemsArray)
     {
-        //if constexpr (std::is_same_v<tableType, PHONE_NUMBERS>) {
         if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
         {
-            return m_oPersonsTable.SelectAll(oTableItemsArray);
+            return m_oPhoneNumbersTable.SelectAll(oTableItemsArray);
         }
         else if constexpr (is_same_v<tableType, CITIES>)
         {

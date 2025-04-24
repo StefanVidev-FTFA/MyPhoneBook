@@ -5,7 +5,6 @@
 #include <atlcom.h>
 #include <atldbcli.h>
 #include <afxwin.h>
-#include "Macros.h"
 #include "PhoneNumbersAccessor.h"
 #include "BaseTable.h"
 
