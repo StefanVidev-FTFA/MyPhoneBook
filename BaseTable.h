@@ -28,23 +28,13 @@ public:
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType>& oTableItemsArray)
 {
-    CDataSource& oDataSource = CDatabaseConnection::GetInstance().GetDataSource();
-    CSession oSession;
 
-    HRESULT  hResult = oSession.Open(oDataSource);
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Unable to open session.Error: %ld"), hResult);
-        AfxMessageBox(strError);
-
-        return false;
-    }
+    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();
     CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
 
-    hResult = Open(oSession, strQuery);
+    HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
     {
         CString strError;
@@ -62,6 +52,5 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     }
 
     Close();
-    oSession.Close();
     return true;
 }

@@ -11,7 +11,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // CDatabaseConnection
 
-
     // Constructor / Destructor
     // ----------------
 CDatabaseConnection::CDatabaseConnection()
@@ -20,8 +19,6 @@ CDatabaseConnection::CDatabaseConnection()
 {
 }
 CDatabaseConnection::~CDatabaseConnection(){}
-
-
 
     // Methods
     // ----------------
@@ -70,8 +67,33 @@ void CDatabaseConnection::Connect()
     }
 }
 
+bool CDatabaseConnection::OpenSession()
+{
+    if (m_sessionIsOpen)
+    {
+        return true;
+    }
+
+    HRESULT  hResult = m_oCurrentSession.Open(m_oDataSource);
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Unable to open session.Error: %ld"), hResult);
+        AfxMessageBox(strError);
+
+        return false;
+    }
+
+    m_sessionIsOpen = true;
+    return true;
+}
+
 void CDatabaseConnection::Disconnect()
 {
+    if (m_sessionIsOpen)
+    {
+        m_oCurrentSession.Close();
+    }
     m_oDataSource.Close();
     MESSAGE_INFO(_T("Database Disconnected!"));
 }

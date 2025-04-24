@@ -28,10 +28,14 @@ private:
 public:
     /// <summary> Връща instance на класът </summary>
     static CDatabaseConnection& GetInstance();
+    /// <summary> Отваря нова сесия </summary>
+    bool OpenSession();
     /// <summary> Установява връзка със базата данни </summary>
     void Connect();
     /// <summary> Затваря връзката със базата данни </summary>
     void Disconnect();
+    /// <summary> Връща reference към текущата сесия </summary>
+    CSession& GetCurrentSession() { return m_oCurrentSession; }
     /// <summary> Връща настройки за UPDATE, INSERT and DELETE функциите </summary>
 	CDBPropSet GetRowsetPropertiesSet() { return m_oDBDatabaseRowsetPropertiesSet; }
     /// <summary>Връща data source обект</summary>
@@ -45,11 +49,12 @@ private:
 // Members
 // ----------------
 private:
-
+    CSession m_oCurrentSession;
     CDBPropSet m_oDBDatabaseConnectionPropertiesSet;
     CDBPropSet m_oDBDatabaseRowsetPropertiesSet;
     CDataSource m_oDataSource;
     bool m_propsInitialized = false;
+    bool m_sessionIsOpen = false;
 
     CDatabaseConnection(const CDatabaseConnection&) = delete;
     CDatabaseConnection& operator=(const CDatabaseConnection&) = delete;
