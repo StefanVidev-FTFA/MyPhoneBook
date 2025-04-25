@@ -59,30 +59,33 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 	return true;
 }
 
-bool CCitiesDoc::DatabaseSelectAll()
-{
-	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
-
-	//m_oCitiesData->SelectAll(*pCitiesArray);
-
-	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);
-	return true;
-}
-
-bool CCitiesDoc::DatabaseSelectById(const long nId)
-{
-
-	CITIES recFoundCity;
-	CPersonsData oData;
-
-	oData.SelectById(nId, recFoundCity);
-
-
-	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
-
-	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
-	return true;
-}
+//bool CCitiesDoc::DatabaseSelectAll()
+//{
+//	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
+//
+//	//m_oCitiesData->SelectAll(*pCitiesArray);
+//
+//	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);
+//	return true;
+//}
+//bool CCitiesDoc::DatabaseSelectById(const long nId) 
+//{
+//	return CCommonDocument::DatabaseSelectById<CITIES>(nId);
+//}
+//bool CCitiesDoc::DatabaseSelectById(const long nId)
+//{
+//
+//	CITIES recFoundCity;
+//	CPersonsData oData;
+//
+//	oData.SelectById(nId, recFoundCity);
+//
+//
+//	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
+//
+//	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
+//	return true;
+//}
 bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCityRegion)
 {
 	CITIES recCityForInsert;

@@ -50,7 +50,7 @@ void CCitiesView::RequestSelectById()
 
 		if (m_nIdToBeSelected > -1) 
 		{
-			GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
+			GetDocument()->CCommonDocument::DatabaseSelectById<CITIES>(m_nIdToBeSelected);
 		}
 		else
 		{
@@ -72,7 +72,7 @@ void CCitiesView::RequestSelectAll() {
 	{
 		CCitiesDoc* oCitiesDocument = GetDocument();
 
-		oCitiesDocument->DatabaseSelectAll();
+		GetDocument()->CCommonDocument::DatabaseSelectAll<CITIES>();
 	}
 
 }

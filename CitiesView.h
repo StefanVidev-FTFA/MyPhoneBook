@@ -61,15 +61,6 @@ public:
 		CityColumnName,
 		CityColumnRegion,
 	};
-	enum SqlOperation
-	{
-		SqlOperationLoadInit = 0,
-		SqlOperationInsert,
-		SqlOperationSelectById,
-		SqlOperationSelectAll,
-		SqlOperationUpdateById,
-		SqlOperationDelete
-	};
 
 
 public:

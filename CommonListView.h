@@ -25,6 +25,17 @@ public:
 	virtual ~CCommonListView();
 
 
+	enum SqlOperation
+	{
+		SqlOperationLoadInit = 0,
+		SqlOperationInsert,
+		SqlOperationSelectById,
+		SqlOperationSelectAll,
+		SqlOperationUpdateById,
+		SqlOperationDelete
+	};
+
+
 
 	//Methods
 protected:

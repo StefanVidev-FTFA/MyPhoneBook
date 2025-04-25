@@ -98,3 +98,43 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
     Close();
     return true;
 }
+
+//template <typename tableType, typename accessorType>
+//inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, tableType& recItem)
+//{
+//
+//    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
+//
+//    CString strQuery;
+//    strQuery.Format(SELECT_BY_ID, lID);
+//
+//    HRESULT hResult = Open(oSession, strQuery);
+//    if (FAILED(hResult))
+//    {
+//        CString strError;
+//        strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
+//        AfxMessageBox(strError);
+//
+//        Close();
+//        oSession.Close();
+//        return false;
+//    }
+//
+//    if (MoveFirst() != S_OK)
+//    {
+//        CString strError;
+//        strError.Format(_T("Query has not found a result. Error: %ld. Query: %s"), hResult, strQuery);
+//        AfxMessageBox(strError);
+//
+//        Close();
+//        oSession.Close();
+//        return false;
+//    }
+//    else
+//    {
+//        recItem = m_recItem;
+//    }
+//
+//    Close();
+//    return true;
+//}
