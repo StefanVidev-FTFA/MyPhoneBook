@@ -40,6 +40,7 @@ void CCitiesView::CreateListOnInit()
 {
 
 }
+
 void CCitiesView::RequestSelectById()
 {
 	CDialogFindCityById oSelectByIdDlg(this,_T("City"));
@@ -65,9 +66,7 @@ void CCitiesView::RequestSelectAll() {
 	CString strMessage;
 	strMessage.Format(_T("Are you sure you wish to select all?"));
 
-
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
-
 
 	if (nResult == IDYES)
 	{
@@ -75,28 +74,22 @@ void CCitiesView::RequestSelectAll() {
 
 		GetDocument()->CCommonDocument::DatabaseSelectAll<CITIES>();
 	}
-
 }
 
 void CCitiesView::RequestInsert()
 {
-	//CCitiesData* oCitiesData = ((CCitiesDoc*)GetDocument())->m_oCitiesData;
-
-
 	CCitiesInsertOrUpdateDialog oInsertDlg;
 
 	INT_PTR result = oInsertDlg.DoModal();
 
 	if (result == IDOK)
 	{
-
 		CITIES recCityForInsert;
 		recCityForInsert.nUpdateCounter = 0;
 		wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
 		wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
 
-
-		GetDocument()->DatabaseInsert(recCityForInsert);
+		GetDocument()->CCommonDocument::DatabaseInsert(recCityForInsert);
 	}
 }
 

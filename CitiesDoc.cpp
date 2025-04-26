@@ -87,26 +87,26 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 //	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
 //	return true;
 //}
-bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
-{
-	CITIES recItemForInsert= recItem;
-
-	CPersonsData oData;
-
-	if (oData.Insert(recItemForInsert))
-	{
-
-		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItemForInsert);
-
-		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, newHint);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	return true;
-}
+//bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
+//{
+//	CITIES recItemForInsert= recItem;
+//
+//	CPersonsData oData;
+//
+//	if (oData.Insert(recItemForInsert))
+//	{
+//
+//		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItemForInsert);
+//
+//		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, newHint);
+//		return true;
+//	}
+//	else
+//	{
+//		return false;
+//	}
+//	return true;
+//}
 
 bool CCitiesDoc::DatabaseDelete(const int nId)
 {
@@ -122,7 +122,7 @@ bool CCitiesDoc::DatabaseDelete(const int nId)
 	//{
 	//	return false;
 	//}
-	return true;
+	//return true;
 }
 
 void CCitiesDoc::Serialize(CArchive& ar)

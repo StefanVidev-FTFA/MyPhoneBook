@@ -43,5 +43,27 @@ public:
 		return true;
 	}
 
+	template<typename tableType>
+	bool DatabaseInsert(tableType& recItem)
+	{
+		tableType recItemForInsert = recItem;
+
+		CPersonsData oData;
+
+		if (oData.Insert(recItemForInsert))
+		{
+
+			CGeneralHint<tableType>* newHint = new CGeneralHint<tableType>(recItemForInsert);
+
+			UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+	}
+
 
 };
