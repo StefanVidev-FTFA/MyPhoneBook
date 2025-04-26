@@ -254,6 +254,5 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     MESSAGE_INFO(_T("Successfully updated the city"));
 
     Close();
-    oSession.Close();
     return true;
 }
