@@ -36,6 +36,9 @@ protected:
 				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szCityName));
 				m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szRegion));
 
+
+				entriesMap.SetAt(pRecItem->nId, i);
+
 			}
 		}
 	}

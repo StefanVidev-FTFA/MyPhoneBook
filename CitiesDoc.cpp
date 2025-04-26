@@ -32,26 +32,15 @@ BOOL CCitiesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CPersonsData personsData;
+	CPersonsData oData;
 
-	if (!personsData.SelectAll(m_oInitialCitiesArray))
+	if (!oData.SelectAll(m_oInitialCitiesArray))
 	{
 		MESSAGE_ERROR(_T("Failed to loadup the data for cities from database"));
 		return FALSE;
 	}
 
 	return TRUE;
-}
-
-bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
-{
-	//CCitiesData oCitiesData;
-	//m_oCitiesData->UpdateWhereID(nId, recCity);
-
-	CCitiesHint* pHint = new CCitiesHint(nId, recCity);
-	UpdateAllViews(nullptr, CCitiesView::SqlOperationUpdateById, pHint);
-
-	return true;
 }
 void CCitiesDoc::Serialize(CArchive& ar)
 {

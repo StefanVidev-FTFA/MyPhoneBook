@@ -35,7 +35,7 @@ public:
 	CEdit m_EditBoxCity;
 	CEdit m_EditBoxRegion;
 	int m_nMode;
-	CITIES m_recCityForUpdate;
+	CITIES m_recCityForInsertOrUpdate;
 	CString m_strCityName;
 	CString m_strCityRegion;
 };

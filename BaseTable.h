@@ -201,7 +201,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     CString type = Utils::GetTableName<tableType>();
     CString strQuery;
 
-    strQuery.Format(SELECT_WHERE, type, lId);
+    strQuery.Format(SELECT_WHERE, type, nId);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))

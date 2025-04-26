@@ -30,6 +30,12 @@ void CCitiesInsertOrUpdateDialog::OnClickedButtonInsert()
 	m_EditBoxCity.GetWindowText(m_strCityName);
 	m_EditBoxRegion.GetWindowText(m_strCityRegion);
 
+
+	m_recCityForInsertOrUpdate.nUpdateCounter = 0;
+	wcscpy_s(m_recCityForInsertOrUpdate.szCityName, MAX_CITY_NAME, m_strCityName);
+	wcscpy_s(m_recCityForInsertOrUpdate.szRegion, MAX_REGION_NAME, m_strCityRegion);
+
+
 	EndDialog(IDOK);
 }
 

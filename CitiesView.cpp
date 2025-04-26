@@ -139,10 +139,10 @@ void CCitiesView::RequestUpdate()
 
 			if (result == IDOK)
 			{
-				CITIES recCityforUpdate = oInsertDlg.m_recCityForUpdate;
-				CCitiesDoc* oCitiesDocument = GetDocument();
+				CITIES recCityforUpdate = oInsertDlg.m_recCityForInsertOrUpdate;
+				recCityforUpdate.nId = nId;
 
-				oCitiesDocument->DatabaseUpdate(nId, recCityforUpdate);
+				GetDocument()->CCommonDocument::DatabaseUpdate<CITIES>(recCityforUpdate);
 			}
 		}
 	}
@@ -227,14 +227,15 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationUpdateById)
 	{
-		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
+		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
+
+		CITIES recCity = pCitiesHint->m_recItem;
 
 		int nRowIndex = -1;
-		entriesMap.Lookup(pCitiesHint->m_nTargetId, nRowIndex);
+		entriesMap.Lookup(recCity.nId, nRowIndex);
 
-		m_pListCtrl->SetItemText(nRowIndex, 1, CString(pCitiesHint->m_recCity.szCityName));
-		m_pListCtrl->SetItemText(nRowIndex, 2, CString(pCitiesHint->m_recCity.szRegion));
-
+		m_pListCtrl->SetItemText(nRowIndex, 1, CString(recCity.szCityName));
+		m_pListCtrl->SetItemText(nRowIndex, 2, CString(recCity.szRegion));
 	}
 	else if (lHint == SqlOperationDelete)
 	{

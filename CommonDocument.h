@@ -82,5 +82,24 @@ public:
 		return true;
 	}
 
+	template<typename tableType>
+	bool DatabaseUpdate(const tableType& recItem)
+	{
+		CPersonsData oData;
+
+		if (oData.UpdateById<tableType>(recItem.nId,recItem))
+		{
+			CGeneralHint<tableType>* pHint = new CGeneralHint<tableType>(recItem);
+			UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+		}
+		else
+		{
+			MESSAGE_ERROR(_T("Failed to update the item with ID %d"), nId);
+			return false;
+		}
+
+		return true;
+	}
+
 
 };

@@ -13,13 +13,13 @@ using namespace std;
 class CPersonsData
 {
 private:
+
     // Constants
     // ----------------
     CPhoneNumbersTable m_oPhoneNumbersTable;
     CCitiesTable m_oCitiesTable;
     CPersonsTable m_oPersonsTable;
     CPhoneTypesTable m_oPhoneTypesTable;
-
 
     // Methods
     // ----------------
