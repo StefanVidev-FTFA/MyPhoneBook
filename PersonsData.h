@@ -51,9 +51,7 @@ public:
             return false;
         }
     }
-
     //------------------------------------------------------------------------------------
-
     template <typename tableType>
     bool SelectById(const long lID, tableType& recItem)
     {
@@ -74,6 +72,31 @@ public:
         else if constexpr (is_same_v<tableType, PHONE_TYPES>)
         {
             return m_oPhoneTypesTable.SelectWhereID(lID, recItem);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //------------------------------------------------------------------------------------
+    template <typename tableType>
+    bool Insert(tableType& recItem)
+    {
+        if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
+        {
+            return m_oPhoneNumbersTable.Insert(recItem);
+        }
+        else if constexpr (is_same_v<tableType, CITIES>)
+        {
+            return m_oCitiesTable.Insert(recItem);
+        }
+        else if constexpr (is_same_v<tableType, PERSONS>)
+        {
+            return m_oPersonsTable.Insert(recItem);
+        }
+        else if constexpr (is_same_v<tableType, PHONE_TYPES>)
+        {
+            return m_oPhoneTypesTable.Insert(recItem);
         }
         else
         {

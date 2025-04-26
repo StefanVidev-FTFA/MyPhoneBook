@@ -197,6 +197,7 @@
     <ClInclude Include="CommonDocument.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
+    <ClInclude Include="GeneralHint.h" />
     <ClInclude Include="Persons.h" />
     <ClInclude Include="PersonsAccessor.h" />
     <ClInclude Include="PersonsData.h" />

@@ -12,6 +12,7 @@
 #define new DEBUG_NEW
 #endif
 #include "CitiesHint.h"
+#include "GeneralHint.h"
 
 IMPLEMENT_DYNCREATE(CCitiesView, CListView)
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)
@@ -88,7 +89,14 @@ void CCitiesView::RequestInsert()
 
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oInsertDlg.m_strCityName, oInsertDlg.m_strCityRegion);
+
+		CITIES recCityForInsert;
+		recCityForInsert.nUpdateCounter = 0;
+		wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
+		wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
+
+
+		GetDocument()->DatabaseInsert(recCityForInsert);
 	}
 }
 
@@ -200,11 +208,12 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 	if (lHint == SqlOperationInsert)
 	{
-		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
+		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
+
 		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(),_T("-"));
 
-		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recCity.szCityName));
-		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recCity.szRegion));
+		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recItem.szCityName));
+		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recItem.szRegion));
 	}
 	else if (lHint == SqlOperationSelectById)
 	{

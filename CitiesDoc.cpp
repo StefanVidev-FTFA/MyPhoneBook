@@ -10,6 +10,7 @@
 #include "CitiesView.h"
 #include "CitiesHint.h"
 #include "PersonsData.h"
+#include "GeneralHint.h"
 
 IMPLEMENT_DYNCREATE(CCitiesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CCitiesDoc, CDocument)
@@ -86,24 +87,24 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 //	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
 //	return true;
 //}
-bool CCitiesDoc::DatabaseInsert(const CString& strCityName,const CString& strCityRegion)
+bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 {
-	CITIES recCityForInsert;
-	recCityForInsert.nUpdateCounter = 0;
-	wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, strCityName);
-	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, strCityRegion);
+	CITIES recItemForInsert= recItem;
 
-	//CCitiesData oCitiesData;
-	//if (oCitiesData.Insert(recCityForInsert))
-	//{
-	//	CCitiesHint* pHint = new CCitiesHint(recCityForInsert.nId, recCityForInsert);
-	//	UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, pHint);
-	//	return true;
-	//}
-	//else
-	//{
-	//	return false;
-	//}
+	CPersonsData oData;
+
+	if (oData.Insert(recItemForInsert))
+	{
+
+		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItemForInsert);
+
+		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, newHint);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 	return true;
 }
 

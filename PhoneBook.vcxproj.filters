@@ -177,6 +177,9 @@
     <ClInclude Include="CommonDocument.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
+    <ClInclude Include="GeneralHint.h">
+      <Filter>Header Files\ForTables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">

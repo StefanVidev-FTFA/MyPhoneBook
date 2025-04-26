@@ -28,7 +28,7 @@ public:
 	///<summary> Обновява информацията за град въвs базата данни ///</summary>
 	bool DatabaseUpdate(const int nId, const CITIES& recCity);
 	///<summary >Въвежда за град във базата данни ///</summary>
-	bool DatabaseInsert(const CString& strCityName, const CString& strCityRegion);
+	bool DatabaseInsert(CITIES& recItem);
 	///<summary >Трие град от базата данни ///</summary>
 	bool DatabaseDelete(const int nId);
 
