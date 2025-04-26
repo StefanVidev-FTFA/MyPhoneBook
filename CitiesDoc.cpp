@@ -25,8 +25,6 @@ CCitiesDoc::~CCitiesDoc()
 {
 }
 
-
-
 	// Methods
 	// ----------------
 BOOL CCitiesDoc::OnNewDocument()
@@ -35,10 +33,6 @@ BOOL CCitiesDoc::OnNewDocument()
 		return FALSE;
 
 	CPersonsData personsData;
-
-	//CSmartArray<CITIES> citiesArray;
-	//personsData.SelectAll(citiesArray);
-
 
 	if (!personsData.SelectAll(m_oInitialCitiesArray))
 	{
@@ -59,72 +53,6 @@ bool CCitiesDoc::DatabaseUpdate(const int nId,const CITIES& recCity)
 
 	return true;
 }
-
-//bool CCitiesDoc::DatabaseSelectAll()
-//{
-//	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
-//
-//	//m_oCitiesData->SelectAll(*pCitiesArray);
-//
-//	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectAll, pCitiesArray);
-//	return true;
-//}
-//bool CCitiesDoc::DatabaseSelectById(const long nId) 
-//{
-//	return CCommonDocument::DatabaseSelectById<CITIES>(nId);
-//}
-//bool CCitiesDoc::DatabaseSelectById(const long nId)
-//{
-//
-//	CITIES recFoundCity;
-//	CPersonsData oData;
-//
-//	oData.SelectById(nId, recFoundCity);
-//
-//
-//	CCitiesHint* pHint = new CCitiesHint(nId, recFoundCity);
-//
-//	UpdateAllViews(nullptr, CCitiesView::SqlOperationSelectById, pHint);
-//	return true;
-//}
-//bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
-//{
-//	CITIES recItemForInsert= recItem;
-//
-//	CPersonsData oData;
-//
-//	if (oData.Insert(recItemForInsert))
-//	{
-//
-//		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItemForInsert);
-//
-//		UpdateAllViews(nullptr, CCitiesView::SqlOperationInsert, newHint);
-//		return true;
-//	}
-//	else
-//	{
-//		return false;
-//	}
-//	return true;
-//}
-
-bool CCitiesDoc::DatabaseDelete(const int nId)
-{
-	//CCitiesData oCitiesData;
-
-	//if (oCitiesData.DeleteWhereID(nId))
-	//{
-
-	//	UpdateAllViews(nullptr, CCitiesView::SqlOperationDelete, nullptr);
-	//	return true;
-	//}
-	//else 
-	//{
-	//	return false;
-	//}
-	//return true;
-}
-
 void CCitiesDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())

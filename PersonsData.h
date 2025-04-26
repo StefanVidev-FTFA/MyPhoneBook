@@ -103,5 +103,58 @@ public:
             return false;
         }
     }
+    //------------------------------------------------------------------------------------
+    template <typename tableType>
+    bool DeleteById(const long lID)
+    {
+        CDatabaseConnection::GetInstance().OpenSession();
 
+        if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
+        {
+            return m_oPhoneNumbersTable.DeleteWhereId(lID);
+        }
+        else if constexpr (is_same_v<tableType, CITIES>)
+        {
+            return m_oCitiesTable.DeleteWhereId(lID);
+        }
+        else if constexpr (is_same_v<tableType, PERSONS>)
+        {
+            return m_oPersonsTable.DeleteWhereId(lID);
+        }
+        else if constexpr (is_same_v<tableType, PHONE_TYPES>)
+        {
+            return m_oPhoneTypesTable.DeleteWhereId(lID);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //------------------------------------------------------------------------------------
+    template <typename tableType>
+    bool UpdateById(const int nId, const tableType& recItem)
+    {
+        CDatabaseConnection::GetInstance().OpenSession();
+
+        if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
+        {
+            return m_oPhoneNumbersTable.UpdateById(nId,recItem);
+        }
+        else if constexpr (is_same_v<tableType, CITIES>)
+        {
+            return m_oCitiesTable.UpdateById(nId, recItem);
+        }
+        else if constexpr (is_same_v<tableType, PERSONS>)
+        {
+            return m_oPersonsTable.UpdateById(nId, recItem);
+        }
+        else if constexpr (is_same_v<tableType, PHONE_TYPES>)
+        {
+            return m_oPhoneTypesTable.UpdateById(nId, recItem);
+        }
+        else
+        {
+            return false;
+        }
+    }
 };

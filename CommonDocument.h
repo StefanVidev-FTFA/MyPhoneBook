@@ -65,5 +65,22 @@ public:
 		return true;
 	}
 
+	template<typename tableType>
+	bool DatabaseDelete(const int nId)
+	{
+		CPersonsData oData;
+
+		if (oData.DeleteById<tableType>(nId))
+		{
+			UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+	}
+
 
 };

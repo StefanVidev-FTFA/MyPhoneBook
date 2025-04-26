@@ -16,8 +16,9 @@
 // CBaseTable
 
 #define SELECT_ALL _T("SELECT * FROM %s WITH(NOLOCK)")
-#define SELECT_BY_ID _T("SELECT * FROM CITIES WHERE ID = '%ld'")
+#define SELECT_BY_ID _T("SELECT * FROM CITIES WHERE ID = '%ld'")// need to fix the name here
 #define SELECT_TOP_0 _T("SELECT TOP 0 * FROM %s")
+#define SELECT_WHERE _T("SELECT * FROM %s WITH(UPDLOCK) WHERE ID ='%ld'")
 
 template <typename tableType,typename accessorType>
 class CBaseTable : public CCommand<CAccessor<accessorType>>
@@ -28,6 +29,10 @@ public:
     bool SelectWhereID(const long lID, tableType& recItem);
 
     bool Insert(const tableType& recItem);
+
+    bool DeleteWhereId(const long lId);
+
+    bool UpdateById(const int nId, const tableType& recItem);
 };
 
 template <typename tableType, typename accessorType>
@@ -138,5 +143,117 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
     AfxMessageBox(_T("Successfully Inserted the new item"), MB_ICONINFORMATION);
 
     Close();
+    return true;
+}
+
+template <typename tableType, typename accessorType>
+inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
+{
+    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
+
+    CString type = Utils::GetTableName<tableType>();
+    CString strQuery;
+
+    strQuery.Format(SELECT_WHERE,type, lId);
+
+    HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Error executing query. Error: %ld ."), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        oSession.Close();
+
+        return false;
+    }
+
+    MoveFirst();
+
+    hResult = Delete();
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Failed to execute Delete(). Error: %ld ."), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        oSession.Close();
+
+        return false;
+    }
+
+    CString strNotify;
+    strNotify.Format(_T("Successfully deleted row with id:  %ld"), lId);
+    MESSAGE_INFO(strNotify);
+
+
+    Close();
+    return true;
+}
+
+template <typename tableType, typename accessorType>
+inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const tableType& recItem)
+{
+    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
+
+    CString type = Utils::GetTableName<tableType>();
+    CString strQuery;
+
+    strQuery.Format(SELECT_WHERE, type, lId);
+
+    HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Failed to open session for an update.Error: %ld"), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        oSession.Close();
+
+        return FALSE;
+    }
+
+    hResult = MoveFirst();
+    if (FAILED(hResult))
+    {
+        AfxMessageBox(_T("Failed to execute MoveFirst(). Error: %d."), hResult);
+
+        Close();
+        oSession.Close();
+        return false;
+    }
+
+    m_recItem = recItem;
+
+    if (m_recItem.nUpdateCounter != recItem.nUpdateCounter)
+    {
+        CString strError;
+        AfxMessageBox(_T("Failed to update the database! Update counter miss-match!"));
+
+        Close();
+        oSession.Close();
+        return false;
+    }
+
+    m_recItem.nUpdateCounter++;
+
+    hResult = SetData(1);
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Failed to update the record in the database -> Error: %ld"), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        oSession.Close();
+        return false;
+    }
+    MESSAGE_INFO(_T("Successfully updated the city"));
+
+    Close();
+    oSession.Close();
     return true;
 }

@@ -114,7 +114,7 @@ void CCitiesView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		oDocument->DatabaseDelete(pRecCity->nId);
+		oDocument->CCommonDocument::DatabaseDelete<CITIES>(pRecCity->nId);
 	}
 }
 
@@ -238,10 +238,10 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationDelete)
 	{
-		//CCitiesData data;
+		CPersonsData data;
 
 		CSmartArray<CITIES> pCitiesArray;
-		//data.SelectAll(pCitiesArray);
+		data.SelectAll(pCitiesArray);
 
 		if (pCitiesArray.IsEmpty()) {
 			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
