@@ -203,7 +203,10 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
 
-		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(),_T("-"));
+		//CString strId;
+		//strId.Format(_T("%d"), pCitiesHint->m_recItem.nId);
+
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), _T("-"));
 
 		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recItem.szCityName));
 		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recItem.szRegion));
@@ -231,28 +234,15 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 		CITIES recCity = pCitiesHint->m_recItem;
 
-		int nRowIndex = -1;
-		entriesMap.Lookup(recCity.nId, nRowIndex);
+		//int nRowIndex = -1;
+		//entriesMap.Lookup(recCity.nId, nRowIndex);
 
-		m_pListCtrl->SetItemText(nRowIndex, 1, CString(recCity.szCityName));
-		m_pListCtrl->SetItemText(nRowIndex, 2, CString(recCity.szRegion));
+		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(recCity.szCityName));
+		m_pListCtrl->SetItemText(m_SelectedIndex, 2, CString(recCity.szRegion));
 	}
 	else if (lHint == SqlOperationDelete)
 	{
-		CPersonsData data;
-
-		CSmartArray<CITIES> pCitiesArray;
-		data.SelectAll(pCitiesArray);
-
-		if (pCitiesArray.IsEmpty()) {
-			MESSAGE_WARNING(_T("There was no cities to load"), MB_ICONERROR);
-		}
-		else
-		{
-			m_pListCtrl->DeleteAllItems();
-			InsertCityRows(pCitiesArray);
-		}
-
+		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}
 }
 
@@ -265,7 +255,6 @@ void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
-	// Convert to client coords for HitTest
 	CPoint clientPoint = point;
 	ScreenToClient(&clientPoint);
 
@@ -273,17 +262,15 @@ void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	int clickedIndex = m_pListCtrl->HitTest(clientPoint, &flags);
 
 	if (clickedIndex != -1 && (flags & LVHT_ONITEM)) {
-		// Optional: visually select the item
-		m_pListCtrl->SetItemState(clickedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 
-		// Save the clicked index so your delete handler knows which to remove
+		m_pListCtrl->SetItemState(clickedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 		m_SelectedIndex = clickedIndex;
+
 	}
 	else {
-		m_SelectedIndex = -1; // Nothing clicked
+		m_SelectedIndex = -1;
 	}
 
-	// Show the menu
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }

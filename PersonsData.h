@@ -82,6 +82,8 @@ public:
     template <typename tableType>
     bool Insert(tableType& recItem)
     {
+        CDatabaseConnection::GetInstance().OpenSession();
+
         if constexpr (is_same_v<tableType, PHONE_NUMBERS>)
         {
             return m_oPhoneNumbersTable.Insert(recItem);
