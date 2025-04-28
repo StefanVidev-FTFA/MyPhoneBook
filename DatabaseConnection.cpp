@@ -87,6 +87,15 @@ bool CDatabaseConnection::OpenSession()
     m_sessionIsOpen = true;
     return true;
 }
+bool CDatabaseConnection::CloseSession()
+{
+    if (!m_sessionIsOpen)
+    {
+        return true;
+    }
+    m_oCurrentSession.Close();
+    return true;
+}
 
 void CDatabaseConnection::Disconnect()
 {

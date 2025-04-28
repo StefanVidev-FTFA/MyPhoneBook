@@ -52,7 +52,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
 
@@ -82,7 +82,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
 
@@ -93,7 +93,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
     else
@@ -121,7 +121,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
 
         return false;
     }
@@ -136,7 +136,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
 
@@ -164,7 +164,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
 
         return false;
     }
@@ -179,7 +179,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
 
         return false;
     }
@@ -211,7 +211,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
 
         return FALSE;
     }
@@ -222,7 +222,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
         AfxMessageBox(_T("Failed to execute MoveFirst(). Error: %d."), hResult);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
 
@@ -234,7 +234,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
         AfxMessageBox(_T("Failed to update the database! Update counter miss-match!"));
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
 
@@ -248,7 +248,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
         AfxMessageBox(strError);
 
         Close();
-        oSession.Close();
+        CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
     MESSAGE_INFO(_T("Successfully updated the city"));

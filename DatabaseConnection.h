@@ -30,6 +30,8 @@ public:
     static CDatabaseConnection& GetInstance();
     /// <summary> Отваря нова сесия </summary>
     bool OpenSession();
+    /// <summary> Затваря сесията </summary>
+    bool CloseSession();
     /// <summary> Установява връзка със базата данни </summary>
     void Connect();
     /// <summary> Затваря връзката със базата данни </summary>

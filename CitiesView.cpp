@@ -103,12 +103,16 @@ void CCitiesView::RequestDelete()
 	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
 
 	CString strMessage;
+
 	strMessage.Format(_T("Are you sure you wish to delete this row\n\n"
-									"- ID:   %d\n"
+									"- ID:   %s\n"
 									"- City Name:   %s\n"
 									"- City Region:   %s\n"
 								),
-		pRecCity->nId,CString(pRecCity->szCityName),CString(pRecCity->szRegion));
+					m_pListCtrl->GetItemText(m_SelectedIndex,0),
+					m_pListCtrl->GetItemText(m_SelectedIndex, 1),
+					m_pListCtrl->GetItemText(m_SelectedIndex, 2)
+					);
 
 
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
