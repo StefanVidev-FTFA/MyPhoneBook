@@ -26,7 +26,7 @@ protected:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 public:
-	afx_msg void OnClickedButtonInsert();
+	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 
 	// Members

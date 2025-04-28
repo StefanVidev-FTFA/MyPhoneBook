@@ -31,11 +31,11 @@ BOOL CPersonsDoc::OnNewDocument()
 
 	CPersonsData data;
 
-	if (!data.SelectAll(m_oInitialPersonsArray))
-	{
-		MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
-		return FALSE;
-	}
+	//if (!data.SelectAll(m_oInitialPersonsArray))
+	//{
+	//	MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
+	//	return FALSE;
+	//}
 
 	return TRUE;
 }

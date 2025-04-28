@@ -21,11 +21,11 @@ void CCitiesInsertOrUpdateDialog::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CCitiesInsertOrUpdateDialog, CDialogEx)
-	ON_BN_CLICKED(BTN_INSERT_OR_UPDATE, &CCitiesInsertOrUpdateDialog::OnClickedButtonInsert)
+	ON_BN_CLICKED(BTN_INSERT_OR_UPDATE, &CCitiesInsertOrUpdateDialog::OnClickedButtonConfirm)
 	ON_BN_CLICKED(BTN_DLG1_CANCEL, &CCitiesInsertOrUpdateDialog::OnClickedButtonCancel)
 END_MESSAGE_MAP()
 
-void CCitiesInsertOrUpdateDialog::OnClickedButtonInsert()
+void CCitiesInsertOrUpdateDialog::OnClickedButtonConfirm()
 {
 	m_EditBoxCity.GetWindowText(m_strCityName);
 	m_EditBoxRegion.GetWindowText(m_strCityRegion);

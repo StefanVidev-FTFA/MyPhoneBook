@@ -31,11 +31,11 @@ BOOL CPhoneTypesDoc::OnNewDocument()
 
 	CPersonsData data;
 
-	if (!data.SelectAll(m_oInitialPhoneTypesArray))
-	{
-		MESSAGE_ERROR(_T("Failed to loadup the data for phone types from database"));
-		return FALSE;
-	}
+	//if (!data.SelectAll(m_oInitialPhoneTypesArray))
+	//{
+	//	MESSAGE_ERROR(_T("Failed to loadup the data for phone types from database"));
+	//	return FALSE;
+	//}
 
 	return TRUE;
 }

@@ -25,14 +25,6 @@ public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 
-	///<summary> Обновява информацията за град въвs базата данни ///</summary>
-	bool DatabaseUpdate(const int nId, const CITIES& recCity);
-	///<summary >Въвежда за град във базата данни ///</summary>
-	bool DatabaseInsert(CITIES& recItem);
-	///<summary >Трие град от базата данни ///</summary>
-	bool DatabaseDelete(const int nId);
-
-
 	// Overrides
 	// ----------------
 #ifdef _DEBUG
@@ -49,5 +41,11 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectAll();
+	bool DatabaseInsert(CITIES& recItem);
+	bool DatabaseDelete(const int nId);
+	bool DatabaseUpdate(const CITIES& recItem);
 
 };

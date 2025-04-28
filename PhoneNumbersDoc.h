@@ -1,12 +1,13 @@
 #pragma once
 #include "PhoneNumbers.h"
+#include "CommonDocument.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesData
 
 /// <summary> Клас за extend-ване на логиката на CDocument, с цел работа с градовете от базата данни </summary>
-class CPhoneNumbersDoc : public CDocument
+class CPhoneNumbersDoc : public CCommonDocument
 {
 
 	// Constructor / Destructor
@@ -23,8 +24,7 @@ public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 
-	///<summary >Избира всички градове от базата данни ///</summary>
-	bool DatabaseSelectAll();
+
 	// Overrides
 	// ----------------
 #ifdef _DEBUG
@@ -41,5 +41,11 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectAll();
+	bool DatabaseInsert(PHONE_NUMBERS& recItem);
+	bool DatabaseDelete(const int nId);
+	bool DatabaseUpdate(const PHONE_NUMBERS& recItem);
 
 };

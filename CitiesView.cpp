@@ -52,7 +52,7 @@ void CCitiesView::RequestSelectById()
 
 		if (m_nIdToBeSelected > -1) 
 		{
-			GetDocument()->CCommonDocument::DatabaseSelectById<CITIES>(m_nIdToBeSelected);
+			GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
 		}
 		else
 		{
@@ -72,7 +72,7 @@ void CCitiesView::RequestSelectAll() {
 	{
 		CCitiesDoc* oCitiesDocument = GetDocument();
 
-		GetDocument()->CCommonDocument::DatabaseSelectAll<CITIES>();
+		GetDocument()->DatabaseSelectAll();
 	}
 }
 
@@ -89,7 +89,7 @@ void CCitiesView::RequestInsert()
 		wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
 		wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
 
-		GetDocument()->CCommonDocument::DatabaseInsert(recCityForInsert);
+		GetDocument()->DatabaseInsert(recCityForInsert);
 	}
 }
 
@@ -118,7 +118,7 @@ void CCitiesView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		oDocument->CCommonDocument::DatabaseDelete<CITIES>(pRecCity->nId);
+		oDocument->DatabaseDelete(pRecCity->nId);
 	}
 }
 
@@ -146,7 +146,7 @@ void CCitiesView::RequestUpdate()
 				CITIES recCityforUpdate = oInsertDlg.m_recCityForInsertOrUpdate;
 				recCityforUpdate.nId = nId;
 
-				GetDocument()->CCommonDocument::DatabaseUpdate<CITIES>(recCityforUpdate);
+				GetDocument()->DatabaseUpdate(recCityforUpdate);
 			}
 		}
 	}
@@ -217,12 +217,12 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	}
 	else if (lHint == SqlOperationSelectById)
 	{
-		CCitiesHint* pCitiesHint = dynamic_cast<CCitiesHint*>(pHint);
+		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
 
-		if (pCitiesHint->m_nTargetId > -1)
+		if (pCitiesHint->m_recItem.nId > -1)
 		{
 			m_pListCtrl->DeleteAllItems();
-			InsertACityRow(pCitiesHint->m_recCity);
+			InsertACityRow(pCitiesHint->m_recItem);
 		}
 	}
 	else if (lHint == SqlOperationSelectAll)

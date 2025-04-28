@@ -197,7 +197,9 @@
     <ClInclude Include="CommonDocument.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
+    <ClInclude Include="DefinePersonDlg.h" />
     <ClInclude Include="GeneralHint.h" />
+    <ClInclude Include="InsertOrUpdatePhoneNumberDlg.h" />
     <ClInclude Include="Persons.h" />
     <ClInclude Include="PersonsAccessor.h" />
     <ClInclude Include="PersonsData.h" />
@@ -233,6 +235,8 @@
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CommonListView.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
+    <ClCompile Include="DefinePersonDlg.cpp" />
+    <ClCompile Include="InsertOrUpdatePhoneNumberDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

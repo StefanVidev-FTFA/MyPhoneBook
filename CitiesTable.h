@@ -12,5 +12,4 @@
 
 class CCitiesTable : public CBaseTable<CITIES, CCitiesAccessor>
 {
-
 };

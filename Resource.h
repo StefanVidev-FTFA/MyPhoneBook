@@ -43,12 +43,18 @@
 #define STT_CITY_REGION                 1007
 #define EDB_DLG1_CITY_REGION2           1008
 #define STT_CITY_REGION2                1009
-#define EDB_DLG1_CITY_REGION3           1010
 #define STT_CITY_NAME2                  1011
 #define EDB_DLG1_CITY_NAME2             1012
 #define STT_CITY_REGION3                1013
 #define EDB_DLG1_CITY_REGION4           1014
 #define STT_CITY_REGION4                1015
+#define IDC_COMBO1                      1016
+#define IDC_LIST1                       1017
+#define STT_PNS_PERSON_ID               1018
+#define STT_PNS_PHONE_TYPE_ID           1019
+#define STT_PNS_PHONE_NUMBER            1020
+#define BTN_PNS_INSERT_OR_UPDATE_CONFIRM 1021
+#define BTN_PNS_INSERT_OR_UPDATE_CANCEL 1022
 #define ID_EDIT_DELETEROW               32771
 #define ID_EDIT_F                       32772
 #define ID_EDIT_INSERTROW               32773
@@ -63,7 +69,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

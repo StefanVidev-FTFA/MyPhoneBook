@@ -14,5 +14,4 @@
 
 class CPhoneNumbersTable : public CBaseTable<PHONE_NUMBERS, CPhoneNumbersAccessor>
 {
-
 };

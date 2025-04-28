@@ -180,6 +180,12 @@
     <ClInclude Include="GeneralHint.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
+    <ClInclude Include="InsertOrUpdatePhoneNumberDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DefinePersonDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
@@ -232,6 +238,12 @@
     </ClCompile>
     <ClCompile Include="PhoneTypesView.cpp">
       <Filter>Source Files\ForTables\PhoneTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefinePersonDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertOrUpdatePhoneNumberDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

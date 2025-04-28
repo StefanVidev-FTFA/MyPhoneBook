@@ -2,7 +2,8 @@
 
 #include "SmartArray.h"
 #include "PersonsData.h"
-
+#include "GeneralHint.h"
+#include "BaseTable.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CCitiesData
@@ -15,91 +16,4 @@ protected:
 
 public:
     virtual ~CCommonDocument() = default;
-
-	template<typename tableType>
-	bool DatabaseSelectById(const long nId)
-	{
-		tableType recFoundItem;
-		CPersonsData oData;
-
-		oData.SelectById(nId, recFoundItem);
-
-		CCitiesHint* pHint = new CCitiesHint(nId, recFoundItem);
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, pHint);
-
-		return true;
-	}
-
-	template<typename tableType>
-	bool DatabaseSelectAll()
-	{
-		CSmartArray<tableType>* pItemsArray = new CSmartArray<tableType>();
-		CPersonsData oData;
-
-		oData.SelectAll(*pItemsArray);
-
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
-
-		return true;
-	}
-
-	template<typename tableType>
-	bool DatabaseInsert(tableType& recItem)
-	{
-		tableType recItemForInsert = recItem;
-
-		CPersonsData oData;
-
-		if (oData.Insert(recItemForInsert))
-		{
-
-			CGeneralHint<tableType>* newHint = new CGeneralHint<tableType>(recItemForInsert);
-
-			UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		return true;
-	}
-
-	template<typename tableType>
-	bool DatabaseDelete(const int nId)
-	{
-		CPersonsData oData;
-
-		if (oData.DeleteById<tableType>(nId))
-		{
-			UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		return true;
-	}
-
-	template<typename tableType>
-	bool DatabaseUpdate(const tableType& recItem)
-	{
-		CPersonsData oData;
-
-		if (oData.UpdateById<tableType>(recItem.nId,recItem))
-		{
-			CGeneralHint<tableType>* pHint = new CGeneralHint<tableType>(recItem);
-			UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
-		}
-		else
-		{
-			MESSAGE_ERROR(_T("Failed to update the item with ID %d"), nId);
-			return false;
-		}
-
-		return true;
-	}
-
-
 };
