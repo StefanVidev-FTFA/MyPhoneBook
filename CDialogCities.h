@@ -11,20 +11,25 @@ class CDialogCities : public CDialogEx
 	DECLARE_DYNAMIC(CDialogCities)
 
 public:
-	CDialogCities(CWnd* pParent = nullptr,
+	CDialogCities(CITIES recCity,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
-		CITIES recCity);   // standard constructor
+		CWnd* pParent = nullptr
+		); 
 	virtual ~CDialogCities();
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_DIALOG1 };
+	enum { IDD = IDD_CITIES };
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	DECLARE_MESSAGE_MAP()
+
+public:
+	afx_msg void OnClickedButtonConfirm();
+	afx_msg void OnClickedButtonCancel();
 
 
 public:

@@ -204,6 +204,9 @@
     <ClInclude Include="DefinePersonDlg.h">
       <Filter>Header Files\Dialogs\Persons</Filter>
     </ClInclude>
+    <ClInclude Include="CDialogCities.h">
+      <Filter>Header Files\Dialogs\Cities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="DefinePersonDlg.cpp">
       <Filter>Source Files\Dialogs\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="CDialogCities.cpp">
+      <Filter>Source Files\Dialogs\Cities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

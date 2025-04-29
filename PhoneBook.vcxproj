@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="BaseAccessor.h" />
     <ClInclude Include="BaseTable.h" />
+    <ClInclude Include="CDialogCities.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="CitiesTable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDialogCities.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
     <ClCompile Include="CitiesView.cpp" />

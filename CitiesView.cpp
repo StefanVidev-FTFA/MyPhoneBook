@@ -11,6 +11,7 @@
 #endif
 #include "CitiesHint.h"
 #include "GeneralHint.h"
+#include "CDialogCities.h"
 
 IMPLEMENT_DYNCREATE(CCitiesView, CListView)
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)
@@ -21,6 +22,7 @@ BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CCitiesView::RequestSelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CCitiesView::RequestSelectAll)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CCitiesView::RequestUpdate)
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -41,22 +43,15 @@ void CCitiesView::CreateListOnInit()
 
 void CCitiesView::RequestSelectById()
 {
-	//CDialogFindCityById oSelectByIdDlg(this,_T("City"));
-	//INT_PTR result = oSelectByIdDlg.DoModal();
+	CITIES recCity;
 
-	//if (result == IDOK)
-	//{
-	//	m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
+	wcscpy_s(recCity.szCityName, MAX_CITY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
+	wcscpy_s(recCity.szRegion, MAX_REGION_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
 
-	//	if (m_nIdToBeSelected > -1) 
-	//	{
-	//		GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
-	//	}
-	//	else
-	//	{
-	//		AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
-	//	}
-	//}
+
+	CDialogCities oSelectByIdDlg(recCity,CCommonListView::DialogModeView);
+
+	INT_PTR result = oSelectByIdDlg.DoModal();
 }
 
 void CCitiesView::RequestSelectAll() {
@@ -76,28 +71,21 @@ void CCitiesView::RequestSelectAll() {
 
 void CCitiesView::RequestInsert()
 {
-	//CCitiesInsertOrUpdateDialog oInsertDlg;
+	CITIES recCity;
+	CDialogCities oDialog(recCity, CCommonListView::DialogModeEdit);
+	INT_PTR result = oDialog.DoModal();
 
-	//INT_PTR result = oInsertDlg.DoModal();
-
-	//if (result == IDOK)
-	//{
-	//	CITIES recCityForInsert;
-	//	recCityForInsert.nUpdateCounter = 0;
-	//	wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
-	//	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
-
-	//	GetDocument()->DatabaseInsert(recCityForInsert);
-	//}
+	if (result == IDOK)
+	{
+		GetDocument()->DatabaseInsert(oDialog.m_recCityForInsertOrUpdate);
+	}
 }
 
 void CCitiesView::RequestDelete()
 {
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
-
 	CString strMessage;
-
 	strMessage.Format(_T("Are you sure you wish to delete this row\n\n"
 									"- ID:   %s\n"
 									"- City Name:   %s\n"
@@ -107,14 +95,11 @@ void CCitiesView::RequestDelete()
 					m_pListCtrl->GetItemText(m_SelectedIndex, 1),
 					m_pListCtrl->GetItemText(m_SelectedIndex, 2)
 					);
-
-
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
 		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 		long nId = _ttol(strValue);
-
 		oDocument->DatabaseDelete(nId);
 	}
 }
@@ -130,17 +115,15 @@ void CCitiesView::RequestUpdate()
 
 		if (nId > -1)
 		{
-			//CCitiesInsertOrUpdateDialog oInsertDlg;
+			CITIES recCity;
+			CDialogCities oDialog(recCity, CCommonListView::DialogModeEdit);
+			INT_PTR result = oDialog.DoModal();
 
-			//INT_PTR result = oInsertDlg.DoModal();
-
-			//if (result == IDOK)
-			//{
-			//	CITIES recCityforUpdate = oInsertDlg.m_recCityForInsertOrUpdate;
-			//	recCityforUpdate.nId = nId;
-
-			//	GetDocument()->DatabaseUpdate(recCityforUpdate);
-			//}
+			if (result == IDOK)
+			{
+				oDialog.m_recCityForInsertOrUpdate.nId = nId;
+				GetDocument()->DatabaseUpdate(oDialog.m_recCityForInsertOrUpdate);
+			}
 		}
 	}
 }
@@ -250,6 +233,11 @@ void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
+}
+
+void CCitiesView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
+{
+	MESSAGE_INFO(_T("OnLButtonDblClk"));
 }
 
 void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)

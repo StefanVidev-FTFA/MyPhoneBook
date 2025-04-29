@@ -6,16 +6,12 @@
 #include "afxdialogex.h"
 #include "CDialogCities.h"
 
-
-// CDialogCities dialog
-
 IMPLEMENT_DYNAMIC(CDialogCities, CDialogEx)
 
-CDialogCities::CDialogCities(CWnd* pParent /*=nullptr*/,
-	CCommonListView::DialogMode dialogMod, CITIES recCityForView)
-	: CDialogEx(IDD_DIALOG7, pParent), m_dialogMode(dialogMod), m_recCityForView(recCityForView)
+CDialogCities::CDialogCities(CITIES recCityForView,
+	CCommonListView::DialogMode dialogMod, CWnd* pParent)
+	: CDialogEx(IDD_CITIES, pParent), m_dialogMode(dialogMod), m_recCityForView(recCityForView)
 {
-
 }
 
 CDialogCities::~CDialogCities()
@@ -28,14 +24,23 @@ BOOL CDialogCities::OnInitDialog()
 
 	if (m_dialogMode == CCommonListView::DialogModeView)
 	{
-		m_EditBoxPhoneTypesField.SetReadOnly(true);
-		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
-		m_ButtonPtsConfirm.EnableWindow(false);
+		 m_EditboxCityName.SetReadOnly(true);
+		 m_EditboxCityRegion.SetReadOnly(true);
+
+		 m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+		 m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+
+		 m_BtnConfirm.EnableWindow(false);
 	}
 	else
 	{
-		m_EditBoxPhoneTypesField.SetReadOnly(false);
-		m_ButtonPtsConfirm.EnableWindow(true);
+		m_EditboxCityName.SetReadOnly(false);
+		m_EditboxCityRegion.SetReadOnly(false);
+
+		m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+		m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+
+		m_BtnConfirm.EnableWindow(true);
 	}
 
 	return TRUE;
@@ -51,5 +56,30 @@ void CDialogCities::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CDialogCities, CDialogEx)
+	ON_BN_CLICKED(BTN_CITIES_CONFIRM, &CDialogCities::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_CITIES_CANCEL, &CDialogCities::OnClickedButtonCancel)
 END_MESSAGE_MAP()
+
+
+void CDialogCities::OnClickedButtonConfirm()
+{
+
+	CString strCityName;
+	m_EditboxCityName.GetWindowText(strCityName);
+
+	CString strCityRegion;
+	m_EditboxCityRegion.GetWindowText(strCityRegion);
+
+
+	m_recCityForInsertOrUpdate.nUpdateCounter = 0;
+	wcscpy_s(m_recCityForInsertOrUpdate.szCityName, MAX_CITY_NAME, strCityName);
+	wcscpy_s(m_recCityForInsertOrUpdate.szRegion, MAX_REGION_NAME, strCityRegion);
+
+	EndDialog(IDOK);
+}
+
+void CDialogCities::OnClickedButtonCancel()
+{
+	EndDialog(IDCLOSE);
+}
 

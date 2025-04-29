@@ -23,6 +23,7 @@
 #define IDR_PhoneBookPhoneTypes         134
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     311
+#define IDD_CITIES                      311
 #define IDD_DIALOG5                     314
 #define IDD_DIALOG4                     316
 #define IDD_DIALOG6                     317
@@ -57,7 +58,6 @@
 #define BTN_PTS_CONFIRM                 1025
 #define BTN_PTS_CANCEL                  1026
 #define STT_CITIES_NAME_EDIT_BOX        1030
-#define STT_CITIES_REGION               1031
 #define STT_CITIES_REGION_EDIT_BOX      1031
 #define ID_EDIT_DELETEROW               32771
 #define ID_EDIT_F                       32772

@@ -27,6 +27,7 @@ CCitiesDoc::~CCitiesDoc()
 bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
+
 	if (oCitiesTable.UpdateById(recItem.nId, recItem))
 	{
 		CGeneralHint<CITIES>* pHint = new CGeneralHint<CITIES>(recItem);
