@@ -34,11 +34,14 @@ BOOL DialogUpdOrInsPhoneType::OnInitDialog()
 	{
 		m_EditBoxPhoneTypesField.SetReadOnly(true);
 		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
+
 		m_ButtonPtsConfirm.EnableWindow(false);
 	}
 	else
 	{
 		m_EditBoxPhoneTypesField.SetReadOnly(false);
+		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
+
 		m_ButtonPtsConfirm.EnableWindow(true);
 	}
 

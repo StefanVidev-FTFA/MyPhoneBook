@@ -116,6 +116,10 @@ void CCitiesView::RequestUpdate()
 		if (nId > -1)
 		{
 			CITIES recCity;
+
+			wcscpy_s(recCity.szCityName, MAX_CITY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
+			wcscpy_s(recCity.szRegion, MAX_REGION_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
+
 			CDialogCities oDialog(recCity, CCommonListView::DialogModeEdit);
 			INT_PTR result = oDialog.DoModal();
 

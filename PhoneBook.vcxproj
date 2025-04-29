@@ -197,6 +197,7 @@
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="DefinePersonDlg.h" />
+    <ClInclude Include="DialogPhoneNumbers.h" />
     <ClInclude Include="DialogUpdOrInsPhoneType.h" />
     <ClInclude Include="GeneralHint.h" />
     <ClInclude Include="Persons.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="CommonListView.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="DefinePersonDlg.cpp" />
+    <ClCompile Include="DialogPhoneNumbers.cpp" />
     <ClCompile Include="DialogUpdOrInsPhoneType.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">

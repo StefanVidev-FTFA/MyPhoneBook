@@ -26,7 +26,7 @@
 #define IDD_CITIES                      311
 #define IDD_DIALOG5                     314
 #define IDD_DIALOG4                     316
-#define IDD_DIALOG6                     317
+#define IDD_PHONE_NUMBERS               317
 #define IDD_DIALOG7                     318
 #define IDC_EDIT2                       1001
 #define EDB_DLG1_CITY_REGION            1001
@@ -52,8 +52,9 @@
 #define STT_PNS_PERSON_ID               1018
 #define STT_PNS_PHONE_TYPE_ID           1019
 #define STT_PNS_PHONE_NUMBER            1020
-#define BTN_PNS_INSERT_OR_UPDATE_CONFIRM 1021
+#define BTN_PNS_CONFIRM                 1021
 #define BTN_PNS_INSERT_OR_UPDATE_CANCEL 1022
+#define BTN_PNS_CANCEL                  1022
 #define STT_PTS_PHONE_TYPE_BOX          1024
 #define BTN_PTS_CONFIRM                 1025
 #define BTN_PTS_CANCEL                  1026

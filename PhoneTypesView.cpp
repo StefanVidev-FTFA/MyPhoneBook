@@ -60,7 +60,7 @@ void CPhoneTypesView::RequestSelectAll() {
 
 void CPhoneTypesView::RequestInsert()
 {
-	DialogUpdOrInsPhoneType oInsertDlg;
+	DialogUpdOrInsPhoneType oInsertDlg(this, CCommonListView::DialogModeEdit);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -108,7 +108,9 @@ void CPhoneTypesView::RequestUpdate()
 
 		if (nId > -1)
 		{
-			DialogUpdOrInsPhoneType oDialog(this, CCommonListView::DialogModeEdit);
+			CString strCurrentNumber = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
+
+			DialogUpdOrInsPhoneType oDialog(this, CCommonListView::DialogModeEdit, strCurrentNumber);
 
 			INT_PTR result = oDialog.DoModal();
 

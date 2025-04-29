@@ -11,8 +11,7 @@ public:
 	DialogUpdOrInsPhoneType(CWnd* pParent = nullptr,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
 		CString strPhoneType = _T("")
-	
-	);   // standard constructor
+	);
 	virtual ~DialogUpdOrInsPhoneType();
 
 	// Dialog Data

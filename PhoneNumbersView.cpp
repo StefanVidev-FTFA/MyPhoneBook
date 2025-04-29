@@ -15,6 +15,7 @@
 #include "PhoneNumbersView.h"
 #include "PhoneNumbers.h"
 #include "PhoneNumbersDoc.h"
+#include "DialogPhoneNumbers.h"
 
 
 
@@ -87,36 +88,38 @@ void CPhoneNumbersView::RequestSelectAll() {
 
 void CPhoneNumbersView::RequestSelectById()
 {
-	//CDialogFindCityById oSelectByIdDlg(this, _T("Phone number"));
-	//INT_PTR result = oSelectByIdDlg.DoModal();
+	PHONE_NUMBERS recPhoneNum;
 
-	//if (result == IDOK)
-	//{
-	//	int nId = oSelectByIdDlg.m_nIdToBeSelected;
+	int nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 1));
 
-	//	if (nId > -1)
-	//	{
-	//		GetDocument()->DatabaseSelectById(nId);
-	//	}
-	//	else
-	//	{
-	//		AfxMessageBox(_T("Sorry! Did not find a Phone number with this ID"));
-	//	}
-	//}
+	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
+	recPhoneNum.nPersonId = _ttoi(strValue);
+
+	strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 2);
+	recPhoneNum.nPhoneTypeId = _ttoi(strValue);
+
+	wcscpy_s(recPhoneNum.szPhoneNumber, MAX_PHONE_NUMBER, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
+
+
+	DialogPhoneNumbers oDialog(recPhoneNum);
+	INT_PTR result = oDialog.DoModal();
+	if (result == IDOK)
+	{
+		GetDocument()->DatabaseSelectById(nId);
+	}
 }
 
 void CPhoneNumbersView::RequestInsert()
 {
-	//InsertOrUpdatePhoneNumberDlg oInsertDlg;
+	PHONE_NUMBERS recPhoneNum;
 
-	//INT_PTR result = oInsertDlg.DoModal();
+	DialogPhoneNumbers oDialog(recPhoneNum, CCommonListView::DialogModeEdit);
+	INT_PTR result = oDialog.DoModal();
 
-	//if (result == IDOK)
-	//{
-	//	PHONE_NUMBERS recPhoneNum = oInsertDlg.m_recPhoneNumForInsertOrUpdate;
-
-	//	GetDocument()->DatabaseInsert(recPhoneNum);
-	//}
+	if (result == IDOK)
+	{
+		GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
+	}
 }
 
 void CPhoneNumbersView::RequestDelete()
@@ -160,19 +163,24 @@ void CPhoneNumbersView::RequestUpdate()
 
 		if (nId > -1)
 		{
+			PHONE_NUMBERS recPhoneNum;
 
-			//InsertOrUpdatePhoneNumberDlg pDialog;
+			CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
+			recPhoneNum.nPersonId = _ttoi(strValue);
 
-			//INT_PTR result = pDialog.DoModal();
+			strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 2);
+			recPhoneNum.nPhoneTypeId = _ttoi(strValue);
 
-			//if (result == IDOK)
-			//{
+			wcscpy_s(recPhoneNum.szPhoneNumber, MAX_PHONE_NUMBER, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
 
-			//	PHONE_NUMBERS recPhoneNumforUpdate = pDialog.m_recPhoneNumForInsertOrUpdate;
-			//	recPhoneNumforUpdate.nId = nId;
+			DialogPhoneNumbers oDialog(recPhoneNum, CCommonListView::DialogModeEdit);
+			INT_PTR result = oDialog.DoModal();
 
-			//	GetDocument()->DatabaseUpdate(recPhoneNumforUpdate);
-			//}
+			if (result == IDOK)
+			{
+				oDialog.m_recPhoneNumForUpdOrIns.nId = nId;
+				GetDocument()->DatabaseUpdate(oDialog.m_recPhoneNumForUpdOrIns);
+			}
 		}
 	}
 }
@@ -296,7 +304,6 @@ void CPhoneNumbersView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
-
 
 #ifdef _DEBUG
 void CPhoneNumbersView::AssertValid() const
