@@ -25,12 +25,120 @@ IMPLEMENT_DYNCREATE(CPhoneTypesView, CListView)
 BEGIN_MESSAGE_MAP(CPhoneTypesView, CListView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_EDIT_INSERTROW, &CPhoneTypesView::RequestInsert)
+	ON_COMMAND(ID_EDIT_DELETEROW32774, &CPhoneTypesView::RequestDelete)
+	ON_COMMAND(ID_EDIT_SELECTBYID, &CPhoneTypesView::RequestSelectById)
+	ON_COMMAND(ID_EDIT_SELECTALL, &CPhoneTypesView::RequestSelectAll)
+	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPhoneTypesView::RequestUpdate)
 END_MESSAGE_MAP()
 
 
 CPhoneTypesView::CPhoneTypesView() noexcept {}
 CPhoneTypesView::~CPhoneTypesView() {}
 
+void CPhoneTypesView::RequestSelectById()
+{
+	CDialogFindCityById oSelectByIdDlg(this, _T("Phone Type"));
+	INT_PTR result = oSelectByIdDlg.DoModal();
+
+	if (result == IDOK)
+	{
+		int nId = oSelectByIdDlg.m_nIdToBeSelected;
+
+		if (nId > -1)
+		{
+			GetDocument()->DatabaseSelectById(nId);
+		}
+		else
+		{
+			AfxMessageBox(_T("Sorry! Did not find a phone type with this ID"));
+		}
+	}
+}
+
+void CPhoneTypesView::RequestSelectAll() {
+
+	CString strMessage;
+	strMessage.Format(_T("Are you sure you wish to select all?"));
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+
+	if (nResult == IDYES)
+	{
+		CPhoneTypesDoc* oPhoneTypesDocument = GetDocument();
+
+		GetDocument()->DatabaseSelectAll();
+	}
+}
+
+void CPhoneTypesView::RequestInsert()
+{
+	//DialogUpdOrInsPhoneType oInsertDlg;
+
+//	INT_PTR result = oInsertDlg.DoModal();
+
+	//if (result == IDOK)
+	//{
+	//	GetDocument()->DatabaseInsert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
+	//}
+}
+
+void CPhoneTypesView::RequestDelete()
+{
+	CPhoneTypesDoc* oPhoneTypesDocument = GetDocument();
+	ASSERT_VALID(oPhoneTypesDocument);
+
+	CSmartArray<PHONE_TYPES>& oPhoneTypesArray = oPhoneTypesDocument->m_oInitialPhoneTypesArray;
+
+	PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oPhoneTypesArray.GetAt(m_SelectedIndex));
+
+	CString strMessage;
+
+	strMessage.Format(_T("Are you sure you wish to delete this row\n\n"
+		"- ID:   %s\n"
+		"- Phone Type:   %s"
+	),
+		m_pListCtrl->GetItemText(m_SelectedIndex, 0),
+		m_pListCtrl->GetItemText(m_SelectedIndex, 1)
+	);
+
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+	if (nResult == IDYES)
+	{
+		oPhoneTypesDocument->DatabaseDelete(pRecItem->nId);
+	}
+}
+
+void CPhoneTypesView::RequestUpdate()
+{
+	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
+
+	if (nResult == IDYES)
+	{
+		long nId = -1;
+
+		CSmartArray<PHONE_TYPES>& oPhoneTypesArray = GetDocument()->m_oInitialPhoneTypesArray;
+		PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oPhoneTypesArray.GetAt(m_SelectedIndex));
+
+		nId = pRecItem->nId;
+
+		if (nId > -1)
+		{
+			//DialogUpdOrInsPhoneType oDialog;
+
+			//INT_PTR result = oDialog.DoModal();
+
+			//if (result == IDOK)
+			//{
+			//	PHONE_TYPES recItemforUpdate = oDialog.m_recPhoneTypeForUpdOrIns;
+			//	recItemforUpdate.nId = nId;
+
+			//	GetDocument()->DatabaseUpdate(recItemforUpdate);
+			//}
+		}
+	}
+}
 
 BOOL CPhoneTypesView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -68,6 +176,50 @@ void CPhoneTypesView::OnInitialUpdate()
 	}
 }
 
+void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+{
+	CListView::OnUpdate(pSender, lHint, pHint);
+	m_pListCtrl = &GetListCtrl();
+
+	CPhoneTypesDoc* oDocument = GetDocument();
+	ASSERT_VALID(oDocument);
+
+
+	if (lHint == SqlOperationInsert)
+	{
+		CGeneralHint<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CGeneralHint<PHONE_TYPES>*>(pHint);
+
+		PHONE_TYPES recPhoneType = pPhoneTypesHint->m_recItem;
+
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), _T("-"));
+
+		m_pListCtrl->SetItemText(index, 1, CString(recPhoneType.szPhoneType));
+
+	}
+	else if (lHint == SqlOperationSelectById)
+	{
+	}
+	else if (lHint == SqlOperationSelectAll)
+	{
+		CSmartArray<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CSmartArray<PHONE_TYPES>*>(pHint);
+
+		m_pListCtrl->DeleteAllItems();
+		InsertCityRows(*pPhoneTypesHint);
+	}
+	else if (lHint == SqlOperationUpdateById)
+	{
+		CGeneralHint<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CGeneralHint<PHONE_TYPES>*>(pHint);
+
+		PHONE_TYPES recPhoneType = pPhoneTypesHint->m_recItem;
+
+		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(recPhoneType.szPhoneType));
+
+	}
+	else if (lHint == SqlOperationDelete)
+	{
+		m_pListCtrl->DeleteItem(m_SelectedIndex);
+	}
+}
 
 void CPhoneTypesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
@@ -82,11 +234,21 @@ void CPhoneTypesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	ScreenToClient(&clientPoint);
 
 	UINT flags = 0;
+	int clickedIndex = m_pListCtrl->HitTest(clientPoint, &flags);
+
+	if (clickedIndex != -1 && (flags & LVHT_ONITEM)) {
+
+		m_pListCtrl->SetItemState(clickedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+		m_SelectedIndex = clickedIndex;
+
+	}
+	else {
+		m_SelectedIndex = -1;
+	}
 
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
-
 
 #ifdef _DEBUG
 void CPhoneTypesView::AssertValid() const

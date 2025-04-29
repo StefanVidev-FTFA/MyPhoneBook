@@ -23,8 +23,6 @@ public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 
-	///<summary >Избира всички градове от базата данни ///</summary>
-	bool DatabaseSelectAll();
 	// Overrides
 	// ----------------
 #ifdef _DEBUG
@@ -41,5 +39,10 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
-
+public:
+	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectAll();
+	bool DatabaseInsert(PHONE_TYPES& recItem);
+	bool DatabaseDelete(const int nId);
+	bool DatabaseUpdate(const PHONE_TYPES& recItem);
 };

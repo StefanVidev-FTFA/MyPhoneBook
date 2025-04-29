@@ -151,8 +151,6 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
         return false;
     }
 
-    AfxMessageBox(_T("Successfully Inserted the new item"), MB_ICONINFORMATION);
-
     Close();
     return true;
 }
@@ -257,7 +255,6 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
         CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
-    MESSAGE_INFO(_T("Successfully updated the record"));
 
     Close();
     return true;

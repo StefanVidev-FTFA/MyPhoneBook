@@ -7,6 +7,8 @@
 #endif
 #include "Macros.h"
 #include "PersonsData.h"
+#include "GeneralHint.h"
+#include "CommonListView.h"
 
 IMPLEMENT_DYNCREATE(CPhoneTypesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CPhoneTypesDoc, CDocument)
@@ -22,6 +24,84 @@ CPhoneTypesDoc::~CPhoneTypesDoc()
 }
 
 
+bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
+{
+	CPhoneTypesTable oPhoneTypesTable;
+
+	if (oPhoneTypesTable.UpdateById(recItem.nId, recItem))
+	{
+		CGeneralHint<PHONE_TYPES>* pHint = new CGeneralHint<PHONE_TYPES>(recItem);
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+	}
+	else
+	{
+		MESSAGE_ERROR(_T("Failed to update the phone type with ID %d"), nId);
+		return false;
+	}
+
+	return true;
+}
+
+bool CPhoneTypesDoc::DatabaseDelete(const int nId)
+{
+	CPhoneTypesTable oPhoneTypesTable;
+
+	if (oPhoneTypesTable.DeleteWhereId(nId))
+	{
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
+{
+	CPhoneTypesTable oPhoneTypesTable;
+
+	if (oPhoneTypesTable.Insert(recItem))
+	{
+		CGeneralHint<PHONE_TYPES>* newHint = new CGeneralHint<PHONE_TYPES>(recItem);
+
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+bool CPhoneTypesDoc::DatabaseSelectAll()
+{
+	CPhoneTypesTable oPhoneTypesTable;
+	CSmartArray<PHONE_TYPES>* pItemsArray = new CSmartArray<PHONE_TYPES>();
+
+	oPhoneTypesTable.SelectAll(*pItemsArray);
+
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+
+	return true;
+}
+
+bool CPhoneTypesDoc::DatabaseSelectById(const long nId)
+{
+	CPhoneTypesTable oPhoneTypesTable;
+	PHONE_TYPES recFoundItem;
+
+	oPhoneTypesTable.SelectWhereID(nId, recFoundItem);
+
+	CGeneralHint<PHONE_TYPES>* pHint = new CGeneralHint<PHONE_TYPES>(recFoundItem);
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, pHint);
+
+	return true;
+}
+
+
 // Methods
 // ----------------
 BOOL CPhoneTypesDoc::OnNewDocument()
@@ -29,13 +109,13 @@ BOOL CPhoneTypesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CPersonsData data;
+	CPhoneTypesTable oData;
 
-	//if (!data.SelectAll(m_oInitialPhoneTypesArray))
-	//{
-	//	MESSAGE_ERROR(_T("Failed to loadup the data for phone types from database"));
-	//	return FALSE;
-	//}
+	if (!oData.SelectAll(m_oInitialPhoneTypesArray))
+	{
+		MESSAGE_ERROR(_T("Failed to loadup the data for phone types from database"));
+		return FALSE;
+	}
 
 	return TRUE;
 }
