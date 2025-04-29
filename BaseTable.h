@@ -31,7 +31,7 @@ public:
 
     bool SelectWhereID(const long lID, tableType& recItem);
 
-    bool Insert(const tableType& recItem);
+    bool Insert(tableType& recItem);
 
     bool DeleteWhereId(const long lId);
 
@@ -118,7 +118,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
 }
 
 template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem)
+inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
@@ -152,6 +152,37 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
         CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
+
+    Close();
+    CString strIdQuery;
+    strIdQuery.Format(_T("SELECT TOP 1 * FROM %s ORDER BY ID DESC"), type);
+    hResult = Open(oSession, strIdQuery);
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
+        AfxMessageBox(strError);
+
+        Close();
+        CDatabaseConnection::GetInstance().CloseSession();
+        return false;
+    }
+    hResult = MoveFirst();
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Failed to MoveFirst(). Error: %ld"), hResult);
+        AfxMessageBox(strError);
+
+        Close();
+        CDatabaseConnection::GetInstance().CloseSession();
+        return false;
+    }
+
+    //CString strId;
+    //strId.Format(_T("%d"), m_recItem.nId);
+    //MESSAGE_INFO(strId);
+    recItem.nId = m_recItem.nId;
 
     Close();
     return true;

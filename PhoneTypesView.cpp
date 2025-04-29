@@ -178,7 +178,11 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 		PHONE_TYPES recPhoneType = pPhoneTypesHint->m_recItem;
 
-		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), _T("-"));
+		CString strId;
+
+		strId.Format(_T("%d"), recPhoneType.nId);
+
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), strId);
 
 		m_pListCtrl->SetItemText(index, 1, CString(recPhoneType.szPhoneType));
 
