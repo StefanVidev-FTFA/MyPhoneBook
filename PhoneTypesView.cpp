@@ -17,6 +17,8 @@
 #include "PhoneTypesView.h"
 #include "PhoneTypes.h"
 #include "PhoneTypesDoc.h"
+#include "DialogUpdOrInsPhoneType.h"
+#include "DialogSelectRecordPhoneType.h"
 
 
 
@@ -38,22 +40,11 @@ CPhoneTypesView::~CPhoneTypesView() {}
 
 void CPhoneTypesView::RequestSelectById()
 {
-	CDialogFindCityById oSelectByIdDlg(this, _T("Phone Type"));
-	INT_PTR result = oSelectByIdDlg.DoModal();
+	CString strPhoneType = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-	if (result == IDOK)
-	{
-		int nId = oSelectByIdDlg.m_nIdToBeSelected;
+	DialogSelectRecordPhoneType oDialog(this, strPhoneType);
 
-		if (nId > -1)
-		{
-			GetDocument()->DatabaseSelectById(nId);
-		}
-		else
-		{
-			AfxMessageBox(_T("Sorry! Did not find a phone type with this ID"));
-		}
-	}
+	INT_PTR result = oDialog.DoModal();
 }
 
 void CPhoneTypesView::RequestSelectAll() {
@@ -73,14 +64,14 @@ void CPhoneTypesView::RequestSelectAll() {
 
 void CPhoneTypesView::RequestInsert()
 {
-	//DialogUpdOrInsPhoneType oInsertDlg;
+	DialogUpdOrInsPhoneType oInsertDlg;
 
-//	INT_PTR result = oInsertDlg.DoModal();
+	INT_PTR result = oInsertDlg.DoModal();
 
-	//if (result == IDOK)
-	//{
-	//	GetDocument()->DatabaseInsert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
-	//}
+	if (result == IDOK)
+	{
+		GetDocument()->DatabaseInsert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
+	}
 }
 
 void CPhoneTypesView::RequestDelete()
@@ -125,17 +116,17 @@ void CPhoneTypesView::RequestUpdate()
 
 		if (nId > -1)
 		{
-			//DialogUpdOrInsPhoneType oDialog;
+			DialogUpdOrInsPhoneType oDialog;
 
-			//INT_PTR result = oDialog.DoModal();
+			INT_PTR result = oDialog.DoModal();
 
-			//if (result == IDOK)
-			//{
-			//	PHONE_TYPES recItemforUpdate = oDialog.m_recPhoneTypeForUpdOrIns;
-			//	recItemforUpdate.nId = nId;
+			if (result == IDOK)
+			{
+				PHONE_TYPES recItemforUpdate = oDialog.m_recPhoneTypeForUpdOrIns;
+				recItemforUpdate.nId = nId;
 
-			//	GetDocument()->DatabaseUpdate(recItemforUpdate);
-			//}
+				GetDocument()->DatabaseUpdate(recItemforUpdate);
+			}
 		}
 	}
 }

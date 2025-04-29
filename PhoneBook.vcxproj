@@ -198,6 +198,8 @@
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="DefinePersonDlg.h" />
+    <ClInclude Include="DialogSelectRecordPhoneType.h" />
+    <ClInclude Include="DialogUpdOrInsPhoneType.h" />
     <ClInclude Include="GeneralHint.h" />
     <ClInclude Include="InsertOrUpdatePhoneNumberDlg.h" />
     <ClInclude Include="Persons.h" />
@@ -236,6 +238,8 @@
     <ClCompile Include="CommonListView.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="DefinePersonDlg.cpp" />
+    <ClCompile Include="DialogSelectRecordPhoneType.cpp" />
+    <ClCompile Include="DialogUpdOrInsPhoneType.cpp" />
     <ClCompile Include="InsertOrUpdatePhoneNumberDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
