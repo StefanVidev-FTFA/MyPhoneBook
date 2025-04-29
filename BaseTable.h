@@ -48,6 +48,7 @@ template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType>& oTableItemsArray)
 {
 
+    CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();
@@ -77,7 +78,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, tableType& recItem)
 {
-
+    CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();
@@ -119,6 +120,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem)
 {
+    CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();
@@ -158,6 +160,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(const tableType& recItem
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
 {
+    CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();
@@ -200,6 +203,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const tableType& recItem)
 {
+    CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
     CString type = Utils::GetTableName<tableType>();

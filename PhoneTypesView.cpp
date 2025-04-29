@@ -79,9 +79,6 @@ void CPhoneTypesView::RequestDelete()
 	CPhoneTypesDoc* oPhoneTypesDocument = GetDocument();
 	ASSERT_VALID(oPhoneTypesDocument);
 
-	CSmartArray<PHONE_TYPES>& oPhoneTypesArray = oPhoneTypesDocument->m_oInitialPhoneTypesArray;
-
-	PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oPhoneTypesArray.GetAt(m_SelectedIndex));
 
 	CString strMessage;
 
@@ -97,7 +94,10 @@ void CPhoneTypesView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		oPhoneTypesDocument->DatabaseDelete(pRecItem->nId);
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue);
+
+		oPhoneTypesDocument->DatabaseDelete(nId);
 	}
 }
 
@@ -107,12 +107,8 @@ void CPhoneTypesView::RequestUpdate()
 
 	if (nResult == IDYES)
 	{
-		long nId = -1;
-
-		CSmartArray<PHONE_TYPES>& oPhoneTypesArray = GetDocument()->m_oInitialPhoneTypesArray;
-		PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oPhoneTypesArray.GetAt(m_SelectedIndex));
-
-		nId = pRecItem->nId;
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue); 
 
 		if (nId > -1)
 		{
