@@ -6,8 +6,6 @@
 #include "PhoneBook.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
-#include "CitiesInsertOrUpdateDialog.h"
-#include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 #ifdef _DEBUG
@@ -18,8 +16,6 @@
 #include "PhoneTypes.h"
 #include "PhoneTypesDoc.h"
 #include "DialogUpdOrInsPhoneType.h"
-#include "DialogSelectRecordPhoneType.h"
-
 
 
 
@@ -42,7 +38,7 @@ void CPhoneTypesView::RequestSelectById()
 {
 	CString strPhoneType = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-	DialogSelectRecordPhoneType oDialog(this, strPhoneType);
+	DialogUpdOrInsPhoneType oDialog(this,CCommonListView::DialogModeView, strPhoneType);
 
 	INT_PTR result = oDialog.DoModal();
 }
@@ -112,7 +108,7 @@ void CPhoneTypesView::RequestUpdate()
 
 		if (nId > -1)
 		{
-			DialogUpdOrInsPhoneType oDialog;
+			DialogUpdOrInsPhoneType oDialog(this, CCommonListView::DialogModeEdit);
 
 			INT_PTR result = oDialog.DoModal();
 

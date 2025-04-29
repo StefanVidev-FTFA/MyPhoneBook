@@ -108,12 +108,6 @@
     <ClInclude Include="DatabaseConnection.h">
       <Filter>Header Files\ForDatabase</Filter>
     </ClInclude>
-    <ClInclude Include="CitiesInsertOrUpdateDialog.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="CDialogFindCityById.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="CitiesHint.h">
       <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
@@ -186,14 +180,8 @@
     <ClInclude Include="GeneralHint.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
-    <ClInclude Include="InsertOrUpdatePhoneNumberDlg.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="DefinePersonDlg.h">
       <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogSelectRecordPhoneType.h">
-      <Filter>Header Files\Dialogs\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="DialogUpdOrInsPhoneType.h">
       <Filter>Header Files\Dialogs\PhoneTypes</Filter>
@@ -221,12 +209,6 @@
     <ClCompile Include="CitiesDoc.cpp">
       <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
-    <ClCompile Include="CitiesInsertOrUpdateDialog.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="CDialogFindCityById.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="PhoneNumbersView.cpp">
       <Filter>Source Files\ForTables\PhoneNumbers</Filter>
     </ClCompile>
@@ -253,12 +235,6 @@
     </ClCompile>
     <ClCompile Include="DefinePersonDlg.cpp">
       <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="InsertOrUpdatePhoneNumberDlg.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogSelectRecordPhoneType.cpp">
-      <Filter>Source Files\Dialogs\PhoneTypes</Filter>
     </ClCompile>
     <ClCompile Include="DialogUpdOrInsPhoneType.cpp">
       <Filter>Source Files\Dialogs\PhoneTypes</Filter>

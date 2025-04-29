@@ -185,8 +185,6 @@
   <ItemGroup>
     <ClInclude Include="BaseAccessor.h" />
     <ClInclude Include="BaseTable.h" />
-    <ClInclude Include="CitiesInsertOrUpdateDialog.h" />
-    <ClInclude Include="CDialogFindCityById.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
@@ -198,10 +196,8 @@
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="DefinePersonDlg.h" />
-    <ClInclude Include="DialogSelectRecordPhoneType.h" />
     <ClInclude Include="DialogUpdOrInsPhoneType.h" />
     <ClInclude Include="GeneralHint.h" />
-    <ClInclude Include="InsertOrUpdatePhoneNumberDlg.h" />
     <ClInclude Include="Persons.h" />
     <ClInclude Include="PersonsAccessor.h" />
     <ClInclude Include="PersonsData.h" />
@@ -230,17 +226,13 @@
     <ClInclude Include="CitiesTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CitiesInsertOrUpdateDialog.cpp" />
-    <ClCompile Include="CDialogFindCityById.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CommonListView.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="DefinePersonDlg.cpp" />
-    <ClCompile Include="DialogSelectRecordPhoneType.cpp" />
     <ClCompile Include="DialogUpdOrInsPhoneType.cpp" />
-    <ClCompile Include="InsertOrUpdatePhoneNumberDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

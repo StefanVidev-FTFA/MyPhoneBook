@@ -34,6 +34,11 @@ public:
 		SqlOperationUpdateById,
 		SqlOperationDelete
 	};
+	enum DialogMode
+	{
+		DialogModeView = 0,
+		DialogModeEdit,
+	};
 
 
 

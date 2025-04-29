@@ -4,8 +4,6 @@
 #include "PhoneBook.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
-#include "CitiesInsertOrUpdateDialog.h"
-#include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 #ifdef _DEBUG
@@ -43,22 +41,22 @@ void CCitiesView::CreateListOnInit()
 
 void CCitiesView::RequestSelectById()
 {
-	CDialogFindCityById oSelectByIdDlg(this,_T("City"));
-	INT_PTR result = oSelectByIdDlg.DoModal();
+	//CDialogFindCityById oSelectByIdDlg(this,_T("City"));
+	//INT_PTR result = oSelectByIdDlg.DoModal();
 
-	if (result == IDOK)
-	{
-		m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
+	//if (result == IDOK)
+	//{
+	//	m_nIdToBeSelected = oSelectByIdDlg.m_nIdToBeSelected;
 
-		if (m_nIdToBeSelected > -1) 
-		{
-			GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
-		}
-		else
-		{
-			AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
-		}
-	}
+	//	if (m_nIdToBeSelected > -1) 
+	//	{
+	//		GetDocument()->DatabaseSelectById(m_nIdToBeSelected);
+	//	}
+	//	else
+	//	{
+	//		AfxMessageBox(_T("Sorry! Did not find a city with this ID"));
+	//	}
+	//}
 }
 
 void CCitiesView::RequestSelectAll() {
@@ -78,29 +76,25 @@ void CCitiesView::RequestSelectAll() {
 
 void CCitiesView::RequestInsert()
 {
-	CCitiesInsertOrUpdateDialog oInsertDlg;
+	//CCitiesInsertOrUpdateDialog oInsertDlg;
 
-	INT_PTR result = oInsertDlg.DoModal();
+	//INT_PTR result = oInsertDlg.DoModal();
 
-	if (result == IDOK)
-	{
-		CITIES recCityForInsert;
-		recCityForInsert.nUpdateCounter = 0;
-		wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
-		wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
+	//if (result == IDOK)
+	//{
+	//	CITIES recCityForInsert;
+	//	recCityForInsert.nUpdateCounter = 0;
+	//	wcscpy_s(recCityForInsert.szCityName, MAX_CITY_NAME, oInsertDlg.m_strCityName);
+	//	wcscpy_s(recCityForInsert.szRegion, MAX_REGION_NAME, oInsertDlg.m_strCityRegion);
 
-		GetDocument()->DatabaseInsert(recCityForInsert);
-	}
+	//	GetDocument()->DatabaseInsert(recCityForInsert);
+	//}
 }
 
 void CCitiesView::RequestDelete()
 {
 	CCitiesDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
-
-	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
-
-	CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
 
 	CString strMessage;
 
@@ -118,7 +112,10 @@ void CCitiesView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		oDocument->DatabaseDelete(pRecCity->nId);
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue);
+
+		oDocument->DatabaseDelete(nId);
 	}
 }
 
@@ -128,26 +125,22 @@ void CCitiesView::RequestUpdate()
 
 	if (nResult == IDYES)
 	{
-		long nId = -1;
-
-		CSmartArray<CITIES>& oCitiesArray = GetDocument()->m_oInitialCitiesArray;
-		CITIES* pRecCity = static_cast<CITIES*>(oCitiesArray.GetAt(m_SelectedIndex));
-
-		nId = pRecCity->nId;
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue);
 
 		if (nId > -1)
 		{
-			CCitiesInsertOrUpdateDialog oInsertDlg;
+			//CCitiesInsertOrUpdateDialog oInsertDlg;
 
-			INT_PTR result = oInsertDlg.DoModal();
+			//INT_PTR result = oInsertDlg.DoModal();
 
-			if (result == IDOK)
-			{
-				CITIES recCityforUpdate = oInsertDlg.m_recCityForInsertOrUpdate;
-				recCityforUpdate.nId = nId;
+			//if (result == IDOK)
+			//{
+			//	CITIES recCityforUpdate = oInsertDlg.m_recCityForInsertOrUpdate;
+			//	recCityforUpdate.nId = nId;
 
-				GetDocument()->DatabaseUpdate(recCityforUpdate);
-			}
+			//	GetDocument()->DatabaseUpdate(recCityforUpdate);
+			//}
 		}
 	}
 }
@@ -207,10 +200,13 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
 
-		//CString strId;
-		//strId.Format(_T("%d"), pCitiesHint->m_recItem.nId);
+		CITIES recItem = pCitiesHint->m_recItem;
 
-		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), _T("-"));
+		CString strId;
+
+		strId.Format(_T("%d"), recItem.nId);
+
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), strId);
 
 		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recItem.szCityName));
 		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recItem.szRegion));

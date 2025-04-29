@@ -3,7 +3,6 @@
 // Used by PhoneBook.rc
 //
 #define IDOK2                           3
-#define IDCANCEL2                       3
 #define IDOK3                           4
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
@@ -24,26 +23,23 @@
 #define IDR_PhoneBookPhoneTypes         134
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     311
-#define IDD_DIALOG2                     313
 #define IDD_DIALOG5                     314
 #define IDD_DIALOG4                     316
 #define IDD_DIALOG6                     317
 #define IDD_DIALOG7                     318
-#define IDD_SELECT_PHONE_TYPE           319
-#define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define EDB_DLG1_CITY_REGION            1001
 #define IDC_BUTTON1                     1002
 #define BTN_INSERT_OR_UPDATE            1002
 #define IDC_BUTTON2                     1003
-#define STT_FIND_DIALOG_HEADER          1003
 #define BTN_DLG1_CANCEL                 1003
 #define STT_INSERT_OR_UPDATE_HEADER     1004
+#define BTN_CITIES_CONFIRM              1004
 #define EDB_DLG1_CITY_NAME              1005
 #define STT_CITY_NAME                   1006
 #define STT_CITY_REGION                 1007
 #define EDB_DLG1_CITY_REGION2           1008
-#define STT_SELECTED_PHONE_TYPE         1008
+#define BTN_CITIES_CANCEL               1008
 #define STT_CITY_REGION2                1009
 #define STT_CITY_NAME2                  1011
 #define EDB_DLG1_CITY_NAME2             1012
@@ -60,8 +56,9 @@
 #define STT_PTS_PHONE_TYPE_BOX          1024
 #define BTN_PTS_CONFIRM                 1025
 #define BTN_PTS_CANCEL                  1026
-#define BTN_PTS_SELECT_CANCEL           1027
-#define BTN_PTS_SELECTED_CLOSE          1027
+#define STT_CITIES_NAME_EDIT_BOX        1030
+#define STT_CITIES_REGION               1031
+#define STT_CITIES_REGION_EDIT_BOX      1031
 #define ID_EDIT_DELETEROW               32771
 #define ID_EDIT_F                       32772
 #define ID_EDIT_INSERTROW               32773
@@ -76,7 +73,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        321
 #define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1028
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

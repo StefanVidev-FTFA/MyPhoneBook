@@ -6,8 +6,6 @@
 #include "PhoneBook.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
-#include "CitiesInsertOrUpdateDialog.h"
-#include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 #ifdef _DEBUG
@@ -17,7 +15,6 @@
 #include "PhoneNumbersView.h"
 #include "PhoneNumbers.h"
 #include "PhoneNumbersDoc.h"
-#include "InsertOrUpdatePhoneNumberDlg.h"
 
 
 
@@ -90,46 +87,42 @@ void CPhoneNumbersView::RequestSelectAll() {
 
 void CPhoneNumbersView::RequestSelectById()
 {
-	CDialogFindCityById oSelectByIdDlg(this, _T("Phone number"));
-	INT_PTR result = oSelectByIdDlg.DoModal();
+	//CDialogFindCityById oSelectByIdDlg(this, _T("Phone number"));
+	//INT_PTR result = oSelectByIdDlg.DoModal();
 
-	if (result == IDOK)
-	{
-		int nId = oSelectByIdDlg.m_nIdToBeSelected;
+	//if (result == IDOK)
+	//{
+	//	int nId = oSelectByIdDlg.m_nIdToBeSelected;
 
-		if (nId > -1)
-		{
-			GetDocument()->DatabaseSelectById(nId);
-		}
-		else
-		{
-			AfxMessageBox(_T("Sorry! Did not find a Phone number with this ID"));
-		}
-	}
+	//	if (nId > -1)
+	//	{
+	//		GetDocument()->DatabaseSelectById(nId);
+	//	}
+	//	else
+	//	{
+	//		AfxMessageBox(_T("Sorry! Did not find a Phone number with this ID"));
+	//	}
+	//}
 }
 
 void CPhoneNumbersView::RequestInsert()
 {
-	InsertOrUpdatePhoneNumberDlg oInsertDlg;
+	//InsertOrUpdatePhoneNumberDlg oInsertDlg;
 
-	INT_PTR result = oInsertDlg.DoModal();
+	//INT_PTR result = oInsertDlg.DoModal();
 
-	if (result == IDOK)
-	{
-		PHONE_NUMBERS recPhoneNum = oInsertDlg.m_recPhoneNumForInsertOrUpdate;
+	//if (result == IDOK)
+	//{
+	//	PHONE_NUMBERS recPhoneNum = oInsertDlg.m_recPhoneNumForInsertOrUpdate;
 
-		GetDocument()->DatabaseInsert(recPhoneNum);
-	}
+	//	GetDocument()->DatabaseInsert(recPhoneNum);
+	//}
 }
 
 void CPhoneNumbersView::RequestDelete()
 {
 	CPhoneNumbersDoc* oDocument = GetDocument();
 	ASSERT_VALID(oDocument);
-
-	CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = oDocument->m_oInitialPhoneNumbersArray;
-
-	PHONE_NUMBERS* pRecPhoneNumber = static_cast<PHONE_NUMBERS*>(oPhoneNumbersArray.GetAt(m_SelectedIndex));
 
 	CString strMessage;
 
@@ -149,7 +142,10 @@ void CPhoneNumbersView::RequestDelete()
 	int nResult = AfxMessageBox(strMessage, MB_YESNO);
 	if (nResult == IDYES)
 	{
-		oDocument->DatabaseDelete(pRecPhoneNumber->nId);
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue);
+
+		oDocument->DatabaseDelete(nId);
 	}
 }
 
@@ -159,28 +155,24 @@ void CPhoneNumbersView::RequestUpdate()
 
 	if (nResult == IDYES)
 	{
-		long nId = -1;
-
-		CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = GetDocument()->m_oInitialPhoneNumbersArray;
-		PHONE_NUMBERS* pRecPhoneNumber = static_cast<PHONE_NUMBERS*>(oPhoneNumbersArray.GetAt(m_SelectedIndex));
-
-		nId = pRecPhoneNumber->nId;
+		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+		long nId = _ttol(strValue);
 
 		if (nId > -1)
 		{
 
-			InsertOrUpdatePhoneNumberDlg pDialog;
+			//InsertOrUpdatePhoneNumberDlg pDialog;
 
-			INT_PTR result = pDialog.DoModal();
+			//INT_PTR result = pDialog.DoModal();
 
-			if (result == IDOK)
-			{
+			//if (result == IDOK)
+			//{
 
-				PHONE_NUMBERS recPhoneNumforUpdate = pDialog.m_recPhoneNumForInsertOrUpdate;
-				recPhoneNumforUpdate.nId = nId;
+			//	PHONE_NUMBERS recPhoneNumforUpdate = pDialog.m_recPhoneNumForInsertOrUpdate;
+			//	recPhoneNumforUpdate.nId = nId;
 
-				GetDocument()->DatabaseUpdate(recPhoneNumforUpdate);
-			}
+			//	GetDocument()->DatabaseUpdate(recPhoneNumforUpdate);
+			//}
 		}
 	}
 }
@@ -220,7 +212,11 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		
 		PHONE_NUMBERS recPhoneNum = pCitiesHint->m_recItem;
 
-		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), _T("-"));
+		CString strId;
+
+		strId.Format(_T("%d"), recPhoneNum.nId);
+
+		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), strId);
 
 		CString strPersonId;
 		strPersonId.Format(_T("%d"), recPhoneNum.nPersonId);

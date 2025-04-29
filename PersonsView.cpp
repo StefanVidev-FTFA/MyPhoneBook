@@ -6,8 +6,6 @@
 #include "PhoneBook.h"
 #include "CitiesDoc.h"
 #include "CitiesView.h"
-#include "CitiesInsertOrUpdateDialog.h"
-#include "CDialogFindCityById.h"
 #include "Macros.h"
 #include "CommonMethods.h"
 #ifdef _DEBUG

@@ -7,13 +7,10 @@
 #include "DialogUpdOrInsPhoneType.h"
 #include "Macros.h"
 
-
-// DialogUpdOrInsPhoneType dialog
-
 IMPLEMENT_DYNAMIC(DialogUpdOrInsPhoneType, CDialogEx)
 
-DialogUpdOrInsPhoneType::DialogUpdOrInsPhoneType(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_DIALOG7, pParent)
+DialogUpdOrInsPhoneType::DialogUpdOrInsPhoneType(CWnd* pParent /*=nullptr*/, CCommonListView::DialogMode dialogMod,CString strPhoneType)
+	: CDialogEx(IDD_DIALOG7, pParent),m_dialogMode(dialogMod),m_strPhoneType(strPhoneType)
 {
 
 }
@@ -26,6 +23,26 @@ void DialogUpdOrInsPhoneType::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, STT_PTS_PHONE_TYPE_BOX, m_EditBoxPhoneTypesField);
+	DDX_Control(pDX, BTN_PTS_CONFIRM, m_ButtonPtsConfirm);
+}
+
+BOOL DialogUpdOrInsPhoneType::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	if (m_dialogMode == CCommonListView::DialogModeView)
+	{
+		m_EditBoxPhoneTypesField.SetReadOnly(true);
+		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
+		m_ButtonPtsConfirm.EnableWindow(false);
+	}
+	else
+	{
+		m_EditBoxPhoneTypesField.SetReadOnly(false);
+		m_ButtonPtsConfirm.EnableWindow(true);
+	}
+
+	return TRUE;
 }
 
 
