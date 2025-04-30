@@ -1,19 +1,17 @@
 #pragma once
-#include "afxdialogex.h"
 #include "CommonListView.h"
+#include "afxdialogex.h"
+#include "PhoneNumbersInfo.h"
 
-
-// DialogPhoneNumbers dialog
 
 class DialogPhoneNumbers : public CDialogEx
 {
 	DECLARE_DYNAMIC(DialogPhoneNumbers)
 
 public:
-	DialogPhoneNumbers(PHONE_NUMBERS recPhoneNum,
+	DialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
-		CWnd* pParent = nullptr
-		);
+		CWnd* pParent = nullptr);
 	virtual ~DialogPhoneNumbers();
 
 // Dialog Data
@@ -25,9 +23,6 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
 	DECLARE_MESSAGE_MAP()
-
-
-public:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 
@@ -35,9 +30,10 @@ public:
 	CCommonListView::DialogMode m_dialogMode;
 	PHONE_NUMBERS m_recPhoneNumForUpdOrIns;
 	PHONE_NUMBERS m_recPhoneNumForView;
-	CButton m_BtnConfirm;
-	CButton m_BtnCancel;
-	CEdit m_EditBoxPersonId;
-	CEdit m_EditBoxPhoneTypeId;
+
+	CPhoneNumbersInfo* m_pInfo;
 	CEdit m_EditBoxPhoneNumber;
+	CComboBox m_ComboBoxPersonIds;
+	CComboBox m_ComboBoxPhoneTypesIds;
+	CButton m_BtnConfirm;
 };

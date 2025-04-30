@@ -55,30 +55,6 @@
     <Filter Include="Source Files\ForTables\PhoneTypes">
       <UniqueIdentifier>{50ee0b34-5a9b-4052-b993-7c04f69d613d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Dialogs\PhoneTypes">
-      <UniqueIdentifier>{c8021bec-58bd-4a3b-8610-646ad02c66c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Dialogs\PhoneTypes">
-      <UniqueIdentifier>{07a402b2-289b-41c0-8b90-9406d1b5f861}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Dialogs\Cities">
-      <UniqueIdentifier>{586fe15b-c639-4c4a-8b0f-f11410019a07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Dialogs\PhoneNumbers">
-      <UniqueIdentifier>{80fc7985-24a2-4527-b82a-222ec0d0d86f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Dialogs\Persons">
-      <UniqueIdentifier>{1c22d450-fe13-4f2a-8ff4-8797a557e7e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Dialogs\Persons">
-      <UniqueIdentifier>{218b3bee-9e81-4004-b3f7-ae018be08504}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Dialogs\Cities">
-      <UniqueIdentifier>{32b10c44-bfc5-4242-be06-f8a2bd7aa125}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Dialogs\PhoneNumers">
-      <UniqueIdentifier>{428e7dc2-2c07-40a3-aabf-6679c8957399}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -198,20 +174,20 @@
     <ClInclude Include="GeneralHint.h">
       <Filter>Header Files\ForTables</Filter>
     </ClInclude>
-    <ClInclude Include="DialogUpdOrInsPhoneType.h">
-      <Filter>Header Files\Dialogs\PhoneTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="CDialogCities.h">
-      <Filter>Header Files\Dialogs\Cities</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogPhoneNumbers.h">
-      <Filter>Header Files\Dialogs\PhoneNumers</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogPersonsInsert.h">
-      <Filter>Header Files\Dialogs\Persons</Filter>
-    </ClInclude>
     <ClInclude Include="PhoneNumbersInfo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPersonsInsert.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogUpdOrInsPhoneType.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="CDialogCities.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPhoneNumbers.h">
+      <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,23 +236,23 @@
     <ClCompile Include="PhoneTypesView.cpp">
       <Filter>Source Files\ForTables\PhoneTypes</Filter>
     </ClCompile>
-    <ClCompile Include="DialogUpdOrInsPhoneType.cpp">
-      <Filter>Source Files\Dialogs\PhoneTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="CDialogCities.cpp">
-      <Filter>Source Files\Dialogs\Cities</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogPhoneNumbers.cpp">
-      <Filter>Source Files\Dialogs\PhoneNumbers</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogPersonsInsert.cpp">
-      <Filter>Source Files\Dialogs\Persons</Filter>
-    </ClCompile>
     <ClCompile Include="CitiesTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CPhoneNumbersInfo.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CDialogCities.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPersonsInsert.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogUpdOrInsPhoneType.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPhoneNumbers.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneNumbersInfo.cpp">
+      <Filter>Source Files\ForTables\PhoneNumbers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@ public:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 
+
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_PERSONS_DEFINE };

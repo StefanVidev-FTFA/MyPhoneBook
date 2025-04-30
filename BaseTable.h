@@ -323,8 +323,6 @@ inline bool CBaseTable<tableType, accessorType>::AssignItemsIds(CStringList& ite
         CString strId;
         strId.Format(_T("%d"), m_recItem.nId);
         itemsIdsList.AddTail(strId);
-
-        MESSAGE_INFO(strId);
     }
 
     Close();

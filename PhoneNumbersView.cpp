@@ -20,7 +20,6 @@
 
 
 
-
 IMPLEMENT_DYNCREATE(CPhoneNumbersView, CListView)
 BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
     ON_WM_CONTEXTMENU()
@@ -102,7 +101,11 @@ void CPhoneNumbersView::RequestSelectById()
 	wcscpy_s(recPhoneNum.szPhoneNumber, MAX_PHONE_NUMBER, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
 
 
-	DialogPhoneNumbers oDialog(recPhoneNum);
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
+	pInfo->m_recPhoneNum = recPhoneNum;
+
+	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
 	{
@@ -112,14 +115,11 @@ void CPhoneNumbersView::RequestSelectById()
 
 void CPhoneNumbersView::RequestInsert()
 {
-	PHONE_NUMBERS recPhoneNum;
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	CPhoneNumbersInfo* oInfo = new CPhoneNumbersInfo();
+	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 
-
-	DialogPhoneNumbers oDialog(recPhoneNum, CCommonListView::DialogModeEdit);
 	INT_PTR result = oDialog.DoModal();
-
 	if (result == IDOK)
 	{
 		GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
@@ -177,9 +177,12 @@ void CPhoneNumbersView::RequestUpdate()
 
 			wcscpy_s(recPhoneNum.szPhoneNumber, MAX_PHONE_NUMBER, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
 
-			DialogPhoneNumbers oDialog(recPhoneNum, CCommonListView::DialogModeEdit);
-			INT_PTR result = oDialog.DoModal();
 
+			CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+			pInfo->m_recPhoneNum = recPhoneNum;
+
+			DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+			INT_PTR result = oDialog.DoModal();
 			if (result == IDOK)
 			{
 				oDialog.m_recPhoneNumForUpdOrIns.nId = nId;
