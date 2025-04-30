@@ -44,8 +44,8 @@ protected:
 public:
 	bool DatabaseSelectById(const long nId);
 	bool DatabaseSelectAll();
-	bool DatabaseInsert(CITIES& recItem);
+	bool DatabaseInsert(PERSONS& recItem);
 	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const CITIES& recItem);
+	bool DatabaseUpdate(const PERSONS& recItem);
 
 };

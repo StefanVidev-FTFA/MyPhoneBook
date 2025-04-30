@@ -218,11 +218,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	else if (lHint == SqlOperationUpdateById)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
-
 		CITIES recCity = pCitiesHint->m_recItem;
-
-		//int nRowIndex = -1;
-		//entriesMap.Lookup(recCity.nId, nRowIndex);
 
 		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(recCity.szCityName));
 		m_pListCtrl->SetItemText(m_SelectedIndex, 2, CString(recCity.szRegion));

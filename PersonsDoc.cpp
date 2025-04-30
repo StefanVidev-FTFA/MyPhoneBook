@@ -53,6 +53,58 @@ bool CPersonsDoc::DatabaseSelectAll()
 	return true;
 }
 
+bool CPersonsDoc::DatabaseInsert(PERSONS& recItem)
+{
+	CPersonsTable oPersonsTable;
+
+	if (oPersonsTable.Insert(recItem))
+	{
+		CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
+
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+bool CPersonsDoc::DatabaseDelete(const int nId)
+{
+	CPersonsTable oPersonsTable;
+
+	if (oPersonsTable.DeleteWhereId(nId))
+	{
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+bool CPersonsDoc::DatabaseUpdate(const PERSONS& recItem)
+{
+	CPersonsTable oPersonsTable;
+
+	if (oPersonsTable.UpdateById(recItem.nId, recItem))
+	{
+		CGeneralHint<PERSONS>* pHint = new CGeneralHint<PERSONS>(recItem);
+		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+	}
+	else
+	{
+		MESSAGE_ERROR(_T("Failed to update the person with ID %d"), nId);
+		return false;
+	}
+
+	return true;
+}
+
 void CPersonsDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())

@@ -23,6 +23,8 @@ protected:
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
 	void RequestUpdate();
 
+	void AssignPerson(PERSONS& recItem);
+
 
 public:
 	CPersonsDoc* GetDocument() const;
