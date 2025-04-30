@@ -210,6 +210,9 @@
     <ClInclude Include="DialogPersonsInsert.h">
       <Filter>Header Files\Dialogs\Persons</Filter>
     </ClInclude>
+    <ClInclude Include="PhoneNumbersInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhoneBook.cpp">
@@ -270,6 +273,9 @@
       <Filter>Source Files\Dialogs\Persons</Filter>
     </ClCompile>
     <ClCompile Include="CitiesTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPhoneNumbersInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,6 +36,8 @@ public:
     bool DeleteWhereId(const long lId);
 
     bool UpdateById(const int nId, const tableType& recItem);
+
+    bool AssignItemsIds(CStringList& itemsIdsList);
 };
 
 template <typename tableType, typename accessorType>
@@ -292,5 +294,40 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     }
 
     Close();
+    return true;
+}
+
+template <typename tableType, typename accessorType>
+inline bool CBaseTable<tableType, accessorType>::AssignItemsIds(CStringList& itemsIdsList)
+{
+    CDatabaseConnection::GetInstance().OpenSession();
+    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
+
+    CString type = Utils::GetTableName<tableType>();
+    CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
+
+    HRESULT hResult = Open(oSession, strQuery);
+    if (FAILED(hResult))
+    {
+        CString strError;
+        strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
+        AfxMessageBox(strError);
+
+        Close();
+        CDatabaseConnection::GetInstance().CloseSession();
+        return false;
+    }
+
+    while (MoveNext() == S_OK)
+    {
+        CString strId;
+        strId.Format(_T("%d"), m_recItem.nId);
+        itemsIdsList.AddTail(strId);
+
+        MESSAGE_INFO(strId);
+    }
+
+    Close();
+    return true;
     return true;
 }

@@ -207,6 +207,7 @@
     <ClInclude Include="PersonsTable.h" />
     <ClInclude Include="PersonsView.h" />
     <ClInclude Include="PhoneNumbersDoc.h" />
+    <ClInclude Include="PhoneNumbersInfo.h" />
     <ClInclude Include="PhoneNumbersTable.h" />
     <ClInclude Include="PhoneNumbersView.h" />
     <ClInclude Include="PhoneTypes.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="CitiesTable.cpp" />
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CommonListView.cpp" />
+    <ClCompile Include="CPhoneNumbersInfo.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="DialogPersonsInsert.cpp" />
     <ClCompile Include="DialogPhoneNumbers.cpp" />

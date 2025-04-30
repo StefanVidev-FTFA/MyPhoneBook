@@ -16,6 +16,7 @@
 #include "PhoneNumbers.h"
 #include "PhoneNumbersDoc.h"
 #include "DialogPhoneNumbers.h"
+#include "PhoneNumbersInfo.h"
 
 
 
@@ -112,6 +113,9 @@ void CPhoneNumbersView::RequestSelectById()
 void CPhoneNumbersView::RequestInsert()
 {
 	PHONE_NUMBERS recPhoneNum;
+
+	CPhoneNumbersInfo* oInfo = new CPhoneNumbersInfo();
+
 
 	DialogPhoneNumbers oDialog(recPhoneNum, CCommonListView::DialogModeEdit);
 	INT_PTR result = oDialog.DoModal();

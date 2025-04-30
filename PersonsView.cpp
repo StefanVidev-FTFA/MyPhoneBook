@@ -46,7 +46,7 @@ void CPersonsView::RequestInsert()
 
 	CCitiesTable oCitiesTable;
 
-	oCitiesTable.AssignAllCityIds(citiesIdsList);
+	oCitiesTable.AssignItemsIds(citiesIdsList);
 
 	DialogPersonsInsert oDialog(citiesIdsList);
 
