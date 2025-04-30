@@ -9,6 +9,20 @@ class CPersonsView : public CCommonListView
 protected:
 	CPersonsView() noexcept;
 	DECLARE_DYNCREATE(CPersonsView)
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
+
+	void InsertACityRow(PERSONS& recPerson);
+	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
+	void RequestInsert();
+	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
+	void RequestDelete();
+	///<summary> Избира град от базата данни чрез диалог с потребителя и визуализира само него ///</summary>
+	void RequestSelectById();
+	///<summary> Избира и визуализира всички записи от базата данни в изгледа ///</summary>
+	void RequestSelectAll();
+	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
+	void RequestUpdate();
+
 
 public:
 	CPersonsDoc* GetDocument() const;
@@ -70,6 +84,8 @@ protected:
 
 	// Members
 	// ----------------
+protected:
 	CListCtrl* m_pListCtrl;
+	int m_SelectedIndex = -1;
 
 };

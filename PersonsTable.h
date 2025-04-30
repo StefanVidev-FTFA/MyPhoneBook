@@ -15,5 +15,4 @@
 
 class CPersonsTable : public CBaseTable<PERSONS, CPersonsAccessor>
 {
-
 };

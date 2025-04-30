@@ -201,14 +201,14 @@
     <ClInclude Include="DialogUpdOrInsPhoneType.h">
       <Filter>Header Files\Dialogs\PhoneTypes</Filter>
     </ClInclude>
-    <ClInclude Include="DefinePersonDlg.h">
-      <Filter>Header Files\Dialogs\Persons</Filter>
-    </ClInclude>
     <ClInclude Include="CDialogCities.h">
       <Filter>Header Files\Dialogs\Cities</Filter>
     </ClInclude>
     <ClInclude Include="DialogPhoneNumbers.h">
       <Filter>Header Files\Dialogs\PhoneNumers</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPersonsInsert.h">
+      <Filter>Header Files\Dialogs\Persons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,14 +260,17 @@
     <ClCompile Include="DialogUpdOrInsPhoneType.cpp">
       <Filter>Source Files\Dialogs\PhoneTypes</Filter>
     </ClCompile>
-    <ClCompile Include="DefinePersonDlg.cpp">
-      <Filter>Source Files\Dialogs\Persons</Filter>
-    </ClCompile>
     <ClCompile Include="CDialogCities.cpp">
       <Filter>Source Files\Dialogs\Cities</Filter>
     </ClCompile>
     <ClCompile Include="DialogPhoneNumbers.cpp">
       <Filter>Source Files\Dialogs\PhoneNumbers</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPersonsInsert.cpp">
+      <Filter>Source Files\Dialogs\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

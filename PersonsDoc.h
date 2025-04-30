@@ -41,4 +41,11 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 
+public:
+	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectAll();
+	bool DatabaseInsert(CITIES& recItem);
+	bool DatabaseDelete(const int nId);
+	bool DatabaseUpdate(const CITIES& recItem);
+
 };

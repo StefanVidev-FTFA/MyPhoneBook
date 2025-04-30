@@ -7,6 +7,7 @@
 #endif
 #include "Macros.h"
 #include "PersonsData.h"
+#include "CommonListView.h"
 
 IMPLEMENT_DYNCREATE(CPersonsDoc, CDocument)
 BEGIN_MESSAGE_MAP(CPersonsDoc, CDocument)
@@ -29,15 +30,27 @@ BOOL CPersonsDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CPersonsData data;
+	CPersonsTable oPersonsTable;
 
-	//if (!data.SelectAll(m_oInitialPersonsArray))
-	//{
-	//	MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
-	//	return FALSE;
-	//}
+	if (!oPersonsTable.SelectAll(m_oInitialPersonsArray))
+	{
+		MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
+		return FALSE;
+	}
 
 	return TRUE;
+}
+
+bool CPersonsDoc::DatabaseSelectAll()
+{
+	CPersonsTable oPersonsTable;
+	CSmartArray<PERSONS>* pItemsArray = new CSmartArray<PERSONS>();
+
+	oPersonsTable.SelectAll(*pItemsArray);
+
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+
+	return true;
 }
 
 void CPersonsDoc::Serialize(CArchive& ar)

@@ -12,4 +12,6 @@
 
 class CCitiesTable : public CBaseTable<CITIES, CCitiesAccessor>
 {
+public:
+	bool AssignAllCityIds(CStringList& cityIdsList);
 };
