@@ -11,8 +11,9 @@ class DialogPersonsInsert : public CDialogEx
 	DECLARE_DYNAMIC(DialogPersonsInsert)
 
 public:
-	DialogPersonsInsert(const CStringList& cityIds, CWnd* pParent = nullptr);
-	DialogPersonsInsert(const CStringList& cityIds,PERSONS recPersonView, CWnd* pParent = nullptr);
+	DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray, CWnd* pParent = nullptr);
+	DialogPersonsInsert(const CSmartArray<CITIES>& cityIds,PERSONS recPersonView, bool isReadOnly=false, CWnd* pParent = nullptr);
+
 	virtual ~DialogPersonsInsert();
 
 	afx_msg void OnClickedButtonConfirm();
@@ -44,5 +45,8 @@ public:
 	PERSONS m_recPersonToInsert;
 private :
 	PERSONS m_recPersonToFillOut;
-	const CStringList& m_cityIds;
+	const CSmartArray<CITIES>& m_oCitiesArray;
+	bool m_isReadOnly;
+public:
+	CButton m_ButtonPersonsConfirm;
 };

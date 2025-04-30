@@ -3,18 +3,20 @@
 #include "afxdialogex.h"
 #include "DialogPersonsInsert.h"
 #include "Macros.h"
+#include "PhoneNumbersInfo.h"
+#include "DialogPhoneNumbers.h"
 
 
 IMPLEMENT_DYNAMIC(DialogPersonsInsert, CDialogEx)
 
-DialogPersonsInsert::DialogPersonsInsert(const CStringList& cityIds, CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_PERSONS_DEFINE, pParent),m_cityIds(cityIds)
+DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray, CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray)
 {
 }
-DialogPersonsInsert::DialogPersonsInsert(const CStringList& cityIds,PERSONS recPersonView, CWnd* pParent)
-	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_cityIds(cityIds), m_recPersonToFillOut(recPersonView)
+DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,PERSONS recPersonView,bool isReadOnly, CWnd* pParent)
+	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray),
+	m_recPersonToFillOut(recPersonView), m_isReadOnly(isReadOnly)
 {
-
 }
 
 DialogPersonsInsert::~DialogPersonsInsert()
@@ -30,21 +32,34 @@ void DialogPersonsInsert::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, STT_PERSONS_EGN, m_EditBoxEgn);
 	DDX_Control(pDX, STT_PERSONS_ADRESS, m_EditBoxAdress);
 	DDX_Control(pDX, CMB_PERSONS_CITY_ID, m_ComboBoxCityId);
+	DDX_Control(pDX, BTN_PERSONS_INSERT_CONFIRM, m_ButtonPersonsConfirm);
 }
 
 BOOL DialogPersonsInsert::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	POSITION pos = m_cityIds.GetHeadPosition();
-	while (pos != nullptr) {
-		const CString& cityId = m_cityIds.GetNext(pos);
-		m_ComboBoxCityId.AddString(cityId);
+
+
+	int nDefaultIndex = 0;
+	for (INT_PTR i = 0; i < m_oCitiesArray.GetCount(); i++)
+	{
+		CString strItem;
+		strItem.Format(_T("  %s, %s"),
+			CString(m_oCitiesArray.GetAt(i)->szCityName), CString(m_oCitiesArray.GetAt(i)->szRegion));
+
+		int index =m_ComboBoxCityId.AddString(strItem);
+
+		CString oke;
+
+		if (m_recPersonToFillOut.nId != 0 
+			&& m_recPersonToFillOut.nCityId == m_oCitiesArray.GetAt(i)->nId)
+		{
+			nDefaultIndex = m_oCitiesArray.GetCount()-i;
+		}
 	}
 
-	m_ComboBoxCityId.SetCurSel(0);
-
-
+	m_ComboBoxCityId.SetCurSel(nDefaultIndex);
 
 	if (m_recPersonToFillOut.nId != 0) 
 	{
@@ -53,13 +68,20 @@ BOOL DialogPersonsInsert::OnInitDialog()
 		m_EditBoxLastName.SetWindowText(m_recPersonToFillOut.szLastName);
 		m_EditBoxEgn.SetWindowText(m_recPersonToFillOut.szEgn);
 		m_EditBoxAdress.SetWindowText(m_recPersonToFillOut.szAddress);
-
-		CString strCityId;
-		strCityId.Format(_T("%d"), 100);
 	}
 
+	if (m_isReadOnly) 
+	{
+		m_EditBoxFirstName.EnableWindow(false);
+		m_EditBoxMiddleName.EnableWindow(false);
+		m_EditBoxLastName.EnableWindow(false);
+		m_EditBoxEgn.EnableWindow(false);
+		m_EditBoxAdress.EnableWindow(false);
+		m_ComboBoxCityId.EnableWindow(false);
 
+		m_ButtonPersonsConfirm.EnableWindow(false);
 
+	}
 
 	return TRUE;
 }
@@ -103,8 +125,8 @@ void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 	CMenu menu;
 	menu.CreatePopupMenu();
 
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("Option 1"));
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("Option 2"));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("add a Phone Number"));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("edit a Phone Number"));
 
 	CPoint point;
 	GetCursorPos(&point);
@@ -115,12 +137,22 @@ void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 
 void DialogPersonsInsert::OnListOption1()
 {
-	AfxMessageBox(_T("Option 1 clicked"));
+	AfxMessageBox(_T("Option 1"));
+
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
+	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+
+	INT_PTR result = oDialog.DoModal();
+	if (result == IDOK)
+	{
+		//GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
+	}
 }
 
 void DialogPersonsInsert::OnListOption2()
 {
-	AfxMessageBox(_T("Option 2 clicked"));
+	AfxMessageBox(_T("Option 2"));
 }
 
 

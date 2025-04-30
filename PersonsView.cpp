@@ -23,6 +23,7 @@ BEGIN_MESSAGE_MAP(CPersonsView, CListView)
 	ON_COMMAND(ID_EDIT_INSERTROW, &CPersonsView::RequestInsert)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CPersonsView::RequestDelete)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPersonsView::RequestUpdate)
+	ON_COMMAND(ID_EDIT_SELECTBYID, &CPersonsView::RequestSelectById)
 END_MESSAGE_MAP()
 
 CPersonsView::CPersonsView() noexcept {}
@@ -44,11 +45,12 @@ void CPersonsView::RequestSelectAll() {
 void CPersonsView::RequestInsert()
 {
 
-	CStringList citiesIdsList;
+	CSmartArray<CITIES> oCitiesArray;
 	CCitiesTable oCitiesTable;
-	oCitiesTable.AssignItemsIds(citiesIdsList);
 
-	DialogPersonsInsert oDialog(citiesIdsList);
+	oCitiesTable.SelectAll(oCitiesArray);
+
+	DialogPersonsInsert oDialog(oCitiesArray);
 
 	INT_PTR result = oDialog.DoModal();
 
@@ -112,15 +114,12 @@ void CPersonsView::RequestUpdate()
 			PERSONS recPerson;
 			AssignPerson(recPerson);
 
-
-			CStringList citiesIdsList;
+			CSmartArray<CITIES> oCitiesArray;
 			CCitiesTable oCitiesTable;
-			oCitiesTable.AssignItemsIds(citiesIdsList);
+			oCitiesTable.SelectAll(oCitiesArray);
 
-
-			DialogPersonsInsert oDialog(citiesIdsList, recPerson);
+			DialogPersonsInsert oDialog(oCitiesArray, recPerson);
 			INT_PTR result = oDialog.DoModal();
-
 			if (result == IDOK)
 			{
 				oDialog.m_recPersonToInsert.nId = nId;
@@ -128,6 +127,22 @@ void CPersonsView::RequestUpdate()
 			}
 		}
 	}
+}
+
+void CPersonsView::RequestSelectById()
+{
+	PERSONS recPerson;
+
+	AssignPerson(recPerson);
+
+	CSmartArray<CITIES> oCitiesArray;
+	CCitiesTable oCitiesTable;
+
+	oCitiesTable.SelectAll(oCitiesArray);
+
+	DialogPersonsInsert oDialog(oCitiesArray, recPerson,true);
+
+	INT_PTR result = oDialog.DoModal();
 }
 
 BOOL CPersonsView::PreCreateWindow(CREATESTRUCT& cs)

@@ -61,10 +61,6 @@ void CDatabaseConnection::Connect()
         strError.Format(_T("Unable to connect to SQL Server database. Error: %d"), hResult);
         MESSAGE_ERROR(strError);
     }
-    else 
-    {
-        MESSAGE_INFO(_T("Successfully connected to the SQL Server database"));
-    }
 }
 
 bool CDatabaseConnection::OpenSession()
@@ -104,5 +100,4 @@ void CDatabaseConnection::Disconnect()
         m_oCurrentSession.Close();
     }
     m_oDataSource.Close();
-    MESSAGE_INFO(_T("Database Disconnected!"));
 }

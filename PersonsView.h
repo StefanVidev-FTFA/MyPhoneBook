@@ -11,7 +11,6 @@ protected:
 	DECLARE_DYNCREATE(CPersonsView)
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
-	void InsertACityRow(PERSONS& recPerson);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();
 	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
