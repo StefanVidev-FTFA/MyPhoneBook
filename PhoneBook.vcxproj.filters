@@ -221,9 +221,6 @@
     <ClCompile Include="PhoneNumbersDoc.cpp">
       <Filter>Source Files\ForTables\PhoneNumbers</Filter>
     </ClCompile>
-    <ClCompile Include="PersonsTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PersonsDoc.cpp">
       <Filter>Source Files\ForTables\Persons</Filter>
     </ClCompile>
@@ -253,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="PhoneNumbersInfo.cpp">
       <Filter>Source Files\ForTables\PhoneNumbers</Filter>
+    </ClCompile>
+    <ClCompile Include="PersonsTable.cpp">
+      <Filter>Source Files\ForTables\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="PhonenumbersTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

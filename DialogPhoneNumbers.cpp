@@ -46,31 +46,13 @@ BOOL DialogPhoneNumbers::OnInitDialog()
 		m_ComboBoxPhoneTypesIds.SetCurSel(0);
 		m_ComboBoxPhoneTypesIds.EnableWindow(false);
 	}
+
 	else
 	{
 		m_EditBoxPhoneNumber.SetReadOnly(false);
 		m_EditBoxPhoneNumber.SetWindowTextW(CString(m_recPhoneNumForView.szPhoneNumber));
 		m_BtnConfirm.EnableWindow(true);
-
 		m_ComboBoxPersonIds.ResetContent();
-
-		POSITION pos = m_pInfo->m_personsIdsList.GetHeadPosition();
-		while (pos != nullptr) {
-			const CString& strId = m_pInfo->m_personsIdsList.GetNext(pos);
-			m_ComboBoxPersonIds.AddString(strId);
-		}
-		m_ComboBoxPersonIds.SetCurSel(0);
-
-
-		m_ComboBoxPhoneTypesIds.ResetContent();
-
-		POSITION posId = m_pInfo->m_phoneTypesIdsList.GetHeadPosition();
-		while (posId != nullptr) {
-			const CString& strId = m_pInfo->m_phoneTypesIdsList.GetNext(posId);
-			m_ComboBoxPhoneTypesIds.AddString(strId);
-		}
-		m_ComboBoxPhoneTypesIds.SetCurSel(0);
-
 
 	}
 

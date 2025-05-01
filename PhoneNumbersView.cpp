@@ -24,7 +24,7 @@ IMPLEMENT_DYNCREATE(CPhoneNumbersView, CListView)
 BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
     ON_WM_CONTEXTMENU()
     ON_WM_RBUTTONUP()
-	ON_COMMAND(ID_EDIT_INSERTROW, &CPhoneNumbersView::RequestInsert)
+	//ON_COMMAND(ID_EDIT_INSERTROW, &CPhoneNumbersView::RequestInsert)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CPhoneNumbersView::RequestDelete)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CPhoneNumbersView::RequestSelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CPhoneNumbersView::RequestSelectAll)
@@ -104,6 +104,7 @@ void CPhoneNumbersView::RequestSelectById()
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
 	pInfo->m_recPhoneNum = recPhoneNum;
+
 
 	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
 	INT_PTR result = oDialog.DoModal();

@@ -15,7 +15,7 @@ class CSmartArray: public CTypedPtrArray<CPtrArray,Ttable*>
     // Constructor / Destructor
     // ----------------     
 public:
-    CSmartArray() {}
+    CSmartArray() {};
     virtual ~CSmartArray()
     {
         if (!IsEmpty())

@@ -1,6 +1,7 @@
 #pragma once
 #include "Persons.h"
-
+#include "PhoneNumbers.h"
+#include "SmartArray.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsDoc
@@ -44,7 +45,7 @@ protected:
 public:
 	bool DatabaseSelectById(const long nId);
 	bool DatabaseSelectAll();
-	bool DatabaseInsert(PERSONS& recItem);
+	bool DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 	bool DatabaseDelete(const int nId);
 	bool DatabaseUpdate(const PERSONS& recItem);
 

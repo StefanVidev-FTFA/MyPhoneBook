@@ -53,11 +53,11 @@ bool CPersonsDoc::DatabaseSelectAll()
 	return true;
 }
 
-bool CPersonsDoc::DatabaseInsert(PERSONS& recItem)
+bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CPersonsTable oPersonsTable;
 
-	if (oPersonsTable.Insert(recItem))
+	if (oPersonsTable.CommitNewPerson(recItem, phoneNumbers))
 	{
 		CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
 

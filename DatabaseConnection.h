@@ -42,6 +42,14 @@ public:
 	CDBPropSet GetRowsetPropertiesSet() { return m_oDBDatabaseRowsetPropertiesSet; }
     /// <summary>Връща data source обект</summary>
 	CDataSource& GetDataSource() { return m_oDataSource; }
+
+
+    void BeginTrans();
+	void CommitTrans();
+    void RollbackTrans();
+
+
+
 private:
     /// <summary> Дефинира настройките за връзка </summary>
     void InitializeConnectionProperties();

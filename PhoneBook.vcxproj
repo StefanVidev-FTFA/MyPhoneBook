@@ -252,6 +252,7 @@
     <ClCompile Include="PersonsView.cpp" />
     <ClCompile Include="PhoneBook.cpp" />
     <ClCompile Include="PhoneNumbersDoc.cpp" />
+    <ClCompile Include="PhonenumbersTable.cpp" />
     <ClCompile Include="PhoneNumbersView.cpp" />
     <ClCompile Include="PhoneTypesDoc.cpp" />
     <ClCompile Include="PhoneTypesView.cpp" />

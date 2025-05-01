@@ -14,4 +14,6 @@
 
 class CPhoneNumbersTable : public CBaseTable<PHONE_NUMBERS, CPhoneNumbersAccessor>
 {
+public:
+	bool GetPersonsPhoneNumbers(CSmartArray<PHONE_NUMBERS>& oItemsArray, long lId);
 };

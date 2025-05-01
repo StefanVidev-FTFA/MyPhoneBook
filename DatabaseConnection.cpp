@@ -101,3 +101,44 @@ void CDatabaseConnection::Disconnect()
     }
     m_oDataSource.Close();
 }
+void CDatabaseConnection::BeginTrans()
+{
+    if (m_sessionIsOpen)
+    {
+        HRESULT hResult = m_oCurrentSession.StartTransaction();
+        if (FAILED(hResult))
+        {
+            CString strError;
+            strError.Format(_T("Error to Start Transaction Error: %ld."), hResult);
+            AfxMessageBox(strError);
+        }
+    }
+}
+
+void CDatabaseConnection::CommitTrans()
+{
+    if (m_sessionIsOpen)
+    {
+        HRESULT hResult = m_oCurrentSession.Commit();
+        if (FAILED(hResult))
+        {
+            CString strError;
+            strError.Format(_T("Error to commit transaction Error: %ld."), hResult);
+            AfxMessageBox(strError);
+        }
+    }
+}
+
+void CDatabaseConnection::RollbackTrans()
+{
+    if (m_sessionIsOpen)
+    {
+        HRESULT hResult = m_oCurrentSession.Abort();
+        if (FAILED(hResult))
+        {
+            CString strError;
+            strError.Format(_T("Error to Abort transaction Error: %ld."), hResult);
+            AfxMessageBox(strError);
+        }
+    }
+}

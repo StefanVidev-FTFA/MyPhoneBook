@@ -9,12 +9,11 @@
 
 IMPLEMENT_DYNAMIC(DialogPersonsInsert, CDialogEx)
 
-DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray, CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray)
-{
-}
-DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,PERSONS recPersonView,bool isReadOnly, CWnd* pParent)
+DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,
+	CSmartArray<PHONE_NUMBERS>& phoneNumbers
+	,PERSONS recPersonView,bool isReadOnly, CWnd* pParent)
 	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray),
+	 m_oPhoneNumbersArray(phoneNumbers),
 	m_recPersonToFillOut(recPersonView), m_isReadOnly(isReadOnly)
 {
 }
@@ -33,6 +32,7 @@ void DialogPersonsInsert::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, STT_PERSONS_ADRESS, m_EditBoxAdress);
 	DDX_Control(pDX, CMB_PERSONS_CITY_ID, m_ComboBoxCityId);
 	DDX_Control(pDX, BTN_PERSONS_INSERT_CONFIRM, m_ButtonPersonsConfirm);
+	DDX_Control(pDX, LSC_PERSONS_PHONE_NUMBERS, m_ListControlPhoneNumbers);
 }
 
 BOOL DialogPersonsInsert::OnInitDialog()
@@ -68,6 +68,10 @@ BOOL DialogPersonsInsert::OnInitDialog()
 		m_EditBoxLastName.SetWindowText(m_recPersonToFillOut.szLastName);
 		m_EditBoxEgn.SetWindowText(m_recPersonToFillOut.szEgn);
 		m_EditBoxAdress.SetWindowText(m_recPersonToFillOut.szAddress);
+
+
+		FillPhones();
+
 	}
 
 	if (m_isReadOnly) 
@@ -83,7 +87,19 @@ BOOL DialogPersonsInsert::OnInitDialog()
 
 	}
 
+	m_ListControlPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 160);
+	m_ListControlPhoneNumbers.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+
 	return TRUE;
+}
+
+void DialogPersonsInsert::FillPhones()
+{
+	for (INT_PTR i = 0; i < m_oPhoneNumbersArray.GetCount(); i++)
+	{
+		CString strPhoneNumber = CString(m_oPhoneNumbersArray.GetAt(i)->szPhoneNumber);
+		int nIndex = m_ListControlPhoneNumbers.InsertItem(i, strPhoneNumber);
+	}
 }
 
 
@@ -91,8 +107,8 @@ BEGIN_MESSAGE_MAP(DialogPersonsInsert, CDialogEx)
 	ON_BN_CLICKED(BTN_PERSONS_INSERT_CONFIRM, &DialogPersonsInsert::OnClickedButtonConfirm)
 	ON_BN_CLICKED(BTN_PERSONS_INSERT_CANCEL, &DialogPersonsInsert::OnClickedButtonCancel)
 	ON_NOTIFY(NM_RCLICK, LSC_PERSONS_PHONE_NUMBERS, &DialogPersonsInsert::OnNMRClickListControl)
-	ON_COMMAND(ID_LIST_OPTION1, &DialogPersonsInsert::OnListOption1)
-	ON_COMMAND(ID_LIST_OPTION2, &DialogPersonsInsert::OnListOption2)
+	ON_COMMAND(ID_LIST_OPTION1, &DialogPersonsInsert::InsertPhoneNumber)
+	ON_COMMAND(ID_LIST_OPTION2, &DialogPersonsInsert::EditPhoneNumber)
 END_MESSAGE_MAP()
 
 
@@ -125,8 +141,8 @@ void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 	CMenu menu;
 	menu.CreatePopupMenu();
 
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("add a Phone Number"));
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("edit a Phone Number"));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("New..."));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("Edit..."));
 
 	CPoint point;
 	GetCursorPos(&point);
@@ -135,10 +151,8 @@ void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
-void DialogPersonsInsert::OnListOption1()
+void DialogPersonsInsert::InsertPhoneNumber()
 {
-	AfxMessageBox(_T("Option 1"));
-
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
 	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
@@ -146,13 +160,45 @@ void DialogPersonsInsert::OnListOption1()
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
 	{
-		//GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
+		oDialog.m_recPhoneNumForUpdOrIns.nId = -1;
+		m_oPhoneNumbersArray.Add(new PHONE_NUMBERS(oDialog.m_recPhoneNumForUpdOrIns));
+
+
+		CString strPhoneNumber = CString(oDialog.m_recPhoneNumForUpdOrIns.szPhoneNumber);
+		int nIndex = m_ListControlPhoneNumbers.InsertItem(m_ListControlPhoneNumbers.GetItemCount(), strPhoneNumber);
 	}
 }
 
-void DialogPersonsInsert::OnListOption2()
+void DialogPersonsInsert::EditPhoneNumber()
 {
-	AfxMessageBox(_T("Option 2"));
+	int nSelectedIndex = m_ListControlPhoneNumbers.GetNextItem(-1, LVNI_SELECTED);
+
+	if (nSelectedIndex != -1)
+	{
+		CString selectedPhoneNumber = m_ListControlPhoneNumbers.GetItemText(nSelectedIndex, 0);
+		PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
+
+		CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
+		pInfo->m_recPhoneNum = *pPhoneNumber;
+
+		CString str;
+		str.Format(_T("the phone type id is: %s"), pPhoneNumber->nPhoneTypeId);
+		MESSAGE_INFO(str);
+
+		DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+		INT_PTR result = oDialog.DoModal();
+		if (result == IDOK)
+		{
+			*pPhoneNumber = oDialog.m_recPhoneNumForUpdOrIns;
+
+			m_ListControlPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
+		}
+	}
+	else
+	{
+		MESSAGE_INFO(_T("No phone number selected."));
+	}
 }
 
 

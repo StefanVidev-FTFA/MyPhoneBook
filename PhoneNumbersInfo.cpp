@@ -3,6 +3,6 @@
 
 CPhoneNumbersInfo::CPhoneNumbersInfo()
 {
-	m_oPersonsTable.AssignItemsIds(m_personsIdsList);
-	m_oPhoneTypesTable.AssignItemsIds(m_phoneTypesIdsList);
+	m_oPersonsTable.SelectAll(m_personsArray);
+	m_oPhoneTypesTable.SelectAll(m_phoneTypesArray);
 }

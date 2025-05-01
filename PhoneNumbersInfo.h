@@ -17,6 +17,6 @@ private:
 public:
 	PHONE_NUMBERS m_recPhoneNum;
 
-	CStringList m_personsIdsList;
-	CStringList m_phoneTypesIdsList;
+	CSmartArray<PERSONS> m_personsArray;
+	CSmartArray<PHONE_TYPES> m_phoneTypesArray;
 };

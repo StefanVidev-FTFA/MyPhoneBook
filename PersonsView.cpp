@@ -44,19 +44,21 @@ void CPersonsView::RequestSelectAll() {
 
 void CPersonsView::RequestInsert()
 {
-
+	PERSONS recEmptyPerson;
 	CSmartArray<CITIES> oCitiesArray;
+	CSmartArray<PHONE_NUMBERS> oPhoneNumbersArray;
 	CCitiesTable oCitiesTable;
 
 	oCitiesTable.SelectAll(oCitiesArray);
 
-	DialogPersonsInsert oDialog(oCitiesArray);
+
+	DialogPersonsInsert oDialog(oCitiesArray, oPhoneNumbersArray, recEmptyPerson);
 
 	INT_PTR result = oDialog.DoModal();
 
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oDialog.m_recPersonToInsert);
+		GetDocument()->DatabaseInsert(oDialog.m_recPersonToInsert, oPhoneNumbersArray);
 	}
 }
 
@@ -118,7 +120,12 @@ void CPersonsView::RequestUpdate()
 			CCitiesTable oCitiesTable;
 			oCitiesTable.SelectAll(oCitiesArray);
 
-			DialogPersonsInsert oDialog(oCitiesArray, recPerson);
+			CSmartArray<PHONE_NUMBERS> oPersonsPhoneNumbersArray;
+			CPhoneNumbersTable oPhonenumbersTable;
+
+			oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
+
+			DialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson);
 			INT_PTR result = oDialog.DoModal();
 			if (result == IDOK)
 			{
@@ -132,15 +139,18 @@ void CPersonsView::RequestUpdate()
 void CPersonsView::RequestSelectById()
 {
 	PERSONS recPerson;
-
 	AssignPerson(recPerson);
 
 	CSmartArray<CITIES> oCitiesArray;
 	CCitiesTable oCitiesTable;
-
 	oCitiesTable.SelectAll(oCitiesArray);
 
-	DialogPersonsInsert oDialog(oCitiesArray, recPerson,true);
+	CSmartArray<PHONE_NUMBERS> oPersonsPhoneNumbersArray;
+	CPhoneNumbersTable oPhonenumbersTable;
+	oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
+
+
+	DialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true);
 
 	INT_PTR result = oDialog.DoModal();
 }

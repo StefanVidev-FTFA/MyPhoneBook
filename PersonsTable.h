@@ -15,4 +15,6 @@
 
 class CPersonsTable : public CBaseTable<PERSONS, CPersonsAccessor>
 {
+public:
+	bool CommitNewPerson(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 };
