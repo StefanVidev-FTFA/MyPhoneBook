@@ -48,14 +48,14 @@ BOOL DialogPersonsInsert::OnInitDialog()
 		strItem.Format(_T("  %s, %s"),
 			CString(m_oCitiesArray.GetAt(i)->szCityName), CString(m_oCitiesArray.GetAt(i)->szRegion));
 
-		int index =m_ComboBoxCityId.AddString(strItem);
+		m_ComboBoxCityId.AddString(strItem);
 
 		CString oke;
 
 		if (m_recPersonToFillOut.nId != 0 
 			&& m_recPersonToFillOut.nCityId == m_oCitiesArray.GetAt(i)->nId)
 		{
-			nDefaultIndex = m_oCitiesArray.GetCount()-i;
+			nDefaultIndex = i;
 		}
 	}
 

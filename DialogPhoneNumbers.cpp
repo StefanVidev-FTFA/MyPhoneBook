@@ -32,17 +32,18 @@ BOOL DialogPhoneNumbers::OnInitDialog()
 
 		m_BtnConfirm.EnableWindow(false);
 
-		m_ComboBoxPersonIds.ResetContent();
-		CString strPersonId;
-		strPersonId.Format(_T("%d"), m_pInfo->m_recPhoneNum.nPersonId);
-		m_ComboBoxPersonIds.AddString(strPersonId);
-		m_ComboBoxPersonIds.SetCurSel(0);
-		m_ComboBoxPersonIds.EnableWindow(false);
-
 		m_ComboBoxPhoneTypesIds.ResetContent();
-		CString strPhoneTypeId;
-		strPhoneTypeId.Format(_T("%d"), m_pInfo->m_recPhoneNum.nPhoneTypeId);
-		m_ComboBoxPhoneTypesIds.AddString(strPhoneTypeId);
+
+		CString strType;
+		for (INT_PTR i = 0; i < m_pInfo->m_phoneTypesArray.GetCount(); i++)
+		{
+			if (m_pInfo->m_phoneTypesArray.GetAt(i)->nId == m_pInfo->m_recPhoneNum.nPhoneTypeId)
+			{
+				strType = CString(m_pInfo->m_phoneTypesArray.GetAt(i)->szPhoneType);
+			}
+		}
+
+		m_ComboBoxPhoneTypesIds.AddString(strType);
 		m_ComboBoxPhoneTypesIds.SetCurSel(0);
 		m_ComboBoxPhoneTypesIds.EnableWindow(false);
 	}
@@ -50,9 +51,20 @@ BOOL DialogPhoneNumbers::OnInitDialog()
 	else
 	{
 		m_EditBoxPhoneNumber.SetReadOnly(false);
-		m_EditBoxPhoneNumber.SetWindowTextW(CString(m_recPhoneNumForView.szPhoneNumber));
+		m_EditBoxPhoneNumber.SetWindowTextW(CString(m_pInfo->m_recPhoneNum.szPhoneNumber));
 		m_BtnConfirm.EnableWindow(true);
-		m_ComboBoxPersonIds.ResetContent();
+
+		int index = 0;
+		for (INT_PTR i = 0; i < m_pInfo->m_phoneTypesArray.GetCount(); i++)
+		{
+			if (m_pInfo->m_phoneTypesArray.GetAt(i)->nId == m_pInfo->m_recPhoneNum.nPhoneTypeId)
+			{
+				index = i;
+			}
+			CString strItem =CString(m_pInfo->m_phoneTypesArray.GetAt(i)->szPhoneType);
+			m_ComboBoxPhoneTypesIds.AddString(strItem);
+		}
+		m_ComboBoxPhoneTypesIds.SetCurSel(index);
 
 	}
 
@@ -63,7 +75,6 @@ void DialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, STT_PNS_PHONE_NUMBER, m_EditBoxPhoneNumber);
-	DDX_Control(pDX, CMB_PNS_PERSONS_IDS, m_ComboBoxPersonIds);
 	DDX_Control(pDX, CMB_PNS_PHONE__TYPES_IDS, m_ComboBoxPhoneTypesIds);
 	DDX_Control(pDX, BTN_PNS_CONFIRM, m_BtnConfirm);
 }
@@ -82,14 +93,6 @@ void DialogPhoneNumbers::OnClickedButtonConfirm()
 	CString strNumber;
 	m_EditBoxPhoneNumber.GetWindowText(strNumber);
 
-	CString strPersonId;
-	int nPersonIndex = m_ComboBoxPersonIds.GetCurSel();
-	if (nPersonIndex != CB_ERR)
-	{
-		m_ComboBoxPersonIds.GetLBText(nPersonIndex, strId);
-	}
-	int nPersonId = _ttoi(strId);
-
 	CString strPhoneTypeId;
 	int nPhoneTypeIndex = m_ComboBoxPhoneTypesIds.GetCurSel();
 	if (nPhoneTypeIndex != CB_ERR)
@@ -99,7 +102,7 @@ void DialogPhoneNumbers::OnClickedButtonConfirm()
 	int nPhoneTypeId = _ttoi(strId);
 
 
-	m_recPhoneNumForUpdOrIns.nPersonId = nPersonId;
+	m_recPhoneNumForUpdOrIns.nPersonId = -1;
 	m_recPhoneNumForUpdOrIns.nPhoneTypeId = nPhoneTypeId;
 	wcscpy_s(m_recPhoneNumForUpdOrIns.szPhoneNumber, MAX_PHONE_NUMBER, strNumber);
 

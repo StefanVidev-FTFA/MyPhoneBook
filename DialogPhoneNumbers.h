@@ -33,7 +33,6 @@ public:
 
 	CPhoneNumbersInfo* m_pInfo;
 	CEdit m_EditBoxPhoneNumber;
-	CComboBox m_ComboBoxPersonIds;
 	CComboBox m_ComboBoxPhoneTypesIds;
 	CButton m_BtnConfirm;
 };
