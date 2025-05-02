@@ -198,7 +198,7 @@
     <ClInclude Include="CommonMethods.h" />
     <ClInclude Include="DialogPersonsInsert.h" />
     <ClInclude Include="DialogPhoneNumbers.h" />
-    <ClInclude Include="DialogUpdOrInsPhoneType.h" />
+    <ClInclude Include="DialogPhoneTypes.h" />
     <ClInclude Include="GeneralHint.h" />
     <ClInclude Include="Persons.h" />
     <ClInclude Include="PersonsAccessor.h" />

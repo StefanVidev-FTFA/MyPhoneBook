@@ -3,22 +3,27 @@
 #include "afxdialogex.h"
 #include "PhoneNumbersInfo.h"
 
-
-class DialogPhoneNumbers : public CDialogEx
+/////////////////////////////////////////////////////////////////////////////
+// CDialogPhoneNumbers
+class CDialogPhoneNumbers : public CDialogEx
 {
-	DECLARE_DYNAMIC(DialogPhoneNumbers)
-
-public:
-	DialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
-		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
-		CWnd* pParent = nullptr);
-	virtual ~DialogPhoneNumbers();
-
-// Dialog Data
+	// Constants
+	// ----------------
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_PHONE_NUMBERS };
 #endif
 
+	// Constructor / Destructor
+	// ----------------
+public:
+	DECLARE_DYNAMIC(CDialogPhoneNumbers)
+	CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
+		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
+		CWnd* pParent = nullptr);
+	virtual ~CDialogPhoneNumbers();
+
+	// Methods
+	// ----------------
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
@@ -26,6 +31,8 @@ protected:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 
+	// Members
+	// ----------------
 public:
 	CCommonListView::DialogMode m_dialogMode;
 	PHONE_NUMBERS m_recPhoneNumForUpdOrIns;

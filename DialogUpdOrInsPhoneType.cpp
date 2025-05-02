@@ -1,32 +1,32 @@
-// DialogUpdOrInsPhoneType.cpp : implementation file
+// CDialogPhoneTypes.cpp : implementation file
 //
 
 #include "pch.h"
 #include "PhoneBook.h"
 #include "afxdialogex.h"
-#include "DialogUpdOrInsPhoneType.h"
+#include "DialogPhoneTypes.h"
 #include "Macros.h"
 
-IMPLEMENT_DYNAMIC(DialogUpdOrInsPhoneType, CDialogEx)
+IMPLEMENT_DYNAMIC(CDialogPhoneTypes, CDialogEx)
 
-DialogUpdOrInsPhoneType::DialogUpdOrInsPhoneType(CWnd* pParent /*=nullptr*/, CCommonListView::DialogMode dialogMod,CString strPhoneType)
+CDialogPhoneTypes::CDialogPhoneTypes(CWnd* pParent /*=nullptr*/, CCommonListView::DialogMode dialogMod,CString strPhoneType)
 	: CDialogEx(IDD_DIALOG7, pParent),m_dialogMode(dialogMod),m_strPhoneType(strPhoneType)
 {
 
 }
 
-DialogUpdOrInsPhoneType::~DialogUpdOrInsPhoneType()
+CDialogPhoneTypes::~CDialogPhoneTypes()
 {
 }
 
-void DialogUpdOrInsPhoneType::DoDataExchange(CDataExchange* pDX)
+void CDialogPhoneTypes::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, STT_PTS_PHONE_TYPE_BOX, m_EditBoxPhoneTypesField);
 	DDX_Control(pDX, BTN_PTS_CONFIRM, m_ButtonPtsConfirm);
 }
 
-BOOL DialogUpdOrInsPhoneType::OnInitDialog()
+BOOL CDialogPhoneTypes::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -49,13 +49,13 @@ BOOL DialogUpdOrInsPhoneType::OnInitDialog()
 }
 
 
-BEGIN_MESSAGE_MAP(DialogUpdOrInsPhoneType, CDialogEx)
-	ON_BN_CLICKED(BTN_PTS_CONFIRM, &DialogUpdOrInsPhoneType::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_PTS_CANCEL, &DialogUpdOrInsPhoneType::OnClickedButtonCancel)
+BEGIN_MESSAGE_MAP(CDialogPhoneTypes, CDialogEx)
+	ON_BN_CLICKED(BTN_PTS_CONFIRM, &CDialogPhoneTypes::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_PTS_CANCEL, &CDialogPhoneTypes::OnClickedButtonCancel)
 END_MESSAGE_MAP()
 
 
-void DialogUpdOrInsPhoneType::OnClickedButtonConfirm()
+void CDialogPhoneTypes::OnClickedButtonConfirm()
 {
 	CString strPhoneType;
 	m_EditBoxPhoneTypesField.GetWindowText(strPhoneType);
@@ -66,7 +66,7 @@ void DialogUpdOrInsPhoneType::OnClickedButtonConfirm()
 	EndDialog(IDOK);
 }
 
-void DialogUpdOrInsPhoneType::OnClickedButtonCancel()
+void CDialogPhoneTypes::OnClickedButtonCancel()
 {
 	EndDialog(IDOK);
 }

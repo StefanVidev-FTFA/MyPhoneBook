@@ -15,7 +15,7 @@
 #include "PhoneTypesView.h"
 #include "PhoneTypes.h"
 #include "PhoneTypesDoc.h"
-#include "DialogUpdOrInsPhoneType.h"
+#include "DialogPhoneTypes.h"
 
 
 
@@ -38,7 +38,7 @@ void CPhoneTypesView::RequestSelectById()
 {
 	CString strPhoneType = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-	DialogUpdOrInsPhoneType oDialog(this,CCommonListView::DialogModeView, strPhoneType);
+	CDialogPhoneTypes oDialog(this,CCommonListView::DialogModeView, strPhoneType);
 
 	INT_PTR result = oDialog.DoModal();
 }
@@ -60,7 +60,7 @@ void CPhoneTypesView::RequestSelectAll() {
 
 void CPhoneTypesView::RequestInsert()
 {
-	DialogUpdOrInsPhoneType oInsertDlg(this, CCommonListView::DialogModeEdit);
+	CDialogPhoneTypes oInsertDlg(this, CCommonListView::DialogModeEdit);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -110,7 +110,7 @@ void CPhoneTypesView::RequestUpdate()
 		{
 			CString strCurrentNumber = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-			DialogUpdOrInsPhoneType oDialog(this, CCommonListView::DialogModeEdit, strCurrentNumber);
+			CDialogPhoneTypes oDialog(this, CCommonListView::DialogModeEdit, strCurrentNumber);
 
 			INT_PTR result = oDialog.DoModal();
 

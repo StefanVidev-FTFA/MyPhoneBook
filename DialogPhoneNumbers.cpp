@@ -7,19 +7,19 @@
 
 
 
-IMPLEMENT_DYNAMIC(DialogPhoneNumbers, CDialogEx)
+IMPLEMENT_DYNAMIC(CDialogPhoneNumbers, CDialogEx)
 
-DialogPhoneNumbers::DialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
+CDialogPhoneNumbers::CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
 	CCommonListView::DialogMode dialogMod, CWnd* pParent)
 	: CDialogEx(IDD_PHONE_NUMBERS, pParent), m_dialogMode(dialogMod), m_pInfo(oInfo)
 {
 }
 
-DialogPhoneNumbers::~DialogPhoneNumbers()
+CDialogPhoneNumbers::~CDialogPhoneNumbers()
 {
 }
 
-BOOL DialogPhoneNumbers::OnInitDialog()
+BOOL CDialogPhoneNumbers::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -71,7 +71,7 @@ BOOL DialogPhoneNumbers::OnInitDialog()
 	return TRUE;
 }
 
-void DialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
+void CDialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, STT_PNS_PHONE_NUMBER, m_EditBoxPhoneNumber);
@@ -80,13 +80,13 @@ void DialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(DialogPhoneNumbers, CDialogEx)
-	ON_BN_CLICKED(BTN_PNS_CONFIRM, &DialogPhoneNumbers::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_PNS_CANCEL, &DialogPhoneNumbers::OnClickedButtonCancel)
+BEGIN_MESSAGE_MAP(CDialogPhoneNumbers, CDialogEx)
+	ON_BN_CLICKED(BTN_PNS_CONFIRM, &CDialogPhoneNumbers::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_PNS_CANCEL, &CDialogPhoneNumbers::OnClickedButtonCancel)
 END_MESSAGE_MAP()
 
 
-void DialogPhoneNumbers::OnClickedButtonConfirm()
+void CDialogPhoneNumbers::OnClickedButtonConfirm()
 {
 	CString strId;
 
@@ -104,7 +104,7 @@ void DialogPhoneNumbers::OnClickedButtonConfirm()
 	EndDialog(IDOK);
 }
 
-void DialogPhoneNumbers::OnClickedButtonCancel()
+void CDialogPhoneNumbers::OnClickedButtonCancel()
 {
 	EndDialog(IDCLOSE);
 }

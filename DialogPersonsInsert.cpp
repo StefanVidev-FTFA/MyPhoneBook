@@ -151,7 +151,7 @@ void CDialogPersonsInsert::InsertPhoneNumber()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
@@ -181,7 +181,7 @@ void CDialogPersonsInsert::EditPhoneNumber()
 
 		pInfo->m_recPhoneNum = *pPhoneNumber;
 
-		DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+		CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 		INT_PTR result = oDialog.DoModal();
 		if (result == IDOK)
 		{

@@ -106,7 +106,7 @@ void CPhoneNumbersView::RequestSelectById()
 	pInfo->m_recPhoneNum = recPhoneNum;
 
 
-	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
+	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
 	{
@@ -118,7 +118,7 @@ void CPhoneNumbersView::RequestInsert()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
@@ -182,7 +182,7 @@ void CPhoneNumbersView::RequestUpdate()
 			CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 			pInfo->m_recPhoneNum = recPhoneNum;
 
-			DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+			CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 			INT_PTR result = oDialog.DoModal();
 			if (result == IDOK)
 			{
