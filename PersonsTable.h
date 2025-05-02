@@ -1,5 +1,4 @@
 #pragma once
-
 #include "pch.h"
 #include <atlbase.h>
 #include <atlcom.h>
@@ -11,8 +10,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsTable
-
-
 class CPersonsTable : public CBaseTable<PERSONS, CPersonsAccessor>
 {
 };

@@ -1,12 +1,10 @@
 #pragma once
-
 #include "Persons.h"
 #include <atldbcli.h>
 #include "BaseAccessor.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsAccessor
-
 class CPersonsAccessor : public CBaseAccessor<PERSONS>
 {
 protected:

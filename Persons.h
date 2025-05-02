@@ -2,7 +2,6 @@
 #include <afxtempl.h>
 #include "SmartArray.h"
 
-
 #define MAX_ANY_NAME 41
 #define MAX_EGN 11
 #define MAX_ADRESS 256

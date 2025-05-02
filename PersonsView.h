@@ -3,14 +3,20 @@
 #include "CommonListView.h"
 
 using namespace std;
-
+/////////////////////////////////////////////////////////////////////////////
+// CPersonsView
 class CPersonsView : public CCommonListView
 {
+	// Constants
+	// ----------------
 protected:
 	CPersonsView() noexcept;
 	DECLARE_DYNCREATE(CPersonsView)
-	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
+	// Methods
+	// ----------------
+protected:
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();
 	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
@@ -21,24 +27,14 @@ protected:
 	void RequestSelectAll();
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
 	void RequestUpdate();
-
 	void AssignPerson(PERSONS& recItem);
-
 
 public:
 	CPersonsDoc* GetDocument() const;
-
-	// Overrides
-public:
 	virtual void OnInitialUpdate();
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-
-protected:
-	void CreateListOnInit() override;
-
-
-public:
 	virtual ~CPersonsView();
+
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -82,11 +78,14 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 
+	// Overrides
+	// ----------------
+protected:
+	void CreateListOnInit() override;
 
 	// Members
 	// ----------------
 protected:
 	CListCtrl* m_pListCtrl;
 	int m_SelectedIndex = -1;
-
 };
