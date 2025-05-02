@@ -2,10 +2,8 @@
 #include "pch.h"
 #include <iostream>
 #include <atldbcli.h>
-#include "CitiesArray.h"
 #include <afxwin.h>
 #include <oledb.h>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CDatabaseConnection
@@ -28,6 +26,7 @@ private:
 public:
     /// <summary> Връща instance на класът </summary>
     static CDatabaseConnection& GetInstance();
+
     /// <summary> Отваря нова сесия </summary>
     bool OpenSession();
     /// <summary> Затваря сесията </summary>
@@ -36,6 +35,7 @@ public:
     void Connect();
     /// <summary> Затваря връзката със базата данни </summary>
     void Disconnect();
+
     /// <summary> Връща reference към текущата сесия </summary>
     CSession& GetCurrentSession() { return m_oCurrentSession; }
     /// <summary> Връща настройки за UPDATE, INSERT and DELETE функциите </summary>
@@ -43,12 +43,12 @@ public:
     /// <summary>Връща data source обект</summary>
 	CDataSource& GetDataSource() { return m_oDataSource; }
 
-
+    /// <summary>Започва нова транзакция</summary>
     void BeginTrans();
+    /// <summary>Завършва текущата транзакция</summary>
 	void CommitTrans();
+    /// <summary>Прекъсва текущата транзакция</summary>
     void RollbackTrans();
-
-
 
 private:
     /// <summary> Дефинира настройките за връзка </summary>

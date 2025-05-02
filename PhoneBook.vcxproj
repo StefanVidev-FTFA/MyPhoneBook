@@ -189,9 +189,7 @@
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />
-    <ClInclude Include="CitiesArray.h" />
     <ClInclude Include="CitiesDoc.h" />
-    <ClInclude Include="CitiesHint.h" />
     <ClInclude Include="CitiesView.h" />
     <ClInclude Include="CommonDocument.h" />
     <ClInclude Include="CommonListView.h" />

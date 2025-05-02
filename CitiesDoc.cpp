@@ -5,10 +5,8 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include "CitiesArray.h"
 #include "Macros.h"
 #include "CitiesView.h"
-#include "CitiesHint.h"
 #include "PersonsData.h"
 #include "GeneralHint.h"
 

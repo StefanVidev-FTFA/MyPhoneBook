@@ -1,7 +1,6 @@
 #pragma once
 #include "pch.h"
 #include <initializer_list>
-#include "CitiesArray.h"
 #include "CitiesDoc.h"
 #include <afx.h>
 #include "afxcoll.h"

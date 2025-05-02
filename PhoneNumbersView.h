@@ -1,5 +1,4 @@
 #pragma once
-#include "CitiesArray.h"
 #include "PhoneNumbersDoc.h"
 #include "CommonListView.h"
 

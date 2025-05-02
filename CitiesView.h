@@ -1,17 +1,23 @@
 #pragma once
-#include "CitiesArray.h"
 #include "CitiesDoc.h"
 #include "CommonListView.h"
-
 
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
-// CCitiesTable
-
+// CCitiesView
 ///<summary> Клас служещ за представянето на информацията за град/ове от базата данни ///</summary>
 class CCitiesView : public CCommonListView
 {
+	// Constants
+	// ----------------
+public:
+	enum CityColumn
+	{
+		CityColumnId = 0,
+		CityColumnName,
+		CityColumnRegion,
+	};
 
 	// Constructor / Destructor
 	// ----------------
@@ -20,6 +26,9 @@ protected:
 	DECLARE_DYNCREATE(CCitiesView)
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
+	// Methods
+	// ----------------
+protected:
 	template <typename tableType>
 	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
 	{
@@ -57,24 +66,7 @@ protected:
 
 public:
 	CCitiesDoc* GetDocument() const;
-
-	enum CityColumn
-	{
-		CityColumnId=0,
-		CityColumnName,
-		CityColumnRegion,
-	};
-
-
-public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-protected:
-	virtual void OnInitialUpdate();
-
-	void CreateListOnInit() override;
-
-
-public:
 	virtual ~CCitiesView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -82,6 +74,8 @@ public:
 #endif
 
 protected:
+	virtual void OnInitialUpdate();
+	void CreateListOnInit() override;
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);

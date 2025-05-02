@@ -10,6 +10,8 @@
 #include "CommonMethods.h"
 #include "BaseTable.h"
 
+/////////////////////////////////////////////////////////////////////////////
+// CCitiesTable
 class CCitiesTable : public CBaseTable<CITIES, CCitiesAccessor>
 {
 };

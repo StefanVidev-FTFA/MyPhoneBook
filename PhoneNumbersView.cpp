@@ -11,7 +11,6 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include "CitiesHint.h"
 #include "PhoneNumbersView.h"
 #include "PhoneNumbers.h"
 #include "PhoneNumbersDoc.h"
