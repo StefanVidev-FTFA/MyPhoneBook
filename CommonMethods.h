@@ -56,16 +56,17 @@ namespace Utils
         return type;
     }
     template <typename tableType>
-    inline bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber)
+    inline bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber,int& index)
     {
         bool itsContained = false;
-        for (INT_PTR dbNumbersIndex = 0; dbNumbersIndex < phoneNumbers.GetCount(); dbNumbersIndex++)
+        for (INT_PTR newNumbersIndex = 0; newNumbersIndex < phoneNumbers.GetCount(); newNumbersIndex++)
         {
-            int newIndex = phoneNumbers.GetAt(dbNumbersIndex)->nId;
+            int newIndex = phoneNumbers.GetAt(newNumbersIndex)->nId;
             int dbIndex = recNumber.nId;
 
             if (dbIndex == newIndex)
             {
+                index = newNumbersIndex;
                 itsContained = true;
                 break;
             }

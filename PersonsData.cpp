@@ -59,6 +59,11 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		return false;
 	}
 
+
+
+
+
+
 	for (INT_PTR index = 0; index < newPhoneNumbers.GetCount(); index++)
 	{
 		PHONE_NUMBERS* pRecPhoneNumber = newPhoneNumbers.GetAt(index);
@@ -78,18 +83,28 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		}
 	}
 
+
+
 	for (INT_PTR index = 0; index < dataBasePhoneNumbers.GetCount(); index++)
 	{
 		PHONE_NUMBERS* pRecDbNumber = dataBasePhoneNumbers.GetAt(index);
 		if (pRecDbNumber == NULL)
 			continue;
 
-		if (Utils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber))
+		int nIndexHolder = -1;
+		if (Utils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber, nIndexHolder))
 		{
-			if (!oPhoneNumbersTable.UpdateById(pRecDbNumber->nId,*pRecDbNumber))
+			if (nIndexHolder != -1)
 			{
-				CDatabaseConnection::GetInstance().RollbackTrans();
-				return false;
+				PHONE_NUMBERS* pNewRecNumber = newPhoneNumbers.GetAt(nIndexHolder);
+				if (pNewRecNumber == NULL)
+					continue;
+
+				if (!oPhoneNumbersTable.UpdateById(pNewRecNumber->nId, *pNewRecNumber))
+				{
+					CDatabaseConnection::GetInstance().RollbackTrans();
+					return false;
+				}
 			}
 		}
 		else 

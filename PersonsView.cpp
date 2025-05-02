@@ -146,7 +146,9 @@ void CPersonsView::RequestUpdate()
 				false,
 				true);
 
+
 			INT_PTR result = oDialog.DoModal();
+
 
 			if (result == IDOK)
 			{
