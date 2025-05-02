@@ -54,7 +54,7 @@ void CPersonsView::RequestInsert()
 	oCitiesTable.SelectAll(oCitiesArray);
 
 
-	DialogPersonsInsert oDialog(oCitiesArray, oPhoneNumbersArray, recPerson);
+	CDialogPersonsInsert oDialog(oCitiesArray, oPhoneNumbersArray, recPerson);
 
 	INT_PTR result = oDialog.DoModal();
 
@@ -127,7 +127,7 @@ void CPersonsView::RequestUpdate()
 
 			oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
 
-			DialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,false,true);
+			CDialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,false,true);
 			INT_PTR result = oDialog.DoModal();
 			if (result == IDOK)
 			{
@@ -152,7 +152,7 @@ void CPersonsView::RequestSelectById()
 	oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
 
 
-	DialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true,true);
+	CDialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true,true);
 
 	INT_PTR result = oDialog.DoModal();
 }

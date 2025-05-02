@@ -1,10 +1,7 @@
-// CDialogCities.cpp : implementation file
-//
-
 #include "pch.h"
 #include "PhoneBook.h"
 #include "afxdialogex.h"
-#include "CDialogCities.h"
+#include "DialogCities.h"
 
 IMPLEMENT_DYNAMIC(CDialogCities, CDialogEx)
 

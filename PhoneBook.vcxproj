@@ -185,7 +185,7 @@
   <ItemGroup>
     <ClInclude Include="BaseAccessor.h" />
     <ClInclude Include="BaseTable.h" />
-    <ClInclude Include="CDialogCities.h" />
+    <ClInclude Include="DialogCities.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="CitiesAccessor.h" />

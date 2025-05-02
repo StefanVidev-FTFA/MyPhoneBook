@@ -11,7 +11,7 @@
 #endif
 #include "CitiesHint.h"
 #include "GeneralHint.h"
-#include "CDialogCities.h"
+#include "DialogCities.h"
 
 IMPLEMENT_DYNCREATE(CCitiesView, CListView)
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)

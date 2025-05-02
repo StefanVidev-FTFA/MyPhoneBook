@@ -7,9 +7,9 @@
 #include "DialogPhoneNumbers.h"
 
 
-IMPLEMENT_DYNAMIC(DialogPersonsInsert, CDialogEx)
+IMPLEMENT_DYNAMIC(CDialogPersonsInsert, CDialogEx)
 
-DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,
+CDialogPersonsInsert::CDialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,
 	CSmartArray<PHONE_NUMBERS>& phoneNumbers
 	,PERSONS recPersonView,bool isReadOnly,bool fillOut, CWnd* pParent)
 	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray),
@@ -18,11 +18,11 @@ DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray
 {
 }
 
-DialogPersonsInsert::~DialogPersonsInsert()
+CDialogPersonsInsert::~CDialogPersonsInsert()
 {
 }
 
-void DialogPersonsInsert::DoDataExchange(CDataExchange* pDX)
+void CDialogPersonsInsert::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, STT_PERSONS_FNAME, m_EditBoxFirstName);
@@ -35,7 +35,7 @@ void DialogPersonsInsert::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, LSC_PERSONS_PHONE_NUMBERS, m_ListControlPhoneNumbers);
 }
 
-BOOL DialogPersonsInsert::OnInitDialog()
+BOOL CDialogPersonsInsert::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -90,7 +90,7 @@ BOOL DialogPersonsInsert::OnInitDialog()
 	return TRUE;
 }
 
-void DialogPersonsInsert::FillPhones()
+void CDialogPersonsInsert::FillPhones()
 {
 	for (INT_PTR i = 0; i < m_oPhoneNumbersArray.GetCount(); i++)
 	{
@@ -100,16 +100,16 @@ void DialogPersonsInsert::FillPhones()
 }
 
 
-BEGIN_MESSAGE_MAP(DialogPersonsInsert, CDialogEx)
-	ON_BN_CLICKED(BTN_PERSONS_INSERT_CONFIRM, &DialogPersonsInsert::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_PERSONS_INSERT_CANCEL, &DialogPersonsInsert::OnClickedButtonCancel)
-	ON_NOTIFY(NM_RCLICK, LSC_PERSONS_PHONE_NUMBERS, &DialogPersonsInsert::OnNMRClickListControl)
-	ON_COMMAND(ID_LIST_OPTION1, &DialogPersonsInsert::InsertPhoneNumber)
-	ON_COMMAND(ID_LIST_OPTION2, &DialogPersonsInsert::EditPhoneNumber)
+BEGIN_MESSAGE_MAP(CDialogPersonsInsert, CDialogEx)
+	ON_BN_CLICKED(BTN_PERSONS_INSERT_CONFIRM, &CDialogPersonsInsert::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_PERSONS_INSERT_CANCEL, &CDialogPersonsInsert::OnClickedButtonCancel)
+	ON_NOTIFY(NM_RCLICK, LSC_PERSONS_PHONE_NUMBERS, &CDialogPersonsInsert::OnNMRClickListControl)
+	ON_COMMAND(ID_LIST_OPTION1, &CDialogPersonsInsert::InsertPhoneNumber)
+	ON_COMMAND(ID_LIST_OPTION2, &CDialogPersonsInsert::EditPhoneNumber)
 END_MESSAGE_MAP()
 
 
-void DialogPersonsInsert::OnClickedButtonConfirm()
+void CDialogPersonsInsert::OnClickedButtonConfirm()
 {
 	int nIndex = m_ComboBoxCityId.GetCurSel();
 	int actualCityId = m_oCitiesArray.GetAt(nIndex)->nId;
@@ -127,12 +127,12 @@ void DialogPersonsInsert::OnClickedButtonConfirm()
 	EndDialog(IDOK);
 }
 
-void DialogPersonsInsert::OnClickedButtonCancel()
+void CDialogPersonsInsert::OnClickedButtonCancel()
 {
 	EndDialog(IDCLOSE);
 }
 
-void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
+void CDialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	CMenu menu;
 	menu.CreatePopupMenu();
@@ -147,7 +147,7 @@ void DialogPersonsInsert::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
-void DialogPersonsInsert::InsertPhoneNumber()
+void CDialogPersonsInsert::InsertPhoneNumber()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
@@ -168,7 +168,7 @@ void DialogPersonsInsert::InsertPhoneNumber()
 	}
 }
 
-void DialogPersonsInsert::EditPhoneNumber()
+void CDialogPersonsInsert::EditPhoneNumber()
 {
 	int nSelectedIndex = m_ListControlPhoneNumbers.GetNextItem(-1, LVNI_SELECTED);
 
