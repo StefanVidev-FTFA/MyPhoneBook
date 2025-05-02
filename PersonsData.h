@@ -7,14 +7,13 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsData
-/// <summary> Клас служещ за изпълнението на бизнес логиката на указателя /// </summary>
+/// <summary> Клас служещ за изпълнението на бизнес логиката на указателя </summary>
 class CPersonsData: public CPersonsTable
 {
 public:
-	/// <summary>Вевежда нов потребител заедно със набор от телефонни номера за него/// </summary>
+	/// <summary>Вевежда нов потребител заедно със набор от телефонни номера за него </summary>
 	bool AddPerson(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
-	//bool DeletePerson(const PERSONS& recItem);
-
+	/// <summary>Опреснява данните за потребител заедно със неговите телефонни номера</summary>
 	bool UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& newPhoneNumbers);
 };

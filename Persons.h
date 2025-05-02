@@ -6,24 +6,24 @@
 #define MAX_EGN 11
 #define MAX_ADRESS 256
 
-/// <summary> </summary>
+/// <summary> Структура за съхранение на информация за потребители </summary>
 struct PERSONS 
 {
-    /// <summary> </summary>
+    /// <summary> Уникален идентификатор за ред </summary>
     int nId;
-    /// <summary> </summary>
+    /// <summary> Versioning </summary>
     int nUpdateCounter;
-    /// <summary> </summary>
+    /// <summary> Име на потребител </summary>
     TCHAR szFirstName[MAX_ANY_NAME];
-    /// <summary> </summary>
+    /// <summary> Бащино Име на потребител </summary>
     TCHAR szMiddleName[MAX_ANY_NAME];
-    /// <summary> </summary>
+    /// <summary> Фамилно Име на потребител </summary>
     TCHAR szLastName[MAX_ANY_NAME];
-    /// <summary> </summary>
+    /// <summary> Уникално ЕГН на потребител</summary>
     TCHAR szEgn[MAX_EGN];
-    /// <summary> </summary>
+    /// <summary> Идентификатор на град </summary>
     int nCityId;
-    /// <summary> </summary>
+    /// <summary> Адрес на потребител </summary>
     TCHAR szAddress[MAX_ADRESS];
 
     PERSONS()

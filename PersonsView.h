@@ -6,40 +6,32 @@
 // CPersonsView
 class CPersonsView : public CCommonListView
 {
-	// Constants
-	// ----------------
+// Defines
+// ----------------
+	DECLARE_DYNCREATE(CPersonsView)
+	DECLARE_MESSAGE_MAP()
+
+// Constants
+// ----------------
 protected:
 	CPersonsView() noexcept;
-	DECLARE_DYNCREATE(CPersonsView)
 
-	// Methods
-	// ----------------
+// Methods
+// ----------------
 protected:
-	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
-	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
+	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя </summary>
 	void RequestInsert();
-	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
+	///<summary> Изтрива град във базата данни чрез диалог с потребителя </summary>
 	void RequestDelete();
-	///<summary> Избира град от базата данни чрез диалог с потребителя и визуализира само него ///</summary>
+	///<summary> Избира град от базата данни чрез диалог с потребителя и визуализира само него </summary>
 	void RequestSelectById();
-	///<summary> Избира и визуализира всички записи от базата данни в изгледа ///</summary>
+	///<summary> Избира и визуализира всички записи от базата данни в изгледа </summary>
 	void RequestSelectAll();
-	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
+	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер </summary>
 	void RequestUpdate();
+	///<summary> Присвоява инфо за потребител от лист контрола към променлива </summary>
 	void AssignPerson(PERSONS& recItem);
-
-public:
-	CPersonsDoc* GetDocument() const;
-	virtual void OnInitialUpdate();
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	virtual ~CPersonsView();
-
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-#endif
-
-protected:
+	///<summary> Въвежда записи за потребител </summary>
 	void InsertPersonRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 	{
 		for (INT_PTR i = 0; i < oPersonsSmartArray.GetCount(); ++i)
@@ -72,18 +64,28 @@ protected:
 		}
 	}
 
+// Overrides
+// ----------------
+protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	DECLARE_MESSAGE_MAP()
-
-	// Overrides
-	// ----------------
-protected:
 	void CreateListOnInit() override;
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
-	// Members
-	// ----------------
+public:
+	CPersonsDoc* GetDocument() const;
+	virtual void OnInitialUpdate();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual ~CPersonsView();
+
+#ifdef _DEBUG
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
+#endif
+
+// Members
+// ----------------
 protected:
 	CListCtrl* m_pListCtrl;
 	int m_SelectedIndex = -1;

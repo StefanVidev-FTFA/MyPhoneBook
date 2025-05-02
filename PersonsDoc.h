@@ -8,37 +8,38 @@
 /// <summary> Клас за extend-ване на логиката на CDocument, с цел работа с градовете от базата данни </summary>
 class CPersonsDoc : public CDocument
 {
+// Defines
+// ----------------
+	DECLARE_DYNCREATE(CPersonsDoc)
+	DECLARE_MESSAGE_MAP()
 
-	// Constructor / Destructor
-	// ----------------
+// Constructor / Destructor
+// ----------------
 protected:
 	CPersonsDoc() noexcept;
-	DECLARE_DYNCREATE(CPersonsDoc)
 public:
 	virtual ~CPersonsDoc();
 
-	// Methods
-	// ----------------
+// Methods
+// ----------------
 public:
-	virtual BOOL OnNewDocument();
-	virtual void Serialize(CArchive& ar);
-
 	bool DatabaseSelectById(const long nId);
 	bool DatabaseSelectAll();
 	bool DatabaseInsert(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 	bool DatabaseDelete(const int nId);
 	bool DatabaseUpdate(const PERSONS& recItem,CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
+// Overrides
+// ----------------
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
+	virtual BOOL OnNewDocument();
+	virtual void Serialize(CArchive& ar);
 
-protected:
-	DECLARE_MESSAGE_MAP()
-
-	// Members
-	// ----------------
+// Members
+// ----------------
 public:
 	CSmartArray<PERSONS> m_oInitialPersonsArray;
 	int m_SelectByIdTarget = -1;

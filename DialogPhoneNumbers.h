@@ -7,16 +7,18 @@
 // CDialogPhoneNumbers
 class CDialogPhoneNumbers : public CDialogEx
 {
-	// Constants
-	// ----------------
-#ifdef AFX_DESIGN_TIME
+// Constants
+// ----------------
 	enum { IDD = IDD_PHONE_NUMBERS };
-#endif
 
-	// Constructor / Destructor
-	// ----------------
-public:
+// Defines
+// ----------------
 	DECLARE_DYNAMIC(CDialogPhoneNumbers)
+	DECLARE_MESSAGE_MAP()
+// Constructor / Destructor
+// ----------------
+public:
+
 	CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
 		CWnd* pParent = nullptr);
@@ -27,7 +29,7 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
-	DECLARE_MESSAGE_MAP()
+
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 

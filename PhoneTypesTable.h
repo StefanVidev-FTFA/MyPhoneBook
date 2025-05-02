@@ -11,9 +11,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsTable
-
-
 class CPhoneTypesTable : public CBaseTable<PHONE_TYPES, CPhoneTypesAccessor>
 {
-
 };

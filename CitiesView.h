@@ -9,8 +9,8 @@ using namespace std;
 ///<summary> Клас служещ за представянето на информацията за град/ове от базата данни ///</summary>
 class CCitiesView : public CCommonListView
 {
-	// Constants
-	// ----------------
+// Constants
+// ----------------
 public:
 	enum CityColumn
 	{
@@ -19,16 +19,20 @@ public:
 		CityColumnRegion,
 	};
 
-	// Constructor / Destructor
-	// ----------------
+// Defines
+// ----------------
+ 	DECLARE_DYNCREATE(CCitiesView)
+	DECLARE_MESSAGE_MAP()
+
+// Constructor / Destructor
+// ----------------
 protected:
 	CCitiesView() noexcept;
-	DECLARE_DYNCREATE(CCitiesView)
-	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
-	// Methods
-	// ----------------
+// Methods
+// ----------------
 protected:
+	///<summary> Въвежда на набор от записи в лист контрола///</summary>
 	template <typename tableType>
 	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
 	{
@@ -51,7 +55,7 @@ protected:
 			}
 		}
 	}
-
+	///<summary> Въвежда на нов запис в лист контрола///</summary>
 	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();
@@ -64,6 +68,8 @@ protected:
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
 	void RequestUpdate();
 
+// Overrides
+// ----------------
 public:
 	CCitiesDoc* GetDocument() const;
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -74,13 +80,13 @@ public:
 #endif
 
 protected:
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	virtual void OnInitialUpdate();
 	void CreateListOnInit() override;
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	DECLARE_MESSAGE_MAP()
 
 	// Members
 	// ----------------

@@ -1,5 +1,9 @@
 #pragma once
 
+/////////////////////////////////////////////////////////////////////////////
+// CBaseAccessor
+////
+/// <summary> Клас съдържащ обща логика споделена между различните таблици </summary>
 template <typename RecordType>
 class CBaseAccessor {
 public:

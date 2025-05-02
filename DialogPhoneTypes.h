@@ -7,16 +7,18 @@
 // CDialogPhoneTypes
 class CDialogPhoneTypes : public CDialogEx
 {
-	// Constants
-	// ----------------
-#ifdef AFX_DESIGN_TIME
+// Constants
+// ----------------
 	enum { IDD = IDD_DIALOG7 };
-#endif
 
-	// Constructor / Destructor
-	// ----------------
-public:
+// Defines
+// ----------------
 	DECLARE_DYNAMIC(CDialogPhoneTypes)
+	DECLARE_MESSAGE_MAP()
+// Constructor / Destructor
+// ----------------
+public:
+
 	CDialogPhoneTypes(CWnd* pParent = nullptr,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
 		CString strPhoneType = _T("")
@@ -31,7 +33,6 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	DECLARE_MESSAGE_MAP()
 
 	// Members
 	// ----------------

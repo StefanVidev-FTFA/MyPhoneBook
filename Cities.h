@@ -21,3 +21,4 @@ struct CITIES {
         SecureZeroMemory(this, sizeof(*this));
     }
 };
+

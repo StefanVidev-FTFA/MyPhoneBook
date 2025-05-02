@@ -10,10 +10,9 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsTable
-
-
 class CPhoneNumbersTable : public CBaseTable<PHONE_NUMBERS, CPhoneNumbersAccessor>
 {
 public:
+	/// <summary>Връща телефонните номера за абонат възоснова на идентификационнен номер</summary>
 	bool GetPersonsPhoneNumbers(CSmartArray<PHONE_NUMBERS>& oItemsArray, long lId);
 };

@@ -3,17 +3,23 @@
 #include "PhoneTypesDoc.h"
 #include "CommonListView.h"
 
-using namespace std;
-
+/////////////////////////////////////////////////////////////////////////////
+// CPhoneTypesView
 class CPhoneTypesView : public CCommonListView
 {
+// Defines
+// ----------------
+	DECLARE_DYNCREATE(CPhoneTypesView)
+	DECLARE_MESSAGE_MAP()
+
+// Constructor / Destructor
+// ----------------
 protected:
 	CPhoneTypesView() noexcept;
-	DECLARE_DYNCREATE(CPhoneTypesView)
-	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 
-
-
+// Methods
+// ----------------
+protected:
 	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();
@@ -25,27 +31,7 @@ protected:
 	void RequestSelectAll();
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
 	void RequestUpdate();
-
-public:
-	CPhoneTypesDoc* GetDocument() const;
-
-	// Overrides
-public:
-	virtual void OnInitialUpdate();
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-
-protected:
-	void CreateListOnInit() override;
-
-
-public:
-	virtual ~CPhoneTypesView();
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-#endif
-
-protected:
+	///<summary> Въвежда записи от конкретен тип </summary>
 	template <typename tableType>
 	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
 	{
@@ -66,14 +52,28 @@ protected:
 		}
 	}
 
+// Overrides
+// ----------------
+public:
+	CPhoneTypesDoc* GetDocument() const;
+	virtual void OnInitialUpdate();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual ~CPhoneTypesView();
+
+#ifdef _DEBUG
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
+#endif
+
+protected:
+	void CreateListOnInit() override;
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	DECLARE_MESSAGE_MAP()
 
-
-	// Members
-	// ----------------
+// Members
+// ----------------
 	CListCtrl* m_pListCtrl;
 	int m_SelectedIndex = -1;
 };

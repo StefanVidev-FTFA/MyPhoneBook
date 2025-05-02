@@ -15,14 +15,12 @@ class CDialogCities : public CDialogEx
 
 // Defines
 // ----------------
-	DECLARE_MESSAGE_MAP()
-
+DECLARE_MESSAGE_MAP()
+DECLARE_DYNAMIC(CDialogCities)
 
 // Constructor / Destructor
 // ----------------
 public:
-	DECLARE_DYNAMIC(CDialogCities)
-
 	CDialogCities(CITIES recCity,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
 		CWnd* pParent = nullptr);
@@ -35,13 +33,11 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 
-
 // Methods
 // ----------------
 public:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
-
 
 // Members
 // ----------------
