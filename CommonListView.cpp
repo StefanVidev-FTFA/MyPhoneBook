@@ -20,7 +20,7 @@ void CCommonListView::SetViewStyle()
 	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 }
 
-void CCommonListView::DeclareColumns(const initializer_list<CString>& strColumnNames)
+void CCommonListView::DeclareColumns(const std::initializer_list<CString>& strColumnNames)
 {
     int i = 0;
     for (const CString& columnName : strColumnNames)

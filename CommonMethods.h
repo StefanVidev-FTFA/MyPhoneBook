@@ -55,4 +55,21 @@ namespace Utils
         }
         return type;
     }
+    template <typename tableType>
+    inline bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber)
+    {
+        bool itsContained = false;
+        for (INT_PTR dbNumbersIndex = 0; dbNumbersIndex < phoneNumbers.GetCount(); dbNumbersIndex++)
+        {
+            int newIndex = phoneNumbers.GetAt(dbNumbersIndex)->nId;
+            int dbIndex = recNumber.nId;
+
+            if (dbIndex == newIndex)
+            {
+                itsContained = true;
+                break;
+            }
+        }
+        return itsContained;
+    }
 }

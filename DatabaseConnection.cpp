@@ -70,7 +70,7 @@ bool CDatabaseConnection::OpenSession()
         return true;
     }
 
-    HRESULT  hResult = m_oCurrentSession.Open(m_oDataSource);
+    HRESULT hResult = m_oCurrentSession.Open(m_oDataSource);
     if (FAILED(hResult))
     {
         CString strError;
@@ -81,6 +81,7 @@ bool CDatabaseConnection::OpenSession()
     }
 
     m_sessionIsOpen = true;
+
     return true;
 }
 bool CDatabaseConnection::CloseSession()

@@ -17,6 +17,8 @@ END_MESSAGE_MAP()
 // ----------------
 CPersonsDoc::CPersonsDoc() noexcept
 {
+	CCitiesTable oCitiesTable;
+	oCitiesTable.SelectAll(m_oCitiesArray); // във функция 
 }
 CPersonsDoc::~CPersonsDoc()
 {
@@ -57,7 +59,7 @@ bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBER
 {
 	CPersonsData oData;
 
-	if (oData.CommitNewPerson(recItem, phoneNumbers))
+	if (oData.AddPerson(recItem, phoneNumbers))
 	{
 		CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
 
@@ -87,20 +89,20 @@ bool CPersonsDoc::DatabaseDelete(const int nId)
 	return true;
 }
 
-bool CPersonsDoc::DatabaseUpdate(const PERSONS& recItem)
+bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
-	CPersonsTable oPersonsTable;
+	CPersonsData oPersonsData;
 
-	if (oPersonsTable.UpdateById(recItem.nId, recItem))
-	{
-		CGeneralHint<PERSONS>* pHint = new CGeneralHint<PERSONS>(recItem);
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
-	}
-	else
+	if (!oPersonsData.UpdatePerson(recPerson, phoneNumbers))
 	{
 		MESSAGE_ERROR(_T("Failed to update the person with ID %d"), nId);
 		return false;
 	}
+
+	CGeneralHint<PERSONS>* pHint = new CGeneralHint<PERSONS>(recPerson);
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+
+	delete pHint;
 
 	return true;
 }

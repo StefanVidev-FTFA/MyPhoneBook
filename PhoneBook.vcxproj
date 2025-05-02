@@ -194,7 +194,7 @@
     <ClInclude Include="CommonDocument.h" />
     <ClInclude Include="CommonListView.h" />
     <ClInclude Include="CommonMethods.h" />
-    <ClInclude Include="DialogPersonsInsert.h" />
+    <ClInclude Include="DialogPersons.h" />
     <ClInclude Include="DialogPhoneNumbers.h" />
     <ClInclude Include="DialogPhoneTypes.h" />
     <ClInclude Include="GeneralHint.h" />
@@ -227,7 +227,7 @@
     <ClInclude Include="CitiesTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CDialogCities.cpp" />
+    <ClCompile Include="DialogCities.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="CitiesDoc.cpp" />
     <ClCompile Include="CitiesTable.cpp" />
@@ -236,7 +236,7 @@
     <ClCompile Include="PersonsData.cpp" />
     <ClCompile Include="PhoneNumbersInfo.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
-    <ClCompile Include="DialogPersonsInsert.cpp" />
+    <ClCompile Include="DialogPersons.cpp" />
     <ClCompile Include="DialogPhoneNumbers.cpp" />
     <ClCompile Include="DialogUpdOrInsPhoneType.cpp" />
     <ClCompile Include="MainFrm.cpp" />

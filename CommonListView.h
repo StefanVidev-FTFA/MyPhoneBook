@@ -1,12 +1,10 @@
 #pragma once
-#include "pch.h"
 #include <initializer_list>
+#include "pch.h"
 #include "CitiesDoc.h"
 #include <afx.h>
 #include "afxcoll.h"
 #include "afxtempl.h"
-
-using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommonListView
@@ -49,7 +47,7 @@ protected:
 
 	virtual void CreateListOnInit();
 
-	void DeclareColumns(const initializer_list<CString>& strColumnNames);
+	void DeclareColumns(const std::initializer_list<CString>& strColumnNames);
 
 	//Members
 	CListCtrl* m_pListCtrl;

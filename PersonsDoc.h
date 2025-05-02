@@ -27,7 +27,7 @@ public:
 	bool DatabaseSelectAll();
 	bool DatabaseInsert(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const PERSONS& recItem);
+	bool DatabaseUpdate(const PERSONS& recItem,CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -42,4 +42,6 @@ protected:
 public:
 	CSmartArray<PERSONS> m_oInitialPersonsArray;
 	int m_SelectByIdTarget = -1;
+
+	CSmartArray<CITIES> m_oCitiesArray;	
 };

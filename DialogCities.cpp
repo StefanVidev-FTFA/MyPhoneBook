@@ -3,6 +3,11 @@
 #include "afxdialogex.h"
 #include "DialogCities.h"
 
+BEGIN_MESSAGE_MAP(CDialogCities, CDialogEx)
+	ON_BN_CLICKED(BTN_CITIES_CONFIRM, &CDialogCities::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_CITIES_CANCEL, &CDialogCities::OnClickedButtonCancel)
+END_MESSAGE_MAP()
+
 IMPLEMENT_DYNAMIC(CDialogCities, CDialogEx)
 
 CDialogCities::CDialogCities(CITIES recCityForView,
@@ -19,54 +24,57 @@ BOOL CDialogCities::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	if (m_dialogMode == CCommonListView::DialogModeView)
+	switch (m_dialogMode)
 	{
-		 m_EditboxCityName.SetReadOnly(true);
-		 m_EditboxCityRegion.SetReadOnly(true);
+		case CCommonListView::DialogModeView:
+		{
+			m_EditboxCityName.SetReadOnly(true);
+			m_EditboxCityRegion.SetReadOnly(true);
 
-		 m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
-		 m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+			m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+			m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
 
-		 m_BtnConfirm.EnableWindow(false);
+			m_BtnConfirm.EnableWindow(false);
+		}
+		break;
+
+		case CCommonListView::DialogModeEdit:
+		{
+			m_EditboxCityName.SetReadOnly(false);
+			m_EditboxCityRegion.SetReadOnly(false);
+
+			m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+			m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+
+			m_BtnConfirm.EnableWindow(true);
+		}
+		break;
+
+		default:
+			return FALSE;
 	}
-	else
-	{
-		m_EditboxCityName.SetReadOnly(false);
-		m_EditboxCityRegion.SetReadOnly(false);
 
-		m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
-		m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
-
-		m_BtnConfirm.EnableWindow(true);
-	}
+	// Да добавя валидации за максималните дължини по полетата.
 
 	return TRUE;
 }
 void CDialogCities::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+
 	DDX_Control(pDX, BTN_CITIES_CANCEL, m_BtnCancel);
 	DDX_Control(pDX, BTN_CITIES_CONFIRM, m_BtnConfirm);
 	DDX_Control(pDX, STT_CITIES_NAME_EDIT_BOX, m_EditboxCityName);
 	DDX_Control(pDX, STT_CITIES_REGION_EDIT_BOX, m_EditboxCityRegion);
 }
 
-
-BEGIN_MESSAGE_MAP(CDialogCities, CDialogEx)
-	ON_BN_CLICKED(BTN_CITIES_CONFIRM, &CDialogCities::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_CITIES_CANCEL, &CDialogCities::OnClickedButtonCancel)
-END_MESSAGE_MAP()
-
-
 void CDialogCities::OnClickedButtonConfirm()
 {
-
 	CString strCityName;
 	m_EditboxCityName.GetWindowText(strCityName);
 
 	CString strCityRegion;
 	m_EditboxCityRegion.GetWindowText(strCityRegion);
-
 
 	m_recCityForInsertOrUpdate.nUpdateCounter = 0;
 	wcscpy_s(m_recCityForInsertOrUpdate.szCityName, MAX_CITY_NAME, strCityName);
@@ -79,4 +87,3 @@ void CDialogCities::OnClickedButtonCancel()
 {
 	EndDialog(IDCLOSE);
 }
-

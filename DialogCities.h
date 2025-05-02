@@ -8,35 +8,43 @@
 
 class CDialogCities : public CDialogEx
 {
-	// Constants
-	// ----------------
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_CITIES };
-#endif
 
-	// Constructor / Destructor
-	// ----------------
+// Constants
+// ----------------
+	enum { IDD = IDD_CITIES };
+
+// Defines
+// ----------------
+	DECLARE_MESSAGE_MAP()
+
+
+// Constructor / Destructor
+// ----------------
 public:
 	DECLARE_DYNAMIC(CDialogCities)
+
 	CDialogCities(CITIES recCity,
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
-		CWnd* pParent = nullptr
-		); 
+		CWnd* pParent = nullptr);
+
 	virtual ~CDialogCities();
 
-	// Methods
-	// ----------------
+// Overrides
+// ----------------
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	DECLARE_MESSAGE_MAP()
 
+
+// Methods
+// ----------------
 public:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
 
-	// Members
-	// ----------------
+
+// Members
+// ----------------
 public:
 	CCommonListView::DialogMode m_dialogMode;
 	CITIES m_recCityForInsertOrUpdate;

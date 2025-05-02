@@ -132,16 +132,12 @@ void CCitiesView::RequestUpdate()
 }
 
 void CCitiesView::InsertACityRow(CITIES& recCity) {
-	if (recCity.nId>-1) {
+	CString strCityID;
+	strCityID.Format(_T("%d"), recCity.nId);
 
-		CString sId;
-		sId.Format(_T("%d"), recCity.nId);
-
-
-		int row = m_pListCtrl->InsertItem(0, sId);
-		m_pListCtrl->SetItemText(0, 1, CString(recCity.szCityName));
-		m_pListCtrl->SetItemText(row, 2, CString(recCity.szRegion));
-	}
+	const int row = m_pListCtrl->InsertItem(0, strCityID);
+	m_pListCtrl->SetItemText(0, 1, CString(recCity.szCityName));
+	m_pListCtrl->SetItemText(row, 2, CString(recCity.szRegion));
 }
 
 BOOL CCitiesView::PreCreateWindow(CREATESTRUCT& cs)
@@ -158,19 +154,16 @@ void CCitiesView::OnInitialUpdate()
 
 
 	CSmartArray<CITIES>& oCitiesArray = oDocument->m_oInitialCitiesArray;
-
-
 	if (oCitiesArray.IsEmpty()) {
 		AfxMessageBox(_T("There was no cities to load in Init"), MB_ICONERROR);
+		return;
 	}
-	else
-	{
-		SetViewStyle();
 
-		DeclareColumns({ _T("ID"),_T("City Name"),_T("City Region") });
-
-		InsertCityRows(oCitiesArray);
-	}
+	SetViewStyle();
+	
+	DeclareColumns({ _T("ID"),_T("City Name"),_T("City Region") });
+	
+	InsertCityRows(oCitiesArray);
 }
 
 void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
@@ -185,7 +178,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	if (lHint == SqlOperationInsert)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
-
+		// да се изтрие или да бъде в stack-a pCitiesHint
 		CITIES recItem = pCitiesHint->m_recItem;
 
 		CString strId;
@@ -258,7 +251,12 @@ void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 		m_SelectedIndex = -1;
 	}
 
-	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, 
+		point.x, 
+		point.y, 
+		this, 
+		TRUE);
+
 #endif
 }
 

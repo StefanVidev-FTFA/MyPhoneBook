@@ -73,6 +73,7 @@
 #define ID_EDIT_UPDATEBYID              32777
 #define ID_LIST_OPTION1 33001
 #define ID_LIST_OPTION2 33002
+#define ID_LIST_OPTION3 33003
 
 // Next default values for new objects
 // 

@@ -16,7 +16,7 @@
 // CBaseTable
 
 #define SELECT_ALL _T("SELECT * FROM %s WITH(NOLOCK)")
-#define SELECT_BY_ID _T("SELECT * FROM %s WHERE ID = '%ld'")// need to fix the name here
+#define SELECT_BY_ID _T("SELECT * FROM %s WHERE ID = '%ld'")
 #define SELECT_TOP_0 _T("SELECT TOP 0 * FROM %s")
 #define SELECT_WHERE _T("SELECT * FROM %s WITH(UPDLOCK) WHERE ID ='%ld'")
 
@@ -49,7 +49,6 @@ inline CBaseTable<tableType, accessorType>::CBaseTable()
 template <typename tableType, typename accessorType>
 inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType>& oTableItemsArray)
 {
-
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
@@ -74,6 +73,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     }
 
     Close();
+
     return true;
 }
 
@@ -116,6 +116,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
     }
 
     Close();
+
     return true;
 }
 
@@ -154,6 +155,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
         CDatabaseConnection::GetInstance().CloseSession();
         return false;
     }
+
     hResult = MoveFirst();
     if (FAILED(hResult))
     {
@@ -169,6 +171,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
     recItem.nId = m_recItem.nId;
 
     Close();
+
     return true;
 }
 
@@ -197,6 +200,11 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
     }
 
     MoveFirst();
+    if (FAILED(hResult))
+    {
+        Close();
+        return false;
+    }
 
     hResult = Delete();
     if (FAILED(hResult))

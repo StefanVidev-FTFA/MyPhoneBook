@@ -25,17 +25,16 @@ CCitiesDoc::~CCitiesDoc()
 bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
-
-	if (oCitiesTable.UpdateById(recItem.nId, recItem))
-	{
-		CGeneralHint<CITIES>* pHint = new CGeneralHint<CITIES>(recItem);
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
-	}
-	else
+	if (!oCitiesTable.UpdateById(recItem.nId, recItem))
 	{
 		MESSAGE_ERROR(_T("Failed to update the city with ID %d"), nId);
 		return false;
 	}
+
+	CGeneralHint<CITIES>* pHint = new CGeneralHint<CITIES>(recItem);
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+
+	delete pHint;
 
 	return true;
 }
@@ -43,7 +42,6 @@ bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 bool CCitiesDoc::DatabaseDelete(const int nId)
 {
 	CCitiesTable oCitiesTable;
-
 	if (oCitiesTable.DeleteWhereId(nId))
 	{
 		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
@@ -53,13 +51,14 @@ bool CCitiesDoc::DatabaseDelete(const int nId)
 	{
 		return false;
 	}
+
+	// bez else
 	return true;
 }
 
 bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
-
 	if (oCitiesTable.Insert(recItem))
 	{
 		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItem);
@@ -71,6 +70,8 @@ bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 	{
 		return false;
 	}
+
+	// bez else
 	return true;
 }
 
@@ -83,6 +84,8 @@ bool CCitiesDoc::DatabaseSelectAll()
 
 	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
 
+	delete pItemsArray;
+
 	return true;
 }
 
@@ -93,8 +96,8 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 
 	oCitiesTable.SelectWhereID(nId, recFoundItem);
 
-	CGeneralHint<CITIES>* pHint = new CGeneralHint<CITIES>(recFoundItem);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, pHint);
+	CGeneralHint<CITIES> oHint(recFoundItem);
+	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, &oHint);
 
 	return true;
 }
@@ -107,9 +110,8 @@ BOOL CCitiesDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CCitiesTable oData;
-
-	if (!oData.SelectAll(m_oInitialCitiesArray))
+	CCitiesTable oCitiesTable;
+	if (!oCitiesTable.SelectAll(m_oInitialCitiesArray))
 	{
 		MESSAGE_ERROR(_T("Failed to loadup the data for cities from database"));
 		return FALSE;

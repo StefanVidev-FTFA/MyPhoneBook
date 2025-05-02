@@ -1,4 +1,5 @@
 #pragma once
+
 #include <afxtempl.h>
 
 #define MAX_CITY_NAME 41

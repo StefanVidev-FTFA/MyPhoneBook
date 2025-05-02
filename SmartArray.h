@@ -20,9 +20,13 @@ public:
     {
         if (!IsEmpty())
         {
-            for (int i = 0; i < this->GetSize(); i++)
+            for (INT_PTR nIndex = 0; nIndex < GetSize(); nIndex++)
             {
-                delete this->GetAt(i);
+                const Ttable* pItem = GetAt(nIndex);
+                if (!pItem)
+                    continue;
+
+                delete GetAt(nIndex);
             }
         }
     }

@@ -11,7 +11,7 @@
 #endif
 #include "PersonsView.h"
 #include "PersonsDoc.h"
-#include "DialogPersonsInsert.h"
+#include "DialogPersons.h"
 
 using namespace std;
 
@@ -54,7 +54,7 @@ void CPersonsView::RequestInsert()
 	oCitiesTable.SelectAll(oCitiesArray);
 
 
-	CDialogPersonsInsert oDialog(oCitiesArray, oPhoneNumbersArray, recPerson);
+	CDialogPersons oDialog(oCitiesArray, oPhoneNumbersArray, recPerson);
 
 	INT_PTR result = oDialog.DoModal();
 
@@ -94,6 +94,7 @@ void CPersonsView::AssignPerson(PERSONS& recItem)
 {
 	CListCtrl* oListCtrl = &GetListCtrl();
 
+	// Enum za list control columns
 	recItem.nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 0));
 	wcscpy_s(recItem.szFirstName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
 	wcscpy_s(recItem.szMiddleName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
@@ -115,24 +116,42 @@ void CPersonsView::RequestUpdate()
 
 		if (nId > -1)
 		{
+			CListCtrl* oListCtrl = &GetListCtrl();
+
+			const long lSelectedItemIndex = oListCtrl->GetSelectionMark();
+			if (lSelectedItemIndex <= 0)
+				return;
+
+			//const long lPersonID = oListCtrl->GetItemData(lSelectedItemIndex);
+
+			const long lPersonID = nId;
+
+			//Utils::MessageWithLong(_T("The person id is: %ld"), lPersonID);
+
 			PERSONS recPerson;
-			AssignPerson(recPerson);
+			CPersonsTable oPersonsTable;
+			if (!oPersonsTable.SelectWhereID(lPersonID, recPerson))
+				return;
 
-			CSmartArray<CITIES> oCitiesArray;
-			CCitiesTable oCitiesTable;
-			oCitiesTable.SelectAll(oCitiesArray);
-
+			// Това трябва да се зарежда в документа и да се взима от там
 			CSmartArray<PHONE_NUMBERS> oPersonsPhoneNumbersArray;
 			CPhoneNumbersTable oPhonenumbersTable;
+			if (!oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId))
+				return;
 
-			oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
 
-			CDialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,false,true);
+			CDialogPersons oDialog(GetDocument()->m_oCitiesArray,
+				oPersonsPhoneNumbersArray,
+				recPerson,
+				false,
+				true);
+
 			INT_PTR result = oDialog.DoModal();
+
 			if (result == IDOK)
 			{
-				oDialog.m_recPersonToInsert.nId = nId;
-				GetDocument()->DatabaseUpdate(oDialog.m_recPersonToInsert);
+				oDialog.m_recPersonToInsert.nId = lPersonID;
+				GetDocument()->DatabaseUpdate(oDialog.m_recPersonToInsert, oPersonsPhoneNumbersArray);
 			}
 		}
 	}
@@ -152,7 +171,7 @@ void CPersonsView::RequestSelectById()
 	oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
 
 
-	CDialogPersonsInsert oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true,true);
+	CDialogPersons oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true,true);
 
 	INT_PTR result = oDialog.DoModal();
 }
@@ -171,7 +190,7 @@ void CPersonsView::CreateListOnInit()
 	DeclareColumns({ _T("ID"),_T("First Name"),_T("Middle Name")
 		,_T("Last Name"),_T("EGN") ,_T("City ID"),_T("Adress") });
 
-	InsertCityRows(oPersonsArray);
+	InsertPersonRows(oPersonsArray);
 }
 
 void CPersonsView::OnInitialUpdate()
@@ -238,7 +257,7 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CSmartArray<PERSONS>* pPersonsHint = dynamic_cast<CSmartArray<PERSONS>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
-		InsertCityRows(*pPersonsHint);
+		InsertPersonRows(*pPersonsHint);
 	}
 	else if (lHint == SqlOperationUpdateById)
 	{

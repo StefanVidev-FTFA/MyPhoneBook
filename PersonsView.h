@@ -2,7 +2,6 @@
 #include "PersonsDoc.h"
 #include "CommonListView.h"
 
-using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 // CPersonsView
 class CPersonsView : public CCommonListView
@@ -41,12 +40,11 @@ public:
 #endif
 
 protected:
-	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
+	void InsertPersonRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 	{
-		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
+		for (INT_PTR i = 0; i < oPersonsSmartArray.GetCount(); ++i)
 		{
-			PERSONS* pRecItem = static_cast<PERSONS*>(oTableTypeArray.GetAt(i));
+			PERSONS* pRecItem = static_cast<PERSONS*>(oPersonsSmartArray.GetAt(i));
 
 			if (pRecItem != nullptr) {
 
@@ -69,6 +67,7 @@ protected:
 
 				m_pListCtrl->SetItemText(row, 6, CString(pRecItem->szAddress));
 
+				m_pListCtrl->SetItemData(row, pRecItem->nId);
 			}
 		}
 	}
