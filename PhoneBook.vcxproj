@@ -235,6 +235,7 @@
     <ClCompile Include="CitiesTable.cpp" />
     <ClCompile Include="CitiesView.cpp" />
     <ClCompile Include="CommonListView.cpp" />
+    <ClCompile Include="PersonsData.cpp" />
     <ClCompile Include="PhoneNumbersInfo.cpp" />
     <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="DialogPersonsInsert.cpp" />

@@ -11,10 +11,10 @@ IMPLEMENT_DYNAMIC(DialogPersonsInsert, CDialogEx)
 
 DialogPersonsInsert::DialogPersonsInsert(const CSmartArray<CITIES>& oCitiesArray,
 	CSmartArray<PHONE_NUMBERS>& phoneNumbers
-	,PERSONS recPersonView,bool isReadOnly, CWnd* pParent)
+	,PERSONS recPersonView,bool isReadOnly,bool fillOut, CWnd* pParent)
 	: CDialogEx(IDD_PERSONS_DEFINE, pParent), m_oCitiesArray(oCitiesArray),
 	 m_oPhoneNumbersArray(phoneNumbers),
-	m_recPersonToFillOut(recPersonView), m_isReadOnly(isReadOnly)
+	m_recPersonToFillOut(recPersonView), m_isReadOnly(isReadOnly),m_fillOut(fillOut)
 {
 }
 
@@ -61,7 +61,7 @@ BOOL DialogPersonsInsert::OnInitDialog()
 
 	m_ComboBoxCityId.SetCurSel(nDefaultIndex);
 
-	if (m_recPersonToFillOut.nId != 0) 
+	if (m_fillOut) 
 	{
 		m_EditBoxFirstName.SetWindowText(m_recPersonToFillOut.szFirstName);
 		m_EditBoxMiddleName.SetWindowText(m_recPersonToFillOut.szMiddleName);
@@ -69,12 +69,10 @@ BOOL DialogPersonsInsert::OnInitDialog()
 		m_EditBoxEgn.SetWindowText(m_recPersonToFillOut.szEgn);
 		m_EditBoxAdress.SetWindowText(m_recPersonToFillOut.szAddress);
 
-
 		FillPhones();
-
 	}
 
-	if (m_isReadOnly) 
+	if(m_isReadOnly)
 	{
 		m_EditBoxFirstName.EnableWindow(false);
 		m_EditBoxMiddleName.EnableWindow(false);
@@ -84,7 +82,6 @@ BOOL DialogPersonsInsert::OnInitDialog()
 		m_ComboBoxCityId.EnableWindow(false);
 
 		m_ButtonPersonsConfirm.EnableWindow(false);
-
 	}
 
 	m_ListControlPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 160);
@@ -115,18 +112,17 @@ END_MESSAGE_MAP()
 void DialogPersonsInsert::OnClickedButtonConfirm()
 {
 	int nIndex = m_ComboBoxCityId.GetCurSel();
-	CString strCityId;
-	m_ComboBoxCityId.GetLBText(nIndex, strCityId);
+	int actualCityId = m_oCitiesArray.GetAt(nIndex)->nId;
 
+	//Utils::MessageWithInt(_T(" the actual City Id: %d"), actualCityId);
 
-	m_recPersonToInsert.nCityId = _ttoi(strCityId);
+	m_recPersonToInsert.nCityId = actualCityId;
 
 	m_EditBoxFirstName.GetWindowText(m_recPersonToInsert.szFirstName, MAX_ANY_NAME);
 	m_EditBoxMiddleName.GetWindowText(m_recPersonToInsert.szMiddleName, MAX_ANY_NAME);
 	m_EditBoxLastName.GetWindowText(m_recPersonToInsert.szLastName, MAX_ANY_NAME);
 	m_EditBoxEgn.GetWindowText(m_recPersonToInsert.szEgn, MAX_EGN);
 	m_EditBoxAdress.GetWindowText(m_recPersonToInsert.szAddress, MAX_ADRESS);
-
 
 	EndDialog(IDOK);
 }
@@ -161,8 +157,11 @@ void DialogPersonsInsert::InsertPhoneNumber()
 	if (result == IDOK)
 	{
 		oDialog.m_recPhoneNumForUpdOrIns.nId = -1;
-		m_oPhoneNumbersArray.Add(new PHONE_NUMBERS(oDialog.m_recPhoneNumForUpdOrIns));
 
+
+		oDialog.m_recPhoneNumForUpdOrIns.nPersonId = m_recPersonToFillOut.nId;
+
+		m_oPhoneNumbersArray.Add(new PHONE_NUMBERS(oDialog.m_recPhoneNumForUpdOrIns));
 
 		CString strPhoneNumber = CString(oDialog.m_recPhoneNumForUpdOrIns.szPhoneNumber);
 		int nIndex = m_ListControlPhoneNumbers.InsertItem(m_ListControlPhoneNumbers.GetItemCount(), strPhoneNumber);
@@ -181,10 +180,6 @@ void DialogPersonsInsert::EditPhoneNumber()
 		CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
 		pInfo->m_recPhoneNum = *pPhoneNumber;
-
-		CString str;
-		str.Format(_T("the phone type id is: %s"), pPhoneNumber->nPhoneTypeId);
-		MESSAGE_INFO(str);
 
 		DialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
 		INT_PTR result = oDialog.DoModal();

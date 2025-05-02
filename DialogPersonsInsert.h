@@ -14,7 +14,7 @@ class DialogPersonsInsert : public CDialogEx
 public:
 	DialogPersonsInsert(const CSmartArray<CITIES>& cityIds,
 		CSmartArray<PHONE_NUMBERS>& phoneNumbers,PERSONS recPersonView,
-		bool isReadOnly=false, CWnd* pParent = nullptr);
+		bool isReadOnly=false,bool fillOut=false, CWnd* pParent = nullptr);
 
 	virtual ~DialogPersonsInsert();
 
@@ -51,6 +51,7 @@ private :
 	const CSmartArray<CITIES>& m_oCitiesArray;
 	CSmartArray<PHONE_NUMBERS>& m_oPhoneNumbersArray;
 	bool m_isReadOnly;
+	bool m_fillOut;
 public:
 	CButton m_ButtonPersonsConfirm;
 	CListCtrl m_ListControlPhoneNumbers;

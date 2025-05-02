@@ -257,6 +257,9 @@
     <ClCompile Include="PhonenumbersTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PersonsData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PhoneBook.rc">

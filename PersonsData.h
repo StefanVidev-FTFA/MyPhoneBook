@@ -10,6 +10,8 @@ using namespace std;
 // CPersonsData
 
 /// <summary> Клас служещ за изпълнението на бизнес логиката на указателя /// </summary>
-class CPersonsData
+class CPersonsData: public CPersonsTable
 {
+public:
+	bool CommitNewPerson(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 };

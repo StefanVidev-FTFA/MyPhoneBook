@@ -93,14 +93,9 @@ void DialogPhoneNumbers::OnClickedButtonConfirm()
 	CString strNumber;
 	m_EditBoxPhoneNumber.GetWindowText(strNumber);
 
-	CString strPhoneTypeId;
-	int nPhoneTypeIndex = m_ComboBoxPhoneTypesIds.GetCurSel();
-	if (nPhoneTypeIndex != CB_ERR)
-	{
-		m_ComboBoxPhoneTypesIds.GetLBText(nPhoneTypeIndex, strId);
-	}
-	int nPhoneTypeId = _ttoi(strId);
 
+	int nSelected = m_ComboBoxPhoneTypesIds.GetCurSel();
+	int nPhoneTypeId = m_pInfo->m_phoneTypesArray.GetAt(nSelected)->nId;
 
 	m_recPhoneNumForUpdOrIns.nPersonId = -1;
 	m_recPhoneNumForUpdOrIns.nPhoneTypeId = nPhoneTypeId;
