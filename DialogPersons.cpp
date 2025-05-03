@@ -6,9 +6,20 @@
 #include "PhoneNumbersInfo.h"
 #include "DialogPhoneNumbers.h"
 
-
+// Defines
+// ----------------
+BEGIN_MESSAGE_MAP(CDialogPersons, CDialogEx)
+	ON_BN_CLICKED(BTN_PERSONS_INSERT_CONFIRM, &CDialogPersons::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_PERSONS_INSERT_CANCEL, &CDialogPersons::OnClickedButtonCancel)
+	ON_NOTIFY(NM_RCLICK, LSC_PERSONS_PHONE_NUMBERS, &CDialogPersons::OnNMRClickListControl)
+	ON_COMMAND(ID_LIST_OPTION1, &CDialogPersons::InsertPhoneNumber)
+	ON_COMMAND(ID_LIST_OPTION2, &CDialogPersons::EditPhoneNumber)
+	ON_COMMAND(ID_LIST_OPTION3, &CDialogPersons::RemovePhoneNumber)
+END_MESSAGE_MAP()
 IMPLEMENT_DYNAMIC(CDialogPersons, CDialogEx)
 
+// Constructor / Destructor
+// ----------------
 CDialogPersons::CDialogPersons(const CSmartArray<CITIES>& oCitiesArray,
 	CSmartArray<PHONE_NUMBERS>& phoneNumbers,
 	PERSONS recPerson,
@@ -23,76 +34,12 @@ CDialogPersons::CDialogPersons(const CSmartArray<CITIES>& oCitiesArray,
 	m_fillOut(fillOut)
 {
 }
-
 CDialogPersons::~CDialogPersons()
 {
 }
 
-void CDialogPersons::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, STT_PERSONS_FNAME, m_EditBoxFirstName);
-	DDX_Control(pDX, STT_PERSONS_MNAME, m_EditBoxMiddleName);
-	DDX_Control(pDX, STT_PERSONS_LNAME, m_EditBoxLastName);
-	DDX_Control(pDX, STT_PERSONS_EGN, m_EditBoxEgn);
-	DDX_Control(pDX, STT_PERSONS_ADRESS, m_EditBoxAdress);
-	DDX_Control(pDX, CMB_PERSONS_CITY_ID, m_cmbCities);
-	DDX_Control(pDX, BTN_PERSONS_INSERT_CONFIRM, m_ButtonPersonsConfirm);
-	DDX_Control(pDX, LSC_PERSONS_PHONE_NUMBERS, m_ListControlPhoneNumbers);
-}
-
-BOOL CDialogPersons::OnInitDialog()
-{
-	CDialogEx::OnInitDialog();
-
-	int nSelectedPersonCityIndex = 0;
-	for (INT_PTR i = 0; i < m_oCitiesArray.GetCount(); i++)
-	{
-		CString strItem;
-		strItem.Format(_T("  %s, %s"),
-			CString(m_oCitiesArray.GetAt(i)->szCityName), 
-			CString(m_oCitiesArray.GetAt(i)->szRegion));
-
-		m_cmbCities.AddString(strItem);
-
-		if (m_recPersonToFillOut.nId != 0 
-			&& m_recPersonToFillOut.nCityId == m_oCitiesArray.GetAt(i)->nId)
-		{
-			nSelectedPersonCityIndex = i;
-		}
-	}
-
-	m_cmbCities.SetCurSel(nSelectedPersonCityIndex);
-
-	if (m_fillOut) 
-	{
-		m_EditBoxFirstName.SetWindowText(m_recPersonToFillOut.szFirstName);
-		m_EditBoxMiddleName.SetWindowText(m_recPersonToFillOut.szMiddleName);
-		m_EditBoxLastName.SetWindowText(m_recPersonToFillOut.szLastName);
-		m_EditBoxEgn.SetWindowText(m_recPersonToFillOut.szEgn);
-		m_EditBoxAdress.SetWindowText(m_recPersonToFillOut.szAddress);
-
-		FillPhones();
-	}
-
-	if(m_isReadOnly)
-	{
-		m_EditBoxFirstName.EnableWindow(false);
-		m_EditBoxMiddleName.EnableWindow(false);
-		m_EditBoxLastName.EnableWindow(false);
-		m_EditBoxEgn.EnableWindow(false);
-		m_EditBoxAdress.EnableWindow(false);
-		m_cmbCities.EnableWindow(false);
-
-		m_ButtonPersonsConfirm.EnableWindow(false);
-	}
-
-	m_ListControlPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 160);
-	m_ListControlPhoneNumbers.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-
-	return TRUE;
-}
-
+// Methods
+// ----------------
 void CDialogPersons::FillPhones()
 {
 	for (INT_PTR i = 0; i < m_oPhoneNumbersArray.GetCount(); i++)
@@ -101,18 +48,6 @@ void CDialogPersons::FillPhones()
 		int nIndex = m_ListControlPhoneNumbers.InsertItem(i, strPhoneNumber);
 	}
 }
-
-
-BEGIN_MESSAGE_MAP(CDialogPersons, CDialogEx)
-	ON_BN_CLICKED(BTN_PERSONS_INSERT_CONFIRM, &CDialogPersons::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_PERSONS_INSERT_CANCEL, &CDialogPersons::OnClickedButtonCancel)
-	ON_NOTIFY(NM_RCLICK, LSC_PERSONS_PHONE_NUMBERS, &CDialogPersons::OnNMRClickListControl)
-	ON_COMMAND(ID_LIST_OPTION1, &CDialogPersons::InsertPhoneNumber)
-	ON_COMMAND(ID_LIST_OPTION2, &CDialogPersons::EditPhoneNumber)
-	ON_COMMAND(ID_LIST_OPTION3, &CDialogPersons::RemovePhoneNumber)
-END_MESSAGE_MAP()
-
-
 void CDialogPersons::OnClickedButtonConfirm()
 {
 	int nIndex = m_cmbCities.GetCurSel();
@@ -130,28 +65,10 @@ void CDialogPersons::OnClickedButtonConfirm()
 
 	EndDialog(IDOK);
 }
-
 void CDialogPersons::OnClickedButtonCancel()
 {
 	EndDialog(IDCLOSE);
 }
-
-void CDialogPersons::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	CMenu menu;
-	menu.CreatePopupMenu();
-
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("New..."));
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("Edit..."));
-	menu.AppendMenu(MF_STRING, ID_LIST_OPTION3, _T("Remove..."));
-
-	CPoint point;
-	GetCursorPos(&point);
-	menu.TrackPopupMenu(TPM_RIGHTBUTTON, point.x, point.y, this);
-
-	*pResult = 0;
-}
-
 void CDialogPersons::InsertPhoneNumber()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
@@ -230,6 +147,93 @@ void CDialogPersons::RemovePhoneNumber()
 	{
 		MESSAGE_INFO(_T("No phone number selected."));
 	}
+}
+
+// Overrides
+// ----------------
+void CDialogPersons::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, STT_PERSONS_FNAME, m_EditBoxFirstName);
+	DDX_Control(pDX, STT_PERSONS_MNAME, m_EditBoxMiddleName);
+	DDX_Control(pDX, STT_PERSONS_LNAME, m_EditBoxLastName);
+	DDX_Control(pDX, STT_PERSONS_EGN, m_EditBoxEgn);
+	DDX_Control(pDX, STT_PERSONS_ADRESS, m_EditBoxAdress);
+	DDX_Control(pDX, CMB_PERSONS_CITY_ID, m_cmbCities);
+	DDX_Control(pDX, BTN_PERSONS_INSERT_CONFIRM, m_ButtonPersonsConfirm);
+	DDX_Control(pDX, LSC_PERSONS_PHONE_NUMBERS, m_ListControlPhoneNumbers);
+}
+BOOL CDialogPersons::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	m_EditBoxFirstName.SetLimitText(MAX_ANY_NAME);
+	m_EditBoxMiddleName.SetLimitText(MAX_ANY_NAME);
+	m_EditBoxLastName.SetLimitText(MAX_ANY_NAME);
+	m_EditBoxEgn.SetLimitText(MAX_EGN);
+	m_EditBoxAdress.SetLimitText(MAX_ADRESS);
+
+	int nSelectedPersonCityIndex = 0;
+	for (INT_PTR i = 0; i < m_oCitiesArray.GetCount(); i++)
+	{
+		CString strItem;
+		strItem.Format(_T("  %s, %s"),
+			CString(m_oCitiesArray.GetAt(i)->szCityName),
+			CString(m_oCitiesArray.GetAt(i)->szRegion));
+
+		m_cmbCities.AddString(strItem);
+
+		if (m_recPersonToFillOut.nId != 0
+			&& m_recPersonToFillOut.nCityId == m_oCitiesArray.GetAt(i)->nId)
+		{
+			nSelectedPersonCityIndex = i;
+		}
+	}
+
+	m_cmbCities.SetCurSel(nSelectedPersonCityIndex);
+
+	if (m_fillOut)
+	{
+		m_EditBoxFirstName.SetWindowText(m_recPersonToFillOut.szFirstName);
+		m_EditBoxMiddleName.SetWindowText(m_recPersonToFillOut.szMiddleName);
+		m_EditBoxLastName.SetWindowText(m_recPersonToFillOut.szLastName);
+		m_EditBoxEgn.SetWindowText(m_recPersonToFillOut.szEgn);
+		m_EditBoxAdress.SetWindowText(m_recPersonToFillOut.szAddress);
+
+		FillPhones();
+	}
+
+	if (m_isReadOnly)
+	{
+		m_EditBoxFirstName.EnableWindow(false);
+		m_EditBoxMiddleName.EnableWindow(false);
+		m_EditBoxLastName.EnableWindow(false);
+		m_EditBoxEgn.EnableWindow(false);
+		m_EditBoxAdress.EnableWindow(false);
+		m_cmbCities.EnableWindow(false);
+
+		m_ButtonPersonsConfirm.EnableWindow(false);
+	}
+
+	m_ListControlPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 160);
+	m_ListControlPhoneNumbers.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+
+	return TRUE;
+}
+void CDialogPersons::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	CMenu menu;
+	menu.CreatePopupMenu();
+
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION1, _T("New..."));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("Edit..."));
+	menu.AppendMenu(MF_STRING, ID_LIST_OPTION3, _T("Remove..."));
+
+	CPoint point;
+	GetCursorPos(&point);
+	menu.TrackPopupMenu(TPM_RIGHTBUTTON, point.x, point.y, this);
+
+	*pResult = 0;
 }
 
 

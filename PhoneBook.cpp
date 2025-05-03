@@ -65,6 +65,19 @@ BOOL CPhoneBookApp::InitInstance()
 
 
 	//----------------------------------------------------------
+
+
+	CMultiDocTemplate* pDocTemplate3;
+	pDocTemplate3 = new CMultiDocTemplate(IDR_PhoneBookPersons,
+		RUNTIME_CLASS(CPersonsDoc),
+		RUNTIME_CLASS(CChildFrame),
+		RUNTIME_CLASS(CPersonsView));
+
+	if (!pDocTemplate3)
+		return FALSE;
+	AddDocTemplate(pDocTemplate3);
+
+
 	CMultiDocTemplate* pDocTemplate1;
 	pDocTemplate1 = new CMultiDocTemplate(IDR_PhoneBookCities,
 		RUNTIME_CLASS(CCitiesDoc),
@@ -86,19 +99,6 @@ BOOL CPhoneBookApp::InitInstance()
 	if (!pDocTemplate2)
 		return FALSE;
 	AddDocTemplate(pDocTemplate2);
-
-
-
-	CMultiDocTemplate* pDocTemplate3;
-	pDocTemplate3 = new CMultiDocTemplate(IDR_PhoneBookPersons,
-		RUNTIME_CLASS(CPersonsDoc),
-		RUNTIME_CLASS(CChildFrame),
-		RUNTIME_CLASS(CPersonsView));
-
-	if (!pDocTemplate3)
-		return FALSE;
-	AddDocTemplate(pDocTemplate3);
-
 
 
 	CMultiDocTemplate* pDocTemplate4;

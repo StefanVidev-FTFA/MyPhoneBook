@@ -6,22 +6,56 @@
 #include "CommonListView.h"
 
 
-
+// Defines
+// ----------------
 IMPLEMENT_DYNAMIC(CDialogPhoneNumbers, CDialogEx)
+BEGIN_MESSAGE_MAP(CDialogPhoneNumbers, CDialogEx)
+	ON_BN_CLICKED(BTN_PNS_CONFIRM, &CDialogPhoneNumbers::OnClickedButtonConfirm)
+	ON_BN_CLICKED(BTN_PNS_CANCEL, &CDialogPhoneNumbers::OnClickedButtonCancel)
+END_MESSAGE_MAP()
 
+// Constructor / Destructor
+// ----------------
 CDialogPhoneNumbers::CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
 	CCommonListView::DialogMode dialogMod, CWnd* pParent)
 	: CDialogEx(IDD_PHONE_NUMBERS, pParent), m_dialogMode(dialogMod), m_pInfo(oInfo)
 {
 }
-
 CDialogPhoneNumbers::~CDialogPhoneNumbers()
 {
 }
 
+// Methods
+// ----------------
+void CDialogPhoneNumbers::OnClickedButtonConfirm()
+{
+	CString strId;
+
+	CString strNumber;
+	m_EditBoxPhoneNumber.GetWindowText(strNumber);
+
+
+	int nSelected = m_ComboBoxPhoneTypesIds.GetCurSel();
+	int nPhoneTypeId = m_pInfo->m_phoneTypesArray.GetAt(nSelected)->nId;
+
+	m_recPhoneNumForUpdOrIns.nPersonId = -1;
+	m_recPhoneNumForUpdOrIns.nPhoneTypeId = nPhoneTypeId;
+	wcscpy_s(m_recPhoneNumForUpdOrIns.szPhoneNumber, MAX_PHONE_NUMBER, strNumber);
+
+	EndDialog(IDOK);
+}
+void CDialogPhoneNumbers::OnClickedButtonCancel()
+{
+	EndDialog(IDCLOSE);
+}
+
+// Overrides
+// ----------------
 BOOL CDialogPhoneNumbers::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+
+	m_EditBoxPhoneNumber.SetLimitText(MAX_PHONE_NUMBER-1);
 
 	if (m_dialogMode == CCommonListView::DialogModeView)
 	{
@@ -70,7 +104,6 @@ BOOL CDialogPhoneNumbers::OnInitDialog()
 
 	return TRUE;
 }
-
 void CDialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
@@ -79,33 +112,4 @@ void CDialogPhoneNumbers::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, BTN_PNS_CONFIRM, m_BtnConfirm);
 }
 
-
-BEGIN_MESSAGE_MAP(CDialogPhoneNumbers, CDialogEx)
-	ON_BN_CLICKED(BTN_PNS_CONFIRM, &CDialogPhoneNumbers::OnClickedButtonConfirm)
-	ON_BN_CLICKED(BTN_PNS_CANCEL, &CDialogPhoneNumbers::OnClickedButtonCancel)
-END_MESSAGE_MAP()
-
-
-void CDialogPhoneNumbers::OnClickedButtonConfirm()
-{
-	CString strId;
-
-	CString strNumber;
-	m_EditBoxPhoneNumber.GetWindowText(strNumber);
-
-
-	int nSelected = m_ComboBoxPhoneTypesIds.GetCurSel();
-	int nPhoneTypeId = m_pInfo->m_phoneTypesArray.GetAt(nSelected)->nId;
-
-	m_recPhoneNumForUpdOrIns.nPersonId = -1;
-	m_recPhoneNumForUpdOrIns.nPhoneTypeId = nPhoneTypeId;
-	wcscpy_s(m_recPhoneNumForUpdOrIns.szPhoneNumber, MAX_PHONE_NUMBER, strNumber);
-
-	EndDialog(IDOK);
-}
-
-void CDialogPhoneNumbers::OnClickedButtonCancel()
-{
-	EndDialog(IDCLOSE);
-}
 

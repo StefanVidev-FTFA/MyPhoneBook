@@ -8,7 +8,6 @@
 // CDialogPersonsInsert
 class CDialogPersons : public CDialogEx
 {
-
 // Constants
 // ----------------
 	enum { IDD = IDD_PERSONS_DEFINE };

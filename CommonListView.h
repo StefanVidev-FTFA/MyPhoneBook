@@ -8,20 +8,12 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommonListView
-
 ///<summary> Клас служещ за представянето на сходни методи между различните изгледи ///</summary>
 class CCommonListView : public CListView
 {
-
-	// Constructor / Destructor
-	// ----------------
-protected:
-	CCommonListView() noexcept;
-	DECLARE_DYNCREATE(CCommonListView)
+// Constants
+// ----------------
 public:
-	virtual ~CCommonListView();
-
-
 	enum SqlOperation
 	{
 		SqlOperationLoadInit = 0,
@@ -37,18 +29,30 @@ public:
 		DialogModeEdit,
 	};
 
+// Defines
+// ----------------
+	DECLARE_DYNCREATE(CCommonListView)
 
-
-	//Methods
+// Constructor / Destructor
+// ----------------
 protected:
-	virtual void OnInitialUpdate();
+	CCommonListView() noexcept;
+public:
+	virtual ~CCommonListView();
 
-	virtual void SetViewStyle();
-
-	virtual void CreateListOnInit();
-
+// Methods
+// ----------------
+protected:
 	void DeclareColumns(const std::initializer_list<CString>& strColumnNames);
 
-	//Members
+// Overrides
+// ----------------
+protected:
+	virtual void OnInitialUpdate();
+	virtual void SetViewStyle();
+	virtual void CreateListOnInit();
+
+// Members
+// ----------------
 	CListCtrl* m_pListCtrl;
 };

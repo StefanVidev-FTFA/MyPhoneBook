@@ -12,32 +12,35 @@
 #include "CommonMethods.h"
 #include "PhoneNumbersAccessor.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// CBaseTable
-
 #define SELECT_ALL _T("SELECT * FROM %s WITH(NOLOCK)")
 #define SELECT_BY_ID _T("SELECT * FROM %s WHERE ID = '%ld'")
 #define SELECT_TOP_0 _T("SELECT TOP 0 * FROM %s")
 #define SELECT_WHERE _T("SELECT * FROM %s WITH(UPDLOCK) WHERE ID ='%ld'")
 
+/////////////////////////////////////////////////////////////////////////////
+// CBaseTable
+/// <summary> Клас съдържащ обща логика споделена между различните таблици </summary>
 template <typename tableType,typename accessorType>
 class CBaseTable : public CCommand<CAccessor<accessorType>>
 {
+// Constructor / Destructor
+// ----------------
 public:
-
     CBaseTable();
 
+// Methods
+// ----------------
+public:
+    /// <summary> Пълни масив от конкретен тип записи от избрана таблица </summary>
     bool SelectAll(CSmartArray<tableType>& oTableItemsArray);
-
+    /// <summary> Избира конкретен запис от базата данни възоснова на идентификатор </summary>
     bool SelectWhereID(const long lID, tableType& recItem);
-
+    /// <summary> Въвежда нов запис в избрана таблица </summary>
     bool Insert(tableType& recItem);
-
+    /// <summary> Трие запис от конкретна таблица </summary>
     bool DeleteWhereId(const long lId);
-
+    /// <summary> Опреснява запис от конкретна таблица </summary>
     bool UpdateById(const int nId, const tableType& recItem);
-
-    bool AssignItemsIds(CStringList& itemsIdsList);
 };
 
 template <typename tableType, typename accessorType>
@@ -284,38 +287,5 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     }
 
     Close();
-    return true;
-}
-
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::AssignItemsIds(CStringList& itemsIdsList)
-{
-    CDatabaseConnection::GetInstance().OpenSession();
-    CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
-
-    CString type = Utils::GetTableName<tableType>();
-    CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
-
-    HRESULT hResult = Open(oSession, strQuery);
-    if (FAILED(hResult))
-    {
-        CString strError;
-        strError.Format(_T("Error executing query. Error: %ld. Query: %s"), hResult, strQuery);
-        AfxMessageBox(strError);
-
-        Close();
-        CDatabaseConnection::GetInstance().CloseSession();
-        return false;
-    }
-
-    while (MoveNext() == S_OK)
-    {
-        CString strId;
-        strId.Format(_T("%d"), m_recItem.nId);
-        itemsIdsList.AddTail(strId);
-    }
-
-    Close();
-    return true;
     return true;
 }

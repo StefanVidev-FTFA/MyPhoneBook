@@ -54,7 +54,7 @@ namespace Utils
             type = _T("PHONE_TYPES");
         }
         return type;
-    }//dummy commit
+    }
     template <typename tableType>
     inline bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber,int& index)
     {

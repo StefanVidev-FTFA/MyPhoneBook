@@ -87,9 +87,6 @@
     <ClInclude Include="CitiesAccessor.h">
       <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
-    <ClInclude Include="CitiesArray.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
-    </ClInclude>
     <ClInclude Include="CitiesDoc.h">
       <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
@@ -101,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="DatabaseConnection.h">
       <Filter>Header Files\ForDatabase</Filter>
-    </ClInclude>
-    <ClInclude Include="CitiesHint.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="SmartArray.h">
       <Filter>Header Files</Filter>
@@ -177,16 +171,16 @@
     <ClInclude Include="PhoneNumbersInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DialogPersonsInsert.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogUpdOrInsPhoneType.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="CDialogCities.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="DialogPhoneNumbers.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCities.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPersons.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPhoneTypes.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,13 +230,7 @@
     <ClCompile Include="CitiesTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CDialogCities.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogPersonsInsert.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogUpdOrInsPhoneType.cpp">
+    <ClCompile Include="DialogPhoneTypes.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="DialogPhoneNumbers.cpp">
@@ -259,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="PersonsData.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCities.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPersons.cpp">
+      <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

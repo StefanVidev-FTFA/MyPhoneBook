@@ -5,10 +5,8 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDialogCities
-
 class CDialogCities : public CDialogEx
 {
-
 // Constants
 // ----------------
 	enum { IDD = IDD_CITIES };

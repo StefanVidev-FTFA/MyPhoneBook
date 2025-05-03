@@ -15,6 +15,7 @@ class CDialogPhoneTypes : public CDialogEx
 // ----------------
 	DECLARE_DYNAMIC(CDialogPhoneTypes)
 	DECLARE_MESSAGE_MAP()
+
 // Constructor / Destructor
 // ----------------
 public:
@@ -25,8 +26,8 @@ public:
 	);
 	virtual ~CDialogPhoneTypes();
 
-	// Methods
-	// ----------------
+// Methods
+// ----------------
 public:
 	afx_msg void OnClickedButtonConfirm();
 	afx_msg void OnClickedButtonCancel();
@@ -34,8 +35,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 
-	// Members
-	// ----------------
+// Members
+// ----------------
 public:
 	PHONE_TYPES m_recPhoneTypeForUpdOrIns;
 	CCommonListView::DialogMode m_dialogMode;
@@ -43,3 +44,4 @@ public:
 	CString m_strPhoneType;
 	CButton m_ButtonPtsConfirm;
 };
+
