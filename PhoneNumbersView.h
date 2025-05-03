@@ -3,8 +3,6 @@
 #include "PhoneNumbersDoc.h"
 #include "CommonListView.h"
 
-using namespace std;
-
 class CPhoneNumbersView : public CCommonListView
 {
 // Defines
@@ -16,8 +14,6 @@ class CPhoneNumbersView : public CCommonListView
 // ----------------
 protected:
     CPhoneNumbersView() noexcept;
-
-
 
 // Methods
 // ----------------
@@ -38,7 +34,10 @@ protected:
 	void InsertASingleRow(PHONE_NUMBERS& recItem);
 	///<summary> Въвежда записи от конкретен тип </summary>
 	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
+	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray,
+		CMap<int, int, CString, const CString&>& personsMap,
+		CMap<int, int, CString, const CString&>& phoneTypesMap
+	)
 	{
 		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
 		{
@@ -47,20 +46,23 @@ protected:
 			if (pRecItem != nullptr) {
 
 				CString strHolder;
-
 				strHolder.Format(_T("%d"), pRecItem->nId);
 				int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
 
-				strHolder.Format(_T("%d"), pRecItem->nPersonId);
-				m_pListCtrl->SetItemText(i, 1, strHolder);
+				m_pListCtrl->SetItemData(row, row);
 
-				strHolder.Format(_T("%d"), pRecItem->nPhoneTypeId);
-				m_pListCtrl->SetItemText(row, 2, strHolder);
+				CString strPersonName;
+				if (personsMap.Lookup(pRecItem->nPersonId, strPersonName))
+					m_pListCtrl->SetItemText(row, 1, strPersonName);
+
+				CString strPhoneType;
+				if (phoneTypesMap.Lookup(pRecItem->nPhoneTypeId, strPhoneType))
+					m_pListCtrl->SetItemText(row, 2, strPhoneType);
 
 				m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szPhoneNumber));
-
 			}
 		}
+		m_pListCtrl->SortItems(Utils::CompareByName, (LPARAM)m_pListCtrl);
 	}
 
 	// Overrides

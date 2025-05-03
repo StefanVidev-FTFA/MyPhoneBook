@@ -26,6 +26,29 @@ CPhoneNumbersDoc::~CPhoneNumbersDoc()
 
 // Methods
 // ----------------
+void CPhoneNumbersDoc::AssignPersonsMap(CMap<int, int, CString, const CString&>& personsMap)
+{
+	CSmartArray<PERSONS>* pPersonsArray = new CSmartArray<PERSONS>();
+	CPersonsData oPersonData;
+	oPersonData.SelectAll(*pPersonsArray);
+
+	for (INT_PTR nIndex = 0; nIndex < pPersonsArray->GetSize(); nIndex++)
+	{
+		personsMap.SetAt(pPersonsArray->GetAt(nIndex)->nId, CString(pPersonsArray->GetAt(nIndex)->szFirstName));
+	}
+}
+void CPhoneNumbersDoc::AssignPhoneTypesMap(CMap<int, int, CString, const CString&>& phoneTypesMap)
+{
+	CSmartArray<PHONE_TYPES>* pPhoneTypesArray = new CSmartArray<PHONE_TYPES>();
+	CPhoneTypesTable pPhoneTypesTable;
+	pPhoneTypesTable.SelectAll(*pPhoneTypesArray);
+
+	for (INT_PTR nIndex = 0; nIndex < pPhoneTypesArray->GetSize(); nIndex++)
+	{
+		phoneTypesMap.SetAt(pPhoneTypesArray->GetAt(nIndex)->nId, CString(pPhoneTypesArray->GetAt(nIndex)->szPhoneType));
+	}
+}
+
 bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;

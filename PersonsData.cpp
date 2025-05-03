@@ -20,9 +20,10 @@ bool CPersonsData::AddPerson(PERSONS& recPerson, const CSmartArray<PHONE_NUMBERS
 	}
 	int nTargetPersonId = recPerson.nId;
 
+
 	for (INT_PTR i = 0; i < phoneNumbers.GetCount(); i++)
 	{
-		if (phoneNumbers.GetAt(i)->nId == -1)
+		if (phoneNumbers.GetAt(i)->nId == 0)
 		{
 			PHONE_NUMBERS* pRecPhoneNumber = phoneNumbers.GetAt(i);
 			if (pRecPhoneNumber == NULL)
@@ -58,11 +59,6 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		return false;
 	}
 
-
-
-
-
-
 	for (INT_PTR index = 0; index < newPhoneNumbers.GetCount(); index++)
 	{
 		PHONE_NUMBERS* pRecPhoneNumber = newPhoneNumbers.GetAt(index);
@@ -81,8 +77,6 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 			newPhoneNumbers.RemoveAt(index);
 		}
 	}
-
-
 
 	for (INT_PTR index = 0; index < dataBasePhoneNumbers.GetCount(); index++)
 	{
@@ -117,7 +111,40 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		}
 	}
 
+	CDatabaseConnection::GetInstance().CommitTrans();
+	return true;
+}
 
+bool CPersonsData::DeletePerson(const long lPersonId)
+{
+	CDatabaseConnection::GetInstance().OpenSession();
+	CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
+
+
+	CPhoneNumbersTable oPhoneNumbersTable;
+	CSmartArray<PHONE_NUMBERS> dataBasePhoneNumbers;
+	oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers, lPersonId);
+
+	CDatabaseConnection::GetInstance().BeginTrans();
+
+	for (INT_PTR index = 0; index < dataBasePhoneNumbers.GetCount(); index++)
+	{
+		PHONE_NUMBERS* pRecDbNumber = dataBasePhoneNumbers.GetAt(index);
+		if (pRecDbNumber == NULL)
+			continue;
+
+		if (!oPhoneNumbersTable.DeleteWhereId(pRecDbNumber->nId))
+		{
+			CDatabaseConnection::GetInstance().RollbackTrans();
+			return false;
+		}
+	}
+
+	if (!DeleteWhereId(lPersonId))
+	{
+		CDatabaseConnection::GetInstance().RollbackTrans();
+		return false;
+	}
 
 	CDatabaseConnection::GetInstance().CommitTrans();
 	return true;

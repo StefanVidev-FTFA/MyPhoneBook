@@ -73,4 +73,11 @@ namespace Utils
         }
         return itsContained;
     }
+    inline int CALLBACK CompareByName(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+    {
+        CListCtrl* pList = reinterpret_cast<CListCtrl*>(lParamSort);
+        CString strItem1 = pList->GetItemText((int)lParam1, 1); // Column 1 = Name
+        CString strItem2 = pList->GetItemText((int)lParam2, 1);
+        return strItem1.CompareNoCase(strItem2); // Ascending A–Z
+    }
 }

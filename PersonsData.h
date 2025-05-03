@@ -15,5 +15,8 @@ public:
 	bool AddPerson(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
 	/// <summary>Опреснява данните за потребител заедно със неговите телефонни номера</summary>
+	bool DeletePerson(const long lPersonId);
+
+	/// <summary>Опреснява данните за потребител заедно със неговите телефонни номера</summary>
 	bool UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& newPhoneNumbers);
 };

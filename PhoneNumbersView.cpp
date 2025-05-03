@@ -17,7 +17,6 @@
 #include "DialogPhoneNumbers.h"
 #include "PhoneNumbersInfo.h"
 
-
 // Defines
 // ----------------
 IMPLEMENT_DYNCREATE(CPhoneNumbersView, CListView)
@@ -187,9 +186,15 @@ void CPhoneNumbersView::CreateListOnInit()
 
 	SetViewStyle();
 
-	DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
+	DeclareColumns({ _T("ID"),_T("Owner Name"),_T("Phone Type"),_T("Phone number") });
 
-	InsertCityRows(oPhoneNumbersArray);
+	CMap<int, int, CString, const CString&> personsMap;
+	CMap<int, int, CString, const CString&> phoneTypesMap;
+
+	GetDocument()->AssignPersonsMap(personsMap);
+	GetDocument()->AssignPhoneTypesMap(phoneTypesMap);
+
+	InsertCityRows(oPhoneNumbersArray, personsMap, phoneTypesMap);
 }
 void CPhoneNumbersView::OnInitialUpdate()
 {
@@ -256,7 +261,14 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CSmartArray<PHONE_NUMBERS>* pCitiesHint = dynamic_cast<CSmartArray<PHONE_NUMBERS>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
-		InsertCityRows(*pCitiesHint);
+
+		CMap<int, int, CString, const CString&> personsMap;
+		CMap<int, int, CString, const CString&> phoneTypesMap;
+
+		GetDocument()->AssignPersonsMap(personsMap);
+		GetDocument()->AssignPhoneTypesMap(phoneTypesMap);
+
+		InsertCityRows(*pCitiesHint, personsMap, phoneTypesMap);
 	}
 	else if (lHint == SqlOperationUpdateById)
 	{

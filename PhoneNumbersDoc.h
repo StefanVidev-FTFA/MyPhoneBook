@@ -29,6 +29,8 @@ public:
 	bool DatabaseInsert(PHONE_NUMBERS& recItem);
 	bool DatabaseDelete(const int nId);
 	bool DatabaseUpdate(const PHONE_NUMBERS& recItem);
+	void AssignPersonsMap(CMap<int, int, CString, const CString&>& personsMap);
+	void AssignPhoneTypesMap(CMap<int, int, CString, const CString&>& phoneTypesMap);
 
 // Overrides
 // ----------------
