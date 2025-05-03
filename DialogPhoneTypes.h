@@ -40,8 +40,9 @@ protected:
 public:
 	PHONE_TYPES m_recPhoneTypeForUpdOrIns;
 	CCommonListView::DialogMode m_dialogMode;
-	CEdit m_EditBoxPhoneTypesField;
+
+	CEdit m_edbPhoneTypesField;
 	CString m_strPhoneType;
-	CButton m_ButtonPtsConfirm;
+	CButton m_btnPtsConfirm;
 };
 

@@ -27,10 +27,10 @@ CDialogCities::~CDialogCities()
 void CDialogCities::OnClickedButtonConfirm()
 {
 	CString strCityName;
-	m_EditboxCityName.GetWindowText(strCityName);
+	m_edbCityName.GetWindowText(strCityName);
 
 	CString strCityRegion;
-	m_EditboxCityRegion.GetWindowText(strCityRegion);
+	m_edbCityRegion.GetWindowText(strCityRegion);
 
 	m_recCityForInsertOrUpdate.nUpdateCounter = 0;
 	wcscpy_s(m_recCityForInsertOrUpdate.szCityName, MAX_CITY_NAME, strCityName);
@@ -49,32 +49,32 @@ BOOL CDialogCities::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_EditboxCityName.SetLimitText(MAX_CITY_NAME);
-	m_EditboxCityRegion.SetLimitText(MAX_REGION_NAME);
+	m_edbCityName.SetLimitText(MAX_CITY_NAME);
+	m_edbCityRegion.SetLimitText(MAX_REGION_NAME);
 
 	switch (m_dialogMode)
 	{
 		case CCommonListView::DialogModeView:
 		{
-			m_EditboxCityName.SetReadOnly(true);
-			m_EditboxCityRegion.SetReadOnly(true);
+			m_edbCityName.SetReadOnly(true);
+			m_edbCityRegion.SetReadOnly(true);
 
-			m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
-			m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+			m_edbCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+			m_edbCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
 
-			m_BtnConfirm.EnableWindow(false);
+			m_btnConfirm.EnableWindow(false);
 		}
 		break;
 
 		case CCommonListView::DialogModeEdit:
 		{
-			m_EditboxCityName.SetReadOnly(false);
-			m_EditboxCityRegion.SetReadOnly(false);
+			m_edbCityName.SetReadOnly(false);
+			m_edbCityRegion.SetReadOnly(false);
 
-			m_EditboxCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
-			m_EditboxCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
+			m_edbCityName.SetWindowTextW(CString(m_recCityForView.szCityName));
+			m_edbCityRegion.SetWindowTextW(CString(m_recCityForView.szRegion));
 
-			m_BtnConfirm.EnableWindow(true);
+			m_btnConfirm.EnableWindow(true);
 		}
 		break;
 
@@ -88,8 +88,8 @@ void CDialogCities::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 
-	DDX_Control(pDX, BTN_CITIES_CANCEL, m_BtnCancel);
-	DDX_Control(pDX, BTN_CITIES_CONFIRM, m_BtnConfirm);
-	DDX_Control(pDX, STT_CITIES_NAME_EDIT_BOX, m_EditboxCityName);
-	DDX_Control(pDX, STT_CITIES_REGION_EDIT_BOX, m_EditboxCityRegion);
+	DDX_Control(pDX, BTN_CITIES_CANCEL, m_btnCancel);
+	DDX_Control(pDX, BTN_CITIES_CONFIRM, m_btnConfirm);
+	DDX_Control(pDX, STT_CITIES_NAME_EDIT_BOX, m_edbCityName);
+	DDX_Control(pDX, STT_CITIES_REGION_EDIT_BOX, m_edbCityRegion);
 }

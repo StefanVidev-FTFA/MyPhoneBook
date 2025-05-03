@@ -43,8 +43,9 @@ public:
 	CCommonListView::DialogMode m_dialogMode;
 	CITIES m_recCityForInsertOrUpdate;
 	CITIES m_recCityForView;
-	CButton m_BtnCancel;
-	CButton m_BtnConfirm;
-	CEdit m_EditboxCityName;
-	CEdit m_EditboxCityRegion;
+
+	CButton m_btnCancel;
+	CButton m_btnConfirm;
+	CEdit m_edbCityName;
+	CEdit m_edbCityRegion;
 };

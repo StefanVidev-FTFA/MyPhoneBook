@@ -49,7 +49,7 @@ protected:
 				CString strHolder;
 
 				strHolder.Format(_T("%d"), pRecItem->nId);
-				int row = m_pListCtrl->InsertItem(i, strHolder);
+				int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
 
 				strHolder.Format(_T("%d"), pRecItem->nPersonId);
 				m_pListCtrl->SetItemText(i, 1, strHolder);
@@ -77,7 +77,6 @@ public:
 protected:
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	void CreateListOnInit() override;
-	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 

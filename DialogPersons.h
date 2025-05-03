@@ -24,8 +24,8 @@ public:
 	CDialogPersons(const CSmartArray<CITIES>& oCitiesArray,
 		CSmartArray<PHONE_NUMBERS>& phoneNumbers,
 		PERSONS recPerson,
-		bool isReadOnly=false,
-		bool fillOut=false, 
+		bool bIsReadOnly=false,
+		bool bFillOut=false, 
 		CWnd* pParent = nullptr);
 
 	virtual ~CDialogPersons();
@@ -52,26 +52,22 @@ protected:
 // Members
 // ----------------
 public:
-	CEdit m_EditBoxFirstName;
-	CEdit m_EditBoxMiddleName;
-	CEdit m_EditBoxLastName;
-	CEdit m_EditBoxEgn;
-	// m_edbAddress
-	CEdit m_EditBoxAdress;
+	CEdit m_edbFirstName;
+	CEdit m_edbMiddleName;
+	CEdit m_edbLastName;
+	CEdit m_edbEgn;
+	CEdit m_edbAddress;
 
 	CComboBox m_cmbCities;
 	PERSONS m_recPersonToInsert;
-
-	CButton m_ButtonPersonsConfirm;
-	// m_btnButtonPersonsConfirm
-
-	CListCtrl m_ListControlPhoneNumbers;
+	CButton m_btnPersonsConfirm;
+	CListCtrl m_lscPhoneNumbers;
 
 private:
 	PERSONS m_recPersonToFillOut;
-	const CSmartArray<CITIES>& m_oCitiesArray;
 	CSmartArray<PHONE_NUMBERS>& m_oPhoneNumbersArray;
 
-	bool m_isReadOnly;
-	bool m_fillOut;
+	const CSmartArray<CITIES>& m_oCitiesArray;
+	bool m_bIsReadOnly;
+	bool m_bFillOut;
 };

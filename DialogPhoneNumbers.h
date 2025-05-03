@@ -39,9 +39,9 @@ public:
 	CCommonListView::DialogMode m_dialogMode;
 	PHONE_NUMBERS m_recPhoneNumForUpdOrIns;
 	PHONE_NUMBERS m_recPhoneNumForView;
-
 	CPhoneNumbersInfo* m_pInfo;
-	CEdit m_EditBoxPhoneNumber;
-	CComboBox m_ComboBoxPhoneTypesIds;
-	CButton m_BtnConfirm;
+
+	CEdit m_edbPhoneNumber;
+	CComboBox m_cmbPhoneTypesIds;
+	CButton m_btnConfirm;
 };

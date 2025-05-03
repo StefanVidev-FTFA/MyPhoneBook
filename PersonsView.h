@@ -40,13 +40,15 @@ protected:
 
 			if (pRecItem != nullptr) {
 
+				int nIndex = static_cast<int>(i);
 				CString strHolder;
 
 				strHolder.Format(_T("%d"), pRecItem->nId);
-				int row = m_pListCtrl->InsertItem(i, strHolder);
+				int row = static_cast<int>(m_pListCtrl->InsertItem(nIndex, strHolder));
 
 
-				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szFirstName));
+
+				m_pListCtrl->SetItemText(nIndex, 1, CString(pRecItem->szFirstName));
 
 				m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szMiddleName));
 
@@ -67,7 +69,6 @@ protected:
 // Overrides
 // ----------------
 protected:
-	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	void CreateListOnInit() override;

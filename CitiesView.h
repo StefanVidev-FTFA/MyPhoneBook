@@ -45,7 +45,7 @@ protected:
 				CString sId;
 				sId.Format(_T("%d"), pRecItem->nId);
 
-				int row = m_pListCtrl->InsertItem(i, sId);
+				INT_PTR row = m_pListCtrl->InsertItem(i, sId);
 				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szCityName));
 				m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szRegion));
 
@@ -83,7 +83,6 @@ protected:
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	virtual void OnInitialUpdate();
 	void CreateListOnInit() override;
-	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);

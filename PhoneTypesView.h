@@ -20,7 +20,6 @@ protected:
 // Methods
 // ----------------
 protected:
-	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>
 	void RequestInsert();
 	///<summary> Изтрива град във базата данни чрез диалог с потребителя ///</summary>
@@ -44,7 +43,7 @@ protected:
 				CString strHolder;
 
 				strHolder.Format(_T("%d"), pRecItem->nId);
-				int row = m_pListCtrl->InsertItem(i, strHolder);
+				int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
 
 				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szPhoneType));
 
@@ -68,7 +67,6 @@ public:
 protected:
 	void CreateListOnInit() override;
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
-	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 

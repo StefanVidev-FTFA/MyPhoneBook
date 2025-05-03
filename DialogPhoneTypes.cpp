@@ -27,7 +27,7 @@ CDialogPhoneTypes::~CDialogPhoneTypes()
 void CDialogPhoneTypes::OnClickedButtonConfirm()
 {
 	CString strPhoneType;
-	m_EditBoxPhoneTypesField.GetWindowText(strPhoneType);
+	m_edbPhoneTypesField.GetWindowText(strPhoneType);
 
 	m_recPhoneTypeForUpdOrIns.nUpdateCounter = 0;
 	wcscpy_s(m_recPhoneTypeForUpdOrIns.szPhoneType, strPhoneType);
@@ -44,27 +44,27 @@ void CDialogPhoneTypes::OnClickedButtonCancel()
 void CDialogPhoneTypes::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, STT_PTS_PHONE_TYPE_BOX, m_EditBoxPhoneTypesField);
-	DDX_Control(pDX, BTN_PTS_CONFIRM, m_ButtonPtsConfirm);
+	DDX_Control(pDX, STT_PTS_PHONE_TYPE_BOX, m_edbPhoneTypesField);
+	DDX_Control(pDX, BTN_PTS_CONFIRM, m_btnPtsConfirm);
 }
 BOOL CDialogPhoneTypes::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	m_EditBoxPhoneTypesField.SetLimitText(MAX_PHONE_TYPE - 1);
+	m_edbPhoneTypesField.SetLimitText(MAX_PHONE_TYPE - 1);
 
 	if (m_dialogMode == CCommonListView::DialogModeView)
 	{
-		m_EditBoxPhoneTypesField.SetReadOnly(true);
-		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
+		m_edbPhoneTypesField.SetReadOnly(true);
+		m_edbPhoneTypesField.SetWindowTextW(m_strPhoneType);
 
-		m_ButtonPtsConfirm.EnableWindow(false);
+		m_btnPtsConfirm.EnableWindow(false);
 	}
 	else
 	{
-		m_EditBoxPhoneTypesField.SetReadOnly(false);
-		m_EditBoxPhoneTypesField.SetWindowTextW(m_strPhoneType);
+		m_edbPhoneTypesField.SetReadOnly(false);
+		m_edbPhoneTypesField.SetWindowTextW(m_strPhoneType);
 
-		m_ButtonPtsConfirm.EnableWindow(true);
+		m_btnPtsConfirm.EnableWindow(true);
 	}
 
 	return TRUE;
