@@ -10,18 +10,23 @@
 #include "PersonsData.h"
 #include "GeneralHint.h"
 
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CCitiesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CCitiesDoc, CDocument)
 END_MESSAGE_MAP()
 
-	// Constructor / Destructor
-	// ----------------
+// Constructor / Destructor
+// ----------------
 CCitiesDoc::CCitiesDoc() noexcept
 {
 }
 CCitiesDoc::~CCitiesDoc()
 {
 }
+
+// Methods
+// ----------------
 bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
@@ -38,7 +43,6 @@ bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 
 	return true;
 }
-
 bool CCitiesDoc::DatabaseDelete(const int nId)
 {
 	CCitiesTable oCitiesTable;
@@ -55,7 +59,6 @@ bool CCitiesDoc::DatabaseDelete(const int nId)
 	// bez else
 	return true;
 }
-
 bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
@@ -74,7 +77,6 @@ bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 	// bez else
 	return true;
 }
-
 bool CCitiesDoc::DatabaseSelectAll()
 {
 	CCitiesTable oCitiesTable;
@@ -88,7 +90,6 @@ bool CCitiesDoc::DatabaseSelectAll()
 
 	return true;
 }
-
 bool CCitiesDoc::DatabaseSelectById(const long nId)
 {
 	CCitiesTable oCitiesTable;
@@ -102,9 +103,8 @@ bool CCitiesDoc::DatabaseSelectById(const long nId)
 	return true;
 }
 
-
-	// Methods
-	// ----------------
+// Overrides
+// ----------------
 BOOL CCitiesDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
@@ -130,13 +130,11 @@ void CCitiesDoc::Serialize(CArchive& ar)
 		// TODO: add loading code here
 	}
 }
-
 #ifdef _DEBUG
 void CCitiesDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
-
 void CCitiesDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);

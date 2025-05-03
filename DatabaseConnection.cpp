@@ -4,15 +4,14 @@
 #include <afxwin.h>
 #include "Macros.h"
 
+// Defines
+// ----------------
 #define SERVER_NAME _T("DESKTOP-8T6EC12")
 #define DATABASE_NAME _T("PHONEBOOK")
 #define MICROSOFT_AUTHENTICATION_ARGUMENT _T("SSPI")
 
-/////////////////////////////////////////////////////////////////////////////
-// CDatabaseConnection
-
-    // Constructor / Destructor
-    // ----------------
+// Constructor / Destructor
+// ----------------
 CDatabaseConnection::CDatabaseConnection()
 	: m_oDBDatabaseConnectionPropertiesSet(DBPROPSET_DBINIT),
     m_oDBDatabaseRowsetPropertiesSet(DBPROPSET_ROWSET), m_propsInitialized(false)
@@ -20,8 +19,8 @@ CDatabaseConnection::CDatabaseConnection()
 }
 CDatabaseConnection::~CDatabaseConnection(){}
 
-    // Methods
-    // ----------------
+// Methods
+// ----------------
 void CDatabaseConnection::InitializeConnectionProperties()
 {
     m_oDBDatabaseConnectionPropertiesSet = CDBPropSet(DBPROPSET_DBINIT);
@@ -29,7 +28,6 @@ void CDatabaseConnection::InitializeConnectionProperties()
     m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_DATASOURCE, SERVER_NAME);
     m_oDBDatabaseConnectionPropertiesSet.AddProperty(DBPROP_INIT_CATALOG, DATABASE_NAME);
 }
-
 void CDatabaseConnection::InitializeRowsetProperties()
 {
     m_oDBDatabaseRowsetPropertiesSet = CDBPropSet(DBPROPSET_ROWSET);
@@ -44,7 +42,6 @@ CDatabaseConnection& CDatabaseConnection::GetInstance()
     static CDatabaseConnection instance;
     return instance;
 }
-
 void CDatabaseConnection::Connect()
 {
     if (!m_propsInitialized)
@@ -61,6 +58,14 @@ void CDatabaseConnection::Connect()
         strError.Format(_T("Unable to connect to SQL Server database. Error: %d"), hResult);
         MESSAGE_ERROR(strError);
     }
+}
+void CDatabaseConnection::Disconnect()
+{
+    if (m_sessionIsOpen)
+    {
+        m_oCurrentSession.Close();
+    }
+    m_oDataSource.Close();
 }
 
 bool CDatabaseConnection::OpenSession()
@@ -94,14 +99,6 @@ bool CDatabaseConnection::CloseSession()
     return true;
 }
 
-void CDatabaseConnection::Disconnect()
-{
-    if (m_sessionIsOpen)
-    {
-        m_oCurrentSession.Close();
-    }
-    m_oDataSource.Close();
-}
 void CDatabaseConnection::BeginTrans()
 {
     if (m_sessionIsOpen)
@@ -115,7 +112,6 @@ void CDatabaseConnection::BeginTrans()
         }
     }
 }
-
 void CDatabaseConnection::CommitTrans()
 {
     if (m_sessionIsOpen)
@@ -129,7 +125,6 @@ void CDatabaseConnection::CommitTrans()
         }
     }
 }
-
 void CDatabaseConnection::RollbackTrans()
 {
     if (m_sessionIsOpen)

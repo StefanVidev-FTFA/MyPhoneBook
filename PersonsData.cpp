@@ -1,9 +1,8 @@
 #include "pch.h"
 #include "PersonsData.h"
 
-
-
-
+// Methods
+// ----------------
 bool CPersonsData::AddPerson(PERSONS& recPerson, const CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CDatabaseConnection::GetInstance().OpenSession();

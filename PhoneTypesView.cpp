@@ -17,7 +17,8 @@
 #include "DialogPhoneTypes.h"
 
 
-
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPhoneTypesView, CListView)
 BEGIN_MESSAGE_MAP(CPhoneTypesView, CListView)
 	ON_WM_CONTEXTMENU()
@@ -29,10 +30,13 @@ BEGIN_MESSAGE_MAP(CPhoneTypesView, CListView)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPhoneTypesView::RequestUpdate)
 END_MESSAGE_MAP()
 
-
+// Constructor / Destructor
+// ----------------
 CPhoneTypesView::CPhoneTypesView() noexcept {}
 CPhoneTypesView::~CPhoneTypesView() {}
 
+// Methods
+// ----------------
 void CPhoneTypesView::RequestSelectById()
 {
 	CString strPhoneType = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
@@ -41,7 +45,6 @@ void CPhoneTypesView::RequestSelectById()
 
 	INT_PTR result = oDialog.DoModal();
 }
-
 void CPhoneTypesView::RequestSelectAll() {
 
 	CString strMessage;
@@ -56,7 +59,6 @@ void CPhoneTypesView::RequestSelectAll() {
 		GetDocument()->DatabaseSelectAll();
 	}
 }
-
 void CPhoneTypesView::RequestInsert()
 {
 	CDialogPhoneTypes oInsertDlg(this, CCommonListView::DialogModeEdit);
@@ -68,7 +70,6 @@ void CPhoneTypesView::RequestInsert()
 		GetDocument()->DatabaseInsert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
 	}
 }
-
 void CPhoneTypesView::RequestDelete()
 {
 	CPhoneTypesDoc* oPhoneTypesDocument = GetDocument();
@@ -95,7 +96,6 @@ void CPhoneTypesView::RequestDelete()
 		oPhoneTypesDocument->DatabaseDelete(nId);
 	}
 }
-
 void CPhoneTypesView::RequestUpdate()
 {
 	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
@@ -124,11 +124,12 @@ void CPhoneTypesView::RequestUpdate()
 	}
 }
 
+// Overrides
+// ----------------
 BOOL CPhoneTypesView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	return CListView::PreCreateWindow(cs);
 }
-
 void CPhoneTypesView::CreateListOnInit()
 {
 	CSmartArray<PHONE_TYPES>& oPhoneTypesArray = GetDocument()->m_oInitialPhoneTypesArray;
@@ -139,7 +140,6 @@ void CPhoneTypesView::CreateListOnInit()
 
 	InsertCityRows(oPhoneTypesArray);
 }
-
 void CPhoneTypesView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
@@ -159,7 +159,6 @@ void CPhoneTypesView::OnInitialUpdate()
 		CreateListOnInit();
 	}
 }
-
 void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	CListView::OnUpdate(pSender, lHint, pHint);
@@ -208,13 +207,11 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}
 }
-
 void CPhoneTypesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
 }
-
 void CPhoneTypesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
@@ -243,16 +240,13 @@ void CPhoneTypesView::AssertValid() const
 {
 	CListView::AssertValid();
 }
-
 void CPhoneTypesView::Dump(CDumpContext& dc) const
 {
 	CListView::Dump(dc);
 }
-
 CPhoneTypesDoc* CPhoneTypesView::GetDocument() const
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPhoneTypesDoc)));
 	return (CPhoneTypesDoc*)m_pDocument;
 }
-
 #endif //_DEBUG

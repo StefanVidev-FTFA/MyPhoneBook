@@ -9,6 +9,8 @@
 #include "PersonsData.h"
 #include "CommonListView.h"
 
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPersonsDoc, CDocument)
 BEGIN_MESSAGE_MAP(CPersonsDoc, CDocument)
 END_MESSAGE_MAP()
@@ -24,25 +26,8 @@ CPersonsDoc::~CPersonsDoc()
 {
 }
 
-
 // Methods
 // ----------------
-BOOL CPersonsDoc::OnNewDocument()
-{
-	if (!CDocument::OnNewDocument())
-		return FALSE;
-
-	CPersonsTable oPersonsTable;
-
-	if (!oPersonsTable.SelectAll(m_oInitialPersonsArray))
-	{
-		MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
 bool CPersonsDoc::DatabaseSelectAll()
 {
 	CPersonsTable oPersonsTable;
@@ -54,7 +39,6 @@ bool CPersonsDoc::DatabaseSelectAll()
 
 	return true;
 }
-
 bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CPersonsData oData;
@@ -72,7 +56,6 @@ bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBER
 	}
 	return true;
 }
-
 bool CPersonsDoc::DatabaseDelete(const int nId)
 {
 	CPersonsTable oPersonsTable;
@@ -88,7 +71,6 @@ bool CPersonsDoc::DatabaseDelete(const int nId)
 	}
 	return true;
 }
-
 bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CPersonsData oPersonsData;
@@ -107,6 +89,23 @@ bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMB
 	return true;
 }
 
+// Overrides
+// ----------------
+BOOL CPersonsDoc::OnNewDocument()
+{
+	if (!CDocument::OnNewDocument())
+		return FALSE;
+
+	CPersonsTable oPersonsTable;
+
+	if (!oPersonsTable.SelectAll(m_oInitialPersonsArray))
+	{
+		MESSAGE_ERROR(_T("Failed to loadup the data for persons from database"));
+		return FALSE;
+	}
+
+	return TRUE;
+}
 void CPersonsDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())

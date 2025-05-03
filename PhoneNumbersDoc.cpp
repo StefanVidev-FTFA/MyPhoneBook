@@ -9,6 +9,8 @@
 #include "PersonsData.h"
 #include "CommonListView.h"
 
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPhoneNumbersDoc, CDocument)
 BEGIN_MESSAGE_MAP(CPhoneNumbersDoc, CDocument)
 END_MESSAGE_MAP()
@@ -22,6 +24,8 @@ CPhoneNumbersDoc::~CPhoneNumbersDoc()
 {
 }
 
+// Methods
+// ----------------
 bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
@@ -38,7 +42,6 @@ bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
 
 	return true;
 }
-
 bool CPhoneNumbersDoc::DatabaseDelete(const int nId)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
@@ -54,7 +57,6 @@ bool CPhoneNumbersDoc::DatabaseDelete(const int nId)
 	}
 	return true;
 }
-
 bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
@@ -71,7 +73,6 @@ bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
 	}
 	return true;
 }
-
 bool CPhoneNumbersDoc::DatabaseSelectAll()
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
@@ -83,7 +84,6 @@ bool CPhoneNumbersDoc::DatabaseSelectAll()
 
 	return true;
 }
-
 bool CPhoneNumbersDoc::DatabaseSelectById(const long nId)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
@@ -96,7 +96,8 @@ bool CPhoneNumbersDoc::DatabaseSelectById(const long nId)
 
 	return true;
 }
-// Methods
+
+// Overrides
 // ----------------
 BOOL CPhoneNumbersDoc::OnNewDocument()
 {
@@ -113,7 +114,6 @@ BOOL CPhoneNumbersDoc::OnNewDocument()
 
 	return TRUE;
 }
-
 void CPhoneNumbersDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
@@ -131,7 +131,6 @@ void CPhoneNumbersDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
-
 void CPhoneNumbersDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);

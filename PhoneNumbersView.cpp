@@ -18,7 +18,8 @@
 #include "PhoneNumbersInfo.h"
 
 
-
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPhoneNumbersView, CListView)
 BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
     ON_WM_CONTEXTMENU()
@@ -30,26 +31,13 @@ BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPhoneNumbersView::RequestUpdate)
 END_MESSAGE_MAP()
 
+// Constructor / Destructor
+// ----------------
 CPhoneNumbersView::CPhoneNumbersView() noexcept {}
 CPhoneNumbersView::~CPhoneNumbersView() {}
 
-
-BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
-{
-	return CListView::PreCreateWindow(cs);
-}
-
-void CPhoneNumbersView::CreateListOnInit()
-{
-	CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = GetDocument()->m_oInitialPhoneNumbersArray;
-
-	SetViewStyle();
-
-	DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
-
-	InsertCityRows(oPhoneNumbersArray);
-}
-
+// Methods
+// ----------------
 void CPhoneNumbersView::InsertASingleRow(PHONE_NUMBERS& recItem)
 {
 	if (recItem.nId > -1) {
@@ -69,7 +57,6 @@ void CPhoneNumbersView::InsertASingleRow(PHONE_NUMBERS& recItem)
 		m_pListCtrl->SetItemText(row, 3, CString(recItem.szPhoneNumber));
 	}
 }
-
 void CPhoneNumbersView::RequestSelectAll() {
 
 	CString strMessage;
@@ -84,7 +71,6 @@ void CPhoneNumbersView::RequestSelectAll() {
 		GetDocument()->DatabaseSelectAll();
 	}
 }
-
 void CPhoneNumbersView::RequestSelectById()
 {
 	PHONE_NUMBERS recPhoneNum;
@@ -112,7 +98,6 @@ void CPhoneNumbersView::RequestSelectById()
 		GetDocument()->DatabaseSelectById(nId);
 	}
 }
-
 void CPhoneNumbersView::RequestInsert()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
@@ -125,7 +110,6 @@ void CPhoneNumbersView::RequestInsert()
 		GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
 	}
 }
-
 void CPhoneNumbersView::RequestDelete()
 {
 	CPhoneNumbersDoc* oDocument = GetDocument();
@@ -155,7 +139,6 @@ void CPhoneNumbersView::RequestDelete()
 		oDocument->DatabaseDelete(nId);
 	}
 }
-
 void CPhoneNumbersView::RequestUpdate()
 {
 	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
@@ -192,6 +175,22 @@ void CPhoneNumbersView::RequestUpdate()
 	}
 }
 
+// Overrides
+// ----------------
+BOOL CPhoneNumbersView::PreCreateWindow(CREATESTRUCT& cs)
+{
+	return CListView::PreCreateWindow(cs);
+}
+void CPhoneNumbersView::CreateListOnInit()
+{
+	CSmartArray<PHONE_NUMBERS>& oPhoneNumbersArray = GetDocument()->m_oInitialPhoneNumbersArray;
+
+	SetViewStyle();
+
+	DeclareColumns({ _T("ID"),_T("Person ID"),_T("Phone type ID"),_T("Phone number") });
+
+	InsertCityRows(oPhoneNumbersArray);
+}
 void CPhoneNumbersView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
@@ -211,7 +210,6 @@ void CPhoneNumbersView::OnInitialUpdate()
 		CreateListOnInit();
 	}
 }
-
 void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	CListView::OnUpdate(pSender, lHint, pHint);
@@ -282,13 +280,11 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}
 }
-
 void CPhoneNumbersView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
 }
-
 void CPhoneNumbersView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
@@ -317,16 +313,13 @@ void CPhoneNumbersView::AssertValid() const
 {
 	CListView::AssertValid();
 }
-
 void CPhoneNumbersView::Dump(CDumpContext& dc) const
 {
 	CListView::Dump(dc);
 }
-
 CPhoneNumbersDoc* CPhoneNumbersView::GetDocument() const
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPhoneNumbersDoc)));
 	return (CPhoneNumbersDoc*)m_pDocument;
 }
-
 #endif //_DEBUG

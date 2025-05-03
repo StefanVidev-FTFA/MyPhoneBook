@@ -55,6 +55,9 @@
     <Filter Include="Source Files\ForTables\PhoneTypes">
       <UniqueIdentifier>{50ee0b34-5a9b-4052-b993-7c04f69d613d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ForDatabase">
+      <UniqueIdentifier>{e412ad82-f417-415e-ad80-9aae097b7115}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -197,9 +200,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DatabaseConnection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CitiesView.cpp">
       <Filter>Source Files\ForTables\Cities</Filter>
     </ClCompile>
@@ -227,9 +227,6 @@
     <ClCompile Include="PhoneTypesView.cpp">
       <Filter>Source Files\ForTables\PhoneTypes</Filter>
     </ClCompile>
-    <ClCompile Include="CitiesTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DialogPhoneTypes.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
@@ -245,14 +242,20 @@
     <ClCompile Include="PhonenumbersTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PersonsData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DialogCities.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="DialogPersons.cpp">
       <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="CitiesTable.cpp">
+      <Filter>Source Files\ForTables\Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="PersonsData.cpp">
+      <Filter>Source Files\ForTables\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseConnection.cpp">
+      <Filter>Source Files\ForDatabase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

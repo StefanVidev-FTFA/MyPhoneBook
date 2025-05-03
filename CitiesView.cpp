@@ -12,6 +12,8 @@
 #include "GeneralHint.h"
 #include "DialogCities.h"
 
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CCitiesView, CListView)
 BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_WM_CONTEXTMENU()
@@ -24,22 +26,16 @@ BEGIN_MESSAGE_MAP(CCitiesView, CListView)
 	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
-// CCitiesView
-
-	// Constructor / Destructor
-	// ----------------
+// Constructor / Destructor
+// ----------------
 CCitiesView::CCitiesView() noexcept{}
 CCitiesView::~CCitiesView(){}
 
-	// Methods
-	// ----------------
-
+// Methods
+// ----------------
 void CCitiesView::CreateListOnInit()
 {
-
 }
-
 void CCitiesView::RequestSelectById()
 {
 	CITIES recCity;
@@ -52,7 +48,6 @@ void CCitiesView::RequestSelectById()
 
 	INT_PTR result = oSelectByIdDlg.DoModal();
 }
-
 void CCitiesView::RequestSelectAll() {
 
 	CString strMessage;
@@ -67,7 +62,6 @@ void CCitiesView::RequestSelectAll() {
 		GetDocument()->DatabaseSelectAll();
 	}
 }
-
 void CCitiesView::RequestInsert()
 {
 	CITIES recCity;
@@ -79,7 +73,6 @@ void CCitiesView::RequestInsert()
 		GetDocument()->DatabaseInsert(oDialog.m_recCityForInsertOrUpdate);
 	}
 }
-
 void CCitiesView::RequestDelete()
 {
 	CCitiesDoc* oDocument = GetDocument();
@@ -102,7 +95,6 @@ void CCitiesView::RequestDelete()
 		oDocument->DatabaseDelete(nId);
 	}
 }
-
 void CCitiesView::RequestUpdate()
 {
 	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
@@ -130,7 +122,6 @@ void CCitiesView::RequestUpdate()
 		}
 	}
 }
-
 void CCitiesView::InsertACityRow(CITIES& recCity) {
 	CString strCityID;
 	strCityID.Format(_T("%d"), recCity.nId);
@@ -140,11 +131,12 @@ void CCitiesView::InsertACityRow(CITIES& recCity) {
 	m_pListCtrl->SetItemText(row, 2, CString(recCity.szRegion));
 }
 
+// OVerrides
+// ----------------
 BOOL CCitiesView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	return CListView::PreCreateWindow(cs);
 }
-
 void CCitiesView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
@@ -165,7 +157,6 @@ void CCitiesView::OnInitialUpdate()
 	
 	InsertCityRows(oCitiesArray);
 }
-
 void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	CListView::OnUpdate(pSender, lHint, pHint);
@@ -220,18 +211,15 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}
 }
-
 void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
 }
-
 void CCitiesView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
 {
 	MESSAGE_INFO(_T("OnLButtonDblClk"));
 }
-
 void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
@@ -260,18 +248,15 @@ void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
-
 #ifdef _DEBUG
 void CCitiesView::AssertValid() const
 {
 	CListView::AssertValid();
 }
-
 void CCitiesView::Dump(CDumpContext& dc) const
 {
 	CListView::Dump(dc);
 }
-
 CCitiesDoc* CCitiesView::GetDocument() const 
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCitiesDoc)));

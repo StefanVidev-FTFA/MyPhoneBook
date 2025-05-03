@@ -1,25 +1,27 @@
 #include "pch.h"
 #include "CommonListView.h"
 
-
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CCommonListView, CListView)
 
+// Constructor / Destructor
+// ----------------
 CCommonListView::CCommonListView() noexcept{}
-
 CCommonListView::~CCommonListView(){}
 
+// Methods
+// ----------------
 void CCommonListView::OnInitialUpdate()
 {
 	CListView::OnInitialUpdate();
 	m_pListCtrl = &GetListCtrl();
 }
-
 void CCommonListView::SetViewStyle()
 {
 	m_pListCtrl->ModifyStyle(0, LVS_REPORT);
 	m_pListCtrl->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 }
-
 void CCommonListView::DeclareColumns(const std::initializer_list<CString>& strColumnNames)
 {
     int i = 0;

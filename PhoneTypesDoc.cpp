@@ -10,6 +10,8 @@
 #include "GeneralHint.h"
 #include "CommonListView.h"
 
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPhoneTypesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CPhoneTypesDoc, CDocument)
 END_MESSAGE_MAP()
@@ -23,7 +25,8 @@ CPhoneTypesDoc::~CPhoneTypesDoc()
 {
 }
 
-
+// Methods
+// ----------------
 bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
 {
 	CPhoneTypesTable oPhoneTypesTable;
@@ -41,7 +44,6 @@ bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
 
 	return true;
 }
-
 bool CPhoneTypesDoc::DatabaseDelete(const int nId)
 {
 	CPhoneTypesTable oPhoneTypesTable;
@@ -57,7 +59,6 @@ bool CPhoneTypesDoc::DatabaseDelete(const int nId)
 	}
 	return true;
 }
-
 bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
 {
 	CPhoneTypesTable oPhoneTypesTable;
@@ -75,7 +76,6 @@ bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
 	}
 	return true;
 }
-
 bool CPhoneTypesDoc::DatabaseSelectAll()
 {
 	CPhoneTypesTable oPhoneTypesTable;
@@ -87,7 +87,6 @@ bool CPhoneTypesDoc::DatabaseSelectAll()
 
 	return true;
 }
-
 bool CPhoneTypesDoc::DatabaseSelectById(const long nId)
 {
 	CPhoneTypesTable oPhoneTypesTable;
@@ -101,8 +100,7 @@ bool CPhoneTypesDoc::DatabaseSelectById(const long nId)
 	return true;
 }
 
-
-// Methods
+// Overrides
 // ----------------
 BOOL CPhoneTypesDoc::OnNewDocument()
 {
@@ -119,7 +117,6 @@ BOOL CPhoneTypesDoc::OnNewDocument()
 
 	return TRUE;
 }
-
 void CPhoneTypesDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
@@ -137,7 +134,6 @@ void CPhoneTypesDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
-
 void CPhoneTypesDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);

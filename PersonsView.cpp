@@ -13,8 +13,8 @@
 #include "PersonsDoc.h"
 #include "DialogPersons.h"
 
-using namespace std;
-
+// Defines
+// ----------------
 IMPLEMENT_DYNCREATE(CPersonsView, CListView)
 BEGIN_MESSAGE_MAP(CPersonsView, CListView)
 	ON_WM_CONTEXTMENU()
@@ -26,9 +26,13 @@ BEGIN_MESSAGE_MAP(CPersonsView, CListView)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CPersonsView::RequestSelectById)
 END_MESSAGE_MAP()
 
+// Constructor / Destructor
+// ----------------
 CPersonsView::CPersonsView() noexcept {}
 CPersonsView::~CPersonsView() {}
 
+// Methods
+// ----------------
 void CPersonsView::RequestSelectAll() {
 
 	CString strMessage;
@@ -41,7 +45,6 @@ void CPersonsView::RequestSelectAll() {
 		GetDocument()->DatabaseSelectAll();
 	}
 }
-
 void CPersonsView::RequestInsert()
 {
 	PERSONS recPerson;
@@ -63,7 +66,6 @@ void CPersonsView::RequestInsert()
 		GetDocument()->DatabaseInsert(oDialog.m_recPersonToInsert, oPhoneNumbersArray);
 	}
 }
-
 void CPersonsView::RequestDelete()
 {
 	CPersonsDoc* oDocument = GetDocument();
@@ -89,7 +91,6 @@ void CPersonsView::RequestDelete()
 		oDocument->DatabaseDelete(nId);
 	}
 }
-
 void CPersonsView::AssignPerson(PERSONS& recItem)
 {
 	CListCtrl* oListCtrl = &GetListCtrl();
@@ -104,7 +105,6 @@ void CPersonsView::AssignPerson(PERSONS& recItem)
 	recItem.nCityId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 5));
 
 }
-
 void CPersonsView::RequestUpdate()
 {
 	int nResult = AfxMessageBox(_T("Are you sure you wish to update this row?"), MB_YESNO);
@@ -158,7 +158,6 @@ void CPersonsView::RequestUpdate()
 		}
 	}
 }
-
 void CPersonsView::RequestSelectById()
 {
 	PERSONS recPerson;
@@ -178,11 +177,12 @@ void CPersonsView::RequestSelectById()
 	INT_PTR result = oDialog.DoModal();
 }
 
+// Overrides
+// ----------------
 BOOL CPersonsView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	return CListView::PreCreateWindow(cs);
 }
-
 void CPersonsView::CreateListOnInit()
 {
 	CSmartArray<PERSONS>& oPersonsArray = GetDocument()->m_oInitialPersonsArray;
@@ -194,7 +194,6 @@ void CPersonsView::CreateListOnInit()
 
 	InsertPersonRows(oPersonsArray);
 }
-
 void CPersonsView::OnInitialUpdate()
 {
 	CCommonListView::OnInitialUpdate();
@@ -214,7 +213,6 @@ void CPersonsView::OnInitialUpdate()
 		CreateListOnInit();
 	}
 }
-
 void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	CListView::OnUpdate(pSender, lHint, pHint);
@@ -282,13 +280,11 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}
 }
-
 void CPersonsView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
 	ClientToScreen(&point);
 	OnContextMenu(this, point);
 }
-
 void CPersonsView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
@@ -312,22 +308,18 @@ void CPersonsView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
-
 #ifdef _DEBUG
 void CPersonsView::AssertValid() const
 {
 	CListView::AssertValid();
 }
-
 void CPersonsView::Dump(CDumpContext& dc) const
 {
 	CListView::Dump(dc);
 }
-
 CPersonsDoc* CPersonsView::GetDocument() const
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPersonsDoc)));
 	return (CPersonsDoc*)m_pDocument;
 }
-
 #endif //_DEBUG
