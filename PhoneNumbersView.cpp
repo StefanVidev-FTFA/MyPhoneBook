@@ -120,6 +120,8 @@ void CPhoneNumbersView::RequestSelectById()
 	CDialogPhoneNumbers oDialog(pInfo,DialogModeView);
 	INT_PTR result = oDialog.DoModal();
 
+	delete pInfo;
+
 }
 void CPhoneNumbersView::RequestInsert()
 {

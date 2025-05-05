@@ -88,37 +88,39 @@ void CDialogPersons::InsertPhoneNumber()
 void CDialogPersons::EditPhoneNumber()
 {
 	int nSelectedIndex = m_lscPhoneNumbers.GetNextItem(-1, LVNI_SELECTED);
-
-	if (nSelectedIndex != -1)
+	if (nSelectedIndex == -1)
 	{
 		MESSAGE_INFO(_T("No phone number selected."));
 		return;
 	}
-	PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
-	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	pInfo->m_recPhoneNum = *pPhoneNumber;
+	PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
+	if (!pPhoneNumber)
+		return;
+
+	CPhoneNumbersInfo oPhoneNumbersInfo;
+	oPhoneNumbersInfo.m_recPhoneNum = *pPhoneNumber;
 
 	int nIdHolder = pPhoneNumber->nId;
 	int nPersonIdHolder = pPhoneNumber->nPersonId;
 
-	CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
+	CDialogPhoneNumbers oDialog(&oPhoneNumbersInfo, DialogModeEdit);
 	INT_PTR result = oDialog.DoModal();
-	if (result == IDOK)
-	{
-		*pPhoneNumber = oDialog.m_recPhoneNumForUpdOrIns;
+	if (result != IDOK)
+		return;
 
-		pPhoneNumber->nId = nIdHolder;
-		pPhoneNumber->nPersonId = nPersonIdHolder;
+	*pPhoneNumber = oDialog.m_recPhoneNumForUpdOrIns;
 
-		m_lscPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
-	}
+	pPhoneNumber->nId = nIdHolder;
+	pPhoneNumber->nPersonId = nPersonIdHolder;
+
+	m_lscPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
 }
 void CDialogPersons::RemovePhoneNumber()
 {
 	int nSelectedIndex = m_lscPhoneNumbers.GetNextItem(-1, LVNI_SELECTED);
 
-	if (nSelectedIndex != -1)
+	if (nSelectedIndex == -1)
 	{
 		MESSAGE_INFO(_T("No phone number selected."));
 		return;
@@ -159,11 +161,11 @@ BOOL CDialogPersons::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_edbFirstName.SetLimitText(MAX_ANY_NAME);
-	m_edbMiddleName.SetLimitText(MAX_ANY_NAME);
-	m_edbLastName.SetLimitText(MAX_ANY_NAME);
-	m_edbEgn.SetLimitText(MAX_EGN);
-	m_edbAddress.SetLimitText(MAX_ADRESS);
+	m_edbFirstName.SetLimitText(MAX_ANY_NAME - 1);
+	m_edbMiddleName.SetLimitText(MAX_ANY_NAME - 1);
+	m_edbLastName.SetLimitText(MAX_ANY_NAME - 1);
+	m_edbEgn.SetLimitText(MAX_EGN - 1);
+	m_edbAddress.SetLimitText(MAX_ADRESS - 1);
 
 	int nSelectedPersonCityIndex = 0;
 	for (INT_PTR i = 0; i < m_oCitiesArray.GetCount(); i++)

@@ -49,8 +49,8 @@ BOOL CDialogCities::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_edbCityName.SetLimitText(MAX_CITY_NAME);
-	m_edbCityRegion.SetLimitText(MAX_REGION_NAME);
+	m_edbCityName.SetLimitText(MAX_CITY_NAME - 1);
+	m_edbCityRegion.SetLimitText(MAX_REGION_NAME - 1);
 
 	switch (m_dialogMode)
 	{

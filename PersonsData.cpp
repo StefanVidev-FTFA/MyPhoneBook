@@ -60,9 +60,9 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		return false;
 	}
 
-	for (INT_PTR index = 0; index < newPhoneNumbers.GetCount(); index++)
+	for (INT_PTR nIndex = 0; nIndex < newPhoneNumbers.GetCount(); nIndex++)
 	{
-		PHONE_NUMBERS* pRecPhoneNumber = newPhoneNumbers.GetAt(index);
+		PHONE_NUMBERS* pRecPhoneNumber = newPhoneNumbers.GetAt(nIndex);
 		if (pRecPhoneNumber == NULL)
 			continue;
 
@@ -76,36 +76,32 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 		}
 	}
 
-	for (INT_PTR index = 0; index < dataBasePhoneNumbers.GetCount(); index++)
+	for (INT_PTR nIndex = 0; nIndex < dataBasePhoneNumbers.GetCount(); nIndex++)
 	{
-		PHONE_NUMBERS* pRecDbNumber = dataBasePhoneNumbers.GetAt(index);
+		PHONE_NUMBERS* pRecDbNumber = dataBasePhoneNumbers.GetAt(nIndex);
 		if (pRecDbNumber == NULL)
 			continue;
 
 		int nIndexHolder = -1;
-		if (CUtils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber, nIndexHolder))
+		if (!CUtils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber, nIndexHolder))
 		{
-			if (nIndexHolder != -1)
-			{
-				PHONE_NUMBERS* pNewRecNumber = newPhoneNumbers.GetAt(nIndexHolder);
-				if (pNewRecNumber == NULL)
-					continue;
-
-				if (!oPhoneNumbersTable.UpdateById(pNewRecNumber->nId, *pNewRecNumber))
-				{
-					CDatabaseConnection::GetInstance().RollbackTransaction();
-					return false;
-				}
-			}
-		}
-		else 
-		{
-
 			if (!oPhoneNumbersTable.DeleteWhereId(pRecDbNumber->nId))
 			{
 				CDatabaseConnection::GetInstance().RollbackTransaction();
 				return false;
 			}
+
+			continue;
+		}
+
+		PHONE_NUMBERS* pNewRecNumber = newPhoneNumbers.GetAt(nIndexHolder);
+		if (pNewRecNumber == NULL)
+			continue;
+
+		if (!oPhoneNumbersTable.UpdateById(pNewRecNumber->nId, *pNewRecNumber))
+		{
+			CDatabaseConnection::GetInstance().RollbackTransaction();
+			return false;
 		}
 	}
 

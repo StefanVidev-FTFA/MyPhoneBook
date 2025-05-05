@@ -49,13 +49,17 @@ void CPersonsView::RequestSelectAll() {
 void CPersonsView::RequestInsert()
 {
 	PERSONS recPerson;
-	AssignPerson(recPerson);
 
 	CSmartArray<CITIES> oCitiesArray;
 	CSmartArray<PHONE_NUMBERS> oPhoneNumbersArray;
 	CCitiesTable oCitiesTable;
 
-	oCitiesTable.SelectAll(oCitiesArray);
+	if (!oCitiesTable.SelectAll(oCitiesArray)) {
+		CString strMessage(_T("Failed to select all?"));
+
+		MESSAGE_ERROR(strMessage);
+		return;
+	}
 
 
 	CDialogPersons oDialog(oCitiesArray, oPhoneNumbersArray, recPerson);
@@ -171,20 +175,6 @@ void CPersonsView::RequestSelectById()
 	INT_PTR result = oDialog.DoModal();
 }
 
-void CPersonsView::AssignPerson(PERSONS& recItem)
-{
-	CListCtrl* oListCtrl = &GetListCtrl();
-
-	// Enum za list control columns
-	recItem.nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 0));
-	wcscpy_s(recItem.szFirstName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
-	wcscpy_s(recItem.szMiddleName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
-	wcscpy_s(recItem.szLastName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
-	wcscpy_s(recItem.szEgn, MAX_EGN, m_pListCtrl->GetItemText(m_SelectedIndex, 4));
-	wcscpy_s(recItem.szAddress, MAX_ADRESS, m_pListCtrl->GetItemText(m_SelectedIndex, 6));
-	recItem.nCityId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 5));
-
-}
 void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray) 
 {
 	for (INT_PTR i = 0; i < oPersonsSmartArray.GetCount(); ++i)
@@ -198,9 +188,10 @@ void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 		CString strHolder;
 
 		strHolder.Format(_T("%d"), pRecItem->nId);
+
 		int row = static_cast<int>(m_pListCtrl->InsertItem(nIndex, strHolder));
 
-		m_pListCtrl->SetItemText(nIndex, 1, CString(pRecItem->szFirstName));
+		m_pListCtrl->SetItemText(row, 1, CString(pRecItem->szFirstName));
 
 		m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szMiddleName));
 
@@ -269,25 +260,19 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CString strId;
 		strId.Format(_T("%d"), recPerson.nId);
 		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), strId);
-		CString strFirstName;
-		strFirstName.Format(_T("%s"), recPerson.szFirstName);
-		CString strMiddleName;
-		strMiddleName.Format(_T("%s"), recPerson.szMiddleName);
-		CString strLastName;
-		strLastName.Format(_T("%s"), recPerson.szLastName);
-		CString strEgn;
-		strEgn.Format(_T("%s"), recPerson.szEgn);
+
 		CString strCityId;
 		strCityId.Format(_T("%d"), recPerson.nCityId);
-		CString strAddress;
-		strAddress.Format(_T("%s"), recPerson.szAddress);
 
-		m_pListCtrl->SetItemText(index, 1, strFirstName);
-		m_pListCtrl->SetItemText(index, 2, strMiddleName);
-		m_pListCtrl->SetItemText(index, 3, strLastName);
-		m_pListCtrl->SetItemText(index, 4, strEgn);
+		m_pListCtrl->SetItemText(index, 1, CString(recPerson.szFirstName));
+		m_pListCtrl->SetItemText(index, 2, CString(recPerson.szMiddleName));
+		m_pListCtrl->SetItemText(index, 3, CString(recPerson.szLastName));
+		m_pListCtrl->SetItemText(index, 4, CString(recPerson.szEgn));
 		m_pListCtrl->SetItemText(index, 5, strCityId);
-		m_pListCtrl->SetItemText(index, 6, strAddress);
+		m_pListCtrl->SetItemText(index, 6, CString(recPerson.szAddress));
+
+		m_pListCtrl->SetItemData(index, recPerson.nId);
+
 	}
 	else if (lHint == ListViewHintTypesSelectAll)
 	{

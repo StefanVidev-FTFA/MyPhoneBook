@@ -29,8 +29,6 @@ protected:
 	void RequestSelectAll();
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер </summary>
 	void RequestUpdate();
-	///<summary> Присвоява инфо за потребител от лист контрола към променлива </summary>
-	void AssignPerson(PERSONS& recItem);
 	///<summary> Въвежда записи за потребител </summary>
 	void InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray);
 
