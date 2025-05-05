@@ -4,37 +4,38 @@
 #include "Persons.h"
 #include "Macros.h"
 
-namespace Utils
+class  CUtils
 {
-    inline bool IsEven(int x)
+public:
+    static bool IsEven(int x)
     {
         return x % 2 == 0;
     }
-    inline void MessageWithLong(CString message,long lnumber)
+    static void MessageWithLong(CString message, long lnumber)
     {
         CString strNotify;
         strNotify.Format(message, lnumber);
         MESSAGE_INFO(strNotify);
     }
-    inline void MessageWithInt(CString message, int nNumber)
+    static void MessageWithInt(CString message, int nNumber)
     {
         CString strNotify;
         strNotify.Format(message, nNumber);
         MESSAGE_INFO(strNotify);
     }
-    inline void MessageWithStr(CString message, CString str)
+    static void MessageWithStr(CString message, CString str)
     {
         CString strNotify;
         strNotify.Format(message, str);
         MESSAGE_INFO(strNotify);
     }
-    inline CString QueryWithStr(CString message, CString str) {
+    static CString QueryWithStr(CString message, CString str) {
         CString strQuery;
         strQuery.Format(message, str);
         return strQuery;
     }
     template <typename tableType>
-    inline CString GetTableName()
+    static CString GetTableName()
     {
         CString type;
         if (typeid(tableType) == typeid(PHONE_NUMBERS))
@@ -56,7 +57,7 @@ namespace Utils
         return type;
     }
     template <typename tableType>
-    inline bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber,int& index)
+    static bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber, int& index)
     {
         bool itsContained = false;
         for (INT_PTR newNumbersIndex = 0; newNumbersIndex < phoneNumbers.GetCount(); newNumbersIndex++)
@@ -73,11 +74,11 @@ namespace Utils
         }
         return itsContained;
     }
-    inline int CALLBACK CompareByName(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+    static int CALLBACK CompareByName(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
     {
         CListCtrl* pList = reinterpret_cast<CListCtrl*>(lParamSort);
         CString strItem1 = pList->GetItemText((int)lParam1, 1); // Column 1 = Name
         CString strItem2 = pList->GetItemText((int)lParam2, 1);
         return strItem1.CompareNoCase(strItem2); // Ascending A–Z
     }
-}
+};

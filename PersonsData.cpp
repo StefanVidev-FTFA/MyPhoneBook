@@ -85,7 +85,7 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 			continue;
 
 		int nIndexHolder = -1;
-		if (Utils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber, nIndexHolder))
+		if (CUtils::CheckIfItCointains(newPhoneNumbers, *pRecDbNumber, nIndexHolder))
 		{
 			if (nIndexHolder != -1)
 			{

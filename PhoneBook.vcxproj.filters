@@ -16,47 +16,53 @@
     <Filter Include="Header Files\Utlities">
       <UniqueIdentifier>{efbc7b1b-adc9-49fd-b1d1-4f93032cd320}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ForDatabase">
-      <UniqueIdentifier>{6003c41e-37e2-4b35-86c2-5c735f314198}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Dialogs">
       <UniqueIdentifier>{87a5b4f9-4eda-42d3-9631-c48517a8e2b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Dialogs">
       <UniqueIdentifier>{6183b9a0-0f23-464b-a70b-0a6667fef62f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ForTables">
-      <UniqueIdentifier>{d76c0303-8026-4827-ba6c-d17a701da26b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ForTables\Cities">
-      <UniqueIdentifier>{6700e2ed-ff36-4160-8165-be03562f6396}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ForTables\PhoneNumbers">
-      <UniqueIdentifier>{6a4797a0-2b25-44be-bd43-86326044fda5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ForTables">
+    <Filter Include="Source Files\Tables">
       <UniqueIdentifier>{5659d396-aec0-42c7-b24b-eb3100da6515}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ForTables\Cities">
+    <Filter Include="Source Files\Tables\Cities">
       <UniqueIdentifier>{9169c0aa-1258-411c-aec5-041bd471e250}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ForTables\Persons">
-      <UniqueIdentifier>{ccde1f70-f563-4564-bff2-193f723dc82b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ForTables\PhoneNumbers">
+    <Filter Include="Source Files\Tables\PhoneNumbers">
       <UniqueIdentifier>{46d56a64-8033-4261-8315-ade34e20a832}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ForTables\Persons">
+    <Filter Include="Source Files\Tables\Persons">
       <UniqueIdentifier>{84e87cb2-33fd-4864-8654-8498d6d5deff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ForTables\PhoneTypes">
-      <UniqueIdentifier>{2b2bf288-030d-46ce-a869-ca0faf9f6bdb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ForTables\PhoneTypes">
+    <Filter Include="Source Files\Tables\PhoneTypes">
       <UniqueIdentifier>{50ee0b34-5a9b-4052-b993-7c04f69d613d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ForDatabase">
+    <Filter Include="Source Files\Database">
       <UniqueIdentifier>{e412ad82-f417-415e-ad80-9aae097b7115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Database">
+      <UniqueIdentifier>{6003c41e-37e2-4b35-86c2-5c735f314198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tables">
+      <UniqueIdentifier>{d76c0303-8026-4827-ba6c-d17a701da26b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tables\Cities">
+      <UniqueIdentifier>{6700e2ed-ff36-4160-8165-be03562f6396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tables\PhoneNumbers">
+      <UniqueIdentifier>{6a4797a0-2b25-44be-bd43-86326044fda5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tables\Persons">
+      <UniqueIdentifier>{ccde1f70-f563-4564-bff2-193f723dc82b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tables\PhoneTypes">
+      <UniqueIdentifier>{2b2bf288-030d-46ce-a869-ca0faf9f6bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Common">
+      <UniqueIdentifier>{8914e560-c2eb-43c3-8b27-b58bfa295cd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{5dc7eda6-0ac6-4497-9c3a-31070a7d6674}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -85,94 +91,82 @@
       <Filter>Header Files\Utlities</Filter>
     </ClInclude>
     <ClInclude Include="Cities.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
+      <Filter>Header Files\Tables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesAccessor.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
+      <Filter>Header Files\Tables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesDoc.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
+      <Filter>Header Files\Tables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesTable.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
+      <Filter>Header Files\Tables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="CitiesView.h">
-      <Filter>Header Files\ForTables\Cities</Filter>
+      <Filter>Header Files\Tables\Cities</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseConnection.h">
-      <Filter>Header Files\ForDatabase</Filter>
+      <Filter>Header Files\Database</Filter>
     </ClInclude>
     <ClInclude Include="SmartArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbers.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbersAccessor.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbersView.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonListView.h">
-      <Filter>Header Files\ForTables</Filter>
+      <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbersDoc.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
     <ClInclude Include="PersonsData.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PersonsTable.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="BaseTable.h">
-      <Filter>Header Files\ForTables</Filter>
+      <Filter>Header Files\Tables</Filter>
     </ClInclude>
     <ClInclude Include="Persons.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PhoneTypes.h">
-      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+      <Filter>Header Files\Tables\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="PhoneBook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PersonsAccessor.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PhoneNumbersTable.h">
-      <Filter>Header Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
     <ClInclude Include="BaseAccessor.h">
-      <Filter>Header Files\ForTables</Filter>
+      <Filter>Header Files\Tables</Filter>
     </ClInclude>
     <ClInclude Include="PersonsDoc.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PersonsView.h">
-      <Filter>Header Files\ForTables\Persons</Filter>
+      <Filter>Header Files\Tables\Persons</Filter>
     </ClInclude>
     <ClInclude Include="PhoneTypesAccessor.h">
-      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+      <Filter>Header Files\Tables\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="PhoneTypesTable.h">
-      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+      <Filter>Header Files\Tables\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="PhoneTypesDoc.h">
-      <Filter>Header Files\ForTables\PhoneTypes</Filter>
+      <Filter>Header Files\Tables\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="PhoneTypesView.h">
-      <Filter>Header Files\ForTables\PhoneTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonDocument.h">
-      <Filter>Header Files\ForTables</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneralHint.h">
-      <Filter>Header Files\ForTables</Filter>
-    </ClInclude>
-    <ClInclude Include="PhoneNumbersInfo.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Tables\PhoneTypes</Filter>
     </ClInclude>
     <ClInclude Include="DialogPhoneNumbers.h">
       <Filter>Header Files\Dialogs</Filter>
@@ -185,6 +179,18 @@
     </ClInclude>
     <ClInclude Include="DialogPhoneTypes.h">
       <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneNumbersInfo.h">
+      <Filter>Header Files\Utlities</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonDocument.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonListView.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralHint.h">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -201,31 +207,28 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CitiesView.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
+      <Filter>Source Files\Tables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="CitiesDoc.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
+      <Filter>Source Files\Tables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="PhoneNumbersView.cpp">
-      <Filter>Source Files\ForTables\PhoneNumbers</Filter>
-    </ClCompile>
-    <ClCompile Include="CommonListView.cpp">
-      <Filter>Source Files\ForTables</Filter>
+      <Filter>Source Files\Tables\PhoneNumbers</Filter>
     </ClCompile>
     <ClCompile Include="PhoneNumbersDoc.cpp">
-      <Filter>Source Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Source Files\Tables\PhoneNumbers</Filter>
     </ClCompile>
     <ClCompile Include="PersonsDoc.cpp">
-      <Filter>Source Files\ForTables\Persons</Filter>
+      <Filter>Source Files\Tables\Persons</Filter>
     </ClCompile>
     <ClCompile Include="PersonsView.cpp">
-      <Filter>Source Files\ForTables\Persons</Filter>
+      <Filter>Source Files\Tables\Persons</Filter>
     </ClCompile>
     <ClCompile Include="PhoneTypesDoc.cpp">
-      <Filter>Source Files\ForTables\PhoneTypes</Filter>
+      <Filter>Source Files\Tables\PhoneTypes</Filter>
     </ClCompile>
     <ClCompile Include="PhoneTypesView.cpp">
-      <Filter>Source Files\ForTables\PhoneTypes</Filter>
+      <Filter>Source Files\Tables\PhoneTypes</Filter>
     </ClCompile>
     <ClCompile Include="DialogPhoneTypes.cpp">
       <Filter>Source Files\Dialogs</Filter>
@@ -234,13 +237,10 @@
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="PhoneNumbersInfo.cpp">
-      <Filter>Source Files\ForTables\PhoneNumbers</Filter>
+      <Filter>Source Files\Tables\PhoneNumbers</Filter>
     </ClCompile>
     <ClCompile Include="PersonsTable.cpp">
-      <Filter>Source Files\ForTables\Persons</Filter>
-    </ClCompile>
-    <ClCompile Include="PhonenumbersTable.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tables\Persons</Filter>
     </ClCompile>
     <ClCompile Include="DialogCities.cpp">
       <Filter>Source Files\Dialogs</Filter>
@@ -249,13 +249,19 @@
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="CitiesTable.cpp">
-      <Filter>Source Files\ForTables\Cities</Filter>
+      <Filter>Source Files\Tables\Cities</Filter>
     </ClCompile>
     <ClCompile Include="PersonsData.cpp">
-      <Filter>Source Files\ForTables\Persons</Filter>
+      <Filter>Source Files\Tables\Persons</Filter>
     </ClCompile>
     <ClCompile Include="DatabaseConnection.cpp">
-      <Filter>Source Files\ForDatabase</Filter>
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneNumbersTable.cpp">
+      <Filter>Source Files\Tables\PhoneNumbers</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonListView.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

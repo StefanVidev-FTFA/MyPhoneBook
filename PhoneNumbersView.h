@@ -62,7 +62,7 @@ protected:
 				m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szPhoneNumber));
 			}
 		}
-		m_pListCtrl->SortItems(Utils::CompareByName, (LPARAM)m_pListCtrl);
+		m_pListCtrl->SortItems(CUtils::CompareByName, (LPARAM)m_pListCtrl);
 	}
 
 	// Overrides

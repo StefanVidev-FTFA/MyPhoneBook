@@ -55,8 +55,8 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = Utils::GetTableName<tableType>();
-    CString strQuery = Utils::QueryWithStr(SELECT_ALL, type);
+    CString type = CUtils::GetTableName<tableType>();
+    CString strQuery = CUtils::QueryWithStr(SELECT_ALL, type);
 
     HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
@@ -86,7 +86,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = Utils::GetTableName<tableType>();
+    CString type = CUtils::GetTableName<tableType>();
     CString strQuery;
 
     strQuery.Format(SELECT_BY_ID, type, lID);
@@ -129,8 +129,8 @@ inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = Utils::GetTableName<tableType>();
-    CString strQuery = Utils::QueryWithStr(SELECT_TOP_0, type);
+    CString type = CUtils::GetTableName<tableType>();
+    CString strQuery = CUtils::QueryWithStr(SELECT_TOP_0, type);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
@@ -184,7 +184,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = Utils::GetTableName<tableType>();
+    CString type = CUtils::GetTableName<tableType>();
     CString strQuery;
 
     strQuery.Format(SELECT_WHERE,type, lId);
@@ -232,7 +232,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = Utils::GetTableName<tableType>();
+    CString type = CUtils::GetTableName<tableType>();
     CString strQuery;
 
     strQuery.Format(SELECT_WHERE, type, nId);
