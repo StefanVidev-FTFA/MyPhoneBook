@@ -90,15 +90,15 @@ bool CCitiesDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CCitiesDoc::DatabaseSelectById(const long nId)
+bool CCitiesDoc::DatabaseSelectById(const long nId,CITIES& recCity)
 {
 	CCitiesTable oCitiesTable;
-	CITIES recFoundItem;
 
-	oCitiesTable.SelectWhereID(nId, recFoundItem);
-
-	CGeneralHint<CITIES> oHint(recFoundItem);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, &oHint);
+	if(!oCitiesTable.SelectWhereID(nId, recCity))
+	{
+		MESSAGE_ERROR(_T("Failed to load the city with ID %d"), nId);
+		return false;
+	}
 
 	return true;
 }

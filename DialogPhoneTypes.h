@@ -20,9 +20,10 @@ class CDialogPhoneTypes : public CDialogEx
 // ----------------
 public:
 
-	CDialogPhoneTypes(CWnd* pParent = nullptr,
+	CDialogPhoneTypes(
 		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
-		CString strPhoneType = _T("")
+		CString strPhoneType = _T(""),
+		CWnd* pParent = nullptr
 	);
 	virtual ~CDialogPhoneTypes();
 

@@ -108,9 +108,6 @@
     <ClInclude Include="DatabaseConnection.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="SmartArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PhoneNumbers.h">
       <Filter>Header Files\Tables\PhoneNumbers</Filter>
     </ClInclude>
@@ -190,6 +187,9 @@
       <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="GeneralHint.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartArray.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>

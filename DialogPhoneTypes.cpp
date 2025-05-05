@@ -14,7 +14,10 @@ END_MESSAGE_MAP()
 
 // Constructor / Destructor
 // ----------------
-CDialogPhoneTypes::CDialogPhoneTypes(CWnd* pParent /*=nullptr*/, CCommonListView::DialogMode dialogMod,CString strPhoneType)
+CDialogPhoneTypes::CDialogPhoneTypes( CCommonListView::DialogMode dialogMod
+	,CString strPhoneType,
+	CWnd* pParent
+)
 	: CDialogEx(IDD_DIALOG7, pParent),m_dialogMode(dialogMod),m_strPhoneType(strPhoneType)
 {
 }

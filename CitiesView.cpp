@@ -40,9 +40,11 @@ void CCitiesView::RequestSelectById()
 {
 	CITIES recCity;
 
-	wcscpy_s(recCity.szCityName, MAX_CITY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
-	wcscpy_s(recCity.szRegion, MAX_REGION_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
+	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+	long nId = _ttol(strValue);
 
+	if (!GetDocument()->DatabaseSelectById(nId, recCity))
+		return;
 
 	CDialogCities oSelectByIdDlg(recCity,CCommonListView::DialogModeView);
 
@@ -180,16 +182,6 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recItem.szCityName));
 		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recItem.szRegion));
-	}
-	else if (lHint == SqlOperationSelectById)
-	{
-		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
-
-		if (pCitiesHint->m_recItem.nId > -1)
-		{
-			m_pListCtrl->DeleteAllItems();
-			InsertACityRow(pCitiesHint->m_recItem);
-		}
 	}
 	else if (lHint == SqlOperationSelectAll)
 	{

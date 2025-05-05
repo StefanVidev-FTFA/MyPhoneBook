@@ -99,7 +99,7 @@ bool CDatabaseConnection::CloseSession()
     return true;
 }
 
-void CDatabaseConnection::BeginTrans()
+void CDatabaseConnection::BeginTransaction()
 {
     if (m_sessionIsOpen)
     {
@@ -112,7 +112,7 @@ void CDatabaseConnection::BeginTrans()
         }
     }
 }
-void CDatabaseConnection::CommitTrans()
+void CDatabaseConnection::CommitTransaction()
 {
     if (m_sessionIsOpen)
     {
@@ -125,7 +125,7 @@ void CDatabaseConnection::CommitTrans()
         }
     }
 }
-void CDatabaseConnection::RollbackTrans()
+void CDatabaseConnection::RollbackTransaction()
 {
     if (m_sessionIsOpen)
     {

@@ -34,28 +34,33 @@ public:
         strQuery.Format(message, str);
         return strQuery;
     }
+
     template <typename tableType>
-    static CString GetTableName()
+    static CString GetFinalQuery(CString strQuery)
     {
-        CString type;
-        if (typeid(tableType) == typeid(PHONE_NUMBERS))
-        {
-            type = _T("PHONE_NUMBERS");
-        }
-        else if (typeid(tableType) == typeid(CITIES))
-        {
-            type = _T("CITIES");
-        }
-        else if (typeid(tableType) == typeid(PERSONS))
-        {
-            type = _T("PERSONS");
-        }
-        else if (typeid(tableType) == typeid(PHONE_TYPES))
-        {
-            type = _T("PHONE_TYPES");
-        }
-        return type;
+		CString finalQuery;
+
+        CString strTableName = CString(typeid(tableType).name());
+        strTableName.Replace(_T("struct "), _T(""));
+        strTableName.Trim();
+
+        finalQuery.Format(strQuery, strTableName);
+        return finalQuery;
     }
+
+    template <typename tableType>
+    static CString GetFinalQuery(CString strQuery,long lId)
+    {
+        CString finalQuery;
+
+        CString strTableName = CString(typeid(tableType).name());
+        strTableName.Replace(_T("struct "), _T(""));
+        strTableName.Trim();
+
+        finalQuery.Format(strQuery, strTableName, lId);
+        return finalQuery;
+    }
+
     template <typename tableType>
     static bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber, int& index)
     {
@@ -74,6 +79,7 @@ public:
         }
         return itsContained;
     }
+
     static int CALLBACK CompareByName(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
     {
         CListCtrl* pList = reinterpret_cast<CListCtrl*>(lParamSort);

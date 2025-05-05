@@ -10,12 +10,12 @@ bool CPersonsData::AddPerson(PERSONS& recPerson, const CSmartArray<PHONE_NUMBERS
 
 	CPhoneNumbersTable oPhoneNumbersTable;
 
-	CDatabaseConnection::GetInstance().BeginTrans();
+	CDatabaseConnection::GetInstance().BeginTransaction();
 
 
 	if (!Insert(recPerson))
 	{
-		CDatabaseConnection::GetInstance().RollbackTrans();
+		CDatabaseConnection::GetInstance().RollbackTransaction();
 		return false;
 	}
 	int nTargetPersonId = recPerson.nId;
@@ -32,13 +32,13 @@ bool CPersonsData::AddPerson(PERSONS& recPerson, const CSmartArray<PHONE_NUMBERS
 			pRecPhoneNumber->nPersonId = nTargetPersonId;
 			if (!oPhoneNumbersTable.Insert(*phoneNumbers.GetAt(i)))
 			{
-				CDatabaseConnection::GetInstance().RollbackTrans();
+				CDatabaseConnection::GetInstance().RollbackTransaction();
 				return false;
 			}
 		}
 	}
 
-	CDatabaseConnection::GetInstance().CommitTrans();
+	CDatabaseConnection::GetInstance().CommitTransaction();
 	return true;
 }
 
@@ -51,11 +51,11 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 	CSmartArray<PHONE_NUMBERS> dataBasePhoneNumbers;
 	oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers,recPerson.nId);
 
-	CDatabaseConnection::GetInstance().BeginTrans();
+	CDatabaseConnection::GetInstance().BeginTransaction();
 
 	if (!UpdateById(recPerson.nId,recPerson))
 	{
-		CDatabaseConnection::GetInstance().RollbackTrans();
+		CDatabaseConnection::GetInstance().RollbackTransaction();
 		return false;
 	}
 
@@ -67,14 +67,11 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 
 		if (pRecPhoneNumber->nId == 0) 
 		{
-
 			if (!oPhoneNumbersTable.Insert(*pRecPhoneNumber))
 			{
-				CDatabaseConnection::GetInstance().RollbackTrans();
+				CDatabaseConnection::GetInstance().RollbackTransaction();
 				return false;
 			}
-			delete pRecPhoneNumber;
-			newPhoneNumbers.RemoveAt(index);
 		}
 	}
 
@@ -95,7 +92,7 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 
 				if (!oPhoneNumbersTable.UpdateById(pNewRecNumber->nId, *pNewRecNumber))
 				{
-					CDatabaseConnection::GetInstance().RollbackTrans();
+					CDatabaseConnection::GetInstance().RollbackTransaction();
 					return false;
 				}
 			}
@@ -105,13 +102,13 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 
 			if (!oPhoneNumbersTable.DeleteWhereId(pRecDbNumber->nId))
 			{
-				CDatabaseConnection::GetInstance().RollbackTrans();
+				CDatabaseConnection::GetInstance().RollbackTransaction();
 				return false;
 			}
 		}
 	}
 
-	CDatabaseConnection::GetInstance().CommitTrans();
+	CDatabaseConnection::GetInstance().CommitTransaction();
 	return true;
 }
 
@@ -125,7 +122,7 @@ bool CPersonsData::DeletePerson(const long lPersonId)
 	CSmartArray<PHONE_NUMBERS> dataBasePhoneNumbers;
 	oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers, lPersonId);
 
-	CDatabaseConnection::GetInstance().BeginTrans();
+	CDatabaseConnection::GetInstance().BeginTransaction();
 
 	for (INT_PTR index = 0; index < dataBasePhoneNumbers.GetCount(); index++)
 	{
@@ -135,17 +132,17 @@ bool CPersonsData::DeletePerson(const long lPersonId)
 
 		if (!oPhoneNumbersTable.DeleteWhereId(pRecDbNumber->nId))
 		{
-			CDatabaseConnection::GetInstance().RollbackTrans();
+			CDatabaseConnection::GetInstance().RollbackTransaction();
 			return false;
 		}
 	}
 
 	if (!DeleteWhereId(lPersonId))
 	{
-		CDatabaseConnection::GetInstance().RollbackTrans();
+		CDatabaseConnection::GetInstance().RollbackTransaction();
 		return false;
 	}
 
-	CDatabaseConnection::GetInstance().CommitTrans();
+	CDatabaseConnection::GetInstance().CommitTransaction();
 	return true;
 }

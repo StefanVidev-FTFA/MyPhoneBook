@@ -22,7 +22,7 @@ public:
 // Methods
 // ----------------
 public:
-	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectById(const long nId, CITIES& recCity);
 	bool DatabaseSelectAll();
 	bool DatabaseInsert(CITIES& recItem);
 	bool DatabaseDelete(const int nId);

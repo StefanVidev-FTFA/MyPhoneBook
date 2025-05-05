@@ -41,6 +41,7 @@ public:
     bool DeleteWhereId(const long lId);
     /// <summary> Опреснява запис от конкретна таблица </summary>
     bool UpdateById(const int nId, const tableType& recItem);
+
 };
 
 template <typename tableType, typename accessorType>
@@ -55,8 +56,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = CUtils::GetTableName<tableType>();
-    CString strQuery = CUtils::QueryWithStr(SELECT_ALL, type);
+    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_ALL);
 
     HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
@@ -86,10 +86,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = CUtils::GetTableName<tableType>();
-    CString strQuery;
-
-    strQuery.Format(SELECT_BY_ID, type, lID);
+    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_BY_ID, lID);
 
     HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
@@ -129,8 +126,7 @@ inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = CUtils::GetTableName<tableType>();
-    CString strQuery = CUtils::QueryWithStr(SELECT_TOP_0, type);
+    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_TOP_0);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
@@ -184,10 +180,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = CUtils::GetTableName<tableType>();
-    CString strQuery;
-
-    strQuery.Format(SELECT_WHERE,type, lId);
+    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_WHERE, lId);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
@@ -232,10 +225,7 @@ inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString type = CUtils::GetTableName<tableType>();
-    CString strQuery;
-
-    strQuery.Format(SELECT_WHERE, type, nId);
+    CString strQuery= CUtils::GetFinalQuery<tableType>(SELECT_WHERE, nId);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))

@@ -23,6 +23,15 @@ public:
 		SqlOperationUpdateById,
 		SqlOperationDelete
 	};
+	enum ListViewHintTypes
+	{
+		ListViewHintTypesLoadInit = 0,
+		ListViewHintTypesInsert,
+		ListViewHintTypesSelectById,
+		ListViewHintTypesSelectAll,
+		ListViewHintTypesUpdateById,
+		ListViewHintTypesDelete
+	};
 	enum DialogMode
 	{
 		DialogModeView = 0,

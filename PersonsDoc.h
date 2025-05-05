@@ -23,7 +23,7 @@ public:
 // Methods
 // ----------------
 public:
-	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectById(const long nId,PERSONS& recPerson);
 	bool DatabaseSelectAll();
 	bool DatabaseInsert(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 	bool DatabaseDelete(const int nId);

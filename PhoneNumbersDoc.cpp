@@ -107,15 +107,15 @@ bool CPhoneNumbersDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CPhoneNumbersDoc::DatabaseSelectById(const long nId)
+bool CPhoneNumbersDoc::DatabaseSelectById(const long nId,PHONE_NUMBERS& recPhoneNumber)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
-	PHONE_NUMBERS recFoundItem;
 
-	oPhoneNumbersTable.SelectWhereID(nId, recFoundItem);
-
-	CGeneralHint<PHONE_NUMBERS>* pHint = new CGeneralHint<PHONE_NUMBERS>(recFoundItem);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, pHint);
+	if(!oPhoneNumbersTable.SelectWhereID(nId, recPhoneNumber))
+	{
+		MESSAGE_ERROR(_T("Failed to load the phone number with ID %d"), nId);
+		return false;
+	}
 
 	return true;
 }

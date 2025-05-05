@@ -160,8 +160,13 @@ void CPersonsView::RequestUpdate()
 }
 void CPersonsView::RequestSelectById()
 {
+	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+	long nId = _ttol(strValue);
+
 	PERSONS recPerson;
-	AssignPerson(recPerson);
+
+	if (!GetDocument()->DatabaseSelectById(nId, recPerson))
+		return;
 
 	CSmartArray<CITIES> oCitiesArray;
 	CCitiesTable oCitiesTable;
@@ -248,9 +253,6 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 4, strEgn);
 		m_pListCtrl->SetItemText(index, 5, strCityId);
 		m_pListCtrl->SetItemText(index, 6, strAddress);
-	}
-	else if (lHint == SqlOperationSelectById)
-	{
 	}
 	else if (lHint == SqlOperationSelectAll)
 	{

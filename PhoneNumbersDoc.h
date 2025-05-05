@@ -24,7 +24,7 @@ public:
 	// Methods
 	// ----------------
 public:
-	bool DatabaseSelectById(const long nId);
+	bool DatabaseSelectById(const long nId, PHONE_NUMBERS& recPhoneNumber);
 	bool DatabaseSelectAll();
 	bool DatabaseInsert(PHONE_NUMBERS& recItem);
 	bool DatabaseDelete(const int nId);

@@ -66,7 +66,6 @@ BOOL CPhoneBookApp::InitInstance()
 
 	//----------------------------------------------------------
 
-
 	CMultiDocTemplate* pDocTemplate3;
 	pDocTemplate3 = new CMultiDocTemplate(IDR_PhoneBookPersons,
 		RUNTIME_CLASS(CPersonsDoc),

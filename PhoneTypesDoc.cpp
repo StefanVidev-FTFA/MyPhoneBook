@@ -87,15 +87,15 @@ bool CPhoneTypesDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CPhoneTypesDoc::DatabaseSelectById(const long nId)
+bool CPhoneTypesDoc::DatabaseSelectById(const long nId,PHONE_TYPES& recPhoneType)
 {
 	CPhoneTypesTable oPhoneTypesTable;
-	PHONE_TYPES recFoundItem;
 
-	oPhoneTypesTable.SelectWhereID(nId, recFoundItem);
-
-	CGeneralHint<PHONE_TYPES>* pHint = new CGeneralHint<PHONE_TYPES>(recFoundItem);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectById, pHint);
+	if(!oPhoneTypesTable.SelectWhereID(nId, recPhoneType))
+	{
+		MESSAGE_ERROR(_T("Failed to select the phone type with ID %d"), nId);
+		return false;
+	}
 
 	return true;
 }

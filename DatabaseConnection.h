@@ -44,11 +44,11 @@ public:
 	CDataSource& GetDataSource() { return m_oDataSource; }
 
     /// <summary>Започва нова транзакция</summary>
-    void BeginTrans();
+    void BeginTransaction();
     /// <summary>Завършва текущата транзакция</summary>
-	void CommitTrans();
+	void CommitTransaction();
     /// <summary>Прекъсва текущата транзакция</summary>
-    void RollbackTrans();
+    void RollbackTransaction();
 
 private:
     /// <summary> Дефинира настройките за връзка </summary>

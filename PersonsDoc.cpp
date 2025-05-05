@@ -88,7 +88,18 @@ bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMB
 
 	return true;
 }
+bool CPersonsDoc::DatabaseSelectById(const long nId, PERSONS& recPerson)
+{
+	CPersonsData pPersonsData;
 
+	if (!pPersonsData.SelectWhereID(nId, recPerson))
+	{
+		MESSAGE_ERROR(_T("Failed to load the person with ID %d"), nId);
+		return false;
+	}
+
+	return true;
+}
 // Overrides
 // ----------------
 BOOL CPersonsDoc::OnNewDocument()

@@ -72,30 +72,20 @@ void CPhoneNumbersView::RequestSelectAll() {
 }
 void CPhoneNumbersView::RequestSelectById()
 {
-	PHONE_NUMBERS recPhoneNum;
+	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+	long nId = _ttol(strValue);
 
-	int nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 1));
-
-	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
-	recPhoneNum.nPersonId = _ttoi(strValue);
-
-	strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 2);
-	recPhoneNum.nPhoneTypeId = _ttoi(strValue);
-
-	wcscpy_s(recPhoneNum.szPhoneNumber, MAX_PHONE_NUMBER, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
-
+	PHONE_NUMBERS recPhoneNumber;
+	if (!GetDocument()->DatabaseSelectById(nId, recPhoneNumber))
+		return;
 
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	pInfo->m_recPhoneNum = recPhoneNum;
-
+	pInfo->m_recPhoneNum = recPhoneNumber;
 
 	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
 	INT_PTR result = oDialog.DoModal();
-	if (result == IDOK)
-	{
-		GetDocument()->DatabaseSelectById(nId);
-	}
+
 }
 void CPhoneNumbersView::RequestInsert()
 {
@@ -246,16 +236,6 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 2, strPhoneTypeId);
 		m_pListCtrl->SetItemText(index, 3, CString(recPhoneNum.szPhoneNumber));
 	}
-	else if (lHint == SqlOperationSelectById)
-	{
-		CGeneralHint<PHONE_NUMBERS>* phoneHint = dynamic_cast<CGeneralHint<PHONE_NUMBERS>*>(pHint);
-
-		if (phoneHint->m_recItem.nId > -1)
-		{
-			m_pListCtrl->DeleteAllItems();
-			InsertASingleRow(phoneHint->m_recItem);
-		}
-	}
 	else if (lHint == SqlOperationSelectAll)
 	{
 		CSmartArray<PHONE_NUMBERS>* pCitiesHint = dynamic_cast<CSmartArray<PHONE_NUMBERS>*>(pHint);
@@ -269,23 +249,6 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		GetDocument()->AssignPhoneTypesMap(phoneTypesMap);
 
 		InsertCityRows(*pCitiesHint, personsMap, phoneTypesMap);
-	}
-	else if (lHint == SqlOperationUpdateById)
-	{
-		CGeneralHint<PHONE_NUMBERS>* pCitiesHint = dynamic_cast<CGeneralHint<PHONE_NUMBERS>*>(pHint);
-
-		PHONE_NUMBERS recPhoneNum = pCitiesHint->m_recItem;
-
-		CString strPersonId;
-		strPersonId.Format(_T("%d"), recPhoneNum.nPersonId);
-
-		CString strPhoneTypeId;
-		strPhoneTypeId.Format(_T("%d"), recPhoneNum.nPhoneTypeId);
-
-		m_pListCtrl->SetItemText(m_SelectedIndex, 1, strPersonId);
-		m_pListCtrl->SetItemText(m_SelectedIndex, 2, strPhoneTypeId);
-		m_pListCtrl->SetItemText(m_SelectedIndex, 3, CString(recPhoneNum.szPhoneNumber));
-
 	}
 	else if (lHint == SqlOperationDelete)
 	{

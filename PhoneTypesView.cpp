@@ -39,9 +39,15 @@ CPhoneTypesView::~CPhoneTypesView() {}
 // ----------------
 void CPhoneTypesView::RequestSelectById()
 {
-	CString strPhoneType = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
+	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
+	long nId = _ttol(strValue);
 
-	CDialogPhoneTypes oDialog(this,CCommonListView::DialogModeView, strPhoneType);
+	PHONE_TYPES recPhoneType;
+
+	if (!GetDocument()->DatabaseSelectById(nId, recPhoneType))
+		return;
+
+	CDialogPhoneTypes oDialog(CCommonListView::DialogModeView, CString(recPhoneType.szPhoneType));
 
 	INT_PTR result = oDialog.DoModal();
 }
@@ -61,7 +67,7 @@ void CPhoneTypesView::RequestSelectAll() {
 }
 void CPhoneTypesView::RequestInsert()
 {
-	CDialogPhoneTypes oInsertDlg(this, CCommonListView::DialogModeEdit);
+	CDialogPhoneTypes oInsertDlg(CCommonListView::DialogModeEdit);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -109,7 +115,7 @@ void CPhoneTypesView::RequestUpdate()
 		{
 			CString strCurrentNumber = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-			CDialogPhoneTypes oDialog(this, CCommonListView::DialogModeEdit, strCurrentNumber);
+			CDialogPhoneTypes oDialog(CCommonListView::DialogModeEdit, strCurrentNumber);
 
 			INT_PTR result = oDialog.DoModal();
 
