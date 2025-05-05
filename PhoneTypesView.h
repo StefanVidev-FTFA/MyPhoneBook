@@ -31,25 +31,7 @@ protected:
 	///<summary> Обновява информацията за град който е посочен чрез идентификационнен номер ///</summary>
 	void RequestUpdate();
 	///<summary> Въвежда записи от конкретен тип </summary>
-	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
-	{
-		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
-		{
-			PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oTableTypeArray.GetAt(i));
-
-			if (pRecItem != nullptr) {
-
-				CString strHolder;
-
-				strHolder.Format(_T("%d"), pRecItem->nId);
-				int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
-
-				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szPhoneType));
-
-			}
-		}
-	}
+	void InsertRows(CSmartArray<PHONE_TYPES>& oPhoneTypesArray);
 
 // Overrides
 // ----------------
@@ -69,6 +51,7 @@ protected:
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 
 // Members
 // ----------------

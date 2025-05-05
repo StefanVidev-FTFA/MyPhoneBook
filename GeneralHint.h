@@ -5,13 +5,13 @@
 /////////////////////////////////////////////////////////////////////////////
 // CGeneralHint
 /// <summary> Клас служещ за съхранение на информация за hint-овете на таблиците в базата данни.</summary>
-template<typename tableType>
+template<typename TableType>
 class CGeneralHint : public CObject
 {
 // Constructor / Destructor
 // ----------------
 public:
-    CGeneralHint(const tableType& recItem)
+    CGeneralHint(const TableType& recItem)
         : m_recItem(recItem)
     {
     }
@@ -20,5 +20,5 @@ public:
 // Members
 // ----------------
 public:
-    tableType m_recItem;
+    TableType m_recItem;
 };

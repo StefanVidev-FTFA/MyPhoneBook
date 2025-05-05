@@ -49,7 +49,8 @@ bool CPersonsData::UpdatePerson(const PERSONS& recPerson,CSmartArray<PHONE_NUMBE
 
 	CPhoneNumbersTable oPhoneNumbersTable;
 	CSmartArray<PHONE_NUMBERS> dataBasePhoneNumbers;
-	oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers,recPerson.nId);
+	if (!oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers, recPerson.nId))
+		return false;
 
 	CDatabaseConnection::GetInstance().BeginTransaction();
 
@@ -120,7 +121,8 @@ bool CPersonsData::DeletePerson(const long lPersonId)
 
 	CPhoneNumbersTable oPhoneNumbersTable;
 	CSmartArray<PHONE_NUMBERS> dataBasePhoneNumbers;
-	oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers, lPersonId);
+	if (!oPhoneNumbersTable.GetPersonsPhoneNumbers(dataBasePhoneNumbers, lPersonId))
+		return false;
 
 	CDatabaseConnection::GetInstance().BeginTransaction();
 

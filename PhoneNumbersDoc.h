@@ -24,11 +24,11 @@ public:
 	// Methods
 	// ----------------
 public:
-	bool DatabaseSelectById(const long nId, PHONE_NUMBERS& recPhoneNumber);
-	bool DatabaseSelectAll();
-	bool DatabaseInsert(PHONE_NUMBERS& recItem);
-	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const PHONE_NUMBERS& recItem);
+	bool SelectById(const long nId, PHONE_NUMBERS& recPhoneNumber);
+	bool SelectAll();
+	bool Insert(PHONE_NUMBERS& recItem);
+	bool Delete(const int nId);
+	bool Update(const PHONE_NUMBERS& recItem);
 	void AssignPersonsMap(CMap<int, int, CString, const CString&>& personsMap);
 	void AssignPhoneTypesMap(CMap<int, int, CString, const CString&>& phoneTypesMap);
 

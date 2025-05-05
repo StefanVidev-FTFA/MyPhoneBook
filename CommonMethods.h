@@ -35,12 +35,12 @@ public:
         return strQuery;
     }
 
-    template <typename tableType>
+    template <typename TableType>
     static CString GetFinalQuery(CString strQuery)
     {
 		CString finalQuery;
 
-        CString strTableName = CString(typeid(tableType).name());
+        CString strTableName = CString(typeid(TableType).name());
         strTableName.Replace(_T("struct "), _T(""));
         strTableName.Trim();
 
@@ -48,12 +48,12 @@ public:
         return finalQuery;
     }
 
-    template <typename tableType>
+    template <typename TableType>
     static CString GetFinalQuery(CString strQuery,long lId)
     {
         CString finalQuery;
 
-        CString strTableName = CString(typeid(tableType).name());
+        CString strTableName = CString(typeid(TableType).name());
         strTableName.Replace(_T("struct "), _T(""));
         strTableName.Trim();
 
@@ -61,8 +61,8 @@ public:
         return finalQuery;
     }
 
-    template <typename tableType>
-    static bool CheckIfItCointains(const CSmartArray<tableType>& phoneNumbers, const tableType& recNumber, int& index)
+    template <typename TableType>
+    static bool CheckIfItCointains(const CSmartArray<TableType>& phoneNumbers, const TableType& recNumber, int& index)
     {
         bool itsContained = false;
         for (INT_PTR newNumbersIndex = 0; newNumbersIndex < phoneNumbers.GetCount(); newNumbersIndex++)

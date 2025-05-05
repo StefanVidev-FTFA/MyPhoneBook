@@ -33,9 +33,29 @@ CCitiesView::~CCitiesView(){}
 
 // Methods
 // ----------------
+void CCitiesView::InsertRows(CSmartArray<CITIES>& oCitiesArray)
+ {
+	for (INT_PTR i = 0; i < oCitiesArray.GetCount(); ++i)
+	{
+		CITIES* pRecItem = static_cast<CITIES*>(oCitiesArray.GetAt(i));
+
+		if (pRecItem == nullptr)
+			continue;
+
+			CString sId;
+			sId.Format(_T("%d"), pRecItem->nId);
+
+			INT_PTR row = m_pListCtrl->InsertItem(i, sId);
+			m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szCityName));
+			m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szRegion));
+
+			entriesMap.SetAt(pRecItem->nId, i);
+	}
+}
 void CCitiesView::CreateListOnInit()
 {
 }
+
 void CCitiesView::RequestSelectById()
 {
 	CITIES recCity;
@@ -43,7 +63,7 @@ void CCitiesView::RequestSelectById()
 	CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 	long nId = _ttol(strValue);
 
-	if (!GetDocument()->DatabaseSelectById(nId, recCity))
+	if (!GetDocument()->SelectById(nId, recCity))
 		return;
 
 	CDialogCities oSelectByIdDlg(recCity,DialogModeView);
@@ -61,7 +81,7 @@ void CCitiesView::RequestSelectAll() {
 	{
 		CCitiesDoc* oCitiesDocument = GetDocument();
 
-		GetDocument()->DatabaseSelectAll();
+		GetDocument()->SelectAll();
 	}
 }
 void CCitiesView::RequestInsert()
@@ -72,7 +92,7 @@ void CCitiesView::RequestInsert()
 
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oDialog.m_recCityForInsertOrUpdate);
+		GetDocument()->Insert(oDialog.m_recCityForInsertOrUpdate);
 	}
 }
 void CCitiesView::RequestDelete()
@@ -94,7 +114,7 @@ void CCitiesView::RequestDelete()
 	{
 		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 		long nId = _ttol(strValue);
-		oDocument->DatabaseDelete(nId);
+		oDocument->Delete(nId);
 	}
 }
 void CCitiesView::RequestUpdate()
@@ -119,11 +139,12 @@ void CCitiesView::RequestUpdate()
 			if (result == IDOK)
 			{
 				oDialog.m_recCityForInsertOrUpdate.nId = nId;
-				GetDocument()->DatabaseUpdate(oDialog.m_recCityForInsertOrUpdate);
+				GetDocument()->Update(oDialog.m_recCityForInsertOrUpdate);
 			}
 		}
 	}
 }
+
 void CCitiesView::InsertACityRow(CITIES& recCity) {
 	CString strCityID;
 	strCityID.Format(_T("%d"), recCity.nId);
@@ -157,7 +178,7 @@ void CCitiesView::OnInitialUpdate()
 	
 	DeclareColumns({ _T("ID"),_T("City Name"),_T("City Region") });
 	
-	InsertCityRows(oCitiesArray);
+	InsertRows(oCitiesArray);
 }
 void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
@@ -188,7 +209,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CSmartArray<CITIES>* pCitiesHint = dynamic_cast<CSmartArray<CITIES>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
-		InsertCityRows(*pCitiesHint);
+		InsertRows(*pCitiesHint);
 	}
 	else if (lHint == ListViewHintTypesUpdateById)
 	{
@@ -210,7 +231,18 @@ void CCitiesView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 }
 void CCitiesView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
 {
-	MESSAGE_INFO(_T("OnLButtonDblClk"));
+	CListCtrl& listCtrl = GetListCtrl();
+
+	LVHITTESTINFO hitTestInfo = {};
+	hitTestInfo.pt = point;
+
+	int rowIndex = listCtrl.HitTest(&hitTestInfo);
+
+	if(rowIndex!=-1)
+	{
+		m_SelectedIndex = rowIndex;
+		CCitiesView::RequestSelectById();
+	}
 }
 void CCitiesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {

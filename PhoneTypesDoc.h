@@ -22,11 +22,11 @@ public:
 // Methods
 // ----------------
 public:
-	bool DatabaseSelectById(const long nId, PHONE_TYPES& recPhoneType);
-	bool DatabaseSelectAll();
-	bool DatabaseInsert(PHONE_TYPES& recItem);
-	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const PHONE_TYPES& recItem);
+	bool SelectById(const long nId, PHONE_TYPES& recPhoneType);
+	bool SelectAll();
+	bool Insert(PHONE_TYPES& recItem);
+	bool Delete(const int nId);
+	bool Update(const PHONE_TYPES& recItem);
 
 	// Overrides
 	// ----------------

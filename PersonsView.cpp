@@ -24,6 +24,7 @@ BEGIN_MESSAGE_MAP(CPersonsView, CListView)
 	ON_COMMAND(ID_EDIT_DELETEROW32774, &CPersonsView::RequestDelete)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPersonsView::RequestUpdate)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CPersonsView::RequestSelectById)
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // Constructor / Destructor
@@ -42,7 +43,7 @@ void CPersonsView::RequestSelectAll() {
 
 	if (nResult == IDYES)
 	{
-		GetDocument()->DatabaseSelectAll();
+		GetDocument()->SelectAll();
 	}
 }
 void CPersonsView::RequestInsert()
@@ -63,7 +64,7 @@ void CPersonsView::RequestInsert()
 
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oDialog.m_recPersonToInsert, oPhoneNumbersArray);
+		GetDocument()->Insert(oDialog.m_recPersonToInsert, oPhoneNumbersArray);
 	}
 }
 void CPersonsView::RequestDelete()
@@ -88,22 +89,9 @@ void CPersonsView::RequestDelete()
 	{
 		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 		long nId = _ttol(strValue);
-		oDocument->DatabaseDelete(nId);
+
+		oDocument->Delete(nId);
 	}
-}
-void CPersonsView::AssignPerson(PERSONS& recItem)
-{
-	CListCtrl* oListCtrl = &GetListCtrl();
-
-	// Enum za list control columns
-	recItem.nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 0));
-	wcscpy_s(recItem.szFirstName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
-	wcscpy_s(recItem.szMiddleName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
-	wcscpy_s(recItem.szLastName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
-	wcscpy_s(recItem.szEgn, MAX_EGN, m_pListCtrl->GetItemText(m_SelectedIndex, 4));
-	wcscpy_s(recItem.szAddress, MAX_ADRESS, m_pListCtrl->GetItemText(m_SelectedIndex, 6));
-	recItem.nCityId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 5));
-
 }
 void CPersonsView::RequestUpdate()
 {
@@ -153,7 +141,7 @@ void CPersonsView::RequestUpdate()
 			if (result == IDOK)
 			{
 				oDialog.m_recPersonToInsert.nId = lPersonID;
-				GetDocument()->DatabaseUpdate(oDialog.m_recPersonToInsert, oPersonsPhoneNumbersArray);
+				GetDocument()->Update(oDialog.m_recPersonToInsert, oPersonsPhoneNumbersArray);
 			}
 		}
 	}
@@ -165,7 +153,7 @@ void CPersonsView::RequestSelectById()
 
 	PERSONS recPerson;
 
-	if (!GetDocument()->DatabaseSelectById(nId, recPerson))
+	if (!GetDocument()->SelectById(nId, recPerson))
 		return;
 
 	CSmartArray<CITIES> oCitiesArray;
@@ -174,12 +162,59 @@ void CPersonsView::RequestSelectById()
 
 	CSmartArray<PHONE_NUMBERS> oPersonsPhoneNumbersArray;
 	CPhoneNumbersTable oPhonenumbersTable;
-	oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId);
+	if (!oPhonenumbersTable.GetPersonsPhoneNumbers(oPersonsPhoneNumbersArray, recPerson.nId))
+		return;
 
 
 	CDialogPersons oDialog(oCitiesArray, oPersonsPhoneNumbersArray, recPerson,true,true);
 
 	INT_PTR result = oDialog.DoModal();
+}
+
+void CPersonsView::AssignPerson(PERSONS& recItem)
+{
+	CListCtrl* oListCtrl = &GetListCtrl();
+
+	// Enum za list control columns
+	recItem.nId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 0));
+	wcscpy_s(recItem.szFirstName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
+	wcscpy_s(recItem.szMiddleName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
+	wcscpy_s(recItem.szLastName, MAX_ANY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 3));
+	wcscpy_s(recItem.szEgn, MAX_EGN, m_pListCtrl->GetItemText(m_SelectedIndex, 4));
+	wcscpy_s(recItem.szAddress, MAX_ADRESS, m_pListCtrl->GetItemText(m_SelectedIndex, 6));
+	recItem.nCityId = _ttoi(m_pListCtrl->GetItemText(m_SelectedIndex, 5));
+
+}
+void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray) 
+{
+	for (INT_PTR i = 0; i < oPersonsSmartArray.GetCount(); ++i)
+	{
+		PERSONS* pRecItem = static_cast<PERSONS*>(oPersonsSmartArray.GetAt(i));
+
+		if (pRecItem == nullptr)
+			continue;
+
+		int nIndex = static_cast<int>(i);
+		CString strHolder;
+
+		strHolder.Format(_T("%d"), pRecItem->nId);
+		int row = static_cast<int>(m_pListCtrl->InsertItem(nIndex, strHolder));
+
+		m_pListCtrl->SetItemText(nIndex, 1, CString(pRecItem->szFirstName));
+
+		m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szMiddleName));
+
+		m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szLastName));
+
+		m_pListCtrl->SetItemText(row, 4, CString(pRecItem->szEgn));
+
+		strHolder.Format(_T("%d"), pRecItem->nCityId);
+		m_pListCtrl->SetItemText(row, 5, strHolder);
+
+		m_pListCtrl->SetItemText(row, 6, CString(pRecItem->szAddress));
+
+		m_pListCtrl->SetItemData(row, pRecItem->nId);
+	}
 }
 
 // Overrides
@@ -197,7 +232,7 @@ void CPersonsView::CreateListOnInit()
 	DeclareColumns({ _T("ID"),_T("First Name"),_T("Middle Name")
 		,_T("Last Name"),_T("EGN") ,_T("City ID"),_T("Adress") });
 
-	InsertPersonRows(oPersonsArray);
+	InsertRows(oPersonsArray);
 }
 void CPersonsView::OnInitialUpdate()
 {
@@ -259,7 +294,7 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CSmartArray<PERSONS>* pPersonsHint = dynamic_cast<CSmartArray<PERSONS>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
-		InsertPersonRows(*pPersonsHint);
+		InsertRows(*pPersonsHint);
 	}
 	else if (lHint == ListViewHintTypesUpdateById)
 	{
@@ -309,7 +344,21 @@ void CPersonsView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
+void CPersonsView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
+{
+	CListCtrl& listCtrl = GetListCtrl();
 
+	LVHITTESTINFO hitTestInfo = {};
+	hitTestInfo.pt = point;
+
+	int rowIndex = listCtrl.HitTest(&hitTestInfo);
+
+	if (rowIndex != -1)
+	{
+		m_SelectedIndex = rowIndex;
+		CPersonsView::RequestSelectById();
+	}
+}
 #ifdef _DEBUG
 void CPersonsView::AssertValid() const
 {

@@ -49,7 +49,7 @@ void CPhoneNumbersDoc::AssignPhoneTypesMap(CMap<int, int, CString, const CString
 	}
 }
 
-bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
+bool CPhoneNumbersDoc::Update(const PHONE_NUMBERS& recItem)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 	if (oPhoneNumbersTable.UpdateById(recItem.nId, recItem))
@@ -65,7 +65,7 @@ bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
 
 	return true;
 }
-bool CPhoneNumbersDoc::DatabaseDelete(const int nId)
+bool CPhoneNumbersDoc::Delete(const int nId)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 
@@ -77,7 +77,7 @@ bool CPhoneNumbersDoc::DatabaseDelete(const int nId)
 	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesDelete, nullptr);
 	return true;
 }
-bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
+bool CPhoneNumbersDoc::Insert(PHONE_NUMBERS& recItem)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 	if (oPhoneNumbersTable.Insert(recItem))
@@ -93,7 +93,7 @@ bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
 	}
 	return true;
 }
-bool CPhoneNumbersDoc::DatabaseSelectAll()
+bool CPhoneNumbersDoc::SelectAll()
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 	CSmartArray<PHONE_NUMBERS>* pItemsArray = new CSmartArray<PHONE_NUMBERS>();
@@ -104,7 +104,7 @@ bool CPhoneNumbersDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CPhoneNumbersDoc::DatabaseSelectById(const long nId,PHONE_NUMBERS& recPhoneNumber)
+bool CPhoneNumbersDoc::SelectById(const long nId,PHONE_NUMBERS& recPhoneNumber)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 

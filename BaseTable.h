@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CBaseTable
 /// <summary> Клас съдържащ обща логика споделена между различните таблици </summary>
-template <typename tableType,typename accessorType>
+template <typename TableType,typename accessorType>
 class CBaseTable : public CCommand<CAccessor<accessorType>>
 {
 // Constructor / Destructor
@@ -32,31 +32,31 @@ public:
 // ----------------
 public:
     /// <summary> Пълни масив от конкретен тип записи от избрана таблица </summary>
-    bool SelectAll(CSmartArray<tableType>& oTableItemsArray);
+    bool SelectAll(CSmartArray<TableType>& oTableItemsArray);
     /// <summary> Избира конкретен запис от базата данни възоснова на идентификатор </summary>
-    bool SelectWhereID(const long lID, tableType& recItem);
+    bool SelectWhereID(const long lID, TableType& recItem);
     /// <summary> Въвежда нов запис в избрана таблица </summary>
-    bool Insert(tableType& recItem);
+    bool Insert(TableType& recItem);
     /// <summary> Трие запис от конкретна таблица </summary>
     bool DeleteWhereId(const long lId);
     /// <summary> Опреснява запис от конкретна таблица </summary>
-    bool UpdateById(const int nId, const tableType& recItem);
+    bool UpdateById(const int nId, const TableType& recItem);
 
 };
 
-template <typename tableType, typename accessorType>
-inline CBaseTable<tableType, accessorType>::CBaseTable()
+template <typename TableType, typename accessorType>
+inline CBaseTable<TableType, accessorType>::CBaseTable()
 {
     CDatabaseConnection::GetInstance().OpenSession();
 }
 
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType>& oTableItemsArray)
+template <typename TableType, typename accessorType>
+inline bool CBaseTable<TableType, accessorType>::SelectAll(CSmartArray<TableType>& oTableItemsArray)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_ALL);
+    CString strQuery = CUtils::GetFinalQuery<TableType>(SELECT_ALL);
 
     HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
@@ -72,7 +72,7 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
 
     while (MoveNext() == S_OK)
     {
-        oTableItemsArray.Add(new tableType(m_recItem));
+        oTableItemsArray.Add(new TableType(m_recItem));
     }
 
     Close();
@@ -80,13 +80,13 @@ inline bool CBaseTable<tableType, accessorType>::SelectAll(CSmartArray<tableType
     return true;
 }
 
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, tableType& recItem)
+template <typename TableType, typename accessorType>
+inline bool CBaseTable<TableType, accessorType>::SelectWhereID(const long lID, TableType& recItem)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_BY_ID, lID);
+    CString strQuery = CUtils::GetFinalQuery<TableType>(SELECT_BY_ID, lID);
 
     HRESULT hResult = Open(oSession, strQuery);
     if (FAILED(hResult))
@@ -116,17 +116,16 @@ inline bool CBaseTable<tableType, accessorType>::SelectWhereID(const long lID, t
     }
 
     Close();
-
     return true;
 }
 
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
+template <typename TableType, typename accessorType>
+inline bool CBaseTable<TableType, accessorType>::Insert(TableType& recItem)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_TOP_0);
+    CString strQuery = CUtils::GetFinalQuery<TableType>(SELECT_TOP_0);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
@@ -174,13 +173,13 @@ inline bool CBaseTable<tableType, accessorType>::Insert(tableType& recItem)
     return true;
 }
 
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
+template <typename TableType, typename accessorType>
+inline bool CBaseTable<TableType, accessorType>::DeleteWhereId(const long lId)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString strQuery = CUtils::GetFinalQuery<tableType>(SELECT_WHERE, lId);
+    CString strQuery = CUtils::GetFinalQuery<TableType>(SELECT_WHERE, lId);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))
@@ -206,7 +205,7 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
     if (FAILED(hResult))
     {
         CString strError;
-        strError.Format(_T("Failed to execute Delete(). Error: %ld ."), hResult);
+        strError.Format(_T("<>Failed to execute Delete(). Error: %ld ."), hResult);
         AfxMessageBox(strError);
 
         Close();
@@ -219,13 +218,13 @@ inline bool CBaseTable<tableType, accessorType>::DeleteWhereId(const long lId)
     return true;
 }
 
-template <typename tableType, typename accessorType>
-inline bool CBaseTable<tableType, accessorType>::UpdateById(const int nId, const tableType& recItem)
+template <typename TableType, typename accessorType>
+inline bool CBaseTable<TableType, accessorType>::UpdateById(const int nId, const TableType& recItem)
 {
     CDatabaseConnection::GetInstance().OpenSession();
     CSession& oSession = CDatabaseConnection::GetInstance().GetCurrentSession();
 
-    CString strQuery= CUtils::GetFinalQuery<tableType>(SELECT_WHERE, nId);
+    CString strQuery= CUtils::GetFinalQuery<TableType>(SELECT_WHERE, nId);
 
     HRESULT hResult = Open(oSession, strQuery, &CDatabaseConnection::GetInstance().GetRowsetPropertiesSet());
     if (FAILED(hResult))

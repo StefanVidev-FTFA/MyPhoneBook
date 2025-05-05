@@ -33,37 +33,10 @@ protected:
 	///<summary> Въвежда един ред запис </summary>
 	void InsertASingleRow(PHONE_NUMBERS& recItem);
 	///<summary> Въвежда записи от конкретен тип </summary>
-	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray,
+	void InsertRows(CSmartArray<PHONE_NUMBERS>& oTableTypeArray,
 		CMap<int, int, CString, const CString&>& personsMap,
 		CMap<int, int, CString, const CString&>& phoneTypesMap
-	)
-	{
-		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
-		{
-			PHONE_NUMBERS* pRecItem = static_cast<PHONE_NUMBERS*>(oTableTypeArray.GetAt(i));
-
-			if (pRecItem != nullptr) {
-
-				CString strHolder;
-				strHolder.Format(_T("%d"), pRecItem->nId);
-				int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
-
-				m_pListCtrl->SetItemData(row, row);
-
-				CString strPersonName;
-				if (personsMap.Lookup(pRecItem->nPersonId, strPersonName))
-					m_pListCtrl->SetItemText(row, 1, strPersonName);
-
-				CString strPhoneType;
-				if (phoneTypesMap.Lookup(pRecItem->nPhoneTypeId, strPhoneType))
-					m_pListCtrl->SetItemText(row, 2, strPhoneType);
-
-				m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szPhoneNumber));
-			}
-		}
-		m_pListCtrl->SortItems(CUtils::CompareByName, (LPARAM)m_pListCtrl);
-	}
+	);
 
 	// Overrides
 public:
@@ -81,6 +54,7 @@ protected:
 	void CreateListOnInit() override;
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 
 // Members
 // ----------------

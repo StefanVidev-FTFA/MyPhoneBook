@@ -27,7 +27,7 @@ CPhoneTypesDoc::~CPhoneTypesDoc()
 
 // Methods
 // ----------------
-bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
+bool CPhoneTypesDoc::Update(const PHONE_TYPES& recItem)
 {
 	CPhoneTypesTable oPhoneTypesTable;
 
@@ -44,7 +44,7 @@ bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
 
 	return true;
 }
-bool CPhoneTypesDoc::DatabaseDelete(const int nId)
+bool CPhoneTypesDoc::Delete(const int nId)
 {
 	CPhoneTypesTable oPhoneTypesTable;
 
@@ -59,7 +59,7 @@ bool CPhoneTypesDoc::DatabaseDelete(const int nId)
 	}
 	return true;
 }
-bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
+bool CPhoneTypesDoc::Insert(PHONE_TYPES& recItem)
 {
 	CPhoneTypesTable oPhoneTypesTable;
 
@@ -76,7 +76,7 @@ bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
 	}
 	return true;
 }
-bool CPhoneTypesDoc::DatabaseSelectAll()
+bool CPhoneTypesDoc::SelectAll()
 {
 	CPhoneTypesTable oPhoneTypesTable;
 	CSmartArray<PHONE_TYPES>* pItemsArray = new CSmartArray<PHONE_TYPES>();
@@ -87,7 +87,7 @@ bool CPhoneTypesDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CPhoneTypesDoc::DatabaseSelectById(const long nId,PHONE_TYPES& recPhoneType)
+bool CPhoneTypesDoc::SelectById(const long nId,PHONE_TYPES& recPhoneType)
 {
 	CPhoneTypesTable oPhoneTypesTable;
 

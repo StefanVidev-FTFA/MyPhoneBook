@@ -23,11 +23,11 @@ public:
 // Methods
 // ----------------
 public:
-	bool DatabaseSelectById(const long nId,PERSONS& recPerson);
-	bool DatabaseSelectAll();
-	bool DatabaseInsert(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
-	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const PERSONS& recItem,CSmartArray<PHONE_NUMBERS>& phoneNumbers);
+	bool SelectById(const long nId,PERSONS& recPerson);
+	bool SelectAll();
+	bool Insert(PERSONS& recItem, const CSmartArray<PHONE_NUMBERS>& phoneNumbers);
+	bool Delete(const int nId);
+	bool Update(const PERSONS& recItem,CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
 // Overrides
 // ----------------

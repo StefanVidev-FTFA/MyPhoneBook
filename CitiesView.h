@@ -33,28 +33,7 @@ protected:
 // ----------------
 protected:
 	///<summary> Въвежда на набор от записи в лист контрола///</summary>
-	template <typename tableType>
-	void InsertCityRows(CSmartArray<tableType>& oTableTypeArray)
-	{
-		for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
-		{
-			tableType* pRecItem = static_cast<tableType*>(oTableTypeArray.GetAt(i));
-
-			if (pRecItem != nullptr) {
-
-				CString sId;
-				sId.Format(_T("%d"), pRecItem->nId);
-
-				INT_PTR row = m_pListCtrl->InsertItem(i, sId);
-				m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szCityName));
-				m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szRegion));
-
-
-				entriesMap.SetAt(pRecItem->nId, i);
-
-			}
-		}
-	}
+	void InsertRows(CSmartArray<CITIES>& oTableTypeArray);
 	///<summary> Въвежда на нов запис в лист контрола///</summary>
 	void InsertACityRow(CITIES& recCity);
 	///<summary> Въвежда на нов град във базата данни чрез диалог с потребителя ///</summary>

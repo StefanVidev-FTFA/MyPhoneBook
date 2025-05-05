@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CPhoneNumbersView, CListView)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CPhoneNumbersView::RequestSelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CPhoneNumbersView::RequestSelectAll)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPhoneNumbersView::RequestUpdate)
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // Constructor / Destructor
@@ -57,6 +58,38 @@ void CPhoneNumbersView::InsertASingleRow(PHONE_NUMBERS& recItem)
 		m_pListCtrl->SetItemText(row, 3, CString(recItem.szPhoneNumber));
 	}
 }
+void CPhoneNumbersView::InsertRows(CSmartArray<PHONE_NUMBERS>& oTableTypeArray,
+	CMap<int, int, CString, const CString&>& personsMap,
+	CMap<int, int, CString, const CString&>& phoneTypesMap
+)
+{
+	for (INT_PTR i = 0; i < oTableTypeArray.GetCount(); ++i)
+	{
+		PHONE_NUMBERS* pRecItem = static_cast<PHONE_NUMBERS*>(oTableTypeArray.GetAt(i));
+
+		if (pRecItem == nullptr)
+			continue;
+
+			CString strHolder;
+			strHolder.Format(_T("%d"), pRecItem->nId);
+			int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
+
+			m_pListCtrl->SetItemData(row, row);
+
+			CString strPersonName;
+			if (personsMap.Lookup(pRecItem->nPersonId, strPersonName))
+				m_pListCtrl->SetItemText(row, 1, strPersonName);
+
+			CString strPhoneType;
+			if (phoneTypesMap.Lookup(pRecItem->nPhoneTypeId, strPhoneType))
+				m_pListCtrl->SetItemText(row, 2, strPhoneType);
+
+			m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szPhoneNumber));
+
+	}
+	m_pListCtrl->SortItems(CUtils::CompareByName, (LPARAM)m_pListCtrl);
+}
+
 void CPhoneNumbersView::RequestSelectAll() {
 
 	CString strMessage;
@@ -68,7 +101,7 @@ void CPhoneNumbersView::RequestSelectAll() {
 	{
 		CPhoneNumbersDoc* oPhoneNumbersDocument = GetDocument();
 
-		GetDocument()->DatabaseSelectAll();
+		GetDocument()->SelectAll();
 	}
 }
 void CPhoneNumbersView::RequestSelectById()
@@ -77,7 +110,7 @@ void CPhoneNumbersView::RequestSelectById()
 	long nId = _ttol(strValue);
 
 	PHONE_NUMBERS recPhoneNumber;
-	if (!GetDocument()->DatabaseSelectById(nId, recPhoneNumber))
+	if (!GetDocument()->SelectById(nId, recPhoneNumber))
 		return;
 
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
@@ -97,7 +130,7 @@ void CPhoneNumbersView::RequestInsert()
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oDialog.m_recPhoneNumForUpdOrIns);
+		GetDocument()->Insert(oDialog.m_recPhoneNumForUpdOrIns);
 	}
 }
 void CPhoneNumbersView::RequestDelete()
@@ -126,7 +159,7 @@ void CPhoneNumbersView::RequestDelete()
 		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 		long nId = _ttol(strValue);
 
-		oDocument->DatabaseDelete(nId);
+		oDocument->Delete(nId);
 	}
 }
 void CPhoneNumbersView::RequestUpdate()
@@ -159,7 +192,7 @@ void CPhoneNumbersView::RequestUpdate()
 			if (result == IDOK)
 			{
 				oDialog.m_recPhoneNumForUpdOrIns.nId = nId;
-				GetDocument()->DatabaseUpdate(oDialog.m_recPhoneNumForUpdOrIns);
+				GetDocument()->Update(oDialog.m_recPhoneNumForUpdOrIns);
 			}
 		}
 	}
@@ -185,7 +218,7 @@ void CPhoneNumbersView::CreateListOnInit()
 	GetDocument()->AssignPersonsMap(personsMap);
 	GetDocument()->AssignPhoneTypesMap(phoneTypesMap);
 
-	InsertCityRows(oPhoneNumbersArray, personsMap, phoneTypesMap);
+	InsertRows(oPhoneNumbersArray, personsMap, phoneTypesMap);
 }
 void CPhoneNumbersView::OnInitialUpdate()
 {
@@ -249,7 +282,7 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		GetDocument()->AssignPersonsMap(personsMap);
 		GetDocument()->AssignPhoneTypesMap(phoneTypesMap);
 
-		InsertCityRows(*pCitiesHint, personsMap, phoneTypesMap);
+		InsertRows(*pCitiesHint, personsMap, phoneTypesMap);
 	}
 	else if (lHint == ListViewHintTypesDelete)
 	{
@@ -282,6 +315,21 @@ void CPhoneNumbersView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
+}
+void CPhoneNumbersView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
+{
+	CListCtrl& listCtrl = GetListCtrl();
+
+	LVHITTESTINFO hitTestInfo = {};
+	hitTestInfo.pt = point;
+
+	int rowIndex = listCtrl.HitTest(&hitTestInfo);
+
+	if (rowIndex != -1)
+	{
+		m_SelectedIndex = rowIndex;
+		CPhoneNumbersView::RequestSelectById();
+	}
 }
 
 #ifdef _DEBUG

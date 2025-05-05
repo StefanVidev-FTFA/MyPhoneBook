@@ -28,7 +28,7 @@ CPersonsDoc::~CPersonsDoc()
 
 // Methods
 // ----------------
-bool CPersonsDoc::DatabaseSelectAll()
+bool CPersonsDoc::SelectAll()
 {
 	CPersonsTable oPersonsTable;
 	CSmartArray<PERSONS>* pItemsArray = new CSmartArray<PERSONS>();
@@ -39,30 +39,29 @@ bool CPersonsDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBERS>& phoneNumbers)
+bool CPersonsDoc::Insert(PERSONS& recItem,const CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CPersonsData oData;
 
-	if (oData.AddPerson(recItem, phoneNumbers))
+	if (!oData.AddPerson(recItem, phoneNumbers))
 	{
-		CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
-
-		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
-		return true;
-	}
-	else
-	{
+		CUtils::MessageWithInt(_T("Failed to add the person with ID %d"), recItem.nId);
 		return false;
 	}
+
+	CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
+	delete newHint;
+
 	return true;
 }
-bool CPersonsDoc::DatabaseDelete(const int nId)
+bool CPersonsDoc::Delete(const int nId)
 {
-	CPersonsTable oPersonsTable;
+	CPersonsData oPersonsData;
 
-	if (!oPersonsTable.DeleteWhereId(nId)) 
+	if (!oPersonsData.DeletePerson(nId))
 	{
-		MESSAGE_ERROR(_T("Failed to delete the person with ID %d"), nId);
+		CUtils::MessageWithInt(_T("Failed to delete the person with ID %d"), nId);
 		return false;
 	}
 
@@ -70,7 +69,7 @@ bool CPersonsDoc::DatabaseDelete(const int nId)
 
 	return true;
 }
-bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& phoneNumbers)
+bool CPersonsDoc::Update(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& phoneNumbers)
 {
 	CPersonsData oPersonsData;
 
@@ -87,7 +86,7 @@ bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMB
 
 	return true;
 }
-bool CPersonsDoc::DatabaseSelectById(const long nId, PERSONS& recPerson)
+bool CPersonsDoc::SelectById(const long nId, PERSONS& recPerson)
 {
 	CPersonsData pPersonsData;
 
@@ -133,7 +132,6 @@ void CPersonsDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
-
 void CPersonsDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);

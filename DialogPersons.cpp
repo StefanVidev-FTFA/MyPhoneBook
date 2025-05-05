@@ -91,29 +91,27 @@ void CDialogPersons::EditPhoneNumber()
 
 	if (nSelectedIndex != -1)
 	{
-		PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
-		CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
-
-		pInfo->m_recPhoneNum = *pPhoneNumber;
-
-		int nIdHolder = pPhoneNumber->nId;
-		int nPersonIdHolder = pPhoneNumber->nPersonId;
-
-		CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
-		INT_PTR result = oDialog.DoModal();
-		if (result == IDOK)
-		{
-			*pPhoneNumber = oDialog.m_recPhoneNumForUpdOrIns;
-
-			pPhoneNumber->nId = nIdHolder;
-			pPhoneNumber->nPersonId = nPersonIdHolder;
-
-			m_lscPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
-		}
-	}
-	else
-	{
 		MESSAGE_INFO(_T("No phone number selected."));
+		return;
+	}
+	PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
+	pInfo->m_recPhoneNum = *pPhoneNumber;
+
+	int nIdHolder = pPhoneNumber->nId;
+	int nPersonIdHolder = pPhoneNumber->nPersonId;
+
+	CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
+	INT_PTR result = oDialog.DoModal();
+	if (result == IDOK)
+	{
+		*pPhoneNumber = oDialog.m_recPhoneNumForUpdOrIns;
+
+		pPhoneNumber->nId = nIdHolder;
+		pPhoneNumber->nPersonId = nPersonIdHolder;
+
+		m_lscPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
 	}
 }
 void CDialogPersons::RemovePhoneNumber()
@@ -122,26 +120,24 @@ void CDialogPersons::RemovePhoneNumber()
 
 	if (nSelectedIndex != -1)
 	{
-		PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
-
-		CString strMessage= _T("Are you sure you wish to delete this row");
-
-		int nResult = AfxMessageBox(strMessage, MB_YESNO);
-		if (nResult == IDYES)
-		{
-			if (pPhoneNumber != nullptr)
-			{
-				delete pPhoneNumber;
-				m_oPhoneNumbersArray.RemoveAt(nSelectedIndex);
-
-
-				m_lscPhoneNumbers.DeleteItem(nSelectedIndex);
-			}
-		}
-	}
-	else
-	{
 		MESSAGE_INFO(_T("No phone number selected."));
+		return;
+	}
+	PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
+
+	CString strMessage= _T("Are you sure you wish to delete this row");
+
+	int nResult = AfxMessageBox(strMessage, MB_YESNO);
+	if (nResult == IDYES)
+	{
+		if (pPhoneNumber != nullptr)
+		{
+			delete pPhoneNumber;
+			m_oPhoneNumbersArray.RemoveAt(nSelectedIndex);
+
+
+			m_lscPhoneNumbers.DeleteItem(nSelectedIndex);
+		}
 	}
 }
 

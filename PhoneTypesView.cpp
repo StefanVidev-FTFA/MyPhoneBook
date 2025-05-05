@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CPhoneTypesView, CListView)
 	ON_COMMAND(ID_EDIT_SELECTBYID, &CPhoneTypesView::RequestSelectById)
 	ON_COMMAND(ID_EDIT_SELECTALL, &CPhoneTypesView::RequestSelectAll)
 	ON_COMMAND(ID_EDIT_UPDATEBYID, &CPhoneTypesView::RequestUpdate)
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // Constructor / Destructor
@@ -44,7 +45,7 @@ void CPhoneTypesView::RequestSelectById()
 
 	PHONE_TYPES recPhoneType;
 
-	if (!GetDocument()->DatabaseSelectById(nId, recPhoneType))
+	if (!GetDocument()->SelectById(nId, recPhoneType))
 		return;
 
 	CDialogPhoneTypes oDialog(DialogModeView, CString(recPhoneType.szPhoneType));
@@ -62,7 +63,7 @@ void CPhoneTypesView::RequestSelectAll() {
 	{
 		CPhoneTypesDoc* oPhoneTypesDocument = GetDocument();
 
-		GetDocument()->DatabaseSelectAll();
+		GetDocument()->SelectAll();
 	}
 }
 void CPhoneTypesView::RequestInsert()
@@ -73,7 +74,7 @@ void CPhoneTypesView::RequestInsert()
 
 	if (result == IDOK)
 	{
-		GetDocument()->DatabaseInsert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
+		GetDocument()->Insert(oInsertDlg.m_recPhoneTypeForUpdOrIns);
 	}
 }
 void CPhoneTypesView::RequestDelete()
@@ -99,7 +100,7 @@ void CPhoneTypesView::RequestDelete()
 		CString strValue = m_pListCtrl->GetItemText(m_SelectedIndex, 0);
 		long nId = _ttol(strValue);
 
-		oPhoneTypesDocument->DatabaseDelete(nId);
+		oPhoneTypesDocument->Delete(nId);
 	}
 }
 void CPhoneTypesView::RequestUpdate()
@@ -124,9 +125,28 @@ void CPhoneTypesView::RequestUpdate()
 				PHONE_TYPES recItemforUpdate = oDialog.m_recPhoneTypeForUpdOrIns;
 				recItemforUpdate.nId = nId;
 
-				GetDocument()->DatabaseUpdate(recItemforUpdate);
+				GetDocument()->Update(recItemforUpdate);
 			}
 		}
+	}
+}
+
+void CPhoneTypesView::InsertRows(CSmartArray<PHONE_TYPES>& oPhoneTypesArray)
+{
+	for (INT_PTR i = 0; i < oPhoneTypesArray.GetCount(); ++i)
+	{
+		PHONE_TYPES* pRecItem = static_cast<PHONE_TYPES*>(oPhoneTypesArray.GetAt(i));
+
+		if (pRecItem == nullptr)
+			continue;
+
+			CString strHolder;
+
+			strHolder.Format(_T("%d"), pRecItem->nId);
+			int row = static_cast<int>(m_pListCtrl->InsertItem(i, strHolder));
+
+			m_pListCtrl->SetItemText(i, 1, CString(pRecItem->szPhoneType));
+
 	}
 }
 
@@ -144,7 +164,7 @@ void CPhoneTypesView::CreateListOnInit()
 
 	DeclareColumns({ _T("ID"),_T("Phone type") });
 
-	InsertCityRows(oPhoneTypesArray);
+	InsertRows(oPhoneTypesArray);
 }
 void CPhoneTypesView::OnInitialUpdate()
 {
@@ -197,7 +217,7 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CSmartArray<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CSmartArray<PHONE_TYPES>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
-		InsertCityRows(*pPhoneTypesHint);
+		InsertRows(*pPhoneTypesHint);
 	}
 	else if (lHint == ListViewHintTypesUpdateById)
 	{
@@ -239,6 +259,21 @@ void CPhoneTypesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
+}
+void CPhoneTypesView::OnLButtonDblClk(UINT /* nFlags */, CPoint point)
+{
+	CListCtrl& listCtrl = GetListCtrl();
+
+	LVHITTESTINFO hitTestInfo = {};
+	hitTestInfo.pt = point;
+
+	int rowIndex = listCtrl.HitTest(&hitTestInfo);
+
+	if (rowIndex != -1)
+	{
+		m_SelectedIndex = rowIndex;
+		CPhoneTypesView::RequestSelectById();
+	}
 }
 
 #ifdef _DEBUG

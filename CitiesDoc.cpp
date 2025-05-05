@@ -27,7 +27,7 @@ CCitiesDoc::~CCitiesDoc()
 
 // Methods
 // ----------------
-bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
+bool CCitiesDoc::Update(const CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
 	if (!oCitiesTable.UpdateById(recItem.nId, recItem))
@@ -43,7 +43,7 @@ bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 
 	return true;
 }
-bool CCitiesDoc::DatabaseDelete(const int nId)
+bool CCitiesDoc::Delete(const int nId)
 {
 	CCitiesTable oCitiesTable;
 	if (oCitiesTable.DeleteWhereId(nId))
@@ -59,7 +59,7 @@ bool CCitiesDoc::DatabaseDelete(const int nId)
 	// bez else
 	return true;
 }
-bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
+bool CCitiesDoc::Insert(CITIES& recItem)
 {
 	CCitiesTable oCitiesTable;
 	if (oCitiesTable.Insert(recItem))
@@ -77,7 +77,7 @@ bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 	// bez else
 	return true;
 }
-bool CCitiesDoc::DatabaseSelectAll()
+bool CCitiesDoc::SelectAll()
 {
 	CCitiesTable oCitiesTable;
 	CSmartArray<CITIES>* pItemsArray = new CSmartArray<CITIES>();
@@ -90,7 +90,7 @@ bool CCitiesDoc::DatabaseSelectAll()
 
 	return true;
 }
-bool CCitiesDoc::DatabaseSelectById(const long nId,CITIES& recCity)
+bool CCitiesDoc::SelectById(const long nId,CITIES& recCity)
 {
 	CCitiesTable oCitiesTable;
 

@@ -22,11 +22,11 @@ public:
 // Methods
 // ----------------
 public:
-	bool DatabaseSelectById(const long nId, CITIES& recCity);
-	bool DatabaseSelectAll();
-	bool DatabaseInsert(CITIES& recItem);
-	bool DatabaseDelete(const int nId);
-	bool DatabaseUpdate(const CITIES& recItem);
+	bool SelectById(const long nId, CITIES& recCity);
+	bool SelectAll();
+	bool Insert(CITIES& recItem);
+	bool Delete(const int nId);
+	bool Update(const CITIES& recItem);
 
 // Overrides
 // ----------------
