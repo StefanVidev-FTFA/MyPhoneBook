@@ -227,7 +227,7 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == SqlOperationInsert)
+	if (lHint == ListViewHintTypesInsert)
 	{
 		CGeneralHint<PERSONS>* pPersonsHint = dynamic_cast<CGeneralHint<PERSONS>*>(pHint);
 		PERSONS recPerson = pPersonsHint->m_recItem;
@@ -254,14 +254,14 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 5, strCityId);
 		m_pListCtrl->SetItemText(index, 6, strAddress);
 	}
-	else if (lHint == SqlOperationSelectAll)
+	else if (lHint == ListViewHintTypesSelectAll)
 	{
 		CSmartArray<PERSONS>* pPersonsHint = dynamic_cast<CSmartArray<PERSONS>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
 		InsertPersonRows(*pPersonsHint);
 	}
-	else if (lHint == SqlOperationUpdateById)
+	else if (lHint == ListViewHintTypesUpdateById)
 	{
 		CGeneralHint<PERSONS>* pPersonsHint = dynamic_cast<CGeneralHint<PERSONS>*>(pHint);
 		PERSONS recPerson = pPersonsHint->m_recItem;
@@ -277,7 +277,7 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(m_SelectedIndex, 5, strId);
 		m_pListCtrl->SetItemText(m_SelectedIndex, 6, CString(pPersonsHint->m_recItem.szAddress));
 	}
-	else if (lHint == SqlOperationDelete)
+	else if (lHint == ListViewHintTypesDelete)
 	{
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}

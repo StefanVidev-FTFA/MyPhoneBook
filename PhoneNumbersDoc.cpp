@@ -55,7 +55,7 @@ bool CPhoneNumbersDoc::DatabaseUpdate(const PHONE_NUMBERS& recItem)
 	if (oPhoneNumbersTable.UpdateById(recItem.nId, recItem))
 	{
 		CGeneralHint<PHONE_NUMBERS>* pHint = new CGeneralHint<PHONE_NUMBERS>(recItem);
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesUpdateById, pHint);
 	}
 	else
 	{
@@ -69,15 +69,12 @@ bool CPhoneNumbersDoc::DatabaseDelete(const int nId)
 {
 	CPhoneNumbersTable oPhoneNumbersTable;
 
-	if (oPhoneNumbersTable.DeleteWhereId(nId))
-	{
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
-		return true;
-	}
-	else
-	{
+	if (!oPhoneNumbersTable.DeleteWhereId(nId)) {
+		MESSAGE_ERROR(_T("Failed to delete the phone number with ID %d"), nId);
 		return false;
 	}
+
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesDelete, nullptr);
 	return true;
 }
 bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
@@ -87,7 +84,7 @@ bool CPhoneNumbersDoc::DatabaseInsert(PHONE_NUMBERS& recItem)
 	{
 		CGeneralHint<PHONE_NUMBERS>* newHint = new CGeneralHint<PHONE_NUMBERS>(recItem);
 
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
 		return true;
 	}
 	else
@@ -103,7 +100,7 @@ bool CPhoneNumbersDoc::DatabaseSelectAll()
 
 	oPhoneNumbersTable.SelectAll(*pItemsArray);
 
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesSelectAll, pItemsArray);
 
 	return true;
 }

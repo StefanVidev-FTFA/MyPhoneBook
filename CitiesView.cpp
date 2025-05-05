@@ -46,7 +46,7 @@ void CCitiesView::RequestSelectById()
 	if (!GetDocument()->DatabaseSelectById(nId, recCity))
 		return;
 
-	CDialogCities oSelectByIdDlg(recCity,CCommonListView::DialogModeView);
+	CDialogCities oSelectByIdDlg(recCity,DialogModeView);
 
 	INT_PTR result = oSelectByIdDlg.DoModal();
 }
@@ -67,7 +67,7 @@ void CCitiesView::RequestSelectAll() {
 void CCitiesView::RequestInsert()
 {
 	CITIES recCity;
-	CDialogCities oDialog(recCity, CCommonListView::DialogModeEdit);
+	CDialogCities oDialog(recCity, DialogModeEdit);
 	INT_PTR result = oDialog.DoModal();
 
 	if (result == IDOK)
@@ -113,7 +113,7 @@ void CCitiesView::RequestUpdate()
 			wcscpy_s(recCity.szCityName, MAX_CITY_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 1));
 			wcscpy_s(recCity.szRegion, MAX_REGION_NAME, m_pListCtrl->GetItemText(m_SelectedIndex, 2));
 
-			CDialogCities oDialog(recCity, CCommonListView::DialogModeEdit);
+			CDialogCities oDialog(recCity, DialogModeEdit);
 			INT_PTR result = oDialog.DoModal();
 
 			if (result == IDOK)
@@ -168,7 +168,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == SqlOperationInsert)
+	if (lHint == ListViewHintTypesInsert)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
 		// да се изтрие или да бъде в stack-a pCitiesHint
@@ -183,14 +183,14 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 1, CString(pCitiesHint->m_recItem.szCityName));
 		m_pListCtrl->SetItemText(index, 2, CString(pCitiesHint->m_recItem.szRegion));
 	}
-	else if (lHint == SqlOperationSelectAll)
+	else if (lHint == ListViewHintTypesSelectAll)
 	{
 		CSmartArray<CITIES>* pCitiesHint = dynamic_cast<CSmartArray<CITIES>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
 		InsertCityRows(*pCitiesHint);
 	}
-	else if (lHint == SqlOperationUpdateById)
+	else if (lHint == ListViewHintTypesUpdateById)
 	{
 		CGeneralHint<CITIES>* pCitiesHint = dynamic_cast<CGeneralHint<CITIES>*>(pHint);
 		CITIES recCity = pCitiesHint->m_recItem;
@@ -198,7 +198,7 @@ void CCitiesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(recCity.szCityName));
 		m_pListCtrl->SetItemText(m_SelectedIndex, 2, CString(recCity.szRegion));
 	}
-	else if (lHint == SqlOperationDelete)
+	else if (lHint == ListViewHintTypesDelete)
 	{
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}

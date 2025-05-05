@@ -16,6 +16,7 @@
 #include "PhoneNumbersDoc.h"
 #include "DialogPhoneNumbers.h"
 #include "PhoneNumbersInfo.h"
+#include "BaseDialog.h"
 
 // Defines
 // ----------------
@@ -83,7 +84,7 @@ void CPhoneNumbersView::RequestSelectById()
 
 	pInfo->m_recPhoneNum = recPhoneNumber;
 
-	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeView);
+	CDialogPhoneNumbers oDialog(pInfo,DialogModeView);
 	INT_PTR result = oDialog.DoModal();
 
 }
@@ -91,7 +92,7 @@ void CPhoneNumbersView::RequestInsert()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+	CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
 
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
@@ -153,7 +154,7 @@ void CPhoneNumbersView::RequestUpdate()
 			CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 			pInfo->m_recPhoneNum = recPhoneNum;
 
-			CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+			CDialogPhoneNumbers oDialog(pInfo, DialogModeEdit);
 			INT_PTR result = oDialog.DoModal();
 			if (result == IDOK)
 			{
@@ -214,7 +215,7 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == SqlOperationInsert)
+	if (lHint == ListViewHintTypesInsert)
 	{
 		CGeneralHint<PHONE_NUMBERS>* pCitiesHint = dynamic_cast<CGeneralHint<PHONE_NUMBERS>*>(pHint);
 		
@@ -236,7 +237,7 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 2, strPhoneTypeId);
 		m_pListCtrl->SetItemText(index, 3, CString(recPhoneNum.szPhoneNumber));
 	}
-	else if (lHint == SqlOperationSelectAll)
+	else if (lHint == ListViewHintTypesSelectAll)
 	{
 		CSmartArray<PHONE_NUMBERS>* pCitiesHint = dynamic_cast<CSmartArray<PHONE_NUMBERS>*>(pHint);
 
@@ -250,7 +251,7 @@ void CPhoneNumbersView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 
 		InsertCityRows(*pCitiesHint, personsMap, phoneTypesMap);
 	}
-	else if (lHint == SqlOperationDelete)
+	else if (lHint == ListViewHintTypesDelete)
 	{
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}

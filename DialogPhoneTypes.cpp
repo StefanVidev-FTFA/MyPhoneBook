@@ -14,7 +14,7 @@ END_MESSAGE_MAP()
 
 // Constructor / Destructor
 // ----------------
-CDialogPhoneTypes::CDialogPhoneTypes( CCommonListView::DialogMode dialogMod
+CDialogPhoneTypes::CDialogPhoneTypes(DialogMode dialogMod
 	,CString strPhoneType,
 	CWnd* pParent
 )
@@ -55,7 +55,7 @@ BOOL CDialogPhoneTypes::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	m_edbPhoneTypesField.SetLimitText(MAX_PHONE_TYPE - 1);
 
-	if (m_dialogMode == CCommonListView::DialogModeView)
+	if (m_dialogMode == DialogModeView)
 	{
 		m_edbPhoneTypesField.SetReadOnly(true);
 		m_edbPhoneTypesField.SetWindowTextW(m_strPhoneType);

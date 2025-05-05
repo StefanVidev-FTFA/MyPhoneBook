@@ -34,7 +34,7 @@ bool CPhoneTypesDoc::DatabaseUpdate(const PHONE_TYPES& recItem)
 	if (oPhoneTypesTable.UpdateById(recItem.nId, recItem))
 	{
 		CGeneralHint<PHONE_TYPES>* pHint = new CGeneralHint<PHONE_TYPES>(recItem);
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesUpdateById, pHint);
 	}
 	else
 	{
@@ -50,7 +50,7 @@ bool CPhoneTypesDoc::DatabaseDelete(const int nId)
 
 	if (oPhoneTypesTable.DeleteWhereId(nId))
 	{
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesDelete, nullptr);
 		return true;
 	}
 	else
@@ -67,7 +67,7 @@ bool CPhoneTypesDoc::DatabaseInsert(PHONE_TYPES& recItem)
 	{
 		CGeneralHint<PHONE_TYPES>* newHint = new CGeneralHint<PHONE_TYPES>(recItem);
 
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
 		return true;
 	}
 	else
@@ -83,7 +83,7 @@ bool CPhoneTypesDoc::DatabaseSelectAll()
 
 	oPhoneTypesTable.SelectAll(*pItemsArray);
 
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesSelectAll, pItemsArray);
 
 	return true;
 }

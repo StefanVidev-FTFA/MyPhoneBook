@@ -14,15 +14,6 @@ class CCommonListView : public CListView
 // Constants
 // ----------------
 public:
-	enum SqlOperation
-	{
-		SqlOperationLoadInit = 0,
-		SqlOperationInsert,
-		SqlOperationSelectById,
-		SqlOperationSelectAll,
-		SqlOperationUpdateById,
-		SqlOperationDelete
-	};
 	enum ListViewHintTypes
 	{
 		ListViewHintTypesLoadInit = 0,
@@ -31,11 +22,6 @@ public:
 		ListViewHintTypesSelectAll,
 		ListViewHintTypesUpdateById,
 		ListViewHintTypesDelete
-	};
-	enum DialogMode
-	{
-		DialogModeView = 0,
-		DialogModeEdit,
 	};
 
 // Defines

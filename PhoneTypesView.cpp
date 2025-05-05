@@ -47,7 +47,7 @@ void CPhoneTypesView::RequestSelectById()
 	if (!GetDocument()->DatabaseSelectById(nId, recPhoneType))
 		return;
 
-	CDialogPhoneTypes oDialog(CCommonListView::DialogModeView, CString(recPhoneType.szPhoneType));
+	CDialogPhoneTypes oDialog(DialogModeView, CString(recPhoneType.szPhoneType));
 
 	INT_PTR result = oDialog.DoModal();
 }
@@ -67,7 +67,7 @@ void CPhoneTypesView::RequestSelectAll() {
 }
 void CPhoneTypesView::RequestInsert()
 {
-	CDialogPhoneTypes oInsertDlg(CCommonListView::DialogModeEdit);
+	CDialogPhoneTypes oInsertDlg(DialogModeEdit);
 
 	INT_PTR result = oInsertDlg.DoModal();
 
@@ -115,7 +115,7 @@ void CPhoneTypesView::RequestUpdate()
 		{
 			CString strCurrentNumber = m_pListCtrl->GetItemText(m_SelectedIndex, 1);
 
-			CDialogPhoneTypes oDialog(CCommonListView::DialogModeEdit, strCurrentNumber);
+			CDialogPhoneTypes oDialog(DialogModeEdit, strCurrentNumber);
 
 			INT_PTR result = oDialog.DoModal();
 
@@ -174,7 +174,7 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	ASSERT_VALID(oDocument);
 
 
-	if (lHint == SqlOperationInsert)
+	if (lHint == ListViewHintTypesInsert)
 	{
 		CGeneralHint<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CGeneralHint<PHONE_TYPES>*>(pHint);
 
@@ -189,17 +189,17 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(index, 1, CString(recPhoneType.szPhoneType));
 
 	}
-	else if (lHint == SqlOperationSelectById)
+	else if (lHint == ListViewHintTypesSelectById)
 	{
 	}
-	else if (lHint == SqlOperationSelectAll)
+	else if (lHint == ListViewHintTypesSelectAll)
 	{
 		CSmartArray<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CSmartArray<PHONE_TYPES>*>(pHint);
 
 		m_pListCtrl->DeleteAllItems();
 		InsertCityRows(*pPhoneTypesHint);
 	}
-	else if (lHint == SqlOperationUpdateById)
+	else if (lHint == ListViewHintTypesUpdateById)
 	{
 		CGeneralHint<PHONE_TYPES>* pPhoneTypesHint = dynamic_cast<CGeneralHint<PHONE_TYPES>*>(pHint);
 
@@ -208,7 +208,7 @@ void CPhoneTypesView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(recPhoneType.szPhoneType));
 
 	}
-	else if (lHint == SqlOperationDelete)
+	else if (lHint == ListViewHintTypesDelete)
 	{
 		m_pListCtrl->DeleteItem(m_SelectedIndex);
 	}

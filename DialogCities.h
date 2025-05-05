@@ -2,6 +2,7 @@
 #include "afxdialogex.h"
 #include "Cities.h"
 #include "CommonListView.h"
+#include "BaseDialog.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CDialogCities
@@ -20,7 +21,7 @@ DECLARE_DYNAMIC(CDialogCities)
 // ----------------
 public:
 	CDialogCities(CITIES recCity,
-		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
+		DialogMode dialogMode = DialogModeView,
 		CWnd* pParent = nullptr);
 
 	virtual ~CDialogCities();
@@ -40,7 +41,7 @@ public:
 // Members
 // ----------------
 public:
-	CCommonListView::DialogMode m_dialogMode;
+	DialogMode m_dialogMode;
 	CITIES m_recCityForInsertOrUpdate;
 	CITIES m_recCityForView;
 

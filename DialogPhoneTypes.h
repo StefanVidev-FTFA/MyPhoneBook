@@ -2,6 +2,7 @@
 #include "afxdialogex.h"
 #include "PhoneTypes.h"
 #include "CommonListView.h"
+#include "BaseDialog.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CDialogPhoneTypes
@@ -21,7 +22,7 @@ class CDialogPhoneTypes : public CDialogEx
 public:
 
 	CDialogPhoneTypes(
-		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
+		DialogMode dialogMode = DialogModeView,
 		CString strPhoneType = _T(""),
 		CWnd* pParent = nullptr
 	);
@@ -40,7 +41,7 @@ protected:
 // ----------------
 public:
 	PHONE_TYPES m_recPhoneTypeForUpdOrIns;
-	CCommonListView::DialogMode m_dialogMode;
+	DialogMode m_dialogMode;
 
 	CEdit m_edbPhoneTypesField;
 	CString m_strPhoneType;

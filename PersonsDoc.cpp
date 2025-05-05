@@ -35,7 +35,7 @@ bool CPersonsDoc::DatabaseSelectAll()
 
 	oPersonsTable.SelectAll(*pItemsArray);
 
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesSelectAll, pItemsArray);
 
 	return true;
 }
@@ -47,7 +47,7 @@ bool CPersonsDoc::DatabaseInsert(PERSONS& recItem,const CSmartArray<PHONE_NUMBER
 	{
 		CGeneralHint<PERSONS>* newHint = new CGeneralHint<PERSONS>(recItem);
 
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
 		return true;
 	}
 	else
@@ -60,15 +60,14 @@ bool CPersonsDoc::DatabaseDelete(const int nId)
 {
 	CPersonsTable oPersonsTable;
 
-	if (oPersonsTable.DeleteWhereId(nId))
+	if (!oPersonsTable.DeleteWhereId(nId)) 
 	{
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
-		return true;
-	}
-	else
-	{
+		MESSAGE_ERROR(_T("Failed to delete the person with ID %d"), nId);
 		return false;
 	}
+
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesDelete, nullptr);
+
 	return true;
 }
 bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMBERS>& phoneNumbers)
@@ -82,7 +81,7 @@ bool CPersonsDoc::DatabaseUpdate(const PERSONS& recPerson,CSmartArray<PHONE_NUMB
 	}
 
 	CGeneralHint<PERSONS>* pHint = new CGeneralHint<PERSONS>(recPerson);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesUpdateById, pHint);
 
 	delete pHint;
 

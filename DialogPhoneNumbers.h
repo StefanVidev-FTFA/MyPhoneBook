@@ -2,6 +2,8 @@
 #include "CommonListView.h"
 #include "afxdialogex.h"
 #include "PhoneNumbersInfo.h"
+#include "BaseDialog.h"
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CDialogPhoneNumbers
@@ -20,7 +22,7 @@ class CDialogPhoneNumbers : public CDialogEx
 public:
 
 	CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
-		CCommonListView::DialogMode dialogMode = CCommonListView::DialogModeView,
+		DialogMode dialogMode = DialogModeView,
 		CWnd* pParent = nullptr);
 	virtual ~CDialogPhoneNumbers();
 
@@ -36,7 +38,7 @@ protected:
 	// Members
 	// ----------------
 public:
-	CCommonListView::DialogMode m_dialogMode;
+	DialogMode m_dialogMode;
 	PHONE_NUMBERS m_recPhoneNumForUpdOrIns;
 	PHONE_NUMBERS m_recPhoneNumForView;
 	CPhoneNumbersInfo* m_pInfo;

@@ -4,6 +4,7 @@
 #include "DialogPhoneNumbers.h"
 #include "PhoneNumbersInfo.h"
 #include "CommonListView.h"
+#include "BaseDialog.h"
 
 
 // Defines
@@ -17,7 +18,7 @@ END_MESSAGE_MAP()
 // Constructor / Destructor
 // ----------------
 CDialogPhoneNumbers::CDialogPhoneNumbers(CPhoneNumbersInfo* oInfo,
-	CCommonListView::DialogMode dialogMod, CWnd* pParent)
+	DialogMode dialogMod, CWnd* pParent)
 	: CDialogEx(IDD_PHONE_NUMBERS, pParent), m_dialogMode(dialogMod), m_pInfo(oInfo)
 {
 }
@@ -57,7 +58,7 @@ BOOL CDialogPhoneNumbers::OnInitDialog()
 
 	m_edbPhoneNumber.SetLimitText(MAX_PHONE_NUMBER-1);
 
-	if (m_dialogMode == CCommonListView::DialogModeView)
+	if (m_dialogMode == DialogModeView)
 	{
 		m_edbPhoneNumber.SetReadOnly(true);
 

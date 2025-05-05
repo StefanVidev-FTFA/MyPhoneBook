@@ -37,7 +37,7 @@ bool CCitiesDoc::DatabaseUpdate(const CITIES& recItem)
 	}
 
 	CGeneralHint<CITIES>* pHint = new CGeneralHint<CITIES>(recItem);
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationUpdateById, pHint);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesUpdateById, pHint);
 
 	delete pHint;
 
@@ -48,7 +48,7 @@ bool CCitiesDoc::DatabaseDelete(const int nId)
 	CCitiesTable oCitiesTable;
 	if (oCitiesTable.DeleteWhereId(nId))
 	{
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationDelete, nullptr);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesDelete, nullptr);
 		return true;
 	}
 	else
@@ -66,7 +66,7 @@ bool CCitiesDoc::DatabaseInsert(CITIES& recItem)
 	{
 		CGeneralHint<CITIES>* newHint = new CGeneralHint<CITIES>(recItem);
 
-		UpdateAllViews(nullptr, CCommonListView::SqlOperationInsert, newHint);
+		UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesInsert, newHint);
 		return true;
 	}
 	else
@@ -84,7 +84,7 @@ bool CCitiesDoc::DatabaseSelectAll()
 
 	oCitiesTable.SelectAll(*pItemsArray);
 
-	UpdateAllViews(nullptr, CCommonListView::SqlOperationSelectAll, pItemsArray);
+	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesSelectAll, pItemsArray);
 
 	delete pItemsArray;
 

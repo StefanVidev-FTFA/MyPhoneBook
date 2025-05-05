@@ -5,6 +5,7 @@
 #include "Macros.h"
 #include "PhoneNumbersInfo.h"
 #include "DialogPhoneNumbers.h"
+#include "BaseDialog.h"
 
 // Defines
 // ----------------
@@ -71,7 +72,7 @@ void CDialogPersons::InsertPhoneNumber()
 {
 	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
 
-	CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+	CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
 
 	INT_PTR result = oDialog.DoModal();
 	if (result == IDOK)
@@ -98,7 +99,7 @@ void CDialogPersons::EditPhoneNumber()
 		int nIdHolder = pPhoneNumber->nId;
 		int nPersonIdHolder = pPhoneNumber->nPersonId;
 
-		CDialogPhoneNumbers oDialog(pInfo, CCommonListView::DialogModeEdit);
+		CDialogPhoneNumbers oDialog(pInfo,DialogModeEdit);
 		INT_PTR result = oDialog.DoModal();
 		if (result == IDOK)
 		{

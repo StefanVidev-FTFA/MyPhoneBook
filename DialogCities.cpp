@@ -14,7 +14,7 @@ IMPLEMENT_DYNAMIC(CDialogCities, CDialogEx)
 // Constructor / Destructor
 // ----------------
 CDialogCities::CDialogCities(CITIES recCityForView,
-	CCommonListView::DialogMode dialogMod, CWnd* pParent)
+	DialogMode dialogMod, CWnd* pParent)
 	: CDialogEx(IDD_CITIES, pParent), m_dialogMode(dialogMod), m_recCityForView(recCityForView)
 {
 }
@@ -54,7 +54,7 @@ BOOL CDialogCities::OnInitDialog()
 
 	switch (m_dialogMode)
 	{
-		case CCommonListView::DialogModeView:
+		case DialogModeView:
 		{
 			m_edbCityName.SetReadOnly(true);
 			m_edbCityRegion.SetReadOnly(true);
@@ -66,7 +66,7 @@ BOOL CDialogCities::OnInitDialog()
 		}
 		break;
 
-		case CCommonListView::DialogModeEdit:
+		case DialogModeEdit:
 		{
 			m_edbCityName.SetReadOnly(false);
 			m_edbCityRegion.SetReadOnly(false);
