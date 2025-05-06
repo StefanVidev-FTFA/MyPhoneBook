@@ -298,14 +298,19 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		CString strId;
 		strId.Format(_T("%d"), recPerson.nId);
 		m_pListCtrl->SetItemText(m_SelectedIndex, 0, strId);
-		m_pListCtrl->SetItemText(m_SelectedIndex, 1, CString(pPersonsHint->m_recItem.szFirstName));
-		m_pListCtrl->SetItemText(m_SelectedIndex, 2, CString(pPersonsHint->m_recItem.szMiddleName));
-		m_pListCtrl->SetItemText(m_SelectedIndex, 3, CString(pPersonsHint->m_recItem.szLastName));
-		m_pListCtrl->SetItemText(m_SelectedIndex, 4, CString(pPersonsHint->m_recItem.szEgn));
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnFirstName, CString(pPersonsHint->m_recItem.szFirstName));
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnMiddleName, CString(pPersonsHint->m_recItem.szMiddleName));
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnLastName, CString(pPersonsHint->m_recItem.szLastName));
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnEgn, CString(pPersonsHint->m_recItem.szEgn));
 
-		strId.Format(_T("%d"), pPersonsHint->m_recItem.nCityId);
-		m_pListCtrl->SetItemText(m_SelectedIndex, 5, strId);
-		m_pListCtrl->SetItemText(m_SelectedIndex, 6, CString(pPersonsHint->m_recItem.szAddress));
+		aCitiesMap citiesMap;
+		GetDocument()->AssignCitiesMap(citiesMap);
+		CString strCityName;
+		citiesMap.Lookup(recPerson.nCityId, strCityName);
+
+
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnCityName, strCityName);
+		m_pListCtrl->SetItemText(m_SelectedIndex, ColumnAdress, CString(pPersonsHint->m_recItem.szAddress));
 	}
 	else if (lHint == ListViewHintTypesDelete)
 	{
