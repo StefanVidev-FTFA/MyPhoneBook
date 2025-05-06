@@ -189,15 +189,16 @@ void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 
 		strHolder.Format(_T("%d"), pRecItem->nId);
 
+
 		int row = static_cast<int>(m_pListCtrl->InsertItem(nIndex, strHolder));
 
-		m_pListCtrl->SetItemText(row, 1, CString(pRecItem->szFirstName));
+		m_pListCtrl->SetItemText(row, ColumnFirstName, CString(pRecItem->szFirstName));
 
-		m_pListCtrl->SetItemText(row, 2, CString(pRecItem->szMiddleName));
+		m_pListCtrl->SetItemText(row, ColumnMiddleName, CString(pRecItem->szMiddleName));
 
-		m_pListCtrl->SetItemText(row, 3, CString(pRecItem->szLastName));
+		m_pListCtrl->SetItemText(row, ColumnLastName, CString(pRecItem->szLastName));
 
-		m_pListCtrl->SetItemText(row, 4, CString(pRecItem->szEgn));
+		m_pListCtrl->SetItemText(row, ColumnEgn, CString(pRecItem->szEgn));
 
 		aCitiesMap citiesMap;
 		GetDocument()->AssignCitiesMap(citiesMap);
@@ -205,9 +206,9 @@ void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 		citiesMap.Lookup(pRecItem->nCityId, strCityName);
 
 
-		m_pListCtrl->SetItemText(row, 5, strCityName);
+		m_pListCtrl->SetItemText(row, ColumnCityName, strCityName);
 
-		m_pListCtrl->SetItemText(row, 6, CString(pRecItem->szAddress));
+		m_pListCtrl->SetItemText(row, ColumnAdress, CString(pRecItem->szAddress));
 
 		m_pListCtrl->SetItemData(row, pRecItem->nId);
 	}

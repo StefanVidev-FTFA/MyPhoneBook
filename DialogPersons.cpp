@@ -82,6 +82,11 @@ void CDialogPersons::OnClickedButtonConfirm()
 		return;
 	}
 
+	if (m_oPhoneNumbersArray.IsEmpty()) 
+	{
+		MESSAGE_WARNING(_T("A person, needs to have atleast 1 phone number"));
+		return;
+	}
 
 	EndDialog(IDOK);
 }

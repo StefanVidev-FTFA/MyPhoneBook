@@ -30,10 +30,13 @@ CPersonsDoc::~CPersonsDoc()
 // ----------------
 bool CPersonsDoc::SelectAll()
 {
-	CPersonsTable oPersonsTable;
+	CPersonsData oData;
 	CSmartArray<PERSONS>* pItemsArray = new CSmartArray<PERSONS>();
 
-	oPersonsTable.SelectAll(*pItemsArray);
+	if (!oData.SelectAll(*pItemsArray))
+	{
+		return false;
+	}
 
 	UpdateAllViews(nullptr, CCommonListView::ListViewHintTypesSelectAll, pItemsArray);
 

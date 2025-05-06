@@ -13,6 +13,18 @@ class CPersonsView : public CCommonListView
 
 // Constants
 // ----------------
+	enum Column {
+		ColumnId = 0,
+		ColumnFirstName,
+		ColumnMiddleName,
+		ColumnLastName,
+		ColumnEgn,
+		ColumnCityName,
+		ColumnAdress,
+	};
+
+// Constructor / Destructor
+// ----------------
 protected:
 	CPersonsView() noexcept;
 
