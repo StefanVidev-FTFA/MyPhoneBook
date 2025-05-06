@@ -267,15 +267,19 @@ void CPersonsView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 		strId.Format(_T("%d"), recPerson.nId);
 		int index = m_pListCtrl->InsertItem(m_pListCtrl->GetItemCount(), strId);
 
-		CString strCityId;
-		strCityId.Format(_T("%d"), recPerson.nCityId);
 
-		m_pListCtrl->SetItemText(index, 1, CString(recPerson.szFirstName));
-		m_pListCtrl->SetItemText(index, 2, CString(recPerson.szMiddleName));
-		m_pListCtrl->SetItemText(index, 3, CString(recPerson.szLastName));
-		m_pListCtrl->SetItemText(index, 4, CString(recPerson.szEgn));
-		m_pListCtrl->SetItemText(index, 5, strCityId);
-		m_pListCtrl->SetItemText(index, 6, CString(recPerson.szAddress));
+
+		aCitiesMap citiesMap;
+		GetDocument()->AssignCitiesMap(citiesMap);
+		CString strCityName;
+		citiesMap.Lookup(recPerson.nCityId, strCityName);
+
+		m_pListCtrl->SetItemText(index, ColumnFirstName, CString(recPerson.szFirstName));
+		m_pListCtrl->SetItemText(index, ColumnMiddleName, CString(recPerson.szMiddleName));
+		m_pListCtrl->SetItemText(index, ColumnLastName, CString(recPerson.szLastName));
+		m_pListCtrl->SetItemText(index, ColumnEgn, CString(recPerson.szEgn));
+		m_pListCtrl->SetItemText(index, ColumnCityName, strCityName);
+		m_pListCtrl->SetItemText(index, ColumnAdress, CString(recPerson.szAddress));
 
 		m_pListCtrl->SetItemData(index, recPerson.nId);
 
