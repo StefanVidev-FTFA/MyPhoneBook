@@ -3,6 +3,7 @@
 #include <vector>
 #include "Persons.h"
 #include "PhoneNumbers.h"
+#include "PhoneNumbersInfo.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CDialogPersonsInsert
@@ -39,6 +40,10 @@ public:
 	afx_msg void InsertPhoneNumber();
 	afx_msg void EditPhoneNumber();
 	afx_msg void RemovePhoneNumber();
+	afx_msg void OnListPhoneNumbersDblClk(NMHDR* pNMHDR, LRESULT* pResult);
+
+private:
+	void AssignThePhoneType(const CPhoneNumbersInfo& phoneNumbersInfo,const int nId,CString& strPhoneType);
 
 protected:
 	void FillPhones();

@@ -29,6 +29,8 @@ public:
 	bool Delete(const int nId);
 	bool Update(const PERSONS& recItem,CSmartArray<PHONE_NUMBERS>& phoneNumbers);
 
+	void AssignCitiesMap(CMap<int, int, CString, const CString&>& citiesMap);
+
 // Overrides
 // ----------------
 #ifdef _DEBUG

@@ -199,8 +199,13 @@ void CPersonsView::InsertRows(CSmartArray<PERSONS>& oPersonsSmartArray)
 
 		m_pListCtrl->SetItemText(row, 4, CString(pRecItem->szEgn));
 
-		strHolder.Format(_T("%d"), pRecItem->nCityId);
-		m_pListCtrl->SetItemText(row, 5, strHolder);
+		aCitiesMap citiesMap;
+		GetDocument()->AssignCitiesMap(citiesMap);
+		CString strCityName;
+		citiesMap.Lookup(pRecItem->nCityId, strCityName);
+
+
+		m_pListCtrl->SetItemText(row, 5, strCityName);
 
 		m_pListCtrl->SetItemText(row, 6, CString(pRecItem->szAddress));
 
@@ -221,7 +226,7 @@ void CPersonsView::CreateListOnInit()
 	SetViewStyle();
 
 	DeclareColumns({ _T("ID"),_T("First Name"),_T("Middle Name")
-		,_T("Last Name"),_T("EGN") ,_T("City ID"),_T("Adress") });
+		,_T("Last Name"),_T("EGN") ,_T("City Name"),_T("Adress") });
 
 	InsertRows(oPersonsArray);
 }

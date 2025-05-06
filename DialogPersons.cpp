@@ -6,6 +6,7 @@
 #include "PhoneNumbersInfo.h"
 #include "DialogPhoneNumbers.h"
 #include "BaseDialog.h"
+#include "PersonsView.h"
 
 // Defines
 // ----------------
@@ -16,6 +17,7 @@ BEGIN_MESSAGE_MAP(CDialogPersons, CDialogEx)
 	ON_COMMAND(ID_LIST_OPTION1, &CDialogPersons::InsertPhoneNumber)
 	ON_COMMAND(ID_LIST_OPTION2, &CDialogPersons::EditPhoneNumber)
 	ON_COMMAND(ID_LIST_OPTION3, &CDialogPersons::RemovePhoneNumber)
+	ON_NOTIFY(NM_DBLCLK, LSC_PERSONS_PHONE_NUMBERS, &CDialogPersons::OnListPhoneNumbersDblClk)
 END_MESSAGE_MAP()
 IMPLEMENT_DYNAMIC(CDialogPersons, CDialogEx)
 
@@ -43,11 +45,19 @@ CDialogPersons::~CDialogPersons()
 // ----------------
 void CDialogPersons::FillPhones()
 {
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
 	for (INT_PTR i = 0; i < m_oPhoneNumbersArray.GetCount(); i++)
 	{
+		CString strPhoneType;
+		AssignThePhoneType(*pInfo, m_oPhoneNumbersArray.GetAt(i)->nPhoneTypeId, strPhoneType);
+
 		CString strPhoneNumber = CString(m_oPhoneNumbersArray.GetAt(i)->szPhoneNumber);
+
 		int nIndex = m_lscPhoneNumbers.InsertItem(i, strPhoneNumber);
+		m_lscPhoneNumbers.SetItemText(nIndex, 1, strPhoneType);
 	}
+
 }
 void CDialogPersons::OnClickedButtonConfirm()
 {
@@ -61,6 +71,17 @@ void CDialogPersons::OnClickedButtonConfirm()
 	m_edbLastName.GetWindowText(m_recPersonToInsert.szLastName, MAX_ANY_NAME);
 	m_edbEgn.GetWindowText(m_recPersonToInsert.szEgn, MAX_EGN);
 	m_edbAddress.GetWindowText(m_recPersonToInsert.szAddress, MAX_ADRESS);
+
+
+	CString strText;
+	m_edbEgn.GetWindowText(strText);
+
+	if (strText.GetLength() != 10 || strText.SpanIncluding(_T("0123456789")) != strText)
+	{
+		MESSAGE_WARNING(_T("EGN should be exactly 10 digits."));
+		return;
+	}
+
 
 	EndDialog(IDOK);
 }
@@ -82,7 +103,12 @@ void CDialogPersons::InsertPhoneNumber()
 		m_oPhoneNumbersArray.Add(new PHONE_NUMBERS(oDialog.m_recPhoneNumForUpdOrIns));
 
 		CString strPhoneNumber = CString(oDialog.m_recPhoneNumForUpdOrIns.szPhoneNumber);
+
+		CString strPhoneType;
+		AssignThePhoneType(*pInfo, oDialog.m_recPhoneNumForUpdOrIns.nPhoneTypeId, strPhoneType);
+
 		int nIndex = m_lscPhoneNumbers.InsertItem(m_lscPhoneNumbers.GetItemCount(), strPhoneNumber);
+		m_lscPhoneNumbers.SetItemText(nIndex, 1, strPhoneType);
 	}
 }
 void CDialogPersons::EditPhoneNumber()
@@ -114,7 +140,11 @@ void CDialogPersons::EditPhoneNumber()
 	pPhoneNumber->nId = nIdHolder;
 	pPhoneNumber->nPersonId = nPersonIdHolder;
 
+	CString strPhoneType;
+	AssignThePhoneType(oPhoneNumbersInfo, pPhoneNumber->nPhoneTypeId, strPhoneType);
+
 	m_lscPhoneNumbers.SetItemText(nSelectedIndex, 0, CString(pPhoneNumber->szPhoneNumber));
+	m_lscPhoneNumbers.SetItemText(nSelectedIndex, 1, strPhoneType);
 }
 void CDialogPersons::RemovePhoneNumber()
 {
@@ -142,6 +172,17 @@ void CDialogPersons::RemovePhoneNumber()
 		}
 	}
 }
+void CDialogPersons::AssignThePhoneType(const CPhoneNumbersInfo& phoneNumbersInfo,const int nId, CString& strPhoneType)
+{
+	for (INT_PTR nTypesIndex = 0; nTypesIndex < phoneNumbersInfo.m_phoneTypesArray.GetCount(); nTypesIndex++)
+	{
+		if (phoneNumbersInfo.m_phoneTypesArray.GetAt(nTypesIndex)->nId == nId)
+		{
+			strPhoneType = CString(phoneNumbersInfo.m_phoneTypesArray.GetAt(nTypesIndex)->szPhoneType);
+			break;
+		}
+	}
+}
 
 // Overrides
 // ----------------
@@ -166,6 +207,13 @@ BOOL CDialogPersons::OnInitDialog()
 	m_edbLastName.SetLimitText(MAX_ANY_NAME - 1);
 	m_edbEgn.SetLimitText(MAX_EGN - 1);
 	m_edbAddress.SetLimitText(MAX_ADRESS - 1);
+
+
+	m_lscPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 180);
+	m_lscPhoneNumbers.InsertColumn(1, _T("Type"), LVCFMT_LEFT, 200);
+
+	m_lscPhoneNumbers.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+	m_lscPhoneNumbers.ModifyStyle(0, LVS_REPORT);
 
 	int nSelectedPersonCityIndex = 0;
 	for (INT_PTR i = 0; i < m_oCitiesArray.GetCount(); i++)
@@ -207,10 +255,9 @@ BOOL CDialogPersons::OnInitDialog()
 		m_cmbCities.EnableWindow(false);
 
 		m_btnPersonsConfirm.EnableWindow(false);
-	}
 
-	m_lscPhoneNumbers.InsertColumn(0, _T("Phone Number"), LVCFMT_LEFT, 160);
-	m_lscPhoneNumbers.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+		m_lscPhoneNumbers.ModifyStyle(LVS_EDITLABELS, 0);
+	}
 
 	return TRUE;
 }
@@ -223,11 +270,41 @@ void CDialogPersons::OnNMRClickListControl(NMHDR* pNMHDR, LRESULT* pResult)
 	menu.AppendMenu(MF_STRING, ID_LIST_OPTION2, _T("Edit..."));
 	menu.AppendMenu(MF_STRING, ID_LIST_OPTION3, _T("Remove..."));
 
+	if (m_bIsReadOnly)
+	{
+		menu.EnableMenuItem(ID_LIST_OPTION3, MF_BYCOMMAND | MF_GRAYED);
+		menu.EnableMenuItem(ID_LIST_OPTION2, MF_BYCOMMAND | MF_GRAYED);
+		menu.EnableMenuItem(ID_LIST_OPTION1, MF_BYCOMMAND | MF_GRAYED);
+	}
+
 	CPoint point;
 	GetCursorPos(&point);
 	menu.TrackPopupMenu(TPM_RIGHTBUTTON, point.x, point.y, this);
 
 	*pResult = 0;
 }
+void CDialogPersons::OnListPhoneNumbersDblClk(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	int nSelectedIndex = m_lscPhoneNumbers.GetNextItem(-1, LVNI_SELECTED);
+	if (nSelectedIndex == -1)
+	{
+		MESSAGE_INFO(_T("No phone number selected."));
+		return;
+	}
+	PHONE_NUMBERS* pPhoneNumber = m_oPhoneNumbersArray.GetAt(nSelectedIndex);
+	if (!pPhoneNumber)
+		return;
 
+
+	CPhoneNumbersInfo* pInfo = new CPhoneNumbersInfo();
+
+	pInfo->m_recPhoneNum = *pPhoneNumber;
+
+	CDialogPhoneNumbers oDialog(pInfo, DialogModeView);
+	INT_PTR result = oDialog.DoModal();
+
+	delete pInfo;
+
+	*pResult = 0;
+}
 

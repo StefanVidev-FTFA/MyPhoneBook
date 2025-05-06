@@ -98,6 +98,23 @@ bool CPersonsDoc::SelectById(const long nId, PERSONS& recPerson)
 
 	return true;
 }
+void CPersonsDoc::AssignCitiesMap(CMap<int, int, CString, const CString&>& citiesMap)
+{
+	CSmartArray<CITIES>* pCitiesArray = new CSmartArray<CITIES>();
+	CCitiesTable oCitiesTable;
+
+	if (!oCitiesTable.SelectAll(*pCitiesArray))
+	{
+		MESSAGE_ERROR(_T("Failed to select all cities"));
+		return;
+	}
+
+	for (INT_PTR nIndex = 0; nIndex < pCitiesArray->GetSize(); nIndex++)
+	{
+		citiesMap.SetAt(pCitiesArray->GetAt(nIndex)->nId, CString(pCitiesArray->GetAt(nIndex)->szCityName));
+	}
+}
+
 // Overrides
 // ----------------
 BOOL CPersonsDoc::OnNewDocument()

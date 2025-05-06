@@ -57,4 +57,6 @@ public:
 protected:
 	CListCtrl* m_pListCtrl;
 	int m_SelectedIndex = -1;
+
+	typedef CMap<int, int, CString, const CString&> aCitiesMap;
 };

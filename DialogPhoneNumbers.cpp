@@ -31,10 +31,9 @@ CDialogPhoneNumbers::~CDialogPhoneNumbers()
 void CDialogPhoneNumbers::OnClickedButtonConfirm()
 {
 	CString strId;
-
 	CString strNumber;
-	m_edbPhoneNumber.GetWindowText(strNumber);
 
+	m_edbPhoneNumber.GetWindowText(strNumber);
 
 	int nSelected = m_cmbPhoneTypesIds.GetCurSel();
 	int nPhoneTypeId = m_pInfo->m_phoneTypesArray.GetAt(nSelected)->nId;
@@ -42,6 +41,14 @@ void CDialogPhoneNumbers::OnClickedButtonConfirm()
 	m_recPhoneNumForUpdOrIns.nPersonId = -1;
 	m_recPhoneNumForUpdOrIns.nPhoneTypeId = nPhoneTypeId;
 	wcscpy_s(m_recPhoneNumForUpdOrIns.szPhoneNumber, MAX_PHONE_NUMBER, strNumber);
+
+	CString strText;
+	m_edbPhoneNumber.GetWindowText(strText);
+	if (strText.GetLength() != 10 || strText.SpanIncluding(_T("0123456789")) != strText)
+	{
+		MESSAGE_WARNING(_T("Phone number should be exactly 10 digits."));
+		return;
+	}
 
 	EndDialog(IDOK);
 }
